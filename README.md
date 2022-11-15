@@ -20,7 +20,7 @@
 
 将 `Advanced-Language-Programming` 中的  `cmake.txt`  (cmake 指令如果时vs2019要改一下)和  `CMakeLists.txt` 文件复制到项目文件路径下
 
-![image-20221115162338420](.\README_image\image-20221115162338420.png)
+![image-20221115194938335](.\README_image\image-20221115194938335.png)
 
 在项目文件 `proj.win32`  路径下进入 `cmd` ，输入 `cmake` 指令，指令在仓库中的 `cmake.txt` 文件中，生成解决方案 `sln`
 
