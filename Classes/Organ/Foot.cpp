@@ -80,30 +80,25 @@ void Foot::MoveDelay(bool up, bool floor)
     lastDelayTag = tag;
 }
 
-void Foot::GoLeft()
+void Foot::Work(bool direction)
 {
-    if (!actionState)
-    {
-        Sequence* seq_left;
+    if (!actionState) {
+
+        Sequence* seq;
         CallFunc* func = CallFunc::create(CC_CALLBACK_0(Foot::SetActionState, this));
-        seq_left = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(-40, 0)), MoveBy::create(0.2f, Vec2(40, 0)), func, nullptr);
-        seq_left->setTag(10);
-        organ->runAction(seq_left);
+
+        if (direction) {
+            seq = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(-40, 0)), MoveBy::create(0.2f, Vec2(40, 0)), func, nullptr);
+            seq->setTag(10);
+        }
+        if (!direction) {
+            seq = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(40, 0)), MoveBy::create(0.2f, Vec2(-40, 0)), func, nullptr);
+            seq->setTag(10);
+        }
+        organ->runAction(seq);
     }
-    
 }
 
-void Foot::GoRight()
-{
-    if (!actionState)
-    {
-        Sequence* seq_right;
-        CallFunc* func = CallFunc::create(CC_CALLBACK_0(Foot::SetActionState, this));
-        seq_right = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(40, 0)), MoveBy::create(0.2f, Vec2(-40, 0)), func, nullptr);
-        seq_right->setTag(10);
-        organ->runAction(seq_right);
-    }
-}
 
 void Foot::SetActionState()
 {

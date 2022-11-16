@@ -1,12 +1,11 @@
 #include "PlayerBase.h"
-#include "Manager/GameManager.h"
 
 bool PlayerBase::initWithTag(int name)
 {
-    if (!Sprite::init()) {
+    if (!CharacterBase::init()) {
         return false;
     }
-    this->name = name;
+
     this->setTag(name);
 
     keymap = GameManager::getKeyMap(name);
@@ -14,18 +13,15 @@ bool PlayerBase::initWithTag(int name)
     initBody();
 
     initKeyboardListener();
-    acceleration = 7000;
-    gravitation = -8000 ;
-    accelerate = 0;
-    x_speed = 0;
-    x_speed = 0;
-    x_maxSpeed = 1300;
-    y_maxSpeed = 3700;
-    recoil_speed = 300;
-    isDoubleJump = false;
-    inTheAir = false;
-    floor = 5000;
-    this->scheduleUpdate();
+    status->acceleration = 7000;
+    status->gravitation = -8000 ;
+    status->resistance = 1000;
+
+    status->x_maxSpeed = 1300;
+    status->y_maxSpeed = 3700;
+    status->recoil_speed = 300;
+    
+    floor = 300;
     return true;
 }
 
@@ -42,74 +38,7 @@ PlayerBase* PlayerBase::createWithTag(int name)
 
 void PlayerBase::update(float dt)
 {
-    Node::update(dt);
-    //CCLOG("%f", getPositionY());
-
-    if (!inTheAir) {
-        isDoubleJump = false;
-        if (keyMap[keymap["up"]]) {
-            inTheAir = true;
-            y_speed = y_maxSpeed;
-            MoveDelay(true,false);
-            keyMap[keymap["up"]] = false;
-        }
-        else
-            y_speed = 0;
-    }
-    else {
-        //跳起暂停走路动作
-        feet1->organ->stopActionByTag(10);
-        feet2->organ->stopActionByTag(10);
-        feet1->actionState = false;
-        feet2->actionState = false;
-        hand1->organ->stopActionByTag(10);
-        hand2->organ->stopActionByTag(10);
-        hand1->actionState = false;
-        hand2->actionState = false;
-
-        if (std::abs(y_speed) <= std::abs(gravitation * dt))
-            MoveDelay(false, false);
-        if (!isDoubleJump && keyMap[keymap["up"]]) {
-            y_speed = y_maxSpeed/1.2;
-            MoveDelay(true,false);
-            isDoubleJump = true;
-        }
-        y_speed += gravitation * dt;
-        keyMap[keymap["up"]] = false;
-    }
-    if (getPositionY() + y_speed * dt < floor) {
-        MoveDelay(true, true);
-        inTheAir = false;
-        y_speed = 0;
-
-        this->setPositionY(floor);
-    }else
-        this->setPositionY(getPositionY() + y_speed * dt);
-
-
-    if ((keyMap[keymap["left"]] ^ keyMap[keymap["right"]])) {
-
-        accelerate = keyMap[keymap["right"]] ? Right() : Left();
-        if(!inTheAir){
-
-            feet1->GoRight();
-            feet2->GoLeft();
-            hand2->GoRight();
-            hand1->GoLeft();
-
-        }
-        x_speed += accelerate * dt;
-        if (std::abs(x_speed) > x_maxSpeed)
-            x_speed -= accelerate * dt;
-    }
-    else {
-        accelerate = x_speed > 0 ? Left()/7 : Right()/7;
-        if (std::abs(accelerate * dt) > std::abs(x_speed))
-            x_speed = 0;
-        else
-            x_speed += accelerate * dt;
-    }
-    this->setPositionX(getPositionX() + x_speed * dt);
+    CharacterBase::update(dt);
 
 }
 
@@ -159,23 +88,6 @@ void PlayerBase::initBody()
     hand1->GetGun(gun);
 }
 
-float PlayerBase::Right()
-{
-    return acceleration;
-}
-
-float PlayerBase::Left()
-{
-    return -acceleration;
-}
-
-void PlayerBase::Flip(bool direction)
-{
-    this->setFlippedX(direction);
-    for (auto organ : organs)
-        organ->setFlippedX(direction);
-}
-
 
 void PlayerBase::initKeyboardListener()
 {
@@ -189,52 +101,38 @@ void PlayerBase::initKeyboardListener()
 void PlayerBase::onKeyPressed(EventKeyboard::KeyCode keycode, Event* event)
 {
     if (keycode == keymap["up"]) {
-        //CCLOG("jump");
-        keyMap[keycode] = true;
+        keyMap["up"] = true;
+
     }
     if (keycode == keymap["down"]) {
-        //CCLOG("down");
+        keyMap["down"] = true;
+
     }
     if (keycode == keymap["left"]) {
-        //CCLOG("left");
-        keyMap[keycode] = true;
-        //feet1->stopAllActions();
-        //feet1->actionState = false;
-        Flip(true);
+        keyMap["left"] = true;
+        
     }
     if (keycode == keymap["right"]) {
-        //CCLOG("right");
-        keyMap[keycode] = true;
-        //feet1->stopAllActions();
-        //feet1->actionState = false;
-        Flip(false);
+        keyMap["right"] = true;
+        
     }
     if (keycode == keymap["shot"]) {
-        hand1->RaiseHandToShoot(this->getParent());
-        this->_flippedX ? x_speed += recoil_speed : x_speed -= recoil_speed;
-        if (std::abs(x_speed) > x_maxSpeed)
-            this->_flippedX ? x_speed = x_maxSpeed : x_speed = -x_maxSpeed;
+        keyMap["shot"] = true;
+
+    }
+    if (keycode == keymap["skill"]) {
+        keyMap["skill"];
     }
 }
 
 void PlayerBase::onKeyReleased(EventKeyboard::KeyCode keycode, Event* event)
 {
     if (keycode == keymap["left"]) {
-        //CCLOG("left end");
-        keyMap[keycode] = false;
-        if (keyMap[keymap["right"]])
-            Flip(false);
+        keyMap["left"] = false;
+        
     }
     if (keycode == keymap["right"]) {
-        //CCLOG("right end");
-        keyMap[keycode] = false;
-        if (keyMap[keymap["left"]])
-            Flip(true);
+        keyMap["right"] = false;
+        
     }
-}
-
-void PlayerBase::MoveDelay(bool up,bool floor)
-{
-    for (int i = 2; i < organs.size(); i++)
-        organs[i]->MoveDelay(up, floor);
 }

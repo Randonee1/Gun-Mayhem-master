@@ -36,11 +36,13 @@ void MapTest::update(float dt)
 
 void MapTest::initBackground()
 {
-	back = LayerColor::create(Color4B::GRAY, 12000, 10000);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("test.plist");
+	back = Sprite::createWithSpriteFrameName("bgd_weapontest_0.png");
+	/*back = LayerColor::create(Color4B::GRAY, 12000, 10000);
 	back->setIgnoreAnchorPointForPosition(false);
-	back->setAnchorPoint(Vec2(0.5,0.5));
+	back->setAnchorPoint(Vec2(0.5,0.5));*/
 	back->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	this->addChild(back, 1);
+	this->addChild(back, 0);
 
 	backgroundSize = back->getContentSize();
 
@@ -48,15 +50,19 @@ void MapTest::initBackground()
 
 void MapTest::initPlayer()
 {
+	
+
+
 	player1 = PlayerBase::createWithTag(1);
-	//player->setAnchorPoint(Vec2(0.5f, 0.5f));
 	player1->setPosition(back->getContentSize().width / 2, back->getContentSize().height / 2);
-	back->addChild(player1, 0);
+	back->addChild(player1, 1);
+	CCLOG("%f,%f", back->getContentSize().width / 2, back->getContentSize().height / 2);
 
 	//test
 	player2 = PlayerBase::createWithTag(2);
-	//player->setAnchorPoint(Vec2(0.5f, 0.5f));
 	player2 ->setPosition(back->getContentSize().width / 2, back->getContentSize().height / 2);
-	back->addChild(player2 , 1);
+	back->addChild(player2 , 2);
 	//test
+
+	
 }

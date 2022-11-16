@@ -17,8 +17,7 @@ public:
 
 	void MoveDelay(bool up, bool floor)override;
 
-	void GoLeft();
-	void GoRight();
+	void Work(bool direction);
 
 	bool actionState = false;
 	void SetActionState();

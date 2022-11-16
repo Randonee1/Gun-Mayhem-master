@@ -17,8 +17,7 @@ public:
 
 	void setFlippedX(bool flippedX);
 
-	void GoLeft();
-	void GoRight();
+	void Work(bool direction);
 
 	void MoveDelay(bool up, bool floor) override;
 

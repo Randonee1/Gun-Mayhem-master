@@ -18,7 +18,7 @@ public:
 
 	float x_speed;
 	float y_speed;
-	float gravitation = -3000;
+	float gravitation = -4000;
 	Vec2 currentPoint;
 
 	Sprite* bulletcase;

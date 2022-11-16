@@ -135,7 +135,7 @@
             <key>smartupdate</key>
             <string>$TexturePacker:SmartUpdate:1390d7584574ebe2bf3137bb42106c5e:742e573597ab2dbc2d4dc74dd1cd1ed3:2fdf4c2d919b7bcc47d377d449dafe65$</string>
             <key>textureFileName</key>
-            <string>defaul.png</string>
+            <string>default.png</string>
         </dict>
     </dict>
 </plist>

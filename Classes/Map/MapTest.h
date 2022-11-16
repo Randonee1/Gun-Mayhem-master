@@ -21,7 +21,9 @@ public:
 	PlayerBase* player2;
 
 private:
-	LayerColor* back;
+	//LayerColor* back;
+
+	Sprite* back;
 
 	void initBackground();
 

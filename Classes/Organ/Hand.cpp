@@ -47,34 +47,25 @@ void Hand::setFlippedX(bool flippedX)
     }
 }
 
-void Hand::GoLeft()
+void Hand::Work(bool direction)
 {
-    if (!actionState && !onShot)
-    {
-        Sequence* seq_left;
-        CallFunc* func = CallFunc::create(CC_CALLBACK_0(Hand::SetActionState, this));
-        seq_left = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(-30, 0)), MoveBy::create(0.2f, Vec2(30, 0)), func, nullptr);
-        seq_left->setTag(10);
+    if (!actionState && !onShot) {
 
-        organ->runAction(seq_left);
-        
+        Sequence* seq;
+        CallFunc* func = CallFunc::create(CC_CALLBACK_0(Hand::SetActionState, this));
+
+        if (direction) {
+            seq = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(-30, 0)), MoveBy::create(0.2f, Vec2(30, 0)), func, nullptr);
+            seq->setTag(10);
+        }
+        if (!direction) {
+            seq = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(30, 0)), MoveBy::create(0.2f, Vec2(-30, 0)), func, nullptr);
+            seq->setTag(10);
+        }
+        organ->runAction(seq);
     }
 }
 
-void Hand::GoRight()
-{
-    if (!actionState && !onShot)
-    {
-        Sequence* seq_right;
-        CallFunc* func = CallFunc::create(CC_CALLBACK_0(Hand::SetActionState, this));
-        seq_right = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(30,0)), MoveBy::create(0.2f, Vec2(-30, 0)), func, nullptr);
-        seq_right->setTag(10);
-        
-
-        organ->runAction(seq_right);
-        
-    }
-}
 
 void Hand::MoveDelay(bool up, bool floor)
 {
