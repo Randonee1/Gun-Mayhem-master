@@ -13,42 +13,30 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{2300,1294}</string>
+                <string>{3754,2112}</string>
                 <key>spriteSourceSize</key>
-                <string>{2300,1294}</string>
+                <string>{3754,2112}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{2300,1294}}</string>
+                <string>{{1,1},{3754,2112}}</string>
                 <key>textureRotated</key>
                 <false/>
-                <key>triangles</key>
-                <string>1 2 3 0 1 3</string>
-                <key>vertices</key>
-                <string>2300 1294 0 1294 0 0 2300 0</string>
-                <key>verticesUV</key>
-                <string>2300 1294 0 1294 0 0 2300 0</string>
             </dict>
             <key>bgd_weapontest_1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,1}</string>
+                <string>{0.5,0.9}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{1443,702}</string>
+                <string>{1945,1801}</string>
                 <key>spriteSourceSize</key>
-                <string>{1443,702}</string>
+                <string>{1945,1801}</string>
                 <key>textureRect</key>
-                <string>{{0,1294},{1443,702}}</string>
+                <string>{{1,2115},{1945,1801}}</string>
                 <key>textureRotated</key>
                 <false/>
-                <key>triangles</key>
-                <string>10 21 22 19 20 21 11 19 21 18 16 17 18 19 16 15 16 19 13 14 15 12 13 15 11 12 15 11 15 19 10 11 21 9 10 22 6 7 9 7 8 9 5 6 9 1 5 9 2 3 4 2 4 5 1 2 5 1 9 22 0 1 22</string>
-                <key>vertices</key>
-                <string>1241 53 1247 144 1443 255 1443 266 1431 312 1197 311 1195 314 1195 702 959 702 959 315 784 311 453 310 451 313 451 702 217 702 217 314 14 310 0 265 0 252 180 158 184 52 288 0 1135 0</string>
-                <key>verticesUV</key>
-                <string>1241 1347 1247 1438 1443 1549 1443 1560 1431 1606 1197 1605 1195 1608 1195 1996 959 1996 959 1609 784 1605 453 1604 451 1607 451 1996 217 1996 217 1608 14 1604 0 1559 0 1546 180 1452 184 1346 288 1294 1135 1294</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -62,9 +50,9 @@
             <key>realTextureFileName</key>
             <string>test.png</string>
             <key>size</key>
-            <string>{2300,1996}</string>
+            <string>{3756,3917}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b33d7d3daeb741a65ad02bea4cc106b9:3b9e7176f48faf9105de7975743c5a2f:96fb3d46aab20ec9eb9704de1ab972b6$</string>
+            <string>$TexturePacker:SmartUpdate:c4feccf8f337289e46f660eb57ac547d:7e06f3ea0b88870d6179f8997ed5faf9:96fb3d46aab20ec9eb9704de1ab972b6$</string>
             <key>textureFileName</key>
             <string>test.png</string>
         </dict>

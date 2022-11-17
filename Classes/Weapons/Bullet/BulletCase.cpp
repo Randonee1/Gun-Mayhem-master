@@ -5,16 +5,17 @@ bool BulletCase::init(Node* back, Vec2 init, bool direction)
 	if (!Sprite::init()) {
 		return false;
 	}
-	bulletcase = Sprite::create("bulletcase.png");
-	bulletcase->setFlippedX(direction);
+	bulletcase = Sprite::createWithSpriteFrameName("bulletcase.png");
+	//bulletcase->setFlippedX(direction);
+	direction ? bulletcase->setRotation(-90) : bulletcase->setRotation(90);
 	unsigned seed = time(0);
 	y_speed = rand()%500+750;
 	x_speed = rand()%400-200;
-	currentPoint = init + (direction ? Vec2(-20, 60) : Vec2(20, 60));
+	currentPoint = init + (direction ? Vec2(-10, 30) : Vec2(10, 30));
 	float r = rand() % 360 - 180;
 	auto rotate = RepeatForever::create(RotateBy::create(0.3, r));
 	bulletcase->runAction(rotate);
-	this->addChild(bulletcase, 0);
+	this->addChild(bulletcase, 3);
 	this->setPosition(currentPoint);
 	back->addChild(this, 5);
 	this->scheduleUpdate();
@@ -28,7 +29,7 @@ void BulletCase::update(float dt)
 	currentPoint.x += x_speed * dt;
 	currentPoint.y += y_speed * dt;
 	this->setPosition(currentPoint);
-	if (this->getPositionY() < 4500)
+	if (this->getPositionY() < 0)
 		this->removeFromParent();
 }
 

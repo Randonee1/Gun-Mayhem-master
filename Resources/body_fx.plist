@@ -4,71 +4,63 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>MG_MP5.png</key>
+            <key>bomb.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
-                <key>anchor</key>
-                <string>{0.45,0.53}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{115,52}</string>
+                <string>{80,59}</string>
                 <key>spriteSourceSize</key>
-                <string>{115,52}</string>
+                <string>{80,59}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{115,52}}</string>
+                <string>{{154,1},{80,59}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>bulletcase.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{21,9}</string>
+                <key>spriteSourceSize</key>
+                <string>{21,9}</string>
+                <key>textureRect</key>
+                <string>{{137,40},{21,9}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>jump_halo.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{134,42}</string>
+                <key>spriteSourceSize</key>
+                <string>{188,94}</string>
+                <key>textureRect</key>
+                <string>{{1,40},{134,42}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>MG_MP7.png</key>
+            <key>razer.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
-                <key>anchor</key>
-                <string>{0.54,0.5}</string>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{1,0}</string>
                 <key>spriteSize</key>
-                <string>{119,64}</string>
+                <string>{151,37}</string>
                 <key>spriteSourceSize</key>
-                <string>{119,64}</string>
+                <string>{201,81}</string>
                 <key>textureRect</key>
-                <string>{{1,64},{119,64}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>MG_P90.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>anchor</key>
-                <string>{0.29,0.43}</string>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{133,61}</string>
-                <key>spriteSourceSize</key>
-                <string>{133,61}</string>
-                <key>textureRect</key>
-                <string>{{118,1},{133,61}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>MG_Uzi.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>anchor</key>
-                <string>{0.34,0.5}</string>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{129,72}</string>
-                <key>spriteSourceSize</key>
-                <string>{129,72}</string>
-                <key>textureRect</key>
-                <string>{{122,64},{129,72}}</string>
+                <string>{{1,1},{151,37}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -82,13 +74,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>MG.png</string>
+            <string>body_fx.png</string>
             <key>size</key>
-            <string>{252,137}</string>
+            <string>{214,83}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ef3bb14b53bda4d57734f8c51a628648:fabd5307b1816307275d03537bb367a7:37945c3d125a4ee70ef132e98905cd51$</string>
+            <string>$TexturePacker:SmartUpdate:d72f814036dcf5eb72b70bb12887ea82:38fcbcfd6261401dd161961d45e8f161:26b8f3f82d0c4138a2519396b68a1cdb$</string>
             <key>textureFileName</key>
-            <string>MG.png</string>
+            <string>body_fx.png</string>
         </dict>
     </dict>
 </plist>

@@ -5,7 +5,8 @@ bool OrganBase::initWithName(const char* name)
     if (!Sprite::init()) {
         return false;
     }
-    organ = Sprite::create(name);
+    //organ = Sprite::create(name);
+    organ = Sprite::createWithSpriteFrameName(name);
     this->addChild(organ, 0);
     return true;
 }
@@ -29,13 +30,13 @@ void OrganBase::MoveDelay(bool up, bool floor)
     if (!floor) {
         if (up) {
             auto moveback = MoveTo::create(0, Vec2(0, 0));
-            auto move = MoveBy::create(0.1, Vec2(0, -30));
+            auto move = MoveBy::create(0.1, Vec2(0, -15));
             seq = Sequence::create(moveback, move, nullptr);
             tag = 1;
         }
         else {
-            auto move1 = MoveBy::create(0.1, Vec2(0, 20));
-            auto move2 = MoveBy::create(0.06, Vec2(0, 30));
+            auto move1 = MoveTo::create(0.1, Vec2(0, 0));
+            auto move2 = MoveBy::create(0.06, Vec2(0, 15));
             seq = Sequence::create(move1, move2, nullptr);
             tag = 2;
         }

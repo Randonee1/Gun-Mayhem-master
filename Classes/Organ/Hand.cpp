@@ -55,11 +55,11 @@ void Hand::Work(bool direction)
         CallFunc* func = CallFunc::create(CC_CALLBACK_0(Hand::SetActionState, this));
 
         if (direction) {
-            seq = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(-30, 0)), MoveBy::create(0.2f, Vec2(30, 0)), func, nullptr);
+            seq = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(-10, 0)), MoveBy::create(0.2f, Vec2(10, 0)), func, nullptr);
             seq->setTag(10);
         }
         if (!direction) {
-            seq = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(30, 0)), MoveBy::create(0.2f, Vec2(-30, 0)), func, nullptr);
+            seq = Sequence::create(func, MoveTo::create(0, Vec2(0, 0)), MoveBy::create(0.2f, Vec2(10, 0)), MoveBy::create(0.2f, Vec2(-10, 0)), func, nullptr);
             seq->setTag(10);
         }
         organ->runAction(seq);
@@ -81,7 +81,7 @@ void Hand::RaiseHandToShoot(Node* background)
         organ->stopAllActions();
         CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
         CallFunc* onraise = CallFunc::create(CC_CALLBACK_0(Hand::SetRaise, this));
-        auto raise = MoveTo::create(0, Vec2(160, 40));
+        auto raise = MoveTo::create(0, Vec2(50, 14));
         auto delay = MoveBy::create(2, Vec2(0, 0));
         auto down = MoveTo::create(0.3, Vec2(0, 0));
         auto seq_shot = Sequence::create(onshot,onraise, raise, onraise, delay, down,onshot, nullptr);

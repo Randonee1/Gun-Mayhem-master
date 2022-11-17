@@ -1,15 +1,17 @@
 #include "CharacterBase.h"
+#include <iostream>
 
-bool CharacterBase::init()
+bool CharacterBase::init(Sprite* background)
 {
     if (!Sprite::init())
         return false;
 
+    this->background = background;
     accelerate = 0;
     x_speed = 0;
     y_speed = 0;
     isDoubleJump = false;
-    inTheAir = false;
+    inTheAir = true;
 
     this->scheduleUpdate();
 
@@ -21,40 +23,73 @@ void CharacterBase::update(float dt)
 	Sprite::update(dt);
 
     if (!inTheAir) {
+        y_speed = 0;
         isDoubleJump = false;
-        if (keyMap["up"]) {
+        if(getPositionX() < Floor[floor][0] || getPositionX() > Floor[floor][1]){
+            inTheAir = true;
+            if (floor > 0)
+                floor--;
+        }
+        else if (keyMap["up"]) {
             inTheAir = true;
             y_speed = status->y_maxSpeed;
             MoveDelay(true, false);
             keyMap["up"] = false;
+            if (floor < Floor.size() - 1)
+                floor++;
         }
-        else
-            y_speed = 0;
+        else if (keyMap["down"]) {
+            keyMap["down"] = false;
+            if (floor > 0){
+                inTheAir = true;
+                floor--;
+            }
+        }
+        
     }
-    else {
+    if(inTheAir){
         //跳起暂停走路动作
         StopWork();
-
         if (std::abs(y_speed) <= std::abs(status->gravitation * dt))
             MoveDelay(false, false);
         if (!isDoubleJump && keyMap["up"]) {
+            if (keyMap["down"])
+                floor++;
             y_speed = status->y_maxSpeed / 1.2;
             MoveDelay(true, false);
             isDoubleJump = true;
         }
         y_speed += status->gravitation* dt;
+        if (y_speed < -status->y_maxSpeed*1.5)
+            y_speed = -status->y_maxSpeed*1.5;
         keyMap["up"] = false;
+        keyMap["down"] = false;
     }
-    if (getPositionY() + y_speed * dt < floor) {
-        MoveDelay(true, true);
-        inTheAir = false;
-        y_speed = 0;
-
-        this->setPositionY(floor);
-    }
-    else
+    if(y_speed < 0)
+    {
+        if (getPositionY() > floor_base + floor * floor_height && getPositionY() + y_speed * dt < floor_base + floor * floor_height &&
+            getPositionX() > Floor[floor][0] && getPositionX() < Floor[floor][1]) {
+            MoveDelay(true, true);
+            inTheAir = false;
+            y_speed = 0;
+            this->setPositionY(floor_base + floor * floor_height);
+        }
+        else {
+            this->setPositionY(getPositionY() + y_speed * dt);
+            if (getPositionY() < floor_base + floor * floor_height && floor > 0)
+                floor--;
+        }
+    }else
         this->setPositionY(getPositionY() + y_speed * dt);
 
+    if (getPositionY() < 0)
+    {
+        y_speed = 0;
+        floor = Floor.size() - 1;
+        setPosition(initPosition);
+    }
+   
+    //inTheAir ? CCLOG("intheair") : CCLOG("not intheair");
 
     if ((keyMap["left"] ^ keyMap["right"])) {
 
@@ -65,7 +100,6 @@ void CharacterBase::update(float dt)
 
         accelerate = keyMap["right"] ? status->acceleration: -status->acceleration;
         if (!inTheAir) {
-
             feet1->Work(false);
             feet2->Work(true);
             hand1->Work(true);
@@ -86,10 +120,11 @@ void CharacterBase::update(float dt)
     this->setPositionX(getPositionX() + x_speed * dt);
 
     if (keyMap["shot"]) {
-        hand1->RaiseHandToShoot(this->getParent());
+        hand1->RaiseHandToShoot(background);
         this->_flippedX ? x_speed += status->recoil_speed : x_speed -= status->recoil_speed;
         if (std::abs(x_speed) > status->x_maxSpeed)
             this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;
+        keyMap["shot"] = false;
     }
 }
 

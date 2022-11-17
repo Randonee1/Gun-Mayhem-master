@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 #include "Map/MapBase.h"
 #include "Sprite/PlayerBase.h"
+#include "Sprite/Player_test.h"
+#include "Sprite/Player1.h"
 
 USING_NS_CC;
 
@@ -21,13 +23,15 @@ public:
 	PlayerBase* player2;
 
 private:
-	//LayerColor* back;
+	Sprite* backLayer;
 
 	Sprite* back;
 
 	void initBackground();
 
 	void initPlayer();
+
+	void initMaterial();
 };
 
 #endif

@@ -25,7 +25,7 @@ class CharacterBase : public Sprite
 {
 public:
 
-    bool init() override;
+    bool init(Sprite* background);
 
     void update(float dt) override;
 
@@ -47,16 +47,22 @@ protected:
     Hand* hand1;
     Hand* hand2;
     GunBase* gun;
+    Sprite* background;
 
     Status* status = new Status();
 
     float accelerate;
     float x_speed;
     float y_speed;
-    float floor;
+    int floor;
+    float floor_base;
+    float floor_height;
 
     bool isDoubleJump;
     bool inTheAir;
+
+    Vec2 initPosition;
+    std::vector<std::vector<float>> Floor;
     
 };
 

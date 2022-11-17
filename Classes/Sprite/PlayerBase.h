@@ -13,11 +13,11 @@ class PlayerBase : public CharacterBase
 {
 public:
 
-	static PlayerBase* createWithTag(int name);
+	//static PlayerBase* createWithTag(int name,Sprite* background);
 
-	bool initWithTag(int name);
+	bool initWithTag(int name, Sprite* background);
 
-	void initBody();
+	virtual void initBody();
 
 	void initKeyboardListener();
 	void onKeyPressed(EventKeyboard::KeyCode keycode, Event* event);
