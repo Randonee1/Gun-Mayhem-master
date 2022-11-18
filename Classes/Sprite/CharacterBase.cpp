@@ -26,6 +26,7 @@ void CharacterBase::update(float dt)
         y_speed = 0;
         isDoubleJump = false;
         if(getPositionX() < Floor[floor][0] || getPositionX() > Floor[floor][1]){
+            keyMap["down"] = true;
             inTheAir = true;
             if (floor > 0)
                 floor--;
@@ -39,7 +40,6 @@ void CharacterBase::update(float dt)
                 floor++;
         }
         else if (keyMap["down"]) {
-            keyMap["down"] = false;
             if (floor > 0){
                 inTheAir = true;
                 floor--;
@@ -53,7 +53,7 @@ void CharacterBase::update(float dt)
         if (std::abs(y_speed) <= std::abs(status->gravitation * dt))
             MoveDelay(false, false);
         if (!isDoubleJump && keyMap["up"]) {
-            if (keyMap["down"])
+            if (keyMap["down"] && floor < Floor.size() - 1)
                 floor++;
             y_speed = status->y_maxSpeed / 1.2;
             MoveDelay(true, false);
@@ -63,12 +63,12 @@ void CharacterBase::update(float dt)
         if (y_speed < -status->y_maxSpeed*1.5)
             y_speed = -status->y_maxSpeed*1.5;
         keyMap["up"] = false;
-        keyMap["down"] = false;
     }
     if(y_speed < 0)
     {
         if (getPositionY() > floor_base + floor * floor_height && getPositionY() + y_speed * dt < floor_base + floor * floor_height &&
             getPositionX() > Floor[floor][0] && getPositionX() < Floor[floor][1]) {
+            keyMap["down"] = false;
             MoveDelay(true, true);
             inTheAir = false;
             y_speed = 0;
