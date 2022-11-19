@@ -19,19 +19,18 @@ public:
 
 	void update(float dt) override;
 
-	PlayerBase* player1;
-	PlayerBase* player2;
-
-private:
-	Sprite* backLayer;
-
-	Sprite* back;
-
 	void initBackground();
 
 	void initPlayer();
 
-	void initMaterial();
+
+private:
+
+	PlayerBase* player1;
+	PlayerBase* player2;
+
+	float delaytime = 0;
+	
 };
 
 #endif

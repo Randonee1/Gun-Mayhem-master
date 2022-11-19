@@ -2,5 +2,8 @@
 
 bool MapBase::init()
 {
-	return false;
+	if (!Layer::init())
+		return false;
+	visibleSize = Director::getInstance()->getVisibleSize();
+	return true;
 }

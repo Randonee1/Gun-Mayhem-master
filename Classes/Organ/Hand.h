@@ -21,7 +21,7 @@ public:
 
 	void MoveDelay(bool up, bool floor) override;
 
-	void RaiseHandToShoot(Node* background);
+	void RaiseHandToShoot(Node* back,bool withgun);
 
 	bool actionState = false;
 	bool onShot = false;

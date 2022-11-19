@@ -1,8 +1,8 @@
 #include "PlayerBase.h"
 
-bool PlayerBase::initWithTag(int name, Sprite* background)
+bool PlayerBase::initWithTag(int name, MapBase* map)
 {
-    if (!CharacterBase::init(background)) {
+    if (!CharacterBase::init(map)) {
         return false;
     }
 

@@ -1,9 +1,9 @@
 #include "Player_test.h"
 
-Player_test* Player_test::createWithTag(int name, Sprite* background)
+Player_test* Player_test::createWithTag(int name, MapBase* map)
 {
     auto player = new Player_test();
-    if (player && player->initWithTag(name, background)) {
+    if (player && player->initWithTag(name, map)) {
         player->autorelease();
         return player;
     }
@@ -11,9 +11,9 @@ Player_test* Player_test::createWithTag(int name, Sprite* background)
     return nullptr;
 }
 
-bool Player_test::initWithTag(int name, Sprite* background)
+bool Player_test::initWithTag(int name, MapBase* map)
 {
-    if (!PlayerBase::initWithTag(name, background)) {
+    if (!PlayerBase::initWithTag(name, map)) {
         return false;
     }
 

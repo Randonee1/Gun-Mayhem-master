@@ -13,21 +13,22 @@ public:
 	CREATE_FUNC(MapBase);
 
 	//void bindPlayerStateMenu(PlayerStateMenu* playerState);
+	Sprite* platform;
+	Sprite* backLayer;
 
-	Sprite* background;
+	float floor_height;
+	float floor_base;
+	std::vector<std::vector<float>> Floor;
+	
 protected:
+	
 	Size visibleSize;
 
-	Size backgroundSize;
+	Size platformSize;
 
-	//void onEnterTransitionDidFinish() override;
+	Vec2 initPlatformPosition;
+	Vec2 initbackLayerPosition;
 
-	//不同关卡不同的事件处理
-	//virtual void initBackground();
-
-	//virtual void initPlatform();
-
-	//virtual void initPlayer();
 };
 
 #endif

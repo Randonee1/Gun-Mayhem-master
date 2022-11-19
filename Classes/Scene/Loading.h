@@ -2,18 +2,22 @@
 #define LOADING_H
 
 #include "cocos2d.h"
+#include "GameScene.h"
+
 USING_NS_CC;
 
 class Loading : public Layer 
 {
+public:
 	static Scene* createScene();
 
 	bool init() override;
 
 	CREATE_FUNC(Loading);
 
-	void loadSouce();
+	void loadResources();
 	void logic(float dt);
+	bool isloaddone;
 };
 
 

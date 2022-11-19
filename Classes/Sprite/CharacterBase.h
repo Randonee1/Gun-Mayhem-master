@@ -9,6 +9,7 @@
 #include "Organ/Head.h"
 #include "Organ/OrganBase.h"
 #include "Weapons/Gun/GunBase.h"
+#include "Map/MapBase.h"
 
 USING_NS_CC;
 
@@ -25,7 +26,7 @@ class CharacterBase : public Sprite
 {
 public:
 
-    bool init(Sprite* background);
+    bool init(MapBase* map);
 
     void update(float dt) override;
 
@@ -47,7 +48,7 @@ protected:
     Hand* hand1;
     Hand* hand2;
     GunBase* gun;
-    Sprite* background;
+    MapBase* map;
 
     Status* status = new Status();
 
@@ -55,14 +56,11 @@ protected:
     float x_speed;
     float y_speed;
     int floor;
-    float floor_base;
-    float floor_height;
 
     bool isDoubleJump;
     bool inTheAir;
 
     Vec2 initPosition;
-    std::vector<std::vector<float>> Floor;
     
 };
 

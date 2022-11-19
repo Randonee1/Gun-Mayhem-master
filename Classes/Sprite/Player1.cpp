@@ -1,9 +1,9 @@
 #include "Player1.h"
 
-Player1* Player1::createWithTag(int name, Sprite* background)
+Player1* Player1::createWithTag(int name, MapBase* map)
 {
     auto player = new Player1();
-    if (player && player->initWithTag(name, background)) {
+    if (player && player->initWithTag(name, map)) {
         player->autorelease();
         return player;
     }
@@ -11,9 +11,9 @@ Player1* Player1::createWithTag(int name, Sprite* background)
     return nullptr;
 }
 
-bool Player1::initWithTag(int name, Sprite* background)
+bool Player1::initWithTag(int name, MapBase* map)
 {
-    if (!PlayerBase::initWithTag(name, background)) {
+    if (!PlayerBase::initWithTag(name, map)) {
         return false;
     }
 
@@ -25,12 +25,12 @@ bool Player1::initWithTag(int name, Sprite* background)
     status->y_maxSpeed = 1275;
     status->recoil_speed = 100;
 
-    floor_base = background->getContentSize().height + 30 - 270;
+    /*floor_base = background->getContentSize().height + 30 - 270;
     floor_height = 270;
-    Floor = { {0,1945},{270,1675} };
-    floor = Floor.size()-1;
+    Floor = { {0,1945},{270,1675} };*/
+    floor = map->Floor.size()-1;
 
-    setPosition(background->getContentSize().width / 2, background->getContentSize().height + 1500);
+    setPosition(map->platform->getContentSize().width / 2, map->platform->getContentSize().height + 3000);
     initPosition = getPosition();
 
     return true;

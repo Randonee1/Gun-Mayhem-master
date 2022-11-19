@@ -15,7 +15,7 @@ public:
 
 	//static PlayerBase* createWithTag(int name,Sprite* background);
 
-	bool initWithTag(int name, Sprite* background);
+	bool initWithTag(int name, MapBase* map);
 
 	virtual void initBody();
 

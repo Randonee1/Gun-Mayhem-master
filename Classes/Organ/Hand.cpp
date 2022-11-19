@@ -12,12 +12,6 @@ Hand* Hand::CreateWithName(const char* name)
     return NULL;
 }
 
-//void Hand::stopActionByTag(int tag)
-//{
-//    Node::stopActionByTag(tag);
-//    if(getChildByName("gun"))
-//        this->getChildByName("gun")->stopActionByTag(tag);
-//}
 
 void Hand::GetGun(GunBase* Gun)
 {
@@ -73,7 +67,7 @@ void Hand::MoveDelay(bool up, bool floor)
         OrganBase::MoveDelay(up, floor);
 }
 
-void Hand::RaiseHandToShoot(Node* background)
+void Hand::RaiseHandToShoot(Node* back, bool withgun)
 {
     if(!onRaise)
     {
@@ -81,13 +75,13 @@ void Hand::RaiseHandToShoot(Node* background)
         organ->stopAllActions();
         CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
         CallFunc* onraise = CallFunc::create(CC_CALLBACK_0(Hand::SetRaise, this));
-        auto raise = MoveTo::create(0, Vec2(50, 14));
+        auto raise = withgun?  MoveTo::create(0, Vec2(50, 14)):MoveTo::create(0,Vec2(30,10));
         auto delay = MoveBy::create(2, Vec2(0, 0));
         auto down = MoveTo::create(0.3, Vec2(0, 0));
-        auto seq_shot = Sequence::create(onshot,onraise, raise, onraise, delay, down,onshot, nullptr);
+        auto seq_shot = Sequence::create(onshot, onraise, raise, onraise, delay, down, onshot, nullptr);
         organ->runAction(seq_shot);
-
-        gun->Shot(background);
+        if(withgun)
+            gun->Shot(back);
     }
 }
 

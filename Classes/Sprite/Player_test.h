@@ -9,9 +9,9 @@ USING_NS_CC;
 class Player_test : public PlayerBase
 {
 public:
-	static Player_test* createWithTag(int name, Sprite* background);
+	static Player_test* createWithTag(int name, MapBase* map);
 
-	bool initWithTag(int name, Sprite* background);
+	bool initWithTag(int name, MapBase* map);
 
 	void initBody();
 	

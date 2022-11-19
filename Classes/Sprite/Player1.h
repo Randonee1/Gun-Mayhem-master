@@ -10,9 +10,9 @@ class Player1 : public PlayerBase
 {
 public:
 
-	static Player1* createWithTag(int name, Sprite* background);
+	static Player1* createWithTag(int name, MapBase* map);
 
-	bool initWithTag(int name, Sprite* background);
+	bool initWithTag(int name, MapBase* map);
 
 	void initBody();
 };
