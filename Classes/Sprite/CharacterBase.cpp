@@ -50,7 +50,7 @@ void CharacterBase::update(float dt)
         }
         if (inTheAir) {
             //跳起暂停走路动作
-            StopWork();
+            StopWalk();
             if (std::abs(y_speed) <= std::abs(status->gravitation * dt))
                 MoveDelay(false, false);
             if (!isDoubleJump && keyMap["up"]) {
@@ -59,6 +59,7 @@ void CharacterBase::update(float dt)
                 y_speed = status->y_maxSpeed / 1.2;
                 MoveDelay(true, false);
                 isDoubleJump = true;
+                DrawHalo();
             }
             y_speed += status->gravitation * dt;
             if (y_speed < -status->y_maxSpeed * 2.5)
@@ -94,7 +95,10 @@ void CharacterBase::update(float dt)
             CallFunc* func2 = CallFunc::create([&]() {
                 this->setVisible(true); valid = true;
                 });
-            auto move1 = MoveTo::create(0.5, initPosition);
+            unsigned seed = time(0);
+            Vec2 position = Vec2(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,
+                map->platform->getContentSize().height + 3000);
+            auto move1 = MoveTo::create(0.5, position);
             auto move2 = EaseSineOut::create(move1);
             this->runAction(Sequence::create(func1, move2, func2, nullptr));
             /*y_speed = 0;
@@ -113,10 +117,10 @@ void CharacterBase::update(float dt)
 
             accelerate = keyMap["right"] ? status->acceleration : -status->acceleration;
             if (!inTheAir) {
-                feet1->Work(false);
-                feet2->Work(true);
-                hand1->Work(true);
-                hand2->Work(false);
+                feet1->Walk(false);
+                feet2->Walk(true);
+                hand1->Walk(true);
+                hand2->Walk(false);
 
             }
             x_speed += accelerate * dt;
@@ -133,12 +137,18 @@ void CharacterBase::update(float dt)
         this->setPositionX(getPositionX() + x_speed * dt);
 
         if (keyMap["shot"]) {
-            hand1->RaiseHandToShoot(map->platform,map, true);
-            hand2->RaiseHandToShoot(map->platform,map, false);
-            this->_flippedX ? x_speed += status->recoil_speed : x_speed -= status->recoil_speed;
-            if (std::abs(x_speed) > status->x_maxSpeed)
-                this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;
-            keyMap["shot"] = false;
+            
+            if(gun->shot) {
+                hand1->RaiseHandToShoot(map->platform, map,gun->RaiseHand(true), true);
+                hand2->RaiseHandToShoot(map->platform, map,gun->RaiseHand(false), false);
+                this->_flippedX ? x_speed += status->recoil_speed : x_speed -= status->recoil_speed;
+                if (std::abs(x_speed) > status->x_maxSpeed)
+                    this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;
+            }
+            else if (gun->deltatime > gun->shotInterval) {
+                hand1->BulletChangeWithHand(true);
+                hand2->BulletChangeWithHand(false);
+            }
         }
     }
 }
@@ -156,7 +166,7 @@ void CharacterBase::Flip(bool direction)
         organ->setFlippedX(direction);
 }
 
-void CharacterBase::StopWork()
+void CharacterBase::StopWalk()
 {
     feet1->organ->stopActionByTag(10);
     feet2->organ->stopActionByTag(10);
@@ -166,4 +176,15 @@ void CharacterBase::StopWork()
     hand2->organ->stopActionByTag(10);
     hand1->actionState = false;
     hand2->actionState = false;
+}
+
+void CharacterBase::DrawHalo()
+{
+    Sprite* hole = Sprite::createWithSpriteFrameName("jump_halo.png");
+    hole->setPosition(this->getPosition() - Vec2(0, 80));
+    map->platform->addChild(hole, 4);
+    auto scale = ScaleTo::create(0.5, 0.1);
+    auto fadeout = FadeOut::create(0.5);
+    auto spa = Spawn::create(scale, fadeout, nullptr);
+    hole->runAction(spa);
 }

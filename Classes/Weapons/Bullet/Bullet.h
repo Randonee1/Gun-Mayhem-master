@@ -9,11 +9,11 @@ class Bullet : public Sprite
 {
 public:
 
-	bool init(Node* back, Vec2 init, bool direction);
+	bool init(Node* back, Vec2 init, Vec2 offset,float speed, bool direction);
 
 	void update(float dt) override;
 
-	static Bullet* create(Node* back, Vec2 init, bool direction);
+	static Bullet* create(Node* back, Vec2 init, Vec2 offset,float speed, bool direction);
 
 	float speed;
 

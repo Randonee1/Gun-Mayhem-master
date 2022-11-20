@@ -6,21 +6,22 @@ bool GunBase::initWithName(const char* name)
         return false;
     }
     gun = Sprite::create(name);
-    gun->setAnchorPoint(Vec2(0.2, 0.25));
-    gun->setRotation(30.0f);
+    /*gun->setAnchorPoint(Vec2(0.2, 0.25));
+    gun->setRotation(30.0f);*/
+    this->scheduleUpdate();
     this->addChild(gun, 0);
 }
 
-GunBase* GunBase::CreateWithName(const char* name)
-{
-    auto gun = new GunBase();
-    if (gun && gun->initWithName(name)) {
-        gun->autorelease();
-        return gun;
-    }
-    CC_SAFE_DELETE(gun);
-    return NULL;
-}
+//GunBase* GunBase::CreateWithName(const char* name)
+//{
+//    auto gun = new GunBase();
+//    if (gun && gun->initWithName(name)) {
+//        gun->autorelease();
+//        return gun;
+//    }
+//    CC_SAFE_DELETE(gun);
+//    return NULL;
+//}
 
 void GunBase::setFlippedX(bool flippedX,float offset)
 {
@@ -30,41 +31,62 @@ void GunBase::setFlippedX(bool flippedX,float offset)
         _flippedX = flippedX;
         this->setPositionX(-this->getPositionX()+offset);
         flipX();
-        flippedX ? gun->setAnchorPoint(Vec2(0.8, 0.25)) : gun->setAnchorPoint(Vec2(0.2, 0.25));
+        Vec2 anch = anchor;
+        flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
+        gun->setAnchorPoint(anch);
         if(!onShot)
-            flippedX ? gun->setRotation(-30.0f) : gun->setRotation(30.0f);
+            flippedX ? gun->setRotation(-initRotation) : gun->setRotation(initRotation);
     }
 }
 
-void GunBase::Shot(Node* background, MapBase* map)
+void GunBase::Shot(MapBase* map)
 {
     onShot = false;
-    this->background = background;
     this->map = map;
     gun->stopAllActions();
-    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
-    CallFunc* shot = CallFunc::create(CC_CALLBACK_0(GunBase::SetBullet, this));
-    auto aim = RotateTo::create(0, 0);
-    auto up = RotateTo::create(0.05, -30);
-    auto down = RotateTo::create(0.05, 0);
-    auto delay = RotateTo::create(1.9, 0);
-    auto back = RotateTo::create(0.3, 30);
-    auto seq_shot = Sequence::create(onshot,aim,shot,up,down,delay,back,onshot, nullptr);
-    gun->runAction(seq_shot);
+    
+    bulletCount++;
+    shot = false;
+    deltatime = 0;
+}
 
+void GunBase::BulletChange()
+{
+    deltatime = 0;
+    bulletCount = 0;
+
+}
+
+MoveTo* GunBase::RaiseHand(bool withgun)
+{
+    if (withgun)
+        return MoveTo::create(0, Vec2(70, 14));
+    else
+        return MoveTo::create(0, Vec2(15, -5));
 }
 
 void GunBase::SetBullet()
 {
-
-    BulletCase::create(background, GetPositionToBackground(),this->_flippedX);
-    map->bullets.push_back(Bullet::create(background, GetPositionToBackground(), this->_flippedX));
-    
+    return;
 }
 
 void GunBase::SetShot()
 {
     onShot = !onShot;
+}
+
+void GunBase::update(float dt)
+{
+    deltatime += dt;
+    if (deltatime < shotInterval) {
+        shot = false;
+    }
+    else if (bulletCount >= bulletClip) {
+        shot = false;
+    }
+    else {
+        shot = true;
+    }
 }
 
 Vec2 GunBase::GetPositionToBackground()

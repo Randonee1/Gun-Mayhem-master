@@ -1,6 +1,6 @@
 #include "BulletCase.h"
 
-bool BulletCase::init(Node* back, Vec2 init, bool direction)
+bool BulletCase::init(Node* back, Vec2 init,Vec2 offset, bool direction)
 {
 	if (!Sprite::init()) {
 		return false;
@@ -11,7 +11,8 @@ bool BulletCase::init(Node* back, Vec2 init, bool direction)
 	unsigned seed = time(0);
 	y_speed = rand()%500+750;
 	x_speed = rand()%400-200;
-	currentPoint = init + (direction ? Vec2(-10, 30) : Vec2(10, 30));
+	direction ? offset.x = -offset.x : offset.x = offset.x;
+	currentPoint = init + offset;
 	float r = rand() % 360 - 180;
 	auto rotate = RepeatForever::create(RotateBy::create(0.3, r));
 	bulletcase->runAction(rotate);
@@ -33,10 +34,10 @@ void BulletCase::update(float dt)
 		this->removeFromParent();
 }
 
-BulletCase* BulletCase::create(Node* back, Vec2 init, bool direction)
+BulletCase* BulletCase::create(Node* back, Vec2 init, Vec2 offset, bool direction)
 {
 	auto bulletcase = new BulletCase();
-	if (bulletcase && bulletcase->init(back, init,direction)) {
+	if (bulletcase && bulletcase->init(back, init, offset, direction)) {
 		bulletcase->autorelease();
 		return bulletcase;
 	}

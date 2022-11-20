@@ -1,18 +1,23 @@
-#ifndef
-#define
+#ifndef GUN_CLOCK_H
+#define GUN_CLOCK_H
 
 #include "cocos2d.h"
+#include "GunBase.h"
 USING_NS_CC;
 
-class 
+class Gun_Glock : public GunBase
 {
 public:
 
-	static Scene* createScene();
+	static Gun_Glock* CreateWithName(const char* name);
 
-	bool init() override;
+	bool initWithName(const char* name);
 
-	CREATE_FUNC();
+	void Shot(MapBase* map);
+
+	void SetBullet() override;
+
+
 };
 
 #endif

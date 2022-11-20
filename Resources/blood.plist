@@ -4,63 +4,63 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>bomb.png</key>
+            <key>BloodSpurtingOut.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{80,59}</string>
+                <string>{138,169}</string>
                 <key>spriteSourceSize</key>
-                <string>{80,59}</string>
+                <string>{138,169}</string>
                 <key>textureRect</key>
-                <string>{{154,1},{80,59}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>bulletcase.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{25,11}</string>
-                <key>spriteSourceSize</key>
-                <string>{25,11}</string>
-                <key>textureRect</key>
-                <string>{{137,40},{25,11}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>jump_halo.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{134,42}</string>
-                <key>spriteSourceSize</key>
-                <string>{188,94}</string>
-                <key>textureRect</key>
-                <string>{{1,40},{134,42}}</string>
+                <string>{{1,1},{138,169}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>razer.png</key>
+            <key>bloodDrop1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{1,0}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{151,37}</string>
+                <string>{23,9}</string>
                 <key>spriteSourceSize</key>
-                <string>{201,81}</string>
+                <string>{23,9}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{151,37}}</string>
+                <string>{{98,172},{23,9}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>bloodDrop2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{59,15}</string>
+                <key>spriteSourceSize</key>
+                <string>{59,15}</string>
+                <key>textureRect</key>
+                <string>{{1,172},{59,15}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>bloodDrop3.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{34,11}</string>
+                <key>spriteSourceSize</key>
+                <string>{34,11}</string>
+                <key>textureRect</key>
+                <string>{{62,172},{34,11}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -74,13 +74,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>body_fx.png</string>
+            <string>blood.png</string>
             <key>size</key>
-            <string>{214,83}</string>
+            <string>{140,188}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4fbe707c24fde981576b00c960ea3697:baa59fcd6cc6963c870ea6264a08a520:26b8f3f82d0c4138a2519396b68a1cdb$</string>
+            <string>$TexturePacker:SmartUpdate:aba1c28b5ec506c9621a6a7beafbcdc4:bced7925caa2ef828b06c89b9eb128a5:ab4055c138d270fe3287eabd35406899$</string>
             <key>textureFileName</key>
-            <string>body_fx.png</string>
+            <string>blood.png</string>
         </dict>
     </dict>
 </plist>

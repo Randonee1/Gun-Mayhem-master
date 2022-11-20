@@ -41,7 +41,7 @@ void Hand::setFlippedX(bool flippedX)
     }
 }
 
-void Hand::Work(bool direction)
+void Hand::Walk(bool direction)
 {
     if (!actionState && !onShot) {
 
@@ -67,7 +67,7 @@ void Hand::MoveDelay(bool up, bool floor)
         OrganBase::MoveDelay(up, floor);
 }
 
-void Hand::RaiseHandToShoot(Node* back, MapBase* map, bool withgun)
+void Hand::RaiseHandToShoot(Node* back, MapBase* map,MoveTo* raise, bool withgun)
 {
     if(!onRaise)
     {
@@ -75,14 +75,19 @@ void Hand::RaiseHandToShoot(Node* back, MapBase* map, bool withgun)
         organ->stopAllActions();
         CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
         CallFunc* onraise = CallFunc::create(CC_CALLBACK_0(Hand::SetRaise, this));
-        auto raise = withgun?  MoveTo::create(0, Vec2(70, 14)):MoveTo::create(0,Vec2(15,-5));
         auto delay = MoveBy::create(2, Vec2(0, 0));
         auto down = MoveTo::create(0.3, Vec2(0, 0));
         auto seq_shot = Sequence::create(onshot, onraise, raise, onraise, delay, down, onshot, nullptr);
         organ->runAction(seq_shot);
         if(withgun)
-            gun->Shot(back,map);
+            gun->Shot(map);
     }
+}
+
+void Hand::BulletChangeWithHand(bool withgun)
+{
+    if (withgun)
+        gun->BulletChange();
 }
 
 void Hand::SetActionState()

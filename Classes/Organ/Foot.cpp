@@ -78,7 +78,7 @@ void Foot::MoveDelay(bool up, bool floor)
     lastDelayTag = tag;
 }
 
-void Foot::Work(bool direction)
+void Foot::Walk(bool direction)
 {
     if (!actionState) {
         Spawn* spa;

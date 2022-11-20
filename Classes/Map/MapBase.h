@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Weapons/Bullet/Bullet.h"
+#include "Stuff/Blood.h"
 
 USING_NS_CC;
 

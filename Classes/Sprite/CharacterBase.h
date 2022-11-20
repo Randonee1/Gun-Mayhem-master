@@ -34,7 +34,9 @@ public:
 
     void Flip(bool direction);
 
-    void StopWork();
+    void StopWalk();
+
+    void DrawHalo();
 
     std::vector<OrganBase*> organs;
     std::map<std::string, bool> keyMap;
@@ -58,10 +60,7 @@ public:
 
     bool isDoubleJump;
     bool inTheAir;
-    bool valid = true;
-
-    Vec2 initPosition;
-    
+    bool valid = true;    
 };
 
 #endif

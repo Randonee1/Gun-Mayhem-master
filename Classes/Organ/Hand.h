@@ -17,11 +17,12 @@ public:
 
 	void setFlippedX(bool flippedX);
 
-	void Work(bool direction);
+	void Walk(bool direction);
 
 	void MoveDelay(bool up, bool floor) override;
 
-	void RaiseHandToShoot(Node* back, MapBase* map,bool withgun);
+	void RaiseHandToShoot(Node* back, MapBase* map,MoveTo* raise,bool withgun);
+	void BulletChangeWithHand(bool withgun);
 
 	bool actionState = false;
 	bool onShot = false;

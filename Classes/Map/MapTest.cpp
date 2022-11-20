@@ -110,14 +110,22 @@ void MapTest::ShotEvent()
 	bullets = temp;
 	
 	for (auto &bullet : bullets) {
-		if (bullet->getBoundingBox().intersectsRect(rect1)) {
+		if (rect1.containsPoint(bullet->getPosition())) {
 			bullet->isFlippedX() ? player1->x_speed -= 400 : player1->x_speed += 400;
+			auto blood = Blood::create();
+			blood->setPosition(bullet->getPosition());
+			platform->addChild(blood, 4);
+
 			bullet->removeFromParent();
 			bullet = nullptr;
 			continue;
 		}
-		else if (bullet->getBoundingBox().intersectsRect(rect2)) {
+		else if (rect2.containsPoint(bullet->getPosition())) {
 			bullet->isFlippedX() ? player2->x_speed -= 400 : player2->x_speed += 400;
+			auto blood = Blood::create();
+			blood->setPosition(bullet->getPosition());
+			platform->addChild(blood, 4);
+
 			bullet->removeFromParent();
 			bullet = nullptr;
 			continue;

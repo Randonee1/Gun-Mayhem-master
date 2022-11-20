@@ -84,4 +84,7 @@ void PlayerBase::onKeyReleased(EventKeyboard::KeyCode keycode, Event* event)
         keyMap["right"] = false;
         
     }
+    if (keycode == keymap["shot"]) {
+        keyMap["shot"] = false;
+    }
 }

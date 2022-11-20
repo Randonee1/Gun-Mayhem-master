@@ -13,23 +13,37 @@ class GunBase : public Sprite
 {
 public:
 
-	bool initWithName(const char* name);
+	virtual bool initWithName(const char* name);
 
-	static GunBase* CreateWithName(const char* name);
+	//static GunBase* CreateWithName(const char* name);
 
 	void setFlippedX(bool flippedX, float offset);
 
-	void Shot(Node* background, MapBase* map);
+	virtual void Shot(MapBase* map);
 
-	void SetBullet();
+	virtual void BulletChange();
+
+	virtual MoveTo* RaiseHand(bool withgun);
+
+	virtual void SetBullet();
 
 	void SetShot();
+
+	void update(float dt) override;
 	bool onShot = false;
 
 	Vec2 GetPositionToBackground();
+	Vec2 anchor;
 
+	float deltatime = 0;
+	float shotInterval;
+	float initRotation;
+	float bulletSpeed;
+
+	int bulletClip;
+	int bulletCount;
+	bool shot = true;
 	Sprite* gun;
-	Node* background;
 	MapBase* map;
 };
 

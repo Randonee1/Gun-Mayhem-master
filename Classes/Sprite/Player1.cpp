@@ -19,7 +19,7 @@ bool Player1::initWithTag(int name, MapBase* map)
 
     status->acceleration = 2412;
     status->gravitation = -2757;
-    status->resistance = 800;
+    status->resistance = 600;
 
     status->x_maxSpeed = 448;
     status->y_maxSpeed = 1275;
@@ -30,8 +30,9 @@ bool Player1::initWithTag(int name, MapBase* map)
     Floor = { {0,1945},{270,1675} };*/
     floor = map->Floor.size()-1;
 
-    setPosition(map->platform->getContentSize().width / 2, map->platform->getContentSize().height + 3000);
-    initPosition = this->getPosition();
+    unsigned seed = time(0);
+    setPosition(rand() % int(map->platform->getContentSize().width/2)+map->platform->getContentSize().width/4, 
+        map->platform->getContentSize().height + 3000);
 
     return true;
 }
@@ -54,7 +55,7 @@ void Player1::initBody()
     organs.push_back(feet1);
     feet2 = Foot::CreateWithName("Player1_foot.png");
     organs.push_back(feet2);
-    gun = GunBase::CreateWithName("gun_test.png");
+    gun = Gun_Glock::CreateWithName("gun_test.png");
 
     head->setPosition(Vec2(65/2.2-8, 130/2.2-2));
     this->addChild(head, 1);

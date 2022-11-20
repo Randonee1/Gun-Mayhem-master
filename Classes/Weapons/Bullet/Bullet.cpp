@@ -1,6 +1,6 @@
 #include "Bullet.h"
 
-bool Bullet::init(Node* back, Vec2 init, bool direction)
+bool Bullet::init(Node* back, Vec2 init, Vec2 offset, float speed, bool direction)
 {
 	if (!Sprite::init()) {
 		return false;
@@ -9,8 +9,9 @@ bool Bullet::init(Node* back, Vec2 init, bool direction)
 	bullet = Sprite::createWithSpriteFrameName("razer.png");
 	this->setFlippedX(direction);
 	bullet->setFlippedX(direction);
-	speed = direction? -2000: 2000;
-	currentPoint = init + (direction ? Vec2(-50, 30) : Vec2(50, 30));
+	this->speed = direction? -speed: speed;
+	direction ? offset.x = -offset.x : offset.x = offset.x;
+	currentPoint = init + offset;
 	this->addChild(bullet, 0);
 	this->setPosition(currentPoint);
 	back->addChild(this, 0);
@@ -51,10 +52,10 @@ void Bullet::update(float dt)
 		this->removeFromParent();*/
 }
 
-Bullet* Bullet::create(Node* back, Vec2 init, bool direction)
+Bullet* Bullet::create(Node* back, Vec2 init, Vec2 offset, float speed, bool direction)
 {
 	auto bullet = new Bullet();
-	if (bullet && bullet->init(back, init, direction)) {
+	if (bullet && bullet->init(back, init, offset, speed, direction)) {
 		bullet->autorelease();
 		return bullet;
 	}
