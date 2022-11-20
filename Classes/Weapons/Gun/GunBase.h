@@ -4,6 +4,9 @@
 #include "cocos2d.h"
 #include "Weapons/Bullet/BulletCase.h"
 #include "Weapons/Bullet/Bullet.h"
+#include "Map/MapBase.h"
+
+
 USING_NS_CC;
 
 class GunBase : public Sprite
@@ -16,7 +19,7 @@ public:
 
 	void setFlippedX(bool flippedX, float offset);
 
-	void Shot(Node* background);
+	void Shot(Node* background, MapBase* map);
 
 	void SetBullet();
 
@@ -27,6 +30,7 @@ public:
 
 	Sprite* gun;
 	Node* background;
+	MapBase* map;
 };
 
 #endif

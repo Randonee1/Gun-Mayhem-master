@@ -36,7 +36,6 @@ public:
 
     void StopWork();
 
-protected:
     std::vector<OrganBase*> organs;
     std::map<std::string, bool> keyMap;
 
@@ -59,6 +58,7 @@ protected:
 
     bool isDoubleJump;
     bool inTheAir;
+    bool valid = true;
 
     Vec2 initPosition;
     

@@ -36,10 +36,11 @@ void GunBase::setFlippedX(bool flippedX,float offset)
     }
 }
 
-void GunBase::Shot(Node* background)
+void GunBase::Shot(Node* background, MapBase* map)
 {
     onShot = false;
     this->background = background;
+    this->map = map;
     gun->stopAllActions();
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     CallFunc* shot = CallFunc::create(CC_CALLBACK_0(GunBase::SetBullet, this));
@@ -55,8 +56,10 @@ void GunBase::Shot(Node* background)
 
 void GunBase::SetBullet()
 {
+
     BulletCase::create(background, GetPositionToBackground(),this->_flippedX);
-    Bullet::create(background, GetPositionToBackground(), this->_flippedX);
+    map->bullets.push_back(Bullet::create(background, GetPositionToBackground(), this->_flippedX));
+    
 }
 
 void GunBase::SetShot()

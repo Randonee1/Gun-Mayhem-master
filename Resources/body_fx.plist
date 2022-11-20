@@ -26,11 +26,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{21,9}</string>
+                <string>{25,11}</string>
                 <key>spriteSourceSize</key>
-                <string>{21,9}</string>
+                <string>{25,11}</string>
                 <key>textureRect</key>
-                <string>{{137,40},{21,9}}</string>
+                <string>{{137,40},{25,11}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -78,7 +78,7 @@
             <key>size</key>
             <string>{214,83}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d72f814036dcf5eb72b70bb12887ea82:38fcbcfd6261401dd161961d45e8f161:26b8f3f82d0c4138a2519396b68a1cdb$</string>
+            <string>$TexturePacker:SmartUpdate:860db2389ba7105d19f0f4fff1b5a062:a1e5be30e381e09c83ca568343a6714f:26b8f3f82d0c4138a2519396b68a1cdb$</string>
             <key>textureFileName</key>
             <string>body_fx.png</string>
         </dict>

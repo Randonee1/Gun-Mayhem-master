@@ -19,7 +19,7 @@ bool Player1::initWithTag(int name, MapBase* map)
 
     status->acceleration = 2412;
     status->gravitation = -2757;
-    status->resistance = 342;
+    status->resistance = 800;
 
     status->x_maxSpeed = 448;
     status->y_maxSpeed = 1275;
@@ -31,7 +31,7 @@ bool Player1::initWithTag(int name, MapBase* map)
     floor = map->Floor.size()-1;
 
     setPosition(map->platform->getContentSize().width / 2, map->platform->getContentSize().height + 3000);
-    initPosition = getPosition();
+    initPosition = this->getPosition();
 
     return true;
 }
@@ -56,7 +56,7 @@ void Player1::initBody()
     organs.push_back(feet2);
     gun = GunBase::CreateWithName("gun_test.png");
 
-    head->setPosition(Vec2(65/2.2, 130/2.2));
+    head->setPosition(Vec2(65/2.2-8, 130/2.2-2));
     this->addChild(head, 1);
 
     hand1->setPosition(Vec2(-31/2.2, -55/2.2));

@@ -67,7 +67,7 @@ void Hand::MoveDelay(bool up, bool floor)
         OrganBase::MoveDelay(up, floor);
 }
 
-void Hand::RaiseHandToShoot(Node* back, bool withgun)
+void Hand::RaiseHandToShoot(Node* back, MapBase* map, bool withgun)
 {
     if(!onRaise)
     {
@@ -75,13 +75,13 @@ void Hand::RaiseHandToShoot(Node* back, bool withgun)
         organ->stopAllActions();
         CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
         CallFunc* onraise = CallFunc::create(CC_CALLBACK_0(Hand::SetRaise, this));
-        auto raise = withgun?  MoveTo::create(0, Vec2(50, 14)):MoveTo::create(0,Vec2(30,10));
+        auto raise = withgun?  MoveTo::create(0, Vec2(70, 14)):MoveTo::create(0,Vec2(15,-5));
         auto delay = MoveBy::create(2, Vec2(0, 0));
         auto down = MoveTo::create(0.3, Vec2(0, 0));
         auto seq_shot = Sequence::create(onshot, onraise, raise, onraise, delay, down, onshot, nullptr);
         organ->runAction(seq_shot);
         if(withgun)
-            gun->Shot(back);
+            gun->Shot(back,map);
     }
 }
 

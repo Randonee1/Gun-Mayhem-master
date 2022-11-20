@@ -23,6 +23,7 @@ public:
 
 	void initPlayer();
 
+	void ShotEvent() override;
 
 private:
 

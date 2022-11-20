@@ -7,3 +7,8 @@ bool MapBase::init()
 	visibleSize = Director::getInstance()->getVisibleSize();
 	return true;
 }
+
+void MapBase::ShotEvent()
+{
+	return;
+}
