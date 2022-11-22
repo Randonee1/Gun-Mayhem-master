@@ -16,12 +16,14 @@ public:
 	CREATE_FUNC(MapBase);
 
 	virtual void ShotEvent();
+
 	//void bindPlayerStateMenu(PlayerStateMenu* playerState);
 	Sprite* platform;
 	Sprite* backLayer;
 
 	float floor_height;
 	float floor_base;
+	float death_line;
 	std::vector<std::vector<float>> Floor;
 	std::vector<Bullet*>bullets;
 	

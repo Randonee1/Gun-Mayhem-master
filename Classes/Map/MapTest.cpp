@@ -23,6 +23,7 @@ bool MapTest::init()
 	floor_height = 270;
 	floor_base = platform->getContentSize().height + 30 - 270;
 	Floor = { {0, 1945}, {270, 1675} };
+	death_line = 0;
 
 	initPlayer();
 

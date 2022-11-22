@@ -1,20 +1,18 @@
-#ifndef MAP_TEST_H
-#define MAP_TEST_H
+#ifndef MAP_SPACE_H
+#define MAP_SPACE_H
 
 #include "cocos2d.h"
-#include "Map/MapBase.h"
-#include "Sprite/PlayerBase.h"
-#include "Sprite/Player_test.h"
+#include "MapBase.h"
 #include "Sprite/Player1.h"
 #include "Sprite/AI1.h"
 
 USING_NS_CC;
 
-class MapTest : public MapBase
+class MapSpace : public MapBase
 {
 public:
 
-	static MapTest* createGame();
+	static MapBase* createGame();
 
 	bool init() override;
 
@@ -26,12 +24,16 @@ public:
 
 	void ShotEvent() override;
 
-private:
+private: 
+
+	Vec2 initPlanet1Position;
+	Vec2 initPlanet2Position;
+
+	Sprite* planet1;
+	Sprite* planet2;
 
 	CharacterBase* player1;
 	CharacterBase* player2;
-
-	
 };
 
 #endif

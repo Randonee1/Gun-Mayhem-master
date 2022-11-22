@@ -52,7 +52,7 @@ void AIBase::MoveEvent()
         keyMap["up"] = true;
     }
 
-    if (!opponent->inTheAir && opponent->floor > this->floor && !this->isDoubleJump) {
+    if (!opponent->inTheAir && opponent->floor > this->floor && !this->inTheAir) {
         keyMap["up"] = true;
     }
     else if (!opponent->inTheAir && opponent->floor < this->floor) {
@@ -77,9 +77,9 @@ void AIBase::ShotEvent()
             keyMap["shot"] = false;
         }
     }
-    /*if (opponent->getPositionY() != this->getPositionY()) {
+    if (std::abs(opponent->getPositionY() - this->getPositionY())<100) {
         keyMap["shot"] = false;
-    }*/
+    }
 }
 
 

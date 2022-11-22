@@ -18,6 +18,15 @@ bool CharacterBase::init(MapBase* map)
 	return true;
 }
 
+bool CharacterBase::InTheBoundary(std::vector<float>& floor, float x) const
+{
+    for (int i = 0; i < floor.size() - 1; i += 2) {
+        if (x > floor[i] && x < floor[i + 1])
+            return true;
+    }
+    return false;
+}
+
 void CharacterBase::update(float dt)
 {
 	Sprite::update(dt);
@@ -26,7 +35,7 @@ void CharacterBase::update(float dt)
         if (!inTheAir) {
             y_speed = 0;
             isDoubleJump = false;
-            if (getPositionX() < map->Floor[floor][0] || getPositionX() > map->Floor[floor][1]) {
+            if (!InTheBoundary(map->Floor[floor],getPositionX())) {
                 keyMap["down"] = true;
                 inTheAir = true;
                 if (floor > 0)
@@ -56,6 +65,8 @@ void CharacterBase::update(float dt)
             if (!isDoubleJump && keyMap["up"]) {
                 if (keyMap["down"] && floor < map->Floor.size() - 1)
                     floor++;
+                if (getPositionY() > map->floor_base + floor * map->floor_height && floor < map->Floor.size() - 1)
+                    floor++;
                 y_speed = status->y_maxSpeed / 1.2;
                 MoveDelay(true, false);
                 isDoubleJump = true;
@@ -70,7 +81,7 @@ void CharacterBase::update(float dt)
         {
             if (getPositionY() > map->floor_base + floor * map->floor_height &&
                 getPositionY() + y_speed * dt < map->floor_base + floor * map->floor_height &&
-                getPositionX() > map->Floor[floor][0] && getPositionX() < map->Floor[floor][1]) {
+                InTheBoundary(map->Floor[floor], getPositionX())) {
                 keyMap["down"] = false;
                 MoveDelay(true, true);
                 inTheAir = false;
@@ -86,7 +97,7 @@ void CharacterBase::update(float dt)
         else
             this->setPositionY(getPositionY() + y_speed * dt);
 
-        if (getPositionY() < 0)
+        if (getPositionY() < map->death_line)
         {
             CallFunc* func1 = CallFunc::create([&]() {
                 this->setVisible(false); this->Flip(false);

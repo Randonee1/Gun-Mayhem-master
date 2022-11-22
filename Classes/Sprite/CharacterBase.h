@@ -28,6 +28,8 @@ public:
 
     bool init(MapBase* map);
 
+    bool InTheBoundary(std::vector<float>& floor, float x) const;
+
     void update(float dt) override;
 
     void MoveDelay(bool up, bool floor);

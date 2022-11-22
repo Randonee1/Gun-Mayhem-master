@@ -24,6 +24,7 @@ bool Loading::init()
 void Loading::loadResources()
 {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("test.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("space.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Player1.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("MG_gtl.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("body_fx.plist");
@@ -39,7 +40,7 @@ void Loading::logic(float dt)
     }
     if (isloaddone) {
         //暂时的写法，后面写完WelcomeScene再换
-        auto scene = GameScene::CreateGame(0);
+        auto scene = GameScene::CreateGame(1);
         Director::getInstance()->replaceScene(scene);
     }
 }
