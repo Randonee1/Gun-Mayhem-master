@@ -92,6 +92,7 @@ bool StartScene::init() {
 	//_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListenerWp, this);
 
 
+
 }
 
 
@@ -100,6 +101,7 @@ void StartScene::onMouseMove(Event* event)
 	EventMouse* e = (EventMouse*)event;
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 locationInNode = convertToNodeSpace(Vec2(e->getCursorX(), e->getCursorY()));
+
 
 	Rect r1 = Rect(0, visibleSize.height * 3 / 5 -50, visibleSize.width * 6 / 7, 200);
 	Rect r2 = Rect(0, visibleSize.height * 3 / 5 - 250, visibleSize.width * 6 / 7, 200);
@@ -198,6 +200,7 @@ void StartScene::onMouseMove(Event* event)
 //
 //	r.containsPoint(locationInNode) ? selected(blacksprite) : unselected(blacksprite);
 //}
+
 
 void StartScene::selected(Sprite* s)
 {
