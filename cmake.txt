@@ -1,1 +1,1 @@
-cmake .. -G "Visual Studio 17 2022" -AWin32
+cmake .. -G"Visual Studio 16 2019" -Tv142 -A win32

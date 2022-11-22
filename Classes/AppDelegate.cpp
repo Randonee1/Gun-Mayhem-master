@@ -26,6 +26,7 @@
 #include "HelloWorldScene.h"
 #include "Scene/GameScene.h"
 #include "Scene/loading.h"
+#include"Scene/StartScene.h"
 
 // #define USE_AUDIO_ENGINE 1
 
@@ -116,10 +117,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // create a scene. it's an autorelease object
     //auto scene = HelloWorld::createScene();
     //auto scene = GameScene::CreateGame(0);
-    auto scene = Loading::createScene();
-    // run
-    director->runWithScene(scene);
 
+    //auto scene = Loading::createScene();
+ 
+
+    // run
+    director->runWithScene(TransitionFade::create(2.0f, HelloWorld::create()));
+    //director->runWithScene(scene);
     return true;
 }
 
