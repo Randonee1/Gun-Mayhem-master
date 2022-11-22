@@ -31,6 +31,8 @@ public:
 
 	void update(float dt) override;
 	bool onShot = false;
+	bool onChange = false;
+	bool change = false;
 
 	Vec2 GetPositionToBackground();
 	Vec2 anchor;

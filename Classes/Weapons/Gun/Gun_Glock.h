@@ -15,8 +15,11 @@ public:
 
 	void Shot(MapBase* map);
 
+	void BulletChange();
+
 	void SetBullet() override;
 
+	void update(float dt) override;
 
 };
 

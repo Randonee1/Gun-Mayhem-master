@@ -150,11 +150,13 @@ void CharacterBase::update(float dt)
         if (keyMap["shot"]) {
             
             if(gun->shot) {
-                hand1->RaiseHandToShoot(map->platform, map,gun->RaiseHand(true), true);
-                hand2->RaiseHandToShoot(map->platform, map,gun->RaiseHand(false), false);
-                this->_flippedX ? x_speed += status->recoil_speed : x_speed -= status->recoil_speed;
-                /*if (std::abs(x_speed) > status->x_maxSpeed)
-                    this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;*/
+                if(!gun->change){
+                    hand1->RaiseHandToShoot(map->platform, map, gun->RaiseHand(true), true);
+                    hand2->RaiseHandToShoot(map->platform, map, gun->RaiseHand(false), false);
+                    this->_flippedX ? x_speed += status->recoil_speed : x_speed -= status->recoil_speed;
+                    /*if (std::abs(x_speed) > status->x_maxSpeed)
+                        this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;*/
+                }
             }
             else if (gun->deltatime > gun->shotInterval) {
                 hand1->BulletChangeWithHand(true);
