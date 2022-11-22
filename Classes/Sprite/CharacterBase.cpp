@@ -97,7 +97,7 @@ void CharacterBase::update(float dt)
                 });
             unsigned seed = time(0);
             Vec2 position = Vec2(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,
-                map->platform->getContentSize().height + 3000);
+                map->platform->getContentSize().height + 2000);
             auto move1 = MoveTo::create(0.5, position);
             auto move2 = EaseSineOut::create(move1);
             this->runAction(Sequence::create(func1, move2, func2, nullptr));
@@ -124,10 +124,10 @@ void CharacterBase::update(float dt)
 
             }
             x_speed += accelerate * dt;
-            if (std::abs(x_speed) > status->x_maxSpeed)
+            if (x_speed * accelerate > 0 && std::abs(x_speed) > status->x_maxSpeed )
                 x_speed -= accelerate * dt;
         }
-        else {
+        else if(! inTheAir) {
             accelerate = x_speed > 0 ? -status->resistance : status->resistance;
             if (std::abs(accelerate * dt) > std::abs(x_speed))
                 x_speed = 0;
@@ -142,8 +142,8 @@ void CharacterBase::update(float dt)
                 hand1->RaiseHandToShoot(map->platform, map,gun->RaiseHand(true), true);
                 hand2->RaiseHandToShoot(map->platform, map,gun->RaiseHand(false), false);
                 this->_flippedX ? x_speed += status->recoil_speed : x_speed -= status->recoil_speed;
-                if (std::abs(x_speed) > status->x_maxSpeed)
-                    this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;
+                /*if (std::abs(x_speed) > status->x_maxSpeed)
+                    this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;*/
             }
             else if (gun->deltatime > gun->shotInterval) {
                 hand1->BulletChangeWithHand(true);
@@ -187,4 +187,9 @@ void CharacterBase::DrawHalo()
     auto fadeout = FadeOut::create(0.5);
     auto spa = Spawn::create(scale, fadeout, nullptr);
     hole->runAction(spa);
+}
+
+void CharacterBase::GetOpponent(CharacterBase* opponent)
+{
+    this->opponent = opponent;
 }

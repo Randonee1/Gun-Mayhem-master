@@ -6,6 +6,7 @@
 #include "Sprite/PlayerBase.h"
 #include "Sprite/Player_test.h"
 #include "Sprite/Player1.h"
+#include "Sprite/AI1.h"
 
 USING_NS_CC;
 
@@ -27,8 +28,8 @@ public:
 
 private:
 
-	PlayerBase* player1;
-	PlayerBase* player2;
+	CharacterBase* player1;
+	CharacterBase* player2;
 
 	float delaytime = 0;
 	

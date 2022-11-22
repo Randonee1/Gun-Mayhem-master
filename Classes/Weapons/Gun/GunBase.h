@@ -39,10 +39,14 @@ public:
 	float shotInterval;
 	float initRotation;
 	float bulletSpeed;
+	float hitSpeed;
 
 	int bulletClip;
 	int bulletCount;
+
 	bool shot = true;
+	bool fire = false;
+
 	Sprite* gun;
 	MapBase* map;
 };

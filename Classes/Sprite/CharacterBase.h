@@ -38,8 +38,12 @@ public:
 
     void DrawHalo();
 
+    void GetOpponent(CharacterBase* opponent);
+
     std::vector<OrganBase*> organs;
     std::map<std::string, bool> keyMap;
+
+    CharacterBase* opponent;
 
     Body* body;
     Head* head;
@@ -59,8 +63,9 @@ public:
     int floor;
 
     bool isDoubleJump;
-    bool inTheAir;
-    bool valid = true;    
+    bool inTheAir = true;
+    bool valid = true;   
+    bool hit = false;
 };
 
 #endif

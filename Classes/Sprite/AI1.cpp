@@ -1,19 +1,19 @@
-#include "Player1.h"
+#include "AI1.h"
 
-Player1* Player1::createWithTag(int name, MapBase* map)
+AI1* AI1::create(MapBase* map)
 {
-    auto player = new Player1();
-    if (player && player->initWithTag(name, map)) {
-        player->autorelease();
-        return player;
+    auto ai = new AI1();
+    if (ai && ai->init(map)) {
+        ai->autorelease();
+        return ai;
     }
-    CC_SAFE_DELETE(player);
+    CC_SAFE_DELETE(ai);
     return nullptr;
 }
 
-bool Player1::initWithTag(int name, MapBase* map)
+bool AI1::init(MapBase* map)
 {
-    if (!PlayerBase::initWithTag(name, map)) {
+    if (!AIBase::init( map)) {
         return false;
     }
 
@@ -25,19 +25,16 @@ bool Player1::initWithTag(int name, MapBase* map)
     status->y_maxSpeed = 1275;
     status->recoil_speed = 100;
 
-    /*floor_base = background->getContentSize().height + 30 - 270;
-    floor_height = 270;
-    Floor = { {0,1945},{270,1675} };*/
-    floor = map->Floor.size()-1;
+    floor = map->Floor.size() - 1;
 
     unsigned seed = time(0);
-    setPosition(rand() % int(map->platform->getContentSize().width/2)+map->platform->getContentSize().width/4, 
+    setPosition(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,
         map->platform->getContentSize().height + 2000);
 
     return true;
 }
 
-void Player1::initBody()
+void AI1::initBody()
 {
     //头和身体
     body = Body::CreateWithName("Player1_body.png");
@@ -57,22 +54,22 @@ void Player1::initBody()
     organs.push_back(feet2);
     gun = Gun_Glock::CreateWithName("gun_test.png");
 
-    head->setPosition(Vec2(65/2.2-8, 130/2.2-2));
+    head->setPosition(Vec2(65 / 2.2 - 8, 130 / 2.2 - 2));
     this->addChild(head, 1);
 
-    hand1->setPosition(Vec2(-31/2.2, -55/2.2));
+    hand1->setPosition(Vec2(-31 / 2.2, -55 / 2.2));
     this->addChild(hand1, 4);
 
-    face->setPosition(Vec2(30/2.2, 0));
+    face->setPosition(Vec2(30 / 2.2, 0));
     head->addChild(face, 2);
 
-    hand2->setPosition(Vec2(109/2.2, -29/2.2));
+    hand2->setPosition(Vec2(109 / 2.2, -29 / 2.2));
     this->addChild(hand2, -1);
 
-    feet1->setPosition(Vec2(-67/2.2, -199/2.2));
+    feet1->setPosition(Vec2(-67 / 2.2, -199 / 2.2));
     this->addChild(feet1, 3);
 
-    feet2->setPosition(Vec2(33/2.2, -169/2.2));
+    feet2->setPosition(Vec2(33 / 2.2, -169 / 2.2));
     this->addChild(feet2, -1);
 
     body->setPosition(Vec2(0, 0));
@@ -80,5 +77,4 @@ void Player1::initBody()
 
     //gun->setPosition(Vec2(65, 30));
     hand1->GetGun(gun);
-
 }

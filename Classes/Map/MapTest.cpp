@@ -33,27 +33,19 @@ bool MapTest::init()
 
 void MapTest::update(float dt)
 {
-	/*if(delaytime>0.5)
-	{*/
+	
 	Vec2 initPlatform = Vec2(platformSize.width / 2, (floor_base + floor_base + floor_height * (Floor.size() - 1)) / 2);
 	Vec2 delta = (player1->getPosition() + player2->getPosition())/2 - initPlatform;
 
-	/*delta.x > visibleSize.width ? delta.x = visibleSize.width : delta.x = delta.x;
-	delta.y > visibleSize.height / 3 ? delta.y = visibleSize.height / 3 : delta.y = delta.y;
-	delta.x < -visibleSize.width ? delta.x = -visibleSize.width : delta.x = delta.x;
-	delta.y < -visibleSize.height / 3 ? delta.y = -visibleSize.height / 3 : delta.y = delta.y;*/
-
 	float a = std::pow(delta.x, 2) + std::pow(delta.y, 2);
-	float b = std::pow(visibleSize.height , 2) + std::pow(visibleSize.width , 2);
+	float b = std::pow(visibleSize.height/1.2 , 2) + std::pow(visibleSize.width/1.2 , 2);
 	if (a > b) {
 		delta.x = delta.x * b / a;
 		delta.y = delta.y * b / a;
 	}
 
-	//backLayer->runAction(MoveTo::create(delaytime, initbackLayerPosition - delta * 0.3));
-	backLayer->setPosition(initbackLayerPosition - delta*0.3);
-	//platform->runAction(MoveTo::create(delaytime, initPlatformPosition - delta * 0.4));
-	platform->setPosition(initPlatformPosition - delta*0.4);
+	backLayer->setPosition(initbackLayerPosition - delta*0.5);
+	platform->setPosition(initPlatformPosition - delta*0.7);
 	
 
 	ShotEvent();
@@ -78,18 +70,26 @@ void MapTest::initBackground()
 void MapTest::initPlayer()
 {
 	
-	player1 = Player1::createWithTag(1,this);
-	platform->addChild(player1, 1);
+	/*player1 = Player1::createWithTag(1,this);
+	platform->addChild(player1, 1);*/
 
-	player2 = Player1::createWithTag(2, this);
-	platform->addChild(player2, 2);
+	/*player2 = Player1::createWithTag(2, this);
+	platform->addChild(player2, 2);*/
+
 	//test
 	/*player2 = Player_test::createWithTag(2, back);
 	player2 ->setPosition(back->getContentSize().width / 2, back->getContentSize().height / 2);
 	back->addChild(player2 , 2);*/
 	//test
-
 	
+	player1 = AI1::create(this);
+	platform->addChild(player1, 1);
+
+	player2 = AI1::create(this);
+	platform->addChild(player2, 2);
+
+	player1->GetOpponent(player2);
+	player2->GetOpponent(player1);
 }
 
 void MapTest::ShotEvent()
@@ -111,7 +111,8 @@ void MapTest::ShotEvent()
 	
 	for (auto &bullet : bullets) {
 		if (rect1.containsPoint(bullet->getPosition())) {
-			bullet->isFlippedX() ? player1->x_speed -= 400 : player1->x_speed += 400;
+			bullet->isFlippedX() ? player1->x_speed -= player2->gun->hitSpeed : player1->x_speed += player2->gun->hitSpeed;
+			player1->hit = true;
 			auto blood = Blood::create();
 			blood->setPosition(bullet->getPosition());
 			platform->addChild(blood, 4);
@@ -121,7 +122,8 @@ void MapTest::ShotEvent()
 			continue;
 		}
 		else if (rect2.containsPoint(bullet->getPosition())) {
-			bullet->isFlippedX() ? player2->x_speed -= 400 : player2->x_speed += 400;
+			bullet->isFlippedX() ? player2->x_speed -= player1->gun->hitSpeed : player2->x_speed += player1->gun->hitSpeed;
+			player2->hit = true;
 			auto blood = Blood::create();
 			blood->setPosition(bullet->getPosition());
 			platform->addChild(blood, 4);

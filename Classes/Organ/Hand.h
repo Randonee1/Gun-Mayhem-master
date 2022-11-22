@@ -26,11 +26,9 @@ public:
 
 	bool actionState = false;
 	bool onShot = false;
-	bool onRaise = false;
 
 	void SetActionState();
 	void SetShot();
-	void SetRaise();
 
 	GunBase* gun;
 	Point gunPoint;
