@@ -77,7 +77,7 @@ void AIBase::ShotEvent()
             keyMap["shot"] = false;
         }
     }
-    if (std::abs(opponent->getPositionY() - this->getPositionY())<100) {
+    if (std::abs(opponent->getPositionY() - this->getPositionY())>100) {
         keyMap["shot"] = false;
     }
 }

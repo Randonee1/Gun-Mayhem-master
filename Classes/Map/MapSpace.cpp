@@ -95,14 +95,14 @@ void MapSpace::initBackground()
 
 void MapSpace::initPlayer()
 {
-	/*player1 = Player1::createWithTag(1,this);
+	player1 = Player1::createWithTag(1,this);
 	platform->addChild(player1, 1);
 
-	player2 = Player1::createWithTag(2, this);
-	platform->addChild(player2, 2);*/
+	/*player2 = Player1::createWithTag(2, this);
+	platform->addChild(player2, 2);
 
 	player1 = AI1::create(this);
-	platform->addChild(player1, 1);
+	platform->addChild(player1, 1);*/
 
 	player2 = AI1::create(this);
 	platform->addChild(player2, 2);
