@@ -36,14 +36,14 @@ void Hand::setFlippedX(bool flippedX)
 
         actionState = false;
         organ->stopActionByTag(10);
-        if(! onShot && !onChange)
+        if(! onShot)
             organ->setPosition(Vec2(0, 0));
     }
 }
 
 void Hand::Walk(bool direction)
 {
-    if (!actionState && !onShot && !onChange) {
+    if (!actionState && !onShot) {
 
         Sequence* seq;
         CallFunc* func = CallFunc::create(CC_CALLBACK_0(Hand::SetActionState, this));
@@ -63,7 +63,7 @@ void Hand::Walk(bool direction)
 
 void Hand::MoveDelay(bool up, bool floor)
 {
-    if (!onShot && !onChange)
+    if (!onShot)
         OrganBase::MoveDelay(up, floor);
 }
 
@@ -83,14 +83,16 @@ void Hand::RaiseHandToShoot(Node* back, MapBase* map,MoveTo* raise, bool withgun
 void Hand::BulletChangeWithHand(bool withgun)
 {
     onShot = false;
-    onChange = false;
     organ->stopAllActions();
-    CallFunc* onchange = CallFunc::create([&]() {onChange = !onChange; });
+    CallFunc* onchange = CallFunc::create([&]() {onShot = !onShot; });
+    //auto raiseup = withgun ? EaseSineOut::create(MoveTo::create(0.1, Vec2(40, 14))) : EaseSineOut::create(MoveTo::create(0.1, Vec2(15, -5)));
+    auto throwaway = withgun ? EaseSineOut::create(MoveTo::create(0.15, Vec2(120, 64))) : EaseSineOut::create(MoveTo::create(0.2, Vec2(15, -5)));
     auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
-    auto moveup = withgun ? MoveTo::create(0.6, Vec2(70, 14)) : MoveTo::create(0.6, Vec2(15, -5));
+    auto moveup = withgun ? EaseSineOut::create(MoveTo::create(0.3, Vec2(70, 14))) : EaseSineOut::create(MoveTo::create(0.6, Vec2(15, -5)));
+
     auto delay = MoveBy::create(2, Vec2(0, 0));
     auto down = MoveTo::create(0.3, Vec2(0, 0));
-    auto seq_change = Sequence::create(onchange, movedown, moveup,delay,down, onchange, nullptr);
+    auto seq_change = Sequence::create(onchange,throwaway, movedown, moveup,delay,down, onchange, nullptr);
     organ->runAction(seq_change);
     if (withgun)
         gun->BulletChange();

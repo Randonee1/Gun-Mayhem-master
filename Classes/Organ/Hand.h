@@ -26,7 +26,6 @@ public:
 
 	bool actionState = false;
 	bool onShot = false;
-	bool onChange = false;
 
 	void SetActionState();
 	void SetShot();

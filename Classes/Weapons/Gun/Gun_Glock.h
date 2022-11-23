@@ -21,6 +21,9 @@ public:
 
 	void update(float dt) override;
 
+	Sprite* gunshadow = nullptr;
+	float gunshadow_vx;
+	float gunshadow_vy;
 };
 
 #endif

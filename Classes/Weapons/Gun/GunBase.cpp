@@ -34,7 +34,7 @@ void GunBase::setFlippedX(bool flippedX,float offset)
         Vec2 anch = anchor;
         flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
         gun->setAnchorPoint(anch);
-        if(!onShot && !onChange)
+        if(!onShot)
             flippedX ? gun->setRotation(-initRotation) : gun->setRotation(initRotation);
     }
 }
@@ -53,7 +53,6 @@ void GunBase::Shot(MapBase* map)
 void GunBase::BulletChange()
 {
     onShot = false;
-    onChange = false;
     gun->stopAllActions();
 
     deltatime = 0;

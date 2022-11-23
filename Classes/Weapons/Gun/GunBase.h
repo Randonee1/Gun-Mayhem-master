@@ -31,7 +31,6 @@ public:
 
 	void update(float dt) override;
 	bool onShot = false;
-	bool onChange = false;
 	bool change = false;
 
 	Vec2 GetPositionToBackground();
@@ -41,7 +40,6 @@ public:
 	float shotInterval;
 	float initRotation;
 	float bulletSpeed;
-	float hitSpeed;
 
 	int bulletClip;
 	int bulletCount;

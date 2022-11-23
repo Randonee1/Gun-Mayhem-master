@@ -3,6 +3,7 @@
 #include "Map/MapBase.h"
 #include "Map/MapTest.h"
 #include "Map/MapSpace.h"
+#include "Map/MapSunset.h"
 
 Scene* GameScene::CreateGame(int Level)
 {
@@ -28,6 +29,10 @@ bool GameScene::initGame(int Level)
         break;
     case(1):
         game = MapSpace::createGame();
+        break;
+    case(2):
+        game = MapSunset::createGame();
+        break;
     }
 
     //game->bindPlayerStateMenu(playerStateMenu);

@@ -112,7 +112,7 @@ void MapTest::ShotEvent()
 	
 	for (auto &bullet : bullets) {
 		if (rect1.containsPoint(bullet->getPosition())) {
-			bullet->isFlippedX() ? player1->x_speed -= player2->gun->hitSpeed : player1->x_speed += player2->gun->hitSpeed;
+			player1->x_speed += bullet->speed / 2;
 			player1->hit = true;
 			auto blood = Blood::create();
 			blood->setPosition(bullet->getPosition());
@@ -123,7 +123,7 @@ void MapTest::ShotEvent()
 			continue;
 		}
 		else if (rect2.containsPoint(bullet->getPosition())) {
-			bullet->isFlippedX() ? player2->x_speed -= player1->gun->hitSpeed : player2->x_speed += player1->gun->hitSpeed;
+			player2->x_speed += bullet->speed / 2;
 			player2->hit = true;
 			auto blood = Blood::create();
 			blood->setPosition(bullet->getPosition());
