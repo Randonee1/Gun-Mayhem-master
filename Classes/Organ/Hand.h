@@ -21,8 +21,8 @@ public:
 
 	void MoveDelay(bool up, bool floor) override;
 
-	void RaiseHandToShoot(Node* back, MapBase* map,MoveTo* raise,bool withgun);
-	void BulletChangeWithHand(bool withgun);
+	void RaiseHandToShoot(MapBase* map,GunBase* gun,bool withgun);
+	void BulletChangeWithHand(GunBase* gun, bool withgun);
 
 	bool actionState = false;
 	bool onShot = false;

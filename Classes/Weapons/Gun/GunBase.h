@@ -24,6 +24,7 @@ public:
 	virtual void BulletChange();
 
 	virtual MoveTo* RaiseHand(bool withgun);
+	virtual Sequence* BulletChange(bool withgun);
 
 	virtual void SetBullet();
 
@@ -40,6 +41,7 @@ public:
 	float shotInterval;
 	float initRotation;
 	float bulletSpeed;
+	float hitSpeed;
 
 	int bulletClip;
 	int bulletCount;

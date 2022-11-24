@@ -70,7 +70,7 @@ void PlayerBase::onKeyPressed(EventKeyboard::KeyCode keycode, Event* event)
 
     }
     if (keycode == keymap["skill"]) {
-        keyMap["skill"];
+        keyMap["skill"] = true;
     }
 }
 
@@ -84,7 +84,16 @@ void PlayerBase::onKeyReleased(EventKeyboard::KeyCode keycode, Event* event)
         keyMap["right"] = false;
         
     }
+    if (keycode == keymap["up"]) {
+        keyMap["up"] = false;
+
+    }
     if (keycode == keymap["shot"]) {
         keyMap["shot"] = false;
+
+    }
+    if (keycode == keymap["skill"]) {
+        keyMap["skill"] = false;
+
     }
 }

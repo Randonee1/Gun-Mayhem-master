@@ -32,6 +32,10 @@ void CharacterBase::update(float dt)
 	Sprite::update(dt);
     if(valid)
     {
+        if (keyMap["skill"]) {
+
+        }
+
         if (!inTheAir) {
             y_speed = 0;
             isDoubleJump = false;
@@ -46,8 +50,8 @@ void CharacterBase::update(float dt)
                 y_speed = status->y_maxSpeed;
                 MoveDelay(true, false);
                 keyMap["up"] = false;
-                if (floor < map->Floor.size() - 1)
-                    floor++;
+               /* if (floor < map->Floor.size() - 1)
+                    floor++;*/
             }
             else if (keyMap["down"]) {
                 if (floor > 0) {
@@ -63,10 +67,10 @@ void CharacterBase::update(float dt)
             if (std::abs(y_speed) <= std::abs(status->gravitation * dt))
                 MoveDelay(false, false);
             if (!isDoubleJump && keyMap["up"]) {
-                if (keyMap["down"] && floor < map->Floor.size() - 1)
+                /*if (keyMap["down"] && floor < map->Floor.size() - 1)
                     floor++;
                 if (getPositionY() > map->floor_base + floor * map->floor_height && floor < map->Floor.size() - 1)
-                    floor++;
+                    floor++;*/
                 y_speed = status->y_maxSpeed / 1.2;
                 MoveDelay(true, false);
                 isDoubleJump = true;
@@ -76,6 +80,11 @@ void CharacterBase::update(float dt)
             if (y_speed < -status->y_maxSpeed * 2.5)
                 y_speed = -status->y_maxSpeed * 2.5;
             keyMap["up"] = false;
+        }
+        if (y_speed > 0) {
+            if (getPositionY() + y_speed * dt > map->floor_base + floor * map->floor_height &&
+                floor < map->Floor.size() - 1)
+                floor++;
         }
         if (y_speed < 0)
         {
@@ -117,7 +126,6 @@ void CharacterBase::update(float dt)
             setPosition(initPosition);*/
         }
 
-        //inTheAir ? CCLOG("intheair") : CCLOG("not intheair");
 
         if ((keyMap["left"] ^ keyMap["right"])) {
 
@@ -151,18 +159,19 @@ void CharacterBase::update(float dt)
             
             if(gun->shot) {
                 if(!gun->change){
-                    hand1->RaiseHandToShoot(map->platform, map, gun->RaiseHand(true), true);
-                    hand2->RaiseHandToShoot(map->platform, map, gun->RaiseHand(false), false);
+                    hand1->RaiseHandToShoot(map,gun,true);
+                    hand2->RaiseHandToShoot(map,gun,false);
                     this->_flippedX ? x_speed += status->recoil_speed : x_speed -= status->recoil_speed;
                     /*if (std::abs(x_speed) > status->x_maxSpeed)
                         this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;*/
                 }
             }
             else if (gun->deltatime > gun->shotInterval) {
-                hand1->BulletChangeWithHand(true);
-                hand2->BulletChangeWithHand(false);
+                hand1->BulletChangeWithHand(gun,true);
+                hand2->BulletChangeWithHand(gun,false);
             }
         }
+        
     }
 }
 

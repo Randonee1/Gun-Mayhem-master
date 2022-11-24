@@ -62,10 +62,12 @@ void GunBase::BulletChange()
 
 MoveTo* GunBase::RaiseHand(bool withgun)
 {
-    if (withgun)
-        return MoveTo::create(0, Vec2(70, 14));
-    else
-        return MoveTo::create(0, Vec2(15, -5));
+    return nullptr;
+}
+
+Sequence* GunBase::BulletChange(bool withgun)
+{
+    return nullptr;
 }
 
 void GunBase::SetBullet()

@@ -143,7 +143,10 @@ void MapSunset::initPlayer()
 	CharacterBase* player1 = Player1::createWithTag(1, this);
 	platform->addChild(player1, 1);
 
-	/*CharacterBase* player2 = AI1::create(this);
+	/*CharacterBase* player1 = AI1::create(this);
+	platform->addChild(player1, 1);
+
+	CharacterBase* player2 = AI1::create(this);
 	platform->addChild(player2, 2);*/
 
 	CharacterBase* player2 = Player1::createWithTag(2, this);
@@ -179,7 +182,7 @@ void MapSunset::ShotEvent()
 			rect.origin += offset;
 
 			if (rect.containsPoint(bullet->getPosition())) {
-				player->x_speed += bullet->speed / 2;
+				player->x_speed += bullet->hitSpeed;
 				player->hit = true;
 				auto blood = Blood::create();
 				blood->setPosition(bullet->getPosition());

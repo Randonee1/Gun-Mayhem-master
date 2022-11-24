@@ -1,10 +1,10 @@
-#ifndef SKILL_PACKAGE_H
-#define SKILL_PACKAGE_H
+#ifndef
+#define
 
 #include "cocos2d.h"
 USING_NS_CC;
 
-class SkillPackage : public Sprite
+class 
 {
 public:
 

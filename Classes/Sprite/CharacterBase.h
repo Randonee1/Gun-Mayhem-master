@@ -10,6 +10,7 @@
 #include "Organ/OrganBase.h"
 #include "Weapons/Gun/GunBase.h"
 #include "Map/MapBase.h"
+//#include "Stuff/Package/SkillPackage.h"
 
 USING_NS_CC;
 
@@ -44,6 +45,8 @@ public:
 
     std::vector<OrganBase*> organs;
     std::map<std::string, bool> keyMap;
+
+    //SkillPackage* skill;
 
     CharacterBase* opponent;
 

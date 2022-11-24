@@ -17,6 +17,10 @@ public:
 
 	void BulletChange();
 
+	MoveTo* RaiseHand(bool withgun);
+
+	Sequence* BulletChange(bool withgun);
+
 	void SetBullet() override;
 
 	void update(float dt) override;

@@ -130,7 +130,7 @@ void MapSpace::ShotEvent()
 
 	for (auto& bullet : bullets) {
 		if (rect1.containsPoint(bullet->getPosition())) {
-			player1->x_speed += bullet->speed /2;
+			player1->x_speed += bullet->hitSpeed;
 			player1->hit = true;
 			auto blood = Blood::create();
 			blood->setPosition(bullet->getPosition());
@@ -141,7 +141,7 @@ void MapSpace::ShotEvent()
 			continue;
 		}
 		else if (rect2.containsPoint(bullet->getPosition())) {
-			player2->x_speed += bullet->speed / 2;
+			player2->x_speed += bullet->hitSpeed;
 			player2->hit = true;
 			auto blood = Blood::create();
 			blood->setPosition(bullet->getPosition());

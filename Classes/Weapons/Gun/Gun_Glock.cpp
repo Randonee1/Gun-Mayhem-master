@@ -19,6 +19,7 @@ bool Gun_Glock::initWithName(const char* name)
     initRotation = 30.0f;
     shotInterval = 0.15;
     bulletSpeed = 2000;
+    hitSpeed = 1000;
     bulletClip = 10;
     bulletCount = 0;
 
@@ -59,7 +60,7 @@ void Gun_Glock::BulletChange()
     gun->isFlippedX() ? gunshadow->setRotation(30) : gunshadow->setRotation(-30);
     gunshadow->setPosition(GetPositionToBackground());
     map->platform->addChild(gunshadow, 1);
-    auto rotate = RepeatForever::create(RotateBy::create(0.3, gun->isFlippedX() ? 180 : -180));
+    auto rotate = RepeatForever::create(RotateBy::create(0.5, gun->isFlippedX() ? 180 : -180));
     gunshadow->runAction(rotate); });
 
     //auto raise = RotateTo::create(0.1, -60);
@@ -74,10 +75,34 @@ void Gun_Glock::BulletChange()
     gun->runAction(seq_change);
 }
 
+MoveTo* Gun_Glock::RaiseHand(bool withgun)
+{
+    if (withgun)
+        return MoveTo::create(0, Vec2(70, 14));
+    else
+        return MoveTo::create(0, Vec2(15, -5));
+}
+
+Sequence* Gun_Glock::BulletChange(bool withgun)
+{
+    if (withgun) {
+        auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(120, 64)));
+        auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
+        auto moveup = EaseSineOut::create(MoveTo::create(0.3, Vec2(70, 14)));
+        return Sequence::create(throwaway, movedown, moveup, nullptr);
+    }
+    else {
+        auto throwaway = EaseSineOut::create(MoveTo::create(0.2, Vec2(15, -5)));
+        auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
+        auto moveup = EaseSineOut::create(MoveTo::create(0.6, Vec2(15, -5)));
+        return Sequence::create(throwaway, movedown, moveup, nullptr);
+    }
+}
+
 void Gun_Glock::SetBullet()
 {
     BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX);
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(50, 30),bulletSpeed,this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(50, 30),bulletSpeed,hitSpeed,this->_flippedX));
 }
 
 void Gun_Glock::update(float dt)
