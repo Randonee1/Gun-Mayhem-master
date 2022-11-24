@@ -1,6 +1,6 @@
 #include "MapSpace.h"
 
-MapBase* MapSpace::createGame()
+MapSpace* MapSpace::createGame()
 {
 	auto layer = new MapSpace();
 	if (layer && layer->init()) {

@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "AIBase.h"
 #include "Weapons/Gun/Gun_Glock.h"
+#include "Weapons/Gun/Gun_MG_P90.h"
 
 USING_NS_CC;
 

@@ -97,7 +97,7 @@ Sequence* Gun_Glock::BulletChange(bool withgun)
 
 void Gun_Glock::SetBullet()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX,400,800);
     map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(50, 30),bulletSpeed,hitSpeed,this->_flippedX));
 }
 

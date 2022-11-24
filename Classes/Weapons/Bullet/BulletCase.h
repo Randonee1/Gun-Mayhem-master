@@ -10,11 +10,11 @@ class BulletCase : public Sprite
 {
 public:
 
-	bool init(Node* back, Vec2 init,Vec2 offset,bool direction);
+	bool init(Node* back, Vec2 init,Vec2 offset,bool direction,int rand_x,int rand_y);
 
 	void update(float dt) override;
 
-	static BulletCase* create(Node* back, Vec2 init,Vec2 offset, bool direction);
+	static BulletCase* create(Node* back, Vec2 init,Vec2 offset, bool direction, int rand_x, int rand_y);
 
 	float x_speed;
 	float y_speed;

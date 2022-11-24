@@ -1,5 +1,5 @@
-#ifndef MAP_SUNSET_H
-#define MAP_SUNSET_H
+#ifndef MAP_SEELE_H
+#define MAP_SEELE_H
 
 #include "cocos2d.h"
 #include "MapBase.h"
@@ -9,11 +9,11 @@
 
 USING_NS_CC;
 
-class MapSunset : public MapBase
+class MapSeele : public MapBase
 {
 public:
 
-	static MapSunset* createGame();
+	static MapSeele* createGame();
 
 	bool init() override;
 
@@ -23,21 +23,18 @@ public:
 
 	void initPlayer();
 
+	void initEyes();
+
+	void EyeBlink();
+
 	void ShotEvent() override;
 
 private:
-	Vec2 initCity1Position;
-	Vec2 initCity2Position;
-	Vec2 initCity3Position;
-	Vec2 initMountain1Position;
-	Vec2 initMountain2Position;
 
-	Sprite* city1;
-	Sprite* city2;
-	Sprite* city3;
-	Sprite* mountain1;
-	Sprite* mountain2;
+	Sprite* seele;
+	Vec2 initSeelePosition;
 
+	std::vector<Sprite*> eyes;
 	std::vector<CharacterBase*> players;
 };
 

@@ -1,6 +1,6 @@
 #include "MapSunset.h"
 
-MapBase* MapSunset::createGame()
+MapSunset* MapSunset::createGame()
 {
 	auto layer = new MapSunset();
 	if (layer && layer->init()) {
@@ -134,23 +134,22 @@ void MapSunset::initBackground()
 	initPlatformPosition = Vec2(visibleSize.width / 2, visibleSize.height / 2);
 	platform->setPosition(initPlatformPosition);
 	this->addChild(platform, 6);
-
 	platformSize = platform->getContentSize();
 }
 
 void MapSunset::initPlayer()
 {
-	CharacterBase* player1 = Player1::createWithTag(1, this);
-	platform->addChild(player1, 1);
+	/*CharacterBase* player1 = Player1::createWithTag(1, this);
+	platform->addChild(player1, 1);*/
 
-	/*CharacterBase* player1 = AI1::create(this);
+	CharacterBase* player1 = AI1::create(this);
 	platform->addChild(player1, 1);
 
 	CharacterBase* player2 = AI1::create(this);
-	platform->addChild(player2, 2);*/
-
-	CharacterBase* player2 = Player1::createWithTag(2, this);
 	platform->addChild(player2, 2);
+
+	/*CharacterBase* player2 = Player1::createWithTag(2, this);
+	platform->addChild(player2, 2);*/
 
 	player1->GetOpponent(player2);
 	player2->GetOpponent(player1);

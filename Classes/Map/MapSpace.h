@@ -12,7 +12,7 @@ class MapSpace : public MapBase
 {
 public:
 
-	static MapBase* createGame();
+	static MapSpace* createGame();
 
 	bool init() override;
 

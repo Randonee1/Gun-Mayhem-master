@@ -4,6 +4,7 @@
 #include "Map/MapTest.h"
 #include "Map/MapSpace.h"
 #include "Map/MapSunset.h"
+#include "Map/MapSeele.h"
 
 Scene* GameScene::CreateGame(int Level)
 {
@@ -32,6 +33,9 @@ bool GameScene::initGame(int Level)
         break;
     case(2):
         game = MapSunset::createGame();
+        break;
+    case(3):
+        game = MapSeele::createGame();
         break;
     }
 

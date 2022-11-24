@@ -31,10 +31,11 @@ void Gun_MG_P90::Shot(MapBase* map)
     CallFunc* shot = CallFunc::create(CC_CALLBACK_0(GunBase::SetBullet, this));
     CallFunc* onfire = CallFunc::create([&]() {fire = !fire; });
     auto aim = RotateTo::create(0, 0);
-    auto delay1 = RotateTo::create(shotInterval, 0);
-    auto delay2 = RotateTo::create(2, 0);
+    auto delay1 = RotateTo::create(shotInterval / 2, 0);
+    auto delay2 = RotateTo::create(shotInterval / 2, 0);
+    auto delay3 = RotateTo::create(2, 0);
     auto back = RotateTo::create(0.3, initRotation);
-    auto seq_shot = Sequence::create(onshot, onfire, aim,shot,delay1, onfire, delay2, back, onshot, nullptr);
+    auto seq_shot = Sequence::create(onshot, onfire, aim,shot,delay1, onfire,delay2, delay3, back, onshot, nullptr);
     gun->runAction(seq_shot);
 }
 
@@ -66,7 +67,7 @@ Sequence* Gun_MG_P90::BulletChange(bool withgun)
 
 void Gun_MG_P90::SetBullet()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 20), this->_flippedX,300,1);
     unsigned seed = time(0);
     float y = rand() % 16 + 10;
     map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
