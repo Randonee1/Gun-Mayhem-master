@@ -55,7 +55,8 @@ void Player1::initBody()
     organs.push_back(feet1);
     feet2 = Foot::CreateWithName("Player1_foot.png");
     organs.push_back(feet2);
-    gun = Gun_Glock::CreateWithName("gun_test.png");
+
+    gun = Gun_MG_P90::create();
 
     head->setPosition(Vec2(65/2.2-8, 130/2.2-2));
     this->addChild(head, 1);

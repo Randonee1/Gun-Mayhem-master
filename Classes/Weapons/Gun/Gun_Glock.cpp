@@ -1,23 +1,17 @@
 #include "Gun_Glock.h"
 
-Gun_Glock* Gun_Glock::CreateWithName(const char* name)
+bool Gun_Glock::init()
 {
-    auto gun = new Gun_Glock();
-    if (gun && gun->initWithName(name)) {
-        gun->autorelease();
-        return gun;
-    }
-    CC_SAFE_DELETE(gun);
-    return NULL;
-}
-
-bool Gun_Glock::initWithName(const char* name)
-{
-    if (!GunBase::initWithName(name))
+    if (!GunBase::init())
         return false;
+
+    gun = Sprite::create("gun_test.png");
+    this->addChild(gun, 0);
+
     anchor = Vec2(0.2, 0.25);
     initRotation = 30.0f;
     shotInterval = 0.15;
+    recoilSpeed = 100;
     bulletSpeed = 2000;
     hitSpeed = 1000;
     bulletClip = 10;
@@ -75,12 +69,14 @@ void Gun_Glock::BulletChange()
     gun->runAction(seq_change);
 }
 
-MoveTo* Gun_Glock::RaiseHand(bool withgun)
+Sequence* Gun_Glock::RaiseHand(bool withgun)
 {
-    if (withgun)
-        return MoveTo::create(0, Vec2(70, 14));
-    else
-        return MoveTo::create(0, Vec2(15, -5));
+    if (withgun) {
+        return Sequence::create(MoveTo::create(0, Vec2(70, 14)),nullptr);
+    }
+    else {
+        return Sequence::create(MoveTo::create(0, Vec2(15, -5)),nullptr);
+    }
 }
 
 Sequence* Gun_Glock::BulletChange(bool withgun)

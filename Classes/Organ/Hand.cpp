@@ -74,7 +74,7 @@ void Hand::RaiseHandToShoot(MapBase* map,GunBase* gun,bool withgun)
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
     auto raise = gun->RaiseHand(withgun);
     auto delay = MoveBy::create(2, Vec2(0, 0));
-    auto down = MoveTo::create(0.3, Vec2(0, 0));
+    auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
     auto seq_shot = Sequence::create(onshot, raise,delay, down, onshot, nullptr);
     organ->runAction(seq_shot);
     if(withgun)

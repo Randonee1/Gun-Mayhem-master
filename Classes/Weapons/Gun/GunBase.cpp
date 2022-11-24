@@ -1,15 +1,15 @@
 #include "GunBase.h"
 
-bool GunBase::initWithName(const char* name)
+bool GunBase::init()
 {
     if (!Sprite::init()) {
         return false;
     }
-    gun = Sprite::create(name);
     /*gun->setAnchorPoint(Vec2(0.2, 0.25));
     gun->setRotation(30.0f);*/
     this->scheduleUpdate();
-    this->addChild(gun, 0);
+
+    return true;
 }
 
 //GunBase* GunBase::CreateWithName(const char* name)
@@ -60,7 +60,7 @@ void GunBase::BulletChange()
 
 }
 
-MoveTo* GunBase::RaiseHand(bool withgun)
+Sequence* GunBase::RaiseHand(bool withgun)
 {
     return nullptr;
 }

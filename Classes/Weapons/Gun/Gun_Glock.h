@@ -9,15 +9,15 @@ class Gun_Glock : public GunBase
 {
 public:
 
-	static Gun_Glock* CreateWithName(const char* name);
+	CREATE_FUNC(Gun_Glock);
 
-	bool initWithName(const char* name);
+	bool init()override;
 
 	void Shot(MapBase* map);
 
 	void BulletChange();
 
-	MoveTo* RaiseHand(bool withgun);
+	Sequence* RaiseHand(bool withgun);
 
 	Sequence* BulletChange(bool withgun);
 

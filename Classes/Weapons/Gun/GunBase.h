@@ -13,7 +13,7 @@ class GunBase : public Sprite
 {
 public:
 
-	virtual bool initWithName(const char* name);
+	virtual bool init();
 
 	//static GunBase* CreateWithName(const char* name);
 
@@ -23,7 +23,7 @@ public:
 
 	virtual void BulletChange();
 
-	virtual MoveTo* RaiseHand(bool withgun);
+	virtual Sequence* RaiseHand(bool withgun);
 	virtual Sequence* BulletChange(bool withgun);
 
 	virtual void SetBullet();
@@ -39,6 +39,7 @@ public:
 
 	float deltatime = 0;
 	float shotInterval;
+	float recoilSpeed;
 	float initRotation;
 	float bulletSpeed;
 	float hitSpeed;

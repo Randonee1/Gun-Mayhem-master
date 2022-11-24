@@ -161,7 +161,7 @@ void CharacterBase::update(float dt)
                 if(!gun->change){
                     hand1->RaiseHandToShoot(map,gun,true);
                     hand2->RaiseHandToShoot(map,gun,false);
-                    this->_flippedX ? x_speed += status->recoil_speed : x_speed -= status->recoil_speed;
+                    this->_flippedX ? x_speed += gun->recoilSpeed : x_speed -= gun->recoilSpeed;
                     /*if (std::abs(x_speed) > status->x_maxSpeed)
                         this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;*/
                 }
