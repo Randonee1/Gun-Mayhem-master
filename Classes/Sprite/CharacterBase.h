@@ -41,7 +41,7 @@ public:
 
     void DrawHalo();
 
-    void GunChange();
+    void GunChange(GunBase* change);
 
     void GetOpponent(CharacterBase* opponent);
 
@@ -61,6 +61,7 @@ public:
     Hand* hand2;
     GunBase* gun;
     GunBase* initGun;
+    GunBase* throwGun;
     MapBase* map;
 
     Status* status = new Status();

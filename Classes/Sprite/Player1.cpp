@@ -58,11 +58,11 @@ void Player1::initBody()
 
     //initGun = Gun_MG_P90::create();
     initGun = Gun_Glock::create();
-    this->addChild(initGun, -1);
-    initGun->setVisible(false);
+    /*this->addChild(initGun, -1);
+    initGun->setVisible(false);*/
 
-    gun = Gun_MG_P90::create();
-    //gun = Gun_Glock::create();
+    //gun = Gun_MG_P90::create();
+    gun = Gun_Glock::create();
 
     head->setPosition(Vec2(65/2.2-8, 130/2.2-2));
     this->addChild(head, 1);

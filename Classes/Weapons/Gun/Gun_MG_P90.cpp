@@ -1,6 +1,16 @@
 #include "Gun_MG_P90.h"
 
 
+Gun_MG_P90* Gun_MG_P90::create()
+{
+    auto gun = new Gun_MG_P90();
+    if (gun && gun->init()) {
+        return gun;
+    }
+    CC_SAFE_DELETE(gun);
+    return NULL;
+}
+
 Gun_MG_P90* Gun_MG_P90::clone()
 {
     return Gun_MG_P90::create();

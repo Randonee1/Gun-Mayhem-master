@@ -12,3 +12,8 @@ void MapBase::ShotEvent()
 {
 	return;
 }
+
+void MapBase::PackageEvent()
+{
+	return;
+}

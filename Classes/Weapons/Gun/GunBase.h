@@ -17,7 +17,6 @@ public:
 
 	virtual GunBase* clone();
 	virtual Sprite* ThrowGun();
-	//static GunBase* CreateWithName(const char* name);
 
 	void setFlippedX(bool flippedX, float offset);
 

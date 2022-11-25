@@ -1,18 +1,27 @@
-#ifndef
-#define
+#ifndef GUN_PACKAGE_H
+#define GUN_PACKAGE_H
 
 #include "cocos2d.h"
+#include "PackageBase.h"
+#include "Weapons/Gun/GunBase.h"
+#include "Weapons/Gun/Gun_MG_P90.h"
+
 USING_NS_CC;
 
-class 
+class GunPackage : public PackageBase
 {
 public:
 
-	static Scene* createScene();
+	static GunPackage* createWithGun(MapBase* map);
 
-	bool init() override;
+	bool initWithGun(MapBase* map);
 
-	CREATE_FUNC();
+	void GetPackage(CharacterBase* player) override;
+
+	void update(float dt) override;
+
+	GunBase* gun;
+
 };
 
 #endif

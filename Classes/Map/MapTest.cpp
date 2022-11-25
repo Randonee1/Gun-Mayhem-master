@@ -27,6 +27,8 @@ bool MapTest::init()
 
 	initPlayer();
 
+	initPackage();
+
 	this->scheduleUpdate();
 
 	return true;
@@ -36,7 +38,9 @@ void MapTest::update(float dt)
 {
 	
 	Vec2 initPlatform = Vec2(platformSize.width / 2, (floor_base + floor_base + floor_height * (Floor.size() - 1)) / 2);
-	Vec2 delta = (player1->getPosition() + player2->getPosition())/2 - initPlatform;
+	Vec2 delta = Vec2(0, 0);
+	for (auto& player : players) { delta += player->getPosition(); }
+	delta = delta / players.size() - initPlatform;
 
 	float a = std::pow(delta.x, 2) + std::pow(delta.y, 2);
 	float b = std::pow(visibleSize.height/1.2 , 2) + std::pow(visibleSize.width/1.2 , 2);
@@ -50,6 +54,8 @@ void MapTest::update(float dt)
 	
 
 	ShotEvent();
+
+	PackageEvent();
 }
 
 void MapTest::initBackground()
@@ -71,10 +77,10 @@ void MapTest::initBackground()
 void MapTest::initPlayer()
 {
 	
-	player1 = Player1::createWithTag(1,this);
+	auto player1 = Player1::createWithTag(1,this);
 	platform->addChild(player1, 1);
 
-	player2 = Player1::createWithTag(2, this);
+	auto player2 = Player1::createWithTag(2, this);
 	platform->addChild(player2, 2);
 
 	//test
@@ -91,52 +97,89 @@ void MapTest::initPlayer()
 
 	player1->GetOpponent(player2);
 	player2->GetOpponent(player1);*/
+
+	players.push_back(player1);
+	players.push_back(player2);
+
+}
+
+void MapTest::initPackage()
+{
+	auto package_gun_1 = GunPackage::createWithGun(this);
+	packages.push_back(package_gun_1);
 }
 
 void MapTest::ShotEvent()
 {
-	auto rect1 = player1->body->organ->getBoundingBox();
-	Vec2 offset1 = player1->getPosition() + player1->body->getPosition();
-	rect1.origin += offset1;
-
-	auto rect2 = player2->body->organ->getBoundingBox();
-	Vec2 offset2 = player2->getPosition() + player2->body->getPosition();
-	rect2.origin += offset2;
-
 	std::vector<Bullet*> temp;
 	for (auto bullet : bullets) {
 		if (bullet)
 			temp.push_back(bullet);
 	}
 	bullets = temp;
-	
-	for (auto &bullet : bullets) {
-		if (rect1.containsPoint(bullet->getPosition())) {
-			player1->x_speed += bullet->hitSpeed;
-			player1->hit = true;
-			auto blood = Blood::create();
-			blood->setPosition(bullet->getPosition());
-			platform->addChild(blood, 4);
 
+	for (auto& bullet : bullets) {
+
+		if (bullet->getPositionX() > 12000 || bullet->getPositionX() < -6000) {
 			bullet->removeFromParent();
 			bullet = nullptr;
 			continue;
 		}
-		else if (rect2.containsPoint(bullet->getPosition())) {
-			player2->x_speed += bullet->hitSpeed;
-			player2->hit = true;
-			auto blood = Blood::create();
-			blood->setPosition(bullet->getPosition());
-			platform->addChild(blood, 4);
+		for (auto& player : players) {
 
-			bullet->removeFromParent();
-			bullet = nullptr;
-			continue;
-		}
-		else if (bullet->getPositionX() > 12000 || bullet->getPositionX() < -6000) {
-			bullet->removeFromParent();
-			bullet = nullptr;
-			continue;
+			auto rect = player->body->organ->getBoundingBox();
+			Vec2 offset = player->getPosition() + player->body->getPosition();
+			rect.origin += offset;
+
+			if (rect.containsPoint(bullet->getPosition())) {
+				player->x_speed += bullet->hitSpeed;
+				player->hit = true;
+				auto blood = Blood::create();
+				blood->setPosition(bullet->getPosition());
+				platform->addChild(blood, 4);
+
+				bullet->removeFromParent();
+				bullet = nullptr;
+				break;
+			}
 		}
 	}
+}
+
+void MapTest::PackageEvent()
+{
+	std::vector<PackageBase* > temp;
+	for (auto package : packages) {
+		if (package)
+			temp.push_back(package);
+	}
+	packages = temp;
+	
+	for (auto& package : packages) {
+
+		if (package->getPositionY() < death_line) {
+			package->removeFromParent();
+			package = nullptr;
+			continue;
+		}
+		for (auto& player : players) {
+			auto rect = player->body->organ->getBoundingBox();
+			Vec2 offset = player->getPosition() + player->body->getPosition();
+			rect.origin += offset;
+
+			if (rect.containsPoint(package->getPosition())) {
+
+				package->GetPackage(player);
+
+				package->removeFromParent();
+				package = nullptr;
+
+				//添加一个消失动画
+
+				break;
+			}
+		}
+
+	}
+
 }

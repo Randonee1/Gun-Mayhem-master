@@ -1,5 +1,15 @@
 #include "Gun_Glock.h"
 
+Gun_Glock* Gun_Glock::create()
+{
+    auto gun = new Gun_Glock();
+    if (gun && gun->init()) {
+        return gun;
+    }
+    CC_SAFE_DELETE(gun);
+    return NULL;
+}
+
 Gun_Glock* Gun_Glock::clone()
 {
     return Gun_Glock::create();

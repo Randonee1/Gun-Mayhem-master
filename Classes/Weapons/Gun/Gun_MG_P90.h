@@ -9,7 +9,9 @@ class Gun_MG_P90 : public GunBase
 {
 public:
 
-	CREATE_FUNC(Gun_MG_P90);
+	//CREATE_FUNC(Gun_MG_P90);
+
+	static Gun_MG_P90* create();
 
 	Gun_MG_P90* clone() override;
 	Sprite* ThrowGun() override;
