@@ -17,6 +17,7 @@ public:
 	bool initWithTag(int name, MapBase* map);
 
 	void initBody();
+	
 };
 
 #endif

@@ -167,8 +167,12 @@ void CharacterBase::update(float dt)
                 }
             }
             else if (gun->deltatime > gun->shotInterval) {
-                hand1->BulletChangeWithHand(gun,true);
-                hand2->BulletChangeWithHand(gun,false);
+                GunBase* throwgun = gun->clone();
+                this->addChild(throwgun, 0);
+                throwgun->setVisible(false);
+                GunChange();
+                hand1->BulletChangeWithHand(gun, throwgun,true);
+                hand2->BulletChangeWithHand(gun, throwgun,false);
             }
         }
         
@@ -209,6 +213,16 @@ void CharacterBase::DrawHalo()
     auto fadeout = FadeOut::create(0.5);
     auto spa = Spawn::create(scale, fadeout, nullptr);
     hole->runAction(spa);
+}
+
+void CharacterBase::GunChange()
+{
+    bool flip = gun->isFlippedX();
+    gun->removeFromParent();
+    gun = initGun->clone();
+    gun->setFlippedX(flip, hand1->organ->getContentSize().width);
+    gun->map = this->map;
+    hand1->GetGun(gun);
 }
 
 void CharacterBase::GetOpponent(CharacterBase* opponent)

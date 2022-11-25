@@ -11,11 +11,14 @@ public:
 
 	CREATE_FUNC(Gun_MG_P90);
 
+	Gun_MG_P90* clone() override;
+	Sprite* ThrowGun() override;
+
 	bool init() override;
 
 	void Shot(MapBase* map);
 
-	void BulletChange();
+	void Change(GunBase* throwgun);
 
 	Sequence* RaiseHand(bool withgun);
 
@@ -26,8 +29,8 @@ public:
 	void update(float dt) override;
 
 	//Sprite* gunshadow = nullptr;
-	float gunshadow_vx;
-	float gunshadow_vy;
+	/*float gunshadow_vx;
+	float gunshadow_vy;*/
 };
 
 #endif

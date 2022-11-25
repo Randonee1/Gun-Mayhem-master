@@ -12,6 +12,17 @@ bool GunBase::init()
     return true;
 }
 
+GunBase* GunBase::clone()
+{
+    CCLOG("gunbase");
+    return nullptr;
+}
+
+Sprite* GunBase::ThrowGun()
+{
+    return nullptr;
+}
+
 //GunBase* GunBase::CreateWithName(const char* name)
 //{
 //    auto gun = new GunBase();
@@ -50,7 +61,7 @@ void GunBase::Shot(MapBase* map)
     deltatime = 0;
 }
 
-void GunBase::BulletChange()
+void GunBase::Change(GunBase* throwgun)
 {
     onShot = false;
     gun->stopAllActions();

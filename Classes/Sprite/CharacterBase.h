@@ -41,6 +41,8 @@ public:
 
     void DrawHalo();
 
+    void GunChange();
+
     void GetOpponent(CharacterBase* opponent);
 
     std::vector<OrganBase*> organs;
@@ -58,6 +60,7 @@ public:
     Hand* hand1;
     Hand* hand2;
     GunBase* gun;
+    GunBase* initGun;
     MapBase* map;
 
     Status* status = new Status();

@@ -5,7 +5,8 @@ bool Face::initWithName(const char* name)
     if (!OrganBase::initWithName(name)) {
         return false;
     }
-    auto seq = Sequence::create(MoveBy::create(0.7, Vec2(0, -10)), MoveBy::create(0.7, Vec2(0, 10)), nullptr);
+    auto seq = Sequence::create(EaseSineOut::create(MoveBy::create(0.7, Vec2(0, -10))),
+        EaseSineOut::create(MoveBy::create(0.7, Vec2(0, 10))), nullptr);
     auto rep = RepeatForever::create(seq);
     organ->runAction(rep);
     return true;

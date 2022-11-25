@@ -15,13 +15,15 @@ public:
 
 	virtual bool init();
 
+	virtual GunBase* clone();
+	virtual Sprite* ThrowGun();
 	//static GunBase* CreateWithName(const char* name);
 
 	void setFlippedX(bool flippedX, float offset);
 
 	virtual void Shot(MapBase* map);
 
-	virtual void BulletChange();
+	virtual void Change(GunBase* throwgun);
 
 	virtual Sequence* RaiseHand(bool withgun);
 	virtual Sequence* BulletChange(bool withgun);
@@ -52,6 +54,10 @@ public:
 
 	Sprite* gun;
 	MapBase* map;
+
+	Sprite* gunshadow = nullptr;
+	float gunshadow_vx;
+	float gunshadow_vy;
 };
 
 #endif

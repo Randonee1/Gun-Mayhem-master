@@ -167,7 +167,7 @@ void MapSeele::EyeBlink()
 		eyes[0]->runAction(Sequence::create(fadeout, fade,nullptr));
 	}
 
-	bool land1 = false;
+	/*bool land1 = false;
 	for (auto player : players) {
 		if (!player->inTheAir && player->floor == 1 &&
 			Floor[1][0] < player->getPositionX() &&
@@ -296,6 +296,30 @@ void MapSeele::EyeBlink()
 			});
 		auto fadeout = FadeOut::create(0.3);
 		eyes[6]->runAction(Sequence::create(fadeout, fade, nullptr));
+	}*/
+
+	for (int i = 1; i < eyes.size(); i++) {
+		bool land = false;
+		for (auto player : players) {
+			if (!player->inTheAir && player->floor == (i + 1)/2 &&
+				Floor[(i + 1) / 2][((i + 1) % 2) * 2] < player->getPositionX() &&
+				player->getPositionX() < Floor[(i + 1) / 2][((i + 1) % 2) * 2 + 1]) {
+				if (!eyes[i]->isVisible()) {
+					eyes[i]->setVisible(true);
+					auto fadein = FadeIn::create(0.3);
+					eyes[i]->runAction(fadein);
+				}
+				land = true;
+				break;
+			}
+		}
+		if (!land && eyes[i]->isVisible() && eyes[i]->getOpacity() == 255) {
+			CallFunc* fade = CallFunc::create([&,i]() {
+				eyes[i]->setVisible(false);
+				});
+			auto fadeout = FadeOut::create(0.3);
+			eyes[i]->runAction(Sequence::create(fadeout, fade, nullptr));
+		}
 	}
 
 }

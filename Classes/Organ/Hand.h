@@ -22,7 +22,7 @@ public:
 	void MoveDelay(bool up, bool floor) override;
 
 	void RaiseHandToShoot(MapBase* map,GunBase* gun,bool withgun);
-	void BulletChangeWithHand(GunBase* gun, bool withgun);
+	void BulletChangeWithHand(GunBase* gun,GunBase* throwgun, bool withgun);
 
 	bool actionState = false;
 	bool onShot = false;

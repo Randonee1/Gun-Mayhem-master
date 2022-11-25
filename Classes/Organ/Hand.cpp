@@ -73,15 +73,13 @@ void Hand::RaiseHandToShoot(MapBase* map,GunBase* gun,bool withgun)
     organ->stopAllActions();
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
     auto raise = gun->RaiseHand(withgun);
-    auto delay = MoveBy::create(2, Vec2(0, 0));
-    auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
-    auto seq_shot = Sequence::create(onshot, raise,delay, down, onshot, nullptr);
+    auto seq_shot = Sequence::create(onshot, raise, onshot, nullptr);
     organ->runAction(seq_shot);
     if(withgun)
         gun->Shot(map);
 }
 
-void Hand::BulletChangeWithHand(GunBase* gun, bool withgun)
+void Hand::BulletChangeWithHand(GunBase* gun, GunBase* throwgun,bool withgun)
 {
     onShot = false;
     organ->stopAllActions();
@@ -91,13 +89,11 @@ void Hand::BulletChangeWithHand(GunBase* gun, bool withgun)
     auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
     auto moveup = withgun ? EaseSineOut::create(MoveTo::create(0.3, Vec2(70, 14))) : EaseSineOut::create(MoveTo::create(0.6, Vec2(15, -5)));*/
     auto bulletchange = gun->BulletChange(withgun);
-
-    auto delay = MoveBy::create(2, Vec2(0, 0));
-    auto down = MoveTo::create(0.3, Vec2(0, 0));
-    auto seq_change = Sequence::create(onchange,bulletchange,delay,down, onchange, nullptr);
+    auto seq_change = Sequence::create(onchange,bulletchange,onchange, nullptr);
     organ->runAction(seq_change);
+
     if (withgun)
-        gun->BulletChange();
+        gun->Change(throwgun);
 }
 
 void Hand::SetActionState()
