@@ -1,18 +1,30 @@
-#ifndef
-#define
+#ifndef PACKAGE_EVENT_H
+#define PACKAGE_EVENT_H
 
 #include "cocos2d.h"
+#include "GunPackage.h"
+
 USING_NS_CC;
 
-class 
+class PackageEvent
 {
 public:
+	
+	static PackageEvent* create(MapBase* map);
 
-	static Scene* createScene();
+	bool init(MapBase* map);
 
-	bool init() override;
+	void PackageUpdate(std::vector<CharacterBase*>&players);
 
-	CREATE_FUNC();
+	void update(float dt);
+
+private:
+
+	float gunUpdateTime;
+
+	MapBase* map;
+
+	std::vector<PackageBase*> packages;
 };
 
 #endif

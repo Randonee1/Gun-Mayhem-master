@@ -23,6 +23,7 @@ public:
 
 	void RaiseHandToShoot(MapBase* map,GunBase* gun,bool withgun);
 	void BulletChangeWithHand(GunBase* gun,GunBase* throwgun, bool withgun);
+	void DelayWithHand(GunBase* gun,bool withgun);
 
 	bool actionState = false;
 	bool onShot = false;

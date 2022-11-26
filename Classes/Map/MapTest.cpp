@@ -27,7 +27,7 @@ bool MapTest::init()
 
 	initPlayer();
 
-	initPackage();
+	packageEvent = PackageEvent::create(this);
 
 	this->scheduleUpdate();
 
@@ -55,7 +55,8 @@ void MapTest::update(float dt)
 
 	ShotEvent();
 
-	PackageEvent();
+	packageEvent->update(dt);
+	packageEvent->PackageUpdate(players);
 }
 
 void MapTest::initBackground()
@@ -103,11 +104,6 @@ void MapTest::initPlayer()
 
 }
 
-void MapTest::initPackage()
-{
-	auto package_gun_1 = GunPackage::createWithGun(this);
-	packages.push_back(package_gun_1);
-}
 
 void MapTest::ShotEvent()
 {
@@ -144,42 +140,4 @@ void MapTest::ShotEvent()
 			}
 		}
 	}
-}
-
-void MapTest::PackageEvent()
-{
-	std::vector<PackageBase* > temp;
-	for (auto package : packages) {
-		if (package)
-			temp.push_back(package);
-	}
-	packages = temp;
-	
-	for (auto& package : packages) {
-
-		if (package->getPositionY() < death_line) {
-			package->removeFromParent();
-			package = nullptr;
-			continue;
-		}
-		for (auto& player : players) {
-			auto rect = player->body->organ->getBoundingBox();
-			Vec2 offset = player->getPosition() + player->body->getPosition();
-			rect.origin += offset;
-
-			if (rect.containsPoint(package->getPosition())) {
-
-				package->GetPackage(player);
-
-				package->removeFromParent();
-				package = nullptr;
-
-				//添加一个消失动画
-
-				break;
-			}
-		}
-
-	}
-
 }

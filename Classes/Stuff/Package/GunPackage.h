@@ -3,14 +3,17 @@
 
 #include "cocos2d.h"
 #include "PackageBase.h"
-#include "Weapons/Gun/GunBase.h"
 #include "Weapons/Gun/Gun_MG_P90.h"
+#include "Weapons/Gun/Gun_Gatling.h"
+#include "Weapons/Gun/Gun_MG_MP5.h"
 
 USING_NS_CC;
 
 class GunPackage : public PackageBase
 {
 public:
+
+	static float updatetime;
 
 	static GunPackage* createWithGun(MapBase* map);
 
@@ -21,7 +24,7 @@ public:
 	void update(float dt) override;
 
 	GunBase* gun;
-
+private:
 };
 
 #endif

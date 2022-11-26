@@ -1,18 +1,33 @@
-#ifndef
-#define
+#ifndef GUN_MG_MP5_H
+#define GUN_MG_MP5_H
 
 #include "cocos2d.h"
+#include "GunBase.h"
 USING_NS_CC;
 
-class 
+class Gun_MG_MP5 : public GunBase
 {
 public:
 
-	static Scene* createScene();
+	static Gun_MG_MP5* create();
+
+	Gun_MG_MP5* clone() override;
+	Sprite* ThrowGun() override;
 
 	bool init() override;
 
-	CREATE_FUNC();
+	void Shot(MapBase* map);
+
+	Sequence* RaiseHand(bool withgun);
+
+	void Delay();
+
+	Sequence* HoldingOn(bool withgun);
+
+	void SetBullet() override;
+
+	
+
 };
 
 #endif

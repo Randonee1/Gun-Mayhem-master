@@ -111,6 +111,7 @@ void CharacterBase::update(float dt)
             CallFunc* func1 = CallFunc::create([&]() {
                 this->setVisible(false); this->Flip(false);
                 y_speed = 0; x_speed = 0; valid = false; floor = map->Floor.size() - 1;
+                GunChange(initGun->clone());
                 });
             CallFunc* func2 = CallFunc::create([&]() {
                 this->setVisible(true); valid = true;
@@ -154,6 +155,15 @@ void CharacterBase::update(float dt)
                 x_speed += accelerate * dt;
         }
         this->setPositionX(getPositionX() + x_speed * dt);
+  
+        if (gun->isGatling) {
+            Vec2 left = hand1->isFlippedX() ? Vec2(29, 0) : Vec2(-29, 0);
+            Vec2 right = hand2->isFlippedX() ? Vec2(-75, 5) : Vec2(75, 5);
+            hand1->organ->stopActionByTag(10);
+            hand2->organ->stopActionByTag(10);
+            hand1->setPosition(left);
+            hand2->setPosition(right);
+        }
 
         if (keyMap["shot"]) {
             
@@ -166,7 +176,7 @@ void CharacterBase::update(float dt)
                         this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;*/
                 }
             }
-            else if (gun->deltatime > gun->shotInterval) {
+            if (gun->bulletCount > gun->bulletClip) {
                 throwGun = gun->clone();
                 GunChange(initGun);
                 hand1->BulletChangeWithHand(gun, throwGun,true);
@@ -216,11 +226,27 @@ void CharacterBase::DrawHalo()
 void CharacterBase::GunChange(GunBase* change)
 {
     bool flip = gun->isFlippedX();
+    bool onaction = gun->onShot;
+    float angle = gun->gun->getRotation();
+    if(gun->gunshadow)
+        gun->gunshadow->removeFromParent();
     gun->removeFromParent();
     gun = change->clone();
+
+    Vec2 left = hand1->initPosition;
+    Vec2 right = hand2->initPosition;
+    if (flip) { left.x = -left.x; right.x = -right.x; }
+    hand1->setPosition(left);
+    hand2->setPosition(right);
+
     gun->setFlippedX(flip, hand1->organ->getContentSize().width);
     gun->map = this->map;
     hand1->GetGun(gun);
+    if(onaction){
+        gun->gun->setRotation(angle);
+        hand1->DelayWithHand(gun,true);
+        hand2->DelayWithHand(gun, false);
+    }
 }
 
 void CharacterBase::GetOpponent(CharacterBase* opponent)

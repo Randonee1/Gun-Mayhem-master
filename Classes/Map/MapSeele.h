@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "MapBase.h"
+#include "Stuff/Package/PackageEvent.h"
 #include "Sprite/AI1.h"
 #include "Sprite/Player1.h"
 #include "Sprite/CharacterBase.h"
@@ -36,6 +37,7 @@ private:
 
 	std::vector<Sprite*> eyes;
 	std::vector<CharacterBase*> players;
+	PackageEvent* packageEvent;
 };
 
 #endif

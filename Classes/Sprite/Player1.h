@@ -5,6 +5,8 @@
 #include "PlayerBase.h"
 #include "Weapons/Gun/Gun_Glock.h"
 #include "Weapons/Gun/Gun_MG_P90.h"
+#include "Weapons/Gun/Gun_Gatling.h"
+#include "Weapons/Gun/Gun_MG_MP5.h"
 
 USING_NS_CC;
 

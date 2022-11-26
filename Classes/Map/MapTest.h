@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "Map/MapBase.h"
-#include "Stuff/Package/GunPackage.h"
+#include "Stuff/Package/PackageEvent.h"
 #include "Sprite/PlayerBase.h"
 #include "Sprite/Player_test.h"
 #include "Sprite/Player1.h"
@@ -25,19 +25,14 @@ public:
 
 	void initPlayer();
 
-	void initPackage();
-
 	void ShotEvent() override;
-
-	void PackageEvent() override;
 
 private:
 
 	/*CharacterBase* player1;
 	CharacterBase* player2;*/
 	std::vector<CharacterBase*> players;
-	std::vector<PackageBase*> packages;
-	
+	PackageEvent* packageEvent;
 };
 
 #endif

@@ -17,8 +17,6 @@ public:
 
 	virtual void ShotEvent();
 
-	virtual void PackageEvent();
-
 	//void bindPlayerStateMenu(PlayerStateMenu* playerState);
 	Sprite* platform;
 	Sprite* backLayer;

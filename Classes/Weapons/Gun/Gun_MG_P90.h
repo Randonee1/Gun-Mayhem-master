@@ -20,11 +20,11 @@ public:
 
 	void Shot(MapBase* map);
 
-	void Change(GunBase* throwgun);
-
 	Sequence* RaiseHand(bool withgun);
+	
+	void Delay();
 
-	Sequence* BulletChange(bool withgun);
+	Sequence* HoldingOn(bool withgun);
 
 	void SetBullet() override;
 

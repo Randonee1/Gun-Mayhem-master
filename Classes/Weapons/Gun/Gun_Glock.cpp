@@ -52,7 +52,7 @@ void Gun_Glock::Shot( MapBase* map)
     auto aim = RotateTo::create(0, 0);
     auto up = RotateTo::create(0.05, -30);
     auto down = RotateTo::create(0.05, 0);
-    auto delay = RotateTo::create(1.9, 0);
+    auto delay = RotateTo::create(0.9, 0);
     auto back = RotateTo::create(0.3, 30);
     auto seq_shot = Sequence::create(onshot,onfire, aim, shot, up, down,onfire, delay, back, onshot, nullptr);
     gun->runAction(seq_shot);
@@ -84,7 +84,7 @@ void Gun_Glock::Change(GunBase* throwgun)
     auto moveup1 = RotateTo::create(0.1, -100);
     auto moveup2 = RotateTo::create(0.1, 130);
     auto moveup3 = RotateTo::create(0.1, 0);
-    auto delay = RotateTo::create(2, 0);
+    auto delay = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, 30);
     auto seq_change = Sequence::create(onchange,Change, gunthrow, disappear,moveback,throwaway,movedown,appear, moveup1,moveup2,moveup3,Change,delay,back,onchange, nullptr);
     gun->runAction(seq_change);
@@ -92,7 +92,7 @@ void Gun_Glock::Change(GunBase* throwgun)
 
 Sequence* Gun_Glock::RaiseHand(bool withgun)
 {
-    auto delay = MoveBy::create(2, Vec2(0, 0));
+    auto delay = MoveBy::create(1, Vec2(0, 0));
     auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
     if (withgun) {
         return Sequence::create(MoveTo::create(0, Vec2(70, 14)),delay,down,nullptr);
@@ -104,7 +104,7 @@ Sequence* Gun_Glock::RaiseHand(bool withgun)
 
 Sequence* Gun_Glock::BulletChange(bool withgun)
 {
-    auto delay = MoveBy::create(2, Vec2(0, 0));
+    auto delay = MoveBy::create(1, Vec2(0, 0));
     auto down = MoveTo::create(0.3, Vec2(0, 0));
     if (withgun) {
         auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(120, 64)));
@@ -113,9 +113,9 @@ Sequence* Gun_Glock::BulletChange(bool withgun)
         return Sequence::create(throwaway, movedown, moveup,delay,down, nullptr);
     }
     else {
-        auto throwaway = EaseSineOut::create(MoveTo::create(0.2, Vec2(15, -5)));
+        auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(15, -5)));
         auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
-        auto moveup = EaseSineOut::create(MoveTo::create(0.6, Vec2(15, -5)));
+        auto moveup = EaseSineOut::create(MoveTo::create(0.3, Vec2(15, -5)));
         return Sequence::create(throwaway, movedown, moveup,delay,down, nullptr);
     }
 }
@@ -137,7 +137,7 @@ void Gun_Glock::update(float dt)
         point.y += gunshadow_vy * dt;
         gunshadow->setPosition(point);
         
-        if (point.y < 0) {
+        if (point.y < map->death_line) {
             gunshadow->removeFromParent();
             gunshadow = nullptr;
         }

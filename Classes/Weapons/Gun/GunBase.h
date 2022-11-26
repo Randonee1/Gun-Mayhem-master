@@ -24,8 +24,11 @@ public:
 
 	virtual void Change(GunBase* throwgun);
 
+	virtual void Delay();
+
 	virtual Sequence* RaiseHand(bool withgun);
 	virtual Sequence* BulletChange(bool withgun);
+	virtual Sequence* HoldingOn(bool withgun);
 
 	virtual void SetBullet();
 
@@ -50,6 +53,7 @@ public:
 
 	bool shot = true;
 	bool fire = false;
+	bool isGatling = false;
 
 	Sprite* gun;
 	MapBase* map;

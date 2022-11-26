@@ -96,6 +96,18 @@ void Hand::BulletChangeWithHand(GunBase* gun, GunBase* throwgun,bool withgun)
         gun->Change(throwgun);
 }
 
+void Hand::DelayWithHand(GunBase* gun,bool withgun)
+{
+    onShot = false;
+    organ->stopAllActions();
+    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
+    auto raise = gun->HoldingOn(withgun);
+    auto seq_shot = Sequence::create(onshot, raise, onshot, nullptr);
+    organ->runAction(seq_shot);
+    if (withgun)
+        gun->Delay();
+}
+
 void Hand::SetActionState()
 {
     actionState = !actionState;

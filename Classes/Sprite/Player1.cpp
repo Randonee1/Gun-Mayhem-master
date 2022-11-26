@@ -62,18 +62,22 @@ void Player1::initBody()
     initGun->setVisible(false);*/
 
     //gun = Gun_MG_P90::create();
-    gun = Gun_Glock::create();
+    //gun = Gun_Glock::create();
+    //gun = Gun_Gatling::create();
+    gun = Gun_MG_MP5::create();
 
     head->setPosition(Vec2(65/2.2-8, 130/2.2-2));
     this->addChild(head, 1);
 
-    hand1->setPosition(Vec2(-31/2.2, -55/2.2));
+    hand1->initPosition = Vec2(-31 / 2.2, -55 / 2.2);
+    hand1->setPosition(hand1->initPosition);
     this->addChild(hand1, 4);
 
     face->setPosition(Vec2(30/2.2, 0));
     head->addChild(face, 2);
 
-    hand2->setPosition(Vec2(109/2.2, -29/2.2));
+    hand2->initPosition = Vec2(109 / 2.2, -29 / 2.2);
+    hand2->setPosition(hand2->initPosition);
     this->addChild(hand2, -1);
 
     feet1->setPosition(Vec2(-67/2.2, -199/2.2));
