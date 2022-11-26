@@ -81,6 +81,8 @@ Sequence* GunBase::RaiseHand(bool withgun)
     return nullptr;
 }
 
+
+
 Sequence* GunBase::BulletChange(bool withgun)
 {
     return nullptr;
@@ -96,6 +98,11 @@ void GunBase::SetBullet()
     return;
 }
 
+void GunBase::SetBulletCase()
+{
+    return;
+}
+
 void GunBase::SetShot()
 {
     onShot = !onShot;
@@ -104,7 +111,7 @@ void GunBase::SetShot()
 void GunBase::update(float dt)
 {
     deltatime += dt;
-    if (deltatime < shotInterval) {
+    if (deltatime < shotInterval && bulletCount!=0) {
         shot = false;
     }
     else if (bulletCount > bulletClip) {

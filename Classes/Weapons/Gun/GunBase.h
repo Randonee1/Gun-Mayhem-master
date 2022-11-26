@@ -32,6 +32,8 @@ public:
 
 	virtual void SetBullet();
 
+	virtual void SetBulletCase();
+
 	void SetShot();
 
 	void update(float dt) override;
@@ -54,6 +56,7 @@ public:
 	bool shot = true;
 	bool fire = false;
 	bool isGatling = false;
+	bool isSniper = false;
 
 	Sprite* gun;
 	MapBase* map;

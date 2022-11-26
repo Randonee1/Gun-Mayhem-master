@@ -17,9 +17,9 @@ bool Player1::initWithTag(int name, MapBase* map)
         return false;
     }
 
-    status->acceleration = 2412;
+    status->acceleration = 1500;
     status->gravitation = -2757;
-    status->resistance = 600;
+    status->resistance = 800;
 
     status->x_maxSpeed = 448;
     status->y_maxSpeed = 1275;
@@ -62,9 +62,11 @@ void Player1::initBody()
     initGun->setVisible(false);*/
 
     //gun = Gun_MG_P90::create();
-    //gun = Gun_Glock::create();
+    gun = Gun_Glock::create();
     //gun = Gun_Gatling::create();
-    gun = Gun_MG_MP5::create();
+    //gun = Gun_MG_MP5::create();
+    //gun = Gun_MG_MP7::create();
+    //gun = Gun_Modern_Sniper::create();
 
     head->setPosition(Vec2(65/2.2-8, 130/2.2-2));
     this->addChild(head, 1);

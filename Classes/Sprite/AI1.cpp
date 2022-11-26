@@ -17,9 +17,9 @@ bool AI1::init(MapBase* map)
         return false;
     }
 
-    status->acceleration = 2412;
+    status->acceleration = 1500;
     status->gravitation = -2757;
-    status->resistance = 600;
+    status->resistance = 800;
 
     status->x_maxSpeed = 448;
     status->y_maxSpeed = 1275;

@@ -1,17 +1,18 @@
-#ifndef GUN_MG_MP5_H
-#define GUN_MG_MP5_H
+#ifndef GUN_MODERN_SNIPER_H
+#define GUN_MODERN_SNIPER_H
 
 #include "cocos2d.h"
 #include "GunBase.h"
+
 USING_NS_CC;
 
-class Gun_MG_MP5 : public GunBase
+class Gun_Modern_Sniper : public GunBase
 {
 public:
 
-	static Gun_MG_MP5* create();
+	static Gun_Modern_Sniper* create();
 
-	Gun_MG_MP5* clone() override;
+	Gun_Modern_Sniper* clone() override;
 	Sprite* ThrowGun() override;
 
 	bool init() override;
@@ -26,6 +27,7 @@ public:
 
 	void SetBullet() override;
 
+	void SetBulletCase() override;
 };
 
 #endif

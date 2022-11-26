@@ -6,6 +6,9 @@
 #include "Weapons/Gun/Gun_MG_P90.h"
 #include "Weapons/Gun/Gun_Gatling.h"
 #include "Weapons/Gun/Gun_MG_MP5.h"
+#include "Weapons/Gun/Gun_MG_MP7.h"
+#include "Weapons/Gun/Gun_MG_Uzi.h"
+#include "Weapons/Gun/Gun_Modern_Sniper.h"
 
 USING_NS_CC;
 

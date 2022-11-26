@@ -1,6 +1,6 @@
 #include "GunPackage.h"
 
-float GunPackage::updatetime = 10;
+float GunPackage::updatetime = 8;
 
 GunPackage* GunPackage::createWithGun(MapBase* map)
 {
@@ -21,7 +21,7 @@ bool GunPackage::initWithGun(MapBase* map)
     unsigned seed = time(0);
     srand(seed);
 
-    switch (rand() % 3)
+    switch (rand() % 6)
     {
     case 0:
         gun = Gun_MG_P90::create();
@@ -32,10 +32,24 @@ bool GunPackage::initWithGun(MapBase* map)
     case 2:
         gun = Gun_Gatling::create();
         break;
+    case 3:
+        gun = Gun_MG_MP7::create();
+        break;
+    case 4:
+        gun = Gun_MG_Uzi::create();
+        break;
+    case 5:
+        gun = Gun_Modern_Sniper::create();
+        break;
+
     }
+
     /*gun = Gun_MG_P90::create();
     gun = Gun_MG_MP5::create();
     gun = Gun_Gatling::create();*/
+    //gun = Gun_MG_MP7::create();
+    //gun = Gun_MG_Uzi::create();
+    //gun = Gun_Modern_Sniper::create();
 
     package = Sprite::create("gun_bubble.png");
     auto Gun = gun->ThrowGun();

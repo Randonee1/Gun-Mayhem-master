@@ -1,8 +1,8 @@
-#include "Gun_MG_MP7.h"
+#include "Gun_MG_Uzi.h"
 
-Gun_MG_MP7* Gun_MG_MP7::create()
+Gun_MG_Uzi* Gun_MG_Uzi::create()
 {
-    auto gun = new Gun_MG_MP7();
+    auto gun = new Gun_MG_Uzi();
     if (gun && gun->init()) {
         return gun;
     }
@@ -10,26 +10,26 @@ Gun_MG_MP7* Gun_MG_MP7::create()
     return NULL;
 }
 
-Gun_MG_MP7* Gun_MG_MP7::clone()
+Gun_MG_Uzi* Gun_MG_Uzi::clone()
 {
-    return Gun_MG_MP7::create();
+    return Gun_MG_Uzi::create();
 }
 
-Sprite* Gun_MG_MP7::ThrowGun()
+Sprite* Gun_MG_Uzi::ThrowGun()
 {
-    return Sprite::createWithSpriteFrameName("MG_MP7.png");
+    return Sprite::createWithSpriteFrameName("MG_Uzi.png");
 }
 
-bool Gun_MG_MP7::init()
+bool Gun_MG_Uzi::init()
 {
     if (!GunBase::init())
         return false;
 
-    gun = Sprite::createWithSpriteFrameName("MG_MP7.png");
+    gun = Sprite::createWithSpriteFrameName("MG_Uzi.png");
     this->addChild(gun, 0);
 
-    anchor = Vec2(0.52, 0.5);
-    initRotation = 20.0f;
+    anchor = Vec2(0.35, 0.6);
+    initRotation = -70.0f;
     shotInterval = 0.08;
     recoilSpeed = 100;
     bulletSpeed = 2000;
@@ -42,7 +42,7 @@ bool Gun_MG_MP7::init()
     return true;
 }
 
-void Gun_MG_MP7::Shot(MapBase* map)
+void Gun_MG_Uzi::Shot(MapBase* map)
 {
     GunBase::Shot(map);
     gun->stopAllActions();
@@ -59,7 +59,7 @@ void Gun_MG_MP7::Shot(MapBase* map)
     gun->runAction(seq_shot);
 }
 
-Sequence* Gun_MG_MP7::RaiseHand(bool withgun)
+Sequence* Gun_MG_Uzi::RaiseHand(bool withgun)
 {
     auto movebackward = EaseSineOut::create(MoveBy::create(shotInterval / 3, Vec2(-5, 0)));
     auto moveforward = EaseSineOut::create(MoveBy::create(shotInterval / 3, Vec2(5, 0)));
@@ -71,12 +71,12 @@ Sequence* Gun_MG_MP7::RaiseHand(bool withgun)
         return Sequence::create(raise, movebackward, moveforward, delay1, delay, down, nullptr);
     }
     else {
-        auto raise = MoveTo::create(0, Vec2(25, 25));
+        auto raise = MoveTo::create(0, Vec2(25, 20));
         return Sequence::create(raise, movebackward, moveforward, delay1, delay, down, nullptr);
     }
 }
 
-void Gun_MG_MP7::Delay()
+void Gun_MG_Uzi::Delay()
 {
     auto aim = RotateTo::create(0, 0);
     auto delay3 = RotateTo::create(1, 0);
@@ -85,7 +85,7 @@ void Gun_MG_MP7::Delay()
     gun->runAction(seq_delay);
 }
 
-Sequence* Gun_MG_MP7::HoldingOn(bool withgun)
+Sequence* Gun_MG_Uzi::HoldingOn(bool withgun)
 {
     auto delay = MoveBy::create(1, Vec2(0, 0));
     auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
@@ -94,12 +94,12 @@ Sequence* Gun_MG_MP7::HoldingOn(bool withgun)
         return Sequence::create(raise, delay, down, nullptr);
     }
     else {
-        auto raise = MoveTo::create(0, Vec2(25, 25));
+        auto raise = MoveTo::create(0, Vec2(25, 20));
         return Sequence::create(raise, delay, down, nullptr);
     }
 }
 
-void Gun_MG_MP7::SetBullet()
+void Gun_MG_Uzi::SetBullet()
 {
     BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 20), this->_flippedX, 400, 400);
     unsigned seed = time(0);

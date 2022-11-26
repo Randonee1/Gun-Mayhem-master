@@ -33,7 +33,7 @@ bool Gun_Gatling::init()
     anchor = Vec2(0.06, 0.7);
     initRotation = 0.0f;
     shotInterval = 0.06;
-    recoilSpeed = 100;
+    recoilSpeed = 50;
     bulletSpeed = 2000;
     hitSpeed = 500;
     bulletClip = 200;
