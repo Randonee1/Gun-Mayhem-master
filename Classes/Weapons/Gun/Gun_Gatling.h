@@ -21,6 +21,10 @@ public:
 
 	Sequence* RaiseHand(bool withgun);
 
+	void Delay();
+
+	Sequence* HoldingOn(bool withgun);
+
 	void SetBullet() override;
 
 };

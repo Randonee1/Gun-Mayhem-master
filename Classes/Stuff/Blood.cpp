@@ -39,10 +39,9 @@ bool Blood::init()
 	BloodSpurtingOut2->runAction(spa2);
 
 	unsigned seed = time(0);
-
-	x_speed1 = rand() % 2 - 1 < 0 ? rand() % 750 + 750 : -(rand() % 750 + 750);
-	x_speed2 = rand() % 2 - 1 < 0 ? rand() % 750 + 750 : -(rand() % 750 + 750);
-	x_speed3 = rand() % 2 - 1 < 0 ? rand() % 750 + 750 : -(rand() % 750 + 750);
+	x_speed1 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);
+	x_speed2 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);
+	x_speed3 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);
 
 	y_speed1 = rand() % 500 + 750;
 	y_speed2 = rand() % 500 + 750;

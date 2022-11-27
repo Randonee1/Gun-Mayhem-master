@@ -34,7 +34,7 @@ bool Gun_Modern_Sniper::init()
     initRotation = -70.0f;
     shotInterval = 1;
     recoilSpeed = 800;
-    bulletSpeed = 3000;
+    bulletSpeed = 4000;
     hitSpeed = 3000;
     bulletClip = 10;
     bulletCount = 0;
@@ -65,15 +65,15 @@ void Gun_Modern_Sniper::Shot(MapBase* map)
 
 Sequence* Gun_Modern_Sniper::RaiseHand(bool withgun)
 {
-    auto movebackward = EaseSineOut::create(MoveBy::create(0.05, Vec2(-20, 0)));
-    auto moveforward = EaseSineOut::create(MoveBy::create(0.05, Vec2(20, 0)));
+    /*auto movebackward = EaseSineOut::create(MoveBy::create(0.05, Vec2(-20, 0)));
+    auto moveforward = EaseSineOut::create(MoveBy::create(0.05, Vec2(20, 0)));*/
 
     auto delay = MoveBy::create(1, Vec2(0, 0));
     auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
     if (withgun) {
         auto raise = MoveTo::create(0, Vec2(45, 30));
-        auto movedelay = MoveBy::create(0.4, Vec2(0, 0));
-        return Sequence::create(raise,movebackward,moveforward,movedelay, delay, down,  nullptr);
+        auto movedelay = MoveBy::create(0.5, Vec2(0, 0));
+        return Sequence::create(raise,movedelay, delay, down,  nullptr);
     }
     else {
         auto raise = MoveTo::create(0, Vec2(25, 20));
@@ -82,11 +82,8 @@ Sequence* Gun_Modern_Sniper::RaiseHand(bool withgun)
         auto move2 = EaseSineOut::create(MoveBy::create(0.15, Vec2(-50, 0)));
         auto move3 = EaseSineOut::create(MoveBy::create(0.1, Vec2(50, 0)));
         auto move4 = EaseSineOut::create(MoveBy::create(0.1, Vec2(-50, -30)));
-        auto seq1 = Sequence::create(move1, move2, move3, move4, nullptr);
-        auto seq2 = Sequence::create(movebackward, moveforward, nullptr);
-        auto spa = Spawn::create(seq1, seq2, nullptr);
 
-        return Sequence::create(raise,spa, delay, down, nullptr);
+        return Sequence::create(raise,move1, move2, move3, move4, delay, down, nullptr);
     }
 }
 

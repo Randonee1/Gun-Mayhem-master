@@ -102,6 +102,27 @@ Sequence* Gun_Glock::RaiseHand(bool withgun)
     }
 }
 
+void Gun_Glock::Delay()
+{
+    auto aim = RotateTo::create(0, 0);
+    auto delay = RotateTo::create(0.9, 0);
+    auto back = RotateTo::create(0.3, 30);
+    auto seq_shot = Sequence::create( aim, delay, back, nullptr);
+    gun->runAction(seq_shot);
+}
+
+Sequence* Gun_Glock::HoldingOn(bool withgun)
+{
+    auto delay = MoveBy::create(0.9, Vec2(0, 0));
+    auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
+    if (withgun) {
+        return Sequence::create(MoveTo::create(0, Vec2(70, 14)), delay, down, nullptr);
+    }
+    else {
+        return Sequence::create(MoveTo::create(0, Vec2(15, -5)), delay, down, nullptr);
+    }
+}
+
 Sequence* Gun_Glock::BulletChange(bool withgun)
 {
     auto delay = MoveBy::create(1, Vec2(0, 0));

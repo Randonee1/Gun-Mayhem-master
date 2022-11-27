@@ -108,12 +108,14 @@ void CharacterBase::update(float dt)
 
         if (getPositionY() < map->death_line)
         {
+            GunChange(initGun->clone());
+
             CallFunc* func1 = CallFunc::create([&]() {
                 this->setVisible(false); this->Flip(false);
                 y_speed = 0; x_speed = 0; valid = false; floor = map->Floor.size() - 1;
-                GunChange(initGun->clone());
                 });
             CallFunc* func2 = CallFunc::create([&]() {
+                
                 this->setVisible(true); valid = true;
                 });
             unsigned seed = time(0);
@@ -157,6 +159,7 @@ void CharacterBase::update(float dt)
         this->setPositionX(getPositionX() + x_speed * dt);
   
         if (gun->isGatling) {
+            CCLOG("yes");
             Vec2 left = hand1->isFlippedX() ? Vec2(29, 0) : Vec2(-29, 0);
             Vec2 right = hand2->isFlippedX() ? Vec2(-75, 5) : Vec2(75, 5);
             hand1->organ->stopActionByTag(10);

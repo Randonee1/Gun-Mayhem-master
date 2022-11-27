@@ -33,7 +33,7 @@ bool Gun_Gatling::init()
     anchor = Vec2(0.06, 0.7);
     initRotation = 0.0f;
     shotInterval = 0.06;
-    recoilSpeed = 50;
+    recoilSpeed = 100;
     bulletSpeed = 2000;
     hitSpeed = 500;
     bulletClip = 200;
@@ -68,6 +68,21 @@ Sequence* Gun_Gatling::RaiseHand(bool withgun)
     auto moveforward = EaseSineOut::create(MoveBy::create(shotInterval / 2, Vec2(10, 0)));
     auto delay = MoveBy::create(0.5, Vec2(0, 0));
     return Sequence::create(raise, movebackward, moveforward, delay, nullptr);
+}
+
+void Gun_Gatling::Delay()
+{
+    auto aim = RotateTo::create(0, 0);
+    auto delay3 = RotateTo::create(0.5, 0);
+    auto seq_delay = Sequence::create(aim, delay3, nullptr);
+    gun->runAction(seq_delay);
+}
+
+Sequence* Gun_Gatling::HoldingOn(bool withgun)
+{
+    auto moveback = MoveTo::create(0, Vec2(0, 0));
+    auto delay = MoveBy::create(0.5, Vec2(0, 0));
+    return Sequence::create(moveback, delay, nullptr);
 }
 
 void Gun_Gatling::SetBullet()
