@@ -23,13 +23,13 @@ Head* Head::CreateWithName(const char* name)
     return NULL;
 }
 
-//void Head::setFlippedX(bool flippedX)
-//{
-//    head->setFlippedX(flippedX);
-//    if (_flippedX != flippedX)
-//    {
-//        _flippedX = flippedX;
-//        this->setPositionX(-this->getPositionX());
-//        flipX();
-//    }
-//}
+void Head::setFlippedX(bool flippedX)
+{
+    organ->setFlippedX(flippedX);
+    if (_flippedX != flippedX)
+    {
+        _flippedX = flippedX;
+        this->setPositionX(-this->getPositionX());
+        flipX();
+    }
+}

@@ -14,6 +14,7 @@ public:
 
 	static Head* CreateWithName(const char* name);
 
+	void setFlippedX(bool flippedX);
 };
 
 #endif

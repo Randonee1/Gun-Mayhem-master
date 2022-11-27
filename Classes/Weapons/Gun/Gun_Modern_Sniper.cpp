@@ -32,7 +32,7 @@ bool Gun_Modern_Sniper::init()
 
     anchor = Vec2(0.3,0.3);
     initRotation = -70.0f;
-    shotInterval = 1;
+    shotInterval = 0.55;
     recoilSpeed = 800;
     bulletSpeed = 4000;
     hitSpeed = 3000;

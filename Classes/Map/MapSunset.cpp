@@ -26,6 +26,8 @@ bool MapSunset::init()
 
 	initPlayer();
 
+	packageEvent = PackageEvent::create(this);
+
 	this->scheduleUpdate();
 
 	return true;
@@ -53,8 +55,10 @@ void MapSunset::update(float dt)
 	mountain2->setPosition(initMountain2Position - delta * 0.6);
 	platform->setPosition(initPlatformPosition - delta * 0.7);
 
-
 	ShotEvent();
+
+	packageEvent->update(dt);
+	packageEvent->PackageUpdate(players);
 }
 
 void MapSunset::initBackground()
@@ -139,11 +143,11 @@ void MapSunset::initBackground()
 
 void MapSunset::initPlayer()
 {
-	/*CharacterBase* player1 = Player1::createWithTag(1, this);
-	platform->addChild(player1, 1);*/
-
-	CharacterBase* player1 = AI1::create(this);
+	CharacterBase* player1 = Player1::createWithTag(1, this);
 	platform->addChild(player1, 1);
+
+	/*CharacterBase* player1 = AI1::create(this);
+	platform->addChild(player1, 1);*/
 
 	CharacterBase* player2 = AI1::create(this);
 	platform->addChild(player2, 2);

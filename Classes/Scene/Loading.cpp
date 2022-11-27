@@ -29,6 +29,7 @@ void Loading::loadResources()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("MG_gtl.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("body_fx.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("blood.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bodyColored.plist");
 
     isloaddone = true;
 }
