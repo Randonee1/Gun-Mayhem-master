@@ -89,10 +89,11 @@ Sequence* Gun_Modern_Sniper::RaiseHand(bool withgun)
 
 void Gun_Modern_Sniper::Delay()
 {
+    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     auto aim = RotateTo::create(0, 0);
     auto delay3 = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
-    auto seq_delay = Sequence::create(aim, delay3, back, nullptr);
+    auto seq_delay = Sequence::create(onshot,aim, delay3, back,onshot, nullptr);
     gun->runAction(seq_delay);
 }
 

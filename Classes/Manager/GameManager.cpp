@@ -20,25 +20,25 @@ std::map<std::string, EventKeyboard::KeyCode> GameManager::map2 = {
 };
 
 std::map<std::string, const char*> GameManager::Bodys = {
-    {"Bule", "bodyBlue.png"},
+    {"Blue", "bodyBlue.png"},
     {"Pink", "bodyPink.png"},
     {"Purple", "bodyPurple.png"},
     {"Yellow", "bodyYello.png"}
 };
 std::map<std::string, const char*> GameManager::Heads = {
-    {"Bule", "headBlue.png"},
+    {"Blue", "headBlue.png"},
     {"Pink", "headPink.png"},
     {"Purple", "headPurple.png"},
     {"Yellow", "headYello.png"}
 };
 std::map<std::string, const char*> GameManager::Hands = {
-    {"Bule", "handBlue.png"},
+    {"Blue", "handBlue.png"},
     {"Pink", "handPink.png"},
     {"Purple", "handPurple.png"},
     {"Yellow", "handYello.png"}
 };
 std::map<std::string, const char*> GameManager::Feet = {
-    {"Bule", "feetBlue.png"},
+    {"Blue", "feetBlue.png"},
     {"Pink", "feetPink.png"},
     {"Purple", "feetPurple.png"},
     {"Yellow", "feetYello.png"}

@@ -1,19 +1,19 @@
-#include "Player2.h"
+#include "AI2.h"
 
-Player2* Player2::createWithTag(int name, MapBase* map)
+AI2* AI2::create(MapBase* map)
 {
-    auto player = new Player2();
-    if (player && player->initWithTag(name, map)) {
-        player->autorelease();
-        return player;
+    auto ai = new AI2();
+    if (ai && ai->init(map)) {
+        ai->autorelease();
+        return ai;
     }
-    CC_SAFE_DELETE(player);
+    CC_SAFE_DELETE(ai);
     return nullptr;
 }
 
-bool Player2::initWithTag(int name, MapBase* map)
+bool AI2::init(MapBase* map)
 {
-    if (!PlayerBase::initWithTag(name, map)) {
+    if (!AIBase::init(map)) {
         return false;
     }
 
@@ -34,10 +34,26 @@ bool Player2::initWithTag(int name, MapBase* map)
     return true;
 }
 
-void Player2::initBody()
+void AI2::initBody()
 {
-    std::string player_name = "Pink";
-    std::string face_name = "Normal1";
+    std::string player_name;
+    unsigned seed = time(0);
+    srand(seed);
+    switch (rand() % 4) {
+    case 0:
+        player_name = "Blue";
+        break;
+    case 1:
+        player_name = "Pink";
+        break;
+    case 2:
+        player_name = "Purple";
+        break;
+    case 3:
+        player_name = "Yellow";
+        break;
+    }
+    std::string face_name = "Cross";
     //头和身体
     body = Body::CreateWithName(GameManager::Bodys[player_name]);
     organs.push_back(body);

@@ -21,7 +21,7 @@ bool GunPackage::initWithGun(MapBase* map)
     unsigned seed = time(0);
     srand(seed);
 
-    switch (rand() % 6)
+    switch (rand() % 7)
     {
     case 0:
         gun = Gun_MG_P90::create();
@@ -37,11 +37,12 @@ bool GunPackage::initWithGun(MapBase* map)
         break;
     case 4:
         gun = Gun_MG_Uzi::create();
-        break;
+        break;  
     case 5:
         gun = Gun_Modern_Sniper::create();
         break;
-
+    case 6:
+        gun = Gun_Revolver::create();
     }
 
     //gun = Gun_MG_P90::create();
@@ -50,6 +51,7 @@ bool GunPackage::initWithGun(MapBase* map)
     //gun = Gun_MG_MP7::create();
     //gun = Gun_MG_Uzi::create();
     //gun = Gun_Modern_Sniper::create();
+    gun = Gun_Revolver::create();
 
     package = Sprite::create("gun_bubble.png");
     auto Gun = gun->ThrowGun();

@@ -33,7 +33,7 @@ bool Gun_Glock::init()
     shotInterval = 0.15;
     recoilSpeed = 100;
     bulletSpeed = 2000;
-    hitSpeed = 1000;
+    hitSpeed = 700;
     bulletClip = 10;
     bulletCount = 0;
 

@@ -9,6 +9,7 @@
 #include "Sprite/Player1.h"
 #include "Sprite/Player2.h"
 #include "Sprite/AI1.h"
+#include "Sprite/AI2.h"
 
 USING_NS_CC;
 

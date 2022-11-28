@@ -33,7 +33,7 @@ bool Gun_MG_MP7::init()
     shotInterval = 0.08;
     recoilSpeed = 100;
     bulletSpeed = 2000;
-    hitSpeed = 400;
+    hitSpeed = 450;
     bulletClip = 30;
     bulletCount = 0;
 
