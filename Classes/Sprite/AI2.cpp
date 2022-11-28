@@ -17,7 +17,7 @@ bool AI2::init(MapBase* map)
         return false;
     }
 
-    status->acceleration = 1500;
+    status->acceleration = 2000;
     status->gravitation = -2757;
     status->resistance = 800;
 
@@ -37,8 +37,6 @@ bool AI2::init(MapBase* map)
 void AI2::initBody()
 {
     std::string player_name;
-    unsigned seed = time(0);
-    srand(seed);
     switch (rand() % 4) {
     case 0:
         player_name = "Blue";

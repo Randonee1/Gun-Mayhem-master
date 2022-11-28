@@ -11,6 +11,8 @@ bool PackageBase::init(MapBase* map)
     unsigned seed = time(0);
     srand(seed);
     int endfloor = rand() % (map->Floor.size());
+    endfloor = map->Floor.size() - 1;
+
     endFloor = endfloor * map->floor_height + map->floor_base;
 
     setPosition(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,

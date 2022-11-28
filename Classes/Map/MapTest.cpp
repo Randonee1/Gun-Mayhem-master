@@ -98,6 +98,11 @@ void MapTest::initPlayer()
 
 	/*auto player2 = AI1::create(this);
 	platform->addChild(player2, 2);*/
+	unsigned seed = time(0);
+	srand(seed);
+
+	/*auto player1 = AI2::create(this);
+	platform->addChild(player1, 1);*/
 
 	auto player2 = AI2::create(this);
 	platform->addChild(player2, 2);

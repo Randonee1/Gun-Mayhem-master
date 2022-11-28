@@ -30,7 +30,7 @@ bool Gun_Glock::init()
 
     anchor = Vec2(0.2, 0.25);
     initRotation = 30.0f;
-    shotInterval = 0.15;
+    shotInterval = 0.3;
     recoilSpeed = 100;
     bulletSpeed = 2000;
     hitSpeed = 700;

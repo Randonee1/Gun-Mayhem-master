@@ -32,7 +32,7 @@ bool Gun_Revolver::init()
     initRotation = 30.0f;
     shotInterval = 1.1;
     recoilSpeed = 100;
-    bulletSpeed = 3000;
+    bulletSpeed = 3500;
     hitSpeed = 700;
     bulletClip = 3;
     bulletCount = 0;
@@ -51,12 +51,12 @@ void Gun_Revolver::Shot(MapBase* map)
     CallFunc* bulletcase = CallFunc::create(CC_CALLBACK_0(GunBase::SetBulletCase, this));
     CallFunc* onfire = CallFunc::create([&]() {fire = !fire; });
     auto aim1 = RotateTo::create(0, 0);
-    auto up1 = RotateTo::create(0.05, -10);
-    auto down1 = RotateTo::create(0.05, 0);
-    auto up2 = RotateTo::create(0.05, -10);
+    auto up = RotateTo::create(0.03, -40);
+    auto down = RotateTo::create(0.03, 0);
+    /*auto up2 = RotateTo::create(0.05, -10);
     auto down2 = RotateTo::create(0.05, 0);
     auto up3 = RotateTo::create(0.05, -10);
-    auto down3 = RotateTo::create(0.05, 0);
+    auto down3 = RotateTo::create(0.05, 0);*/
 
     auto delay1 = RotateTo::create(0.2, 0);
 
@@ -70,30 +70,27 @@ void Gun_Revolver::Shot(MapBase* map)
 
     auto delay2 = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
-    auto seq_shot = Sequence::create(onshot, onfire, aim1, shot, up1, down1,shot,up2, down2,shot,up3,down3,
-        onfire,delay1, rotateup1,rotateup2, rotateup3,rotatedelay,rotatedown,bulletcase,rotateback, delay2, back, onshot, nullptr);
+    auto seq_shot = Sequence::create(onshot, onfire, aim1, shot, up->clone(), down->clone(), shot, up->clone(), down->clone(), shot, up->clone(), down->clone(),
+        shot, up->clone(), down->clone(), shot, up->clone(), down->clone(), onfire,delay1, rotateup1,rotateup2, rotateup3,rotatedelay,rotatedown,bulletcase,rotateback, delay2, back, onshot, nullptr);
     gun->runAction(seq_shot);
 }
 
 Sequence* Gun_Revolver::RaiseHand(bool withgun)
 {
-    auto movebackward1 = EaseSineOut::create(MoveBy::create(0.05, Vec2(-20, 0)));
-    auto moveforward1 = EaseSineOut::create(MoveBy::create(0.05, Vec2(20, 0)));
-    auto movebackward2 = EaseSineOut::create(MoveBy::create(0.05, Vec2(-20, 0)));
-    auto moveforward2 = EaseSineOut::create(MoveBy::create(0.05, Vec2(20, 0)));
-    auto movebackward3 = EaseSineOut::create(MoveBy::create(0.05, Vec2(-20, 0)));
-    auto moveforward3 = EaseSineOut::create(MoveBy::create(0.05, Vec2(20, 0)));
+    auto movebackward = EaseSineOut::create(MoveBy::create(0.03, Vec2(-20, 0)));
+    auto moveforward = EaseSineOut::create(MoveBy::create(0.03, Vec2(20, 0)));
+    
     auto delay1 = MoveBy::create(0.2, Vec2(0, 0));
     auto delay2 = MoveBy::create(1, Vec2(0, 0));
     auto back = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
     if (withgun) {
         auto raise = MoveTo::create(0, Vec2(70, 14));
-        auto up = EaseSineOut::create(MoveBy::create(0.3, Vec2(0, 70)));
-        auto updelay = MoveBy::create(0.15, Vec2(0, 0));
+        auto up = EaseSineOut::create(MoveBy::create(0.45, Vec2(0, 70)));
+        
         auto down = MoveBy::create(0.05, Vec2(0, -70));
         auto moveback = MoveTo::create(0.1, Vec2(70, 14));
-        return Sequence::create(raise, movebackward1, moveforward1, movebackward2, moveforward2,
-            movebackward3, moveforward3,delay1, up,updelay,down,moveback,delay2, back, nullptr);
+        return Sequence::create(raise, movebackward->clone(), moveforward->clone(), movebackward->clone(), moveforward->clone(), movebackward->clone(), moveforward->clone(),
+            movebackward->clone(), moveforward->clone(), movebackward->clone(), moveforward->clone(), delay1, up,down,moveback,delay2, back, nullptr);
     }
     else {
         auto raise = MoveTo::create(0, Vec2(25, 40));
@@ -101,8 +98,8 @@ Sequence* Gun_Revolver::RaiseHand(bool withgun)
         auto updelay = MoveBy::create(0.15, Vec2(0, 15));
         auto down = MoveBy::create(0.05, Vec2(0, 0));
         auto moveback = MoveTo::create(0.1, Vec2(15,-5));
-        return Sequence::create(raise, movebackward1, moveforward1, movebackward2, moveforward2,
-            movebackward3, moveforward3, delay1, up,updelay, down, moveback, delay2, back, nullptr);
+        return Sequence::create(raise, moveforward->clone(), movebackward->clone(), moveforward->clone(), movebackward->clone(), moveforward->clone(),
+            movebackward->clone(), moveforward->clone(), movebackward->clone(), moveforward->clone(), delay1, up,updelay, down, moveback, delay2, back, nullptr);
     }
 }
 
@@ -137,7 +134,9 @@ void Gun_Revolver::SetBullet()
 
 void Gun_Revolver::SetBulletCase()
 {
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 400, 1);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 300, 1);
     BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 200, 1);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 200, 1);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 200, 1);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 300, 1);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 400, 1);
 }
