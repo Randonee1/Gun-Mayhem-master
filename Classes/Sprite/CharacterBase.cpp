@@ -179,12 +179,12 @@ void CharacterBase::update(float dt)
                         this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;*/
                 }
             }
-            if (gun->bulletCount > gun->bulletClip) {
-                throwGun = gun->clone();
-                GunChange(initGun);
-                hand1->BulletChangeWithHand(gun, throwGun,true);
-                hand2->BulletChangeWithHand(gun, throwGun,false);
-            }
+        }
+        if (gun->bulletCount >= gun->bulletClip && gun->deltatime > gun->shotInterval) {
+            throwGun = gun->clone();
+            GunChange(initGun);
+            hand1->BulletChangeWithHand(gun, throwGun, true);
+            hand2->BulletChangeWithHand(gun, throwGun, false);
         }
         
     }

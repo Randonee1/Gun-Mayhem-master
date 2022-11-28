@@ -31,9 +31,9 @@ bool Gun_Revolver::init()
     anchor = Vec2(0.25, 0.35);
     initRotation = 30.0f;
     shotInterval = 1.1;
-    recoilSpeed = 100;
+    recoilSpeed = 500;
     bulletSpeed = 3500;
-    hitSpeed = 700;
+    hitSpeed = 650;
     bulletClip = 3;
     bulletCount = 0;
 
@@ -134,9 +134,9 @@ void Gun_Revolver::SetBullet()
 
 void Gun_Revolver::SetBulletCase()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 400, 1);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 300, 1);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 200, 1);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 300, 1);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 400, 1);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 600, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 400, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 200, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 400, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 600, -500);
 }
