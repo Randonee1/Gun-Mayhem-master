@@ -30,7 +30,7 @@ private:
 	float acceleration;
 	float x_maxSpeed;
 
-	float shadow_interval = 0.01;
+	float shadow_interval = 0.016;
 	float shadow_deltatime = 0;
 
 	int shadow_size = 10;
