@@ -14,13 +14,14 @@ bool PackageEvent::init(MapBase* map)
 	this->map = map;
 
 	gunUpdateTime = 0;
-
+	skillUpdateTime = 0;
 
     return true;
 }
 
 void PackageEvent::PackageUpdate(std::vector<CharacterBase*>& players)
 {
+
 	std::vector<PackageBase* > temp;
 	for (auto package : packages) {
 		if (package)
@@ -67,4 +68,14 @@ void PackageEvent::update(float dt)
 
 	}else
 		gunUpdateTime += dt;
+
+	if (skillUpdateTime > SkillPackage::updatetime) {
+		skillUpdateTime = 0;
+
+		auto package_gun_1 = SkillPackage::createWithSkill(map);
+		packages.push_back(package_gun_1);
+
+	}
+	else
+		skillUpdateTime += dt;
 }

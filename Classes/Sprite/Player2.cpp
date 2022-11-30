@@ -1,4 +1,5 @@
 #include "Player2.h"
+#include "Skill/SpeedUp.h"
 
 Player2* Player2::createWithTag(int name, MapBase* map)
 {
@@ -30,7 +31,7 @@ bool Player2::initWithTag(int name, MapBase* map)
     unsigned seed = time(0);
     setPosition(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,
         map->platform->getContentSize().height + 2000);
-
+    
     return true;
 }
 

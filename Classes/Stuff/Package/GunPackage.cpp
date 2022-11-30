@@ -18,9 +18,6 @@ bool GunPackage::initWithGun(MapBase* map)
     if (!PackageBase::init(map))
         return false;
 
-    unsigned seed = time(0);
-    srand(seed);
-
     switch (rand() % 7)
     {
     case 0:
@@ -51,7 +48,7 @@ bool GunPackage::initWithGun(MapBase* map)
     //gun = Gun_MG_MP7::create();
     //gun = Gun_MG_Uzi::create();
     //gun = Gun_Modern_Sniper::create();
-    gun = Gun_Revolver::create();
+    //gun = Gun_Revolver::create();
 
     package = Sprite::create("gun_bubble.png");
     auto Gun = gun->ThrowGun();
@@ -71,5 +68,4 @@ void GunPackage::GetPackage(CharacterBase* player)
 void GunPackage::update(float dt) 
 {
     PackageBase::update(dt);
-    
 }

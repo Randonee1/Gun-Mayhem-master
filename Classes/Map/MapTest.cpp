@@ -81,8 +81,8 @@ void MapTest::initPlayer()
 	/*auto player1 = Player1::createWithTag(1,this);
 	platform->addChild(player1, 1);*/
 
-	auto player1 = Player2::createWithTag(1, this);
-	platform->addChild(player1, 1);
+	/*auto player1 = Player2::createWithTag(1, this);
+	platform->addChild(player1, 1);*/
 
 	/*auto player2 = Player1::createWithTag(2, this);
 	platform->addChild(player2, 2);*/
@@ -98,11 +98,9 @@ void MapTest::initPlayer()
 
 	/*auto player2 = AI1::create(this);
 	platform->addChild(player2, 2);*/
-	unsigned seed = time(0);
-	srand(seed);
 
-	/*auto player1 = AI2::create(this);
-	platform->addChild(player1, 1);*/
+	auto player1 = AI2::create(this);
+	platform->addChild(player1, 1);
 
 	auto player2 = AI2::create(this);
 	platform->addChild(player2, 2);
@@ -139,7 +137,8 @@ void MapTest::ShotEvent()
 			rect.origin += offset;
 
 			if (rect.containsPoint(bullet->getPosition())) {
-				player->x_speed += bullet->hitSpeed;
+
+				player->x_speed += player->defense ? bullet->hitSpeed / 10 : bullet->hitSpeed;
 				player->hit = true;
 				auto blood = Blood::create();
 				blood->setPosition(bullet->getPosition());

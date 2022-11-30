@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "GunPackage.h"
+#include "SkillPackage.h"
 
 USING_NS_CC;
 
@@ -21,6 +22,8 @@ public:
 private:
 
 	float gunUpdateTime;
+
+	float skillUpdateTime;
 
 	MapBase* map;
 

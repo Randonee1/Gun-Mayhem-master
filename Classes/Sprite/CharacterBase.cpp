@@ -1,4 +1,7 @@
 #include "CharacterBase.h"
+#include "Skill/SkillBase.h"
+#include "Skill/Defense.h"
+#include "Skill/SpeedUp.h"
 #include <iostream>
 
 bool CharacterBase::init(MapBase* map)
@@ -12,6 +15,8 @@ bool CharacterBase::init(MapBase* map)
     y_speed = 0;
     isDoubleJump = false;
     inTheAir = true;
+
+    skill = new Defense(this, 3);
 
     this->scheduleUpdate();
 
@@ -30,6 +35,17 @@ bool CharacterBase::InTheBoundary(std::vector<float>& floor, float x) const
 void CharacterBase::update(float dt)
 {
 	Sprite::update(dt);
+
+    if (skill) {
+        if (skill->duration > skill->Duration) {
+            delete skill;
+            skill = nullptr;
+        }
+        else {
+            skill->update(dt);
+        }
+    }
+
     if(valid)
     {
         if (keyMap["skill"]) {
@@ -79,7 +95,7 @@ void CharacterBase::update(float dt)
             y_speed += status->gravitation * dt;
             if (y_speed < -status->y_maxSpeed * 2.5)
                 y_speed = -status->y_maxSpeed * 2.5;
-            keyMap["up"] = false;
+            //keyMap["up"] = false;
         }
         if (y_speed > 0) {
             if (getPositionY() + y_speed * dt > map->floor_base + floor * map->floor_height &&
@@ -113,9 +129,10 @@ void CharacterBase::update(float dt)
             CallFunc* func1 = CallFunc::create([&]() {
                 this->setVisible(false); this->Flip(false);
                 y_speed = 0; x_speed = 0; valid = false; floor = map->Floor.size() - 1;
+                if (skill) { delete skill; skill = nullptr; }
                 });
             CallFunc* func2 = CallFunc::create([&]() {
-                
+                skill = new Defense(this, 3);
                 this->setVisible(true); valid = true;
                 });
             unsigned seed = time(0);
@@ -159,7 +176,6 @@ void CharacterBase::update(float dt)
         this->setPositionX(getPositionX() + x_speed * dt);
   
         if (gun->isGatling) {
-            CCLOG("yes");
             Vec2 left = hand1->isFlippedX() ? Vec2(29, 0) : Vec2(-29, 0);
             Vec2 right = hand2->isFlippedX() ? Vec2(-75, 5) : Vec2(75, 5);
             hand1->organ->stopActionByTag(10);
@@ -174,9 +190,10 @@ void CharacterBase::update(float dt)
                 if(!gun->change){
                     hand1->RaiseHandToShoot(map,gun,true);
                     hand2->RaiseHandToShoot(map,gun,false);
+
                     this->_flippedX ? x_speed += gun->recoilSpeed : x_speed -= gun->recoilSpeed;
-                    /*if (std::abs(x_speed) > status->x_maxSpeed)
-                        this->_flippedX ? x_speed = status->x_maxSpeed : x_speed = -status->x_maxSpeed;*/
+                    if (std::abs(x_speed) > status->x_maxSpeed)
+                        this->_flippedX ? x_speed -= gun->recoilSpeed : x_speed += gun->recoilSpeed;
                 }
             }
         }

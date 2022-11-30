@@ -14,6 +14,8 @@
 
 USING_NS_CC;
 
+class SkillBase;
+
 typedef struct _Status {
 	float acceleration;
     float resistance;
@@ -66,6 +68,8 @@ public:
 
     Status* status = new Status();
 
+    SkillBase* skill;
+
     float accelerate;
     float x_speed;
     float y_speed;
@@ -75,6 +79,7 @@ public:
     bool inTheAir = true;
     bool valid = true;   
     bool hit = false;
+    bool defense = false;
 };
 
 #endif

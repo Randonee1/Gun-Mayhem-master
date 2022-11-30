@@ -6,6 +6,7 @@ bool OrganBase::initWithName(const char* name)
         return false;
     }
     //organ = Sprite::create(name);
+    this->name = name;
     organ = Sprite::createWithSpriteFrameName(name);
     this->addChild(organ, 0);
     return true;

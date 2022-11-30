@@ -30,6 +30,7 @@ void Loading::loadResources()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("body_fx.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("blood.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bodyColored.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("items.plist");
 
     isloaddone = true;
 }

@@ -17,7 +17,7 @@ bool AI2::init(MapBase* map)
         return false;
     }
 
-    status->acceleration = 2000;
+    status->acceleration = 1500;
     status->gravitation = -2757;
     status->resistance = 800;
 

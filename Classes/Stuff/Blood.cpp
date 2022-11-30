@@ -38,7 +38,7 @@ bool Blood::init()
 	auto spa2 = Spawn::create(scale2, fadeout2, nullptr);
 	BloodSpurtingOut2->runAction(spa2);
 
-	unsigned seed = time(0);
+	
 	x_speed1 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);
 	x_speed2 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);
 	x_speed3 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);

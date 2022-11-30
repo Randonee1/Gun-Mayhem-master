@@ -2,17 +2,29 @@
 #define SKILL_PACKAGE_H
 
 #include "cocos2d.h"
+#include "PackageBase.h"
+#include "Skill/Defense.h"
+#include "Skill/SpeedUp.h"
+
 USING_NS_CC;
 
-class SkillPackage : public Sprite
+class SkillPackage : public PackageBase
 {
 public:
 
-	static Scene* createScene();
+	static float updatetime;
 
-	bool init() override;
+	static SkillPackage* createWithSkill(MapBase* map);
 
-	CREATE_FUNC();
+	bool initWithGun(MapBase* map);
+
+	void GetPackage(CharacterBase* player) override;
+
+	void update(float dt) override;
+
+	GunBase* gun;
+
+private:
 };
 
 #endif
