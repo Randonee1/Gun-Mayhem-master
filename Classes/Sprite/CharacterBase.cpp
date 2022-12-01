@@ -32,6 +32,7 @@ Sprite* CharacterBase::clone()
     Sprite* _foot1 = Sprite::createWithSpriteFrameName(feet1->name);
     Sprite* _foot2 = Sprite::createWithSpriteFrameName(feet2->name);
     Sprite* _face = Sprite::createWithSpriteFrameName(face->name);
+    Sprite* _gun = gun->ThrowGun();
 
     _body->setFlippedX(body->isFlippedX());
     _head->setFlippedX(head->isFlippedX());
@@ -40,14 +41,17 @@ Sprite* CharacterBase::clone()
     _foot1->setFlippedX(feet1->isFlippedX());
     _foot2->setFlippedX(feet2->isFlippedX());
     _face->setFlippedX(face->isFlippedX());
+    _gun->setFlippedX(gun->isFlippedX());
 
 
     _foot1->setAnchorPoint(feet1->organ->getAnchorPoint());
     _foot2->setAnchorPoint(feet2->organ->getAnchorPoint());
     _face->setAnchorPoint(face->organ->getAnchorPoint());
+    _gun->setAnchorPoint(gun->gun->getAnchorPoint());
 
     _foot1->setRotation(feet1->organ->getRotation());
     _foot2->setRotation(feet2->organ->getRotation());
+    _gun->setRotation(gun->gun->getRotation());
 
     Vec2 origin = _body->getContentSize() / 2;
 
@@ -57,6 +61,7 @@ Sprite* CharacterBase::clone()
     _foot1->setPosition(feet1->getPosition() + feet1->organ->getPosition() + origin);
     _foot2->setPosition(feet2->getPosition() + feet2->organ->getPosition() + origin);
     _face->setPosition(face->getPosition() + face->organ->getPosition() + _head->getContentSize() / 2);
+    _gun->setPosition(gun->getPosition() + gun->gun->getPosition());
 
     _body->addChild(_head, 1);
     _body->addChild(_hand1, 1);
@@ -64,6 +69,7 @@ Sprite* CharacterBase::clone()
     _body->addChild(_foot1, 1);
     _body->addChild(_foot2, -1);
     _head->addChild(_face, 1);
+    _hand1->addChild(_gun, -1);
 
     _body->retain();
 

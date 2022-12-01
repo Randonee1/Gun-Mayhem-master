@@ -93,7 +93,7 @@ Sequence* Gun_Revolver::RaiseHand(bool withgun)
             movebackward->clone(), moveforward->clone(), movebackward->clone(), moveforward->clone(), delay1, up,down,moveback,delay2, back, nullptr);
     }
     else {
-        auto raise = MoveTo::create(0, Vec2(25, 40));
+        auto raise = MoveTo::create(0, Vec2(5, 40));
         auto up = EaseSineOut::create(MoveTo::create(0.3, Vec2(15, -5)));
         auto updelay = MoveBy::create(0.15, Vec2(0, 15));
         auto down = MoveBy::create(0.05, Vec2(0, 0));

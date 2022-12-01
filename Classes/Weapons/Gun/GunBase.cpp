@@ -14,7 +14,6 @@ bool GunBase::init()
 
 GunBase* GunBase::clone()
 {
-    CCLOG("gunbase");
     return nullptr;
 }
 
