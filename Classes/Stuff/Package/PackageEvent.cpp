@@ -41,7 +41,7 @@ void PackageEvent::PackageUpdate(std::vector<CharacterBase*>& players)
 			Vec2 offset = player->getPosition() + player->body->getPosition();
 			rect.origin += offset;
 
-			if (rect.containsPoint(package->getPosition())) {
+			if (rect.containsPoint(package->getPosition()) && player->valid) {
 
 				package->GetPackage(player);
 

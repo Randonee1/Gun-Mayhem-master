@@ -221,7 +221,7 @@ void MapSeele::ShotEvent()
 			Vec2 offset = player->getPosition() + player->body->getPosition();
 			rect.origin += offset;
 
-			if (rect.containsPoint(bullet->getPosition())) {
+			if (rect.containsPoint(bullet->getPosition()) && player->valid) {
 				player->x_speed += bullet->hitSpeed;
 				player->hit = true;
 				auto blood = Blood::create();

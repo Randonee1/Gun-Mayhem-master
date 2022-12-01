@@ -10,23 +10,28 @@ SpeedUp::SpeedUp(CharacterBase* player)
 	acceleration = player->status->acceleration;
 	x_maxSpeed = player->status->x_maxSpeed;
 
-	player->status->acceleration *= 1.4;
-	player->status->x_maxSpeed *= 2;
+	player->status->acceleration *= 3;
+	player->status->x_maxSpeed *= 3;
 
-	head = new Shadow(player->getPosition(), nullptr);
+	/*head = new Shadow(player->getPosition(), nullptr);
 	tail = head;
-	shadow_number ++;
-
+	shadow_number ++;*/
+	head = nullptr;
+	tail = nullptr;
 }
 
 SpeedUp::~SpeedUp()
 {
 	player->status->acceleration = acceleration;
 	player->status->x_maxSpeed = x_maxSpeed;
-	head_figure->removeFromParent();
+	while (tail) {
+		if (tail->figure)
+			tail->figure->removeFromParent();
+		tail = tail->next;
+	}
 }
 
-Sprite* SpeedUp::Figure(CharacterBase* player)
+Sprite* SpeedUp::Figure(CharacterBase* player, float opacity)
 {
 	Sprite* body = Sprite::createWithSpriteFrameName(player->body->name);
 	Sprite* head = Sprite::createWithSpriteFrameName(player->head->name);
@@ -35,12 +40,12 @@ Sprite* SpeedUp::Figure(CharacterBase* player)
 	Sprite* foot1 = Sprite::createWithSpriteFrameName(player->feet1->name);
 	Sprite* foot2 = Sprite::createWithSpriteFrameName(player->feet2->name);
 
-	body->setOpacity(100);
-	head->setOpacity(100);
-	hand1->setOpacity(100);
-	hand2->setOpacity(100);
-	foot1->setOpacity(100);
-	foot2->setOpacity(100);
+	body->setOpacity(opacity);
+	head->setOpacity(opacity);
+	hand1->setOpacity(opacity);
+	hand2->setOpacity(opacity);
+	foot1->setOpacity(opacity);
+	foot2->setOpacity(opacity);
 
 	if(! player->isFlippedX()) {
 		
@@ -88,9 +93,20 @@ Sprite* SpeedUp::Figure(CharacterBase* player)
 		body->addChild(foot2, -1);
 
 		body->setFlippedX(true);
-		body->setOpacity(100);
 	}
 	return body;
+}
+
+Sprite* SpeedUp::Figure(Shadow* shadow, float ocpacity)
+{
+	for (auto& child : shadow->figure->getChildren())
+	{
+		for(auto& c : child->getChildren())
+			c->setOpacity(ocpacity);
+		child->setOpacity(ocpacity);
+	}
+	shadow->figure->setOpacity(ocpacity);
+	return shadow->figure;
 }
 
 void SpeedUp::update(float dt)
@@ -100,37 +116,68 @@ void SpeedUp::update(float dt)
 	if(shadow_deltatime > shadow_interval)
 	{
 
-		if (head_figure)
-		{
+		/*if (head_figure)
 			head_figure->removeFromParent();
 
-			head->next = new Shadow(player->getPosition(), head);
+		head->next = new Shadow(player->getPosition(), head);
+		head = head->next;
+
+		if (shadow_number < shadow_size) {
+			shadow_number++;
+		}
+		else {
+			tail = tail->next;
+			delete tail->last;
+			tail->last = nullptr;
+		}
+
+		tail = head;
+		float opacity = 100;
+		head_figure = Figure(player,opacity);
+		next_figure = head_figure;
+		next_figure->setPosition(head->point);
+		player->map->platform->addChild(next_figure, 0);
+
+		while (tail->last != nullptr) {
+			opacity -= 10;
+			Vec2 delta = tail->last->point - tail->point;
+			tail = tail->last;
+			last_figure = Figure(player,opacity);
+			last_figure->setPosition(delta+next_figure->getContentSize()/2);
+			next_figure->addChild(last_figure, -1);
+			next_figure = last_figure;
+		}*/
+
+		if (head != nullptr) {
+			head->next = new Shadow(player->clone(), player->getPosition(), head);
+			//auto figure = Figure(head, 50);
+			head->figure->setPosition(head->point);
+			player->map->platform->addChild(head->figure, 0);
 			head = head->next;
+
+			float opacity = 100;
+			Shadow* ptr = head->last;
+			while (ptr) {
+				ptr->figure = Figure(ptr, opacity);
+				opacity -= 10;
+				ptr = ptr->last;
+			}
 
 			if (shadow_number < shadow_size) {
 				shadow_number++;
 			}
 			else {
 				tail = tail->next;
+				tail->last->figure->removeFromParent();
 				delete tail->last;
 				tail->last = nullptr;
 			}
 		}
-
-		tail = head;
-		head_figure = Figure(player);
-		next_figure = head_figure;
-		next_figure->setPosition(head->point - player->getPosition());
-		player->addChild(next_figure, -1);
-
-		while (tail->last != nullptr) {
-			Vec2 delta = tail->last->point - tail->point;
-			tail = tail->last;
-			last_figure = Figure(player);
-			last_figure->setPosition(delta+next_figure->getContentSize()/2);
-			next_figure->addChild(last_figure, -1);
-			next_figure = last_figure;
+		else {
+			head =new Shadow(player->clone(), player->getPosition(), nullptr);
+			tail = head;
 		}
+
 		shadow_deltatime = 0;
 	}
 	else {

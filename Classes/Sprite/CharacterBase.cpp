@@ -23,6 +23,53 @@ bool CharacterBase::init(MapBase* map)
 	return true;
 }
 
+Sprite* CharacterBase::clone()
+{
+    Sprite* _body = Sprite::createWithSpriteFrameName(body->name);
+    Sprite* _head = Sprite::createWithSpriteFrameName(head->name);
+    Sprite* _hand1 = Sprite::createWithSpriteFrameName(hand1->name);
+    Sprite* _hand2 = Sprite::createWithSpriteFrameName(hand2->name);
+    Sprite* _foot1 = Sprite::createWithSpriteFrameName(feet1->name);
+    Sprite* _foot2 = Sprite::createWithSpriteFrameName(feet2->name);
+    Sprite* _face = Sprite::createWithSpriteFrameName(face->name);
+
+    _body->setFlippedX(body->isFlippedX());
+    _head->setFlippedX(head->isFlippedX());
+    _hand1->setFlippedX(hand1->isFlippedX());
+    _hand2->setFlippedX(hand2->isFlippedX());
+    _foot1->setFlippedX(feet1->isFlippedX());
+    _foot2->setFlippedX(feet2->isFlippedX());
+    _face->setFlippedX(face->isFlippedX());
+
+
+    _foot1->setAnchorPoint(feet1->organ->getAnchorPoint());
+    _foot2->setAnchorPoint(feet2->organ->getAnchorPoint());
+    _face->setAnchorPoint(face->organ->getAnchorPoint());
+
+    _foot1->setRotation(feet1->organ->getRotation());
+    _foot2->setRotation(feet2->organ->getRotation());
+
+    Vec2 origin = _body->getContentSize() / 2;
+
+    _head->setPosition(head->getPosition() + head->organ->getPosition() + origin);
+    _hand1->setPosition(hand1->getPosition() + hand1->organ->getPosition() + origin);
+    _hand2->setPosition(hand2->getPosition() + hand2->organ->getPosition() + origin);
+    _foot1->setPosition(feet1->getPosition() + feet1->organ->getPosition() + origin);
+    _foot2->setPosition(feet2->getPosition() + feet2->organ->getPosition() + origin);
+    _face->setPosition(face->getPosition() + face->organ->getPosition() + _head->getContentSize() / 2);
+
+    _body->addChild(_head, 1);
+    _body->addChild(_hand1, 1);
+    _body->addChild(_hand2, -1);
+    _body->addChild(_foot1, 1);
+    _body->addChild(_foot2, -1);
+    _head->addChild(_face, 1);
+
+    _body->retain();
+
+    return _body;
+}
+
 bool CharacterBase::InTheBoundary(std::vector<float>& floor, float x) const
 {
     for (int i = 0; i < floor.size() - 1; i += 2) {
@@ -35,16 +82,6 @@ bool CharacterBase::InTheBoundary(std::vector<float>& floor, float x) const
 void CharacterBase::update(float dt)
 {
 	Sprite::update(dt);
-
-    if (skill) {
-        if (skill->duration > skill->Duration) {
-            delete skill;
-            skill = nullptr;
-        }
-        else {
-            skill->update(dt);
-        }
-    }
 
     if(valid)
     {
@@ -202,6 +239,16 @@ void CharacterBase::update(float dt)
             GunChange(initGun);
             hand1->BulletChangeWithHand(gun, throwGun, true);
             hand2->BulletChangeWithHand(gun, throwGun, false);
+        }
+
+        if (skill) {
+            if (skill->duration > skill->Duration) {
+                delete skill;
+                skill = nullptr;
+            }
+            else {
+                skill->update(dt);
+            }
         }
         
     }
