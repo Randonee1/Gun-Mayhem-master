@@ -31,6 +31,8 @@ void Loading::loadResources()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("blood.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bodyColored.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("items.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("superJumpHalo.plist");
+
 
     isloaddone = true;
 }

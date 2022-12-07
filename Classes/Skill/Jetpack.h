@@ -1,18 +1,26 @@
-#ifndef
-#define
+#ifndef JETPACK_H
+#define JETPACK_H
 
 #include "cocos2d.h"
+#include "SkillBase.h"
+
 USING_NS_CC;
 
-class 
+class Jetpack : public SkillBase
 {
-public:
+public: 
+	Jetpack(CharacterBase* player);
 
-	static Scene* createScene();
+	~Jetpack();
 
-	bool init() override;
+	void update(float dt) override;
 
-	CREATE_FUNC();
+private:
+
+	float anti_gravitation;
+	float gravitation;
+	bool onAction = true;
+	
 };
 
 #endif

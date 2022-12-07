@@ -129,14 +129,14 @@ Sequence* Gun_Revolver::HoldingOn(bool withgun)
 
 void Gun_Revolver::SetBullet()
 {
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(50, 30), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(50, 30), bulletSpeed, hitSpeed, this->_flippedX));
 }
 
 void Gun_Revolver::SetBulletCase()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 600, -500);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 400, -500);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 200, -500);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 400, -500);
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX, 600, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 600, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 400, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 200, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 400, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 600, -500);
 }

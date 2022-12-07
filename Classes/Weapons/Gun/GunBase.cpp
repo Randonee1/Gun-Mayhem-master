@@ -49,6 +49,20 @@ void GunBase::setFlippedX(bool flippedX,float offset)
     }
 }
 
+void GunBase::setFlippedX(Sprite* gun, bool flippedX, float offset)
+{
+    gun->setFlippedX(flippedX);
+    if (_flippedX != flippedX)
+    {
+        gun->setPositionX(-gun->getPositionX() + offset);
+        Vec2 anch = anchor;
+        flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
+        gun->setAnchorPoint(anch);
+        if (!onShot)
+            flippedX ? gun->setRotation(-initRotation) : gun->setRotation(initRotation);
+    }
+}
+
 void GunBase::Shot(MapBase* map)
 {
     onShot = false;
@@ -60,7 +74,7 @@ void GunBase::Shot(MapBase* map)
     deltatime = 0;
 }
 
-void GunBase::Change(GunBase* throwgun)
+void GunBase::Change(GunBase* throwgun, bool withgun)
 {
     onShot = false;
     gun->stopAllActions();
@@ -121,11 +135,13 @@ void GunBase::update(float dt)
     }
 }
 
-Vec2 GunBase::GetPositionToBackground()
+Vec2 GunBase::GetPositionToBackground(int tag)
 {
-    Vec2 hand_organ = this->getParent()->getPosition();
-    Vec2 hand = this->getParent()->getParent()->getPosition();
-    Vec2 player = this->getParent()->getParent()->getParent()->getPosition();
+    auto player = this->getParent()->getParent()->getParent();
+    auto hand = player->getChildByTag(tag);
+    Vec2 hand_organ_position = this->getParent()->getPosition();
+    Vec2 hand_position = hand->getPosition();
+    Vec2 player_position = player->getPosition();
 
-    return hand_organ + hand + player;
+    return hand_organ_position + hand_position + player_position;
 }

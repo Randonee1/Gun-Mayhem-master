@@ -5,8 +5,12 @@
 #include "PackageBase.h"
 #include "Skill/Defense.h"
 #include "Skill/SpeedUp.h"
+#include "Skill/SuperJump.h"
+#include "Skill/Jetpack.h"
 
 USING_NS_CC;
+
+enum SkillType{DEFENSE, JETPACK, SPEED_UP, SUPER_JUMP};
 
 class SkillPackage : public PackageBase
 {
@@ -22,7 +26,7 @@ public:
 
 	void update(float dt) override;
 
-	GunBase* gun;
+	SkillType skill;
 
 private:
 };

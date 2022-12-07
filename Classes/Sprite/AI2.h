@@ -12,9 +12,9 @@ class AI2 : public AIBase
 {
 public:
 
-	static AI2* create(MapBase* map);
+	static AI2* create(int tag, MapBase* map);
 
-	bool init(MapBase* map);
+	bool init(int tag, MapBase* map);
 
 	void initBody();
 };

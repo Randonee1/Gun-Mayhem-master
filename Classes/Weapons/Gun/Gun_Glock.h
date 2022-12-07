@@ -20,7 +20,7 @@ public:
 
 	void Shot(MapBase* map);
 
-	void Change(GunBase* throwgun);
+	void Change(GunBase* throwgun,bool withgun);
 
 	Sequence* RaiseHand(bool withgun);
 

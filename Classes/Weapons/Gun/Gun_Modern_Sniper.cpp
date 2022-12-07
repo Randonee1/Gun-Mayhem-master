@@ -114,10 +114,10 @@ Sequence* Gun_Modern_Sniper::HoldingOn(bool withgun)
 void Gun_Modern_Sniper::SetBullet()
 {
     unsigned seed = time(0);
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(60, 23), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(60, 23), bulletSpeed, hitSpeed, this->_flippedX));
 }
 
 void Gun_Modern_Sniper::SetBulletCase()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 20), this->_flippedX, 400, 600);
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 20), this->_flippedX, 400, 600);
 }

@@ -15,11 +15,16 @@ Hand* Hand::CreateWithName(const char* name)
 
 void Hand::GetGun(GunBase* Gun)
 {
-    
-    gun = Gun;
-    gun->setPosition(Vec2(organ->getContentSize().width/2, organ->getContentSize().height/2));
-    organ->addChild(gun,-1);
-    gunPoint = gun->getPosition();
+    if(Gun) {
+        gun = Gun;
+        gun->setPosition(Vec2(organ->getContentSize().width / 2, organ->getContentSize().height / 2));
+        organ->addChild(gun, -1);
+        gunPoint = gun->getPosition();
+    }
+    else if(gun) {
+        gun->removeFromParent();
+        gun = nullptr;
+    }
 }
 
 void Hand::setFlippedX(bool flippedX)
@@ -75,8 +80,8 @@ void Hand::RaiseHandToShoot(MapBase* map,GunBase* gun,bool withgun)
     auto raise = gun->RaiseHand(withgun);
     auto seq_shot = Sequence::create(onshot, raise, onshot, nullptr);
     organ->runAction(seq_shot);
-    if(withgun)
-        gun->Shot(map);
+    if(this->gun)
+        this->gun->Shot(map);
 }
 
 void Hand::BulletChangeWithHand(GunBase* gun, GunBase* throwgun,bool withgun)
@@ -84,16 +89,12 @@ void Hand::BulletChangeWithHand(GunBase* gun, GunBase* throwgun,bool withgun)
     onShot = false;
     organ->stopAllActions();
     CallFunc* onchange = CallFunc::create([&]() {onShot = !onShot; });
-    //auto raiseup = withgun ? EaseSineOut::create(MoveTo::create(0.1, Vec2(40, 14))) : EaseSineOut::create(MoveTo::create(0.1, Vec2(15, -5)));
-    /*auto throwaway = withgun ? EaseSineOut::create(MoveTo::create(0.15, Vec2(120, 64))) : EaseSineOut::create(MoveTo::create(0.2, Vec2(15, -5)));
-    auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
-    auto moveup = withgun ? EaseSineOut::create(MoveTo::create(0.3, Vec2(70, 14))) : EaseSineOut::create(MoveTo::create(0.6, Vec2(15, -5)));*/
     auto bulletchange = gun->BulletChange(withgun);
     auto seq_change = Sequence::create(onchange,bulletchange,onchange, nullptr);
     organ->runAction(seq_change);
 
-    if (withgun)
-        gun->Change(throwgun);
+    if (this->gun)
+        this->gun->Change(throwgun, withgun);
 }
 
 void Hand::DelayWithHand(GunBase* gun,bool withgun)

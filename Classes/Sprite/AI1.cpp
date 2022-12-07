@@ -1,9 +1,9 @@
 #include "AI1.h"
 
-AI1* AI1::create(MapBase* map)
+AI1* AI1::create(int tag, MapBase* map)
 {
     auto ai = new AI1();
-    if (ai && ai->init(map)) {
+    if (ai && ai->init(tag,map)) {
         ai->autorelease();
         return ai;
     }
@@ -11,9 +11,9 @@ AI1* AI1::create(MapBase* map)
     return nullptr;
 }
 
-bool AI1::init(MapBase* map)
+bool AI1::init(int tag, MapBase* map)
 {
-    if (!AIBase::init( map)) {
+    if (!AIBase::init(tag, map)) {
         return false;
     }
 
@@ -85,4 +85,6 @@ void AI1::initBody()
 
     //gun->setPosition(Vec2(65, 30));
     hand1->GetGun(gun);
+
+    AIBase::initBody();
 }

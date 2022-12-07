@@ -2,11 +2,10 @@
 
 bool PlayerBase::initWithTag(int name, MapBase* map)
 {
-    if (!CharacterBase::init(map)) {
+    if (!CharacterBase::init(name, map)) {
         return false;
     }
 
-    this->setTag(name);
     keymap = GameManager::getKeyMap(name);
     initBody();
     initKeyboardListener();
@@ -34,7 +33,8 @@ void PlayerBase::update(float dt)
 
 void PlayerBase::initBody()
 {
-    return;
+    hand1->setTag(1);
+    hand2->setTag(2);
 }
 
 

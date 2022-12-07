@@ -29,7 +29,7 @@ class CharacterBase : public Sprite
 {
 public:
 
-    bool init(MapBase* map);
+    bool init(int tag, MapBase* map);
 
     Sprite* clone();
 

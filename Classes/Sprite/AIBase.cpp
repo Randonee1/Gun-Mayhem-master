@@ -1,8 +1,8 @@
 #include "AIBase.h"
 
-bool AIBase::init(MapBase* map)
+bool AIBase::init(int tag, MapBase* map)
 {
-    if (!CharacterBase::init(map))
+    if (!CharacterBase::init(tag, map))
         return false;
 
     initBody();
@@ -12,7 +12,8 @@ bool AIBase::init(MapBase* map)
 
 void AIBase::initBody()
 {
-    return;
+    hand1->setTag(1);
+    hand2->setTag(2);
 }
 
 void AIBase::update(float dt)

@@ -149,7 +149,7 @@ void MapSunset::initPlayer()
 	/*CharacterBase* player1 = AI1::create(this);
 	platform->addChild(player1, 1);*/
 
-	CharacterBase* player2 = AI1::create(this);
+	CharacterBase* player2 = AI1::create(2,this);
 	platform->addChild(player2, 2);
 
 	/*CharacterBase* player2 = Player1::createWithTag(2, this);

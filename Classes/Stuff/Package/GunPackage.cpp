@@ -1,6 +1,6 @@
 #include "GunPackage.h"
 
-float GunPackage::updatetime = 5;
+float GunPackage::updatetime = 1000;
 
 GunPackage* GunPackage::createWithGun(MapBase* map)
 {

@@ -102,10 +102,10 @@ Sequence* Gun_MG_P90::HoldingOn(bool withgun)
 
 void Gun_MG_P90::SetBullet()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 20), this->_flippedX,300,1);
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 20), this->_flippedX,300,1);
     unsigned seed = time(0);
     float y = rand() % 16 + 10;
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
 }
 
 void Gun_MG_P90::update(float dt)

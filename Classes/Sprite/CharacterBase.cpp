@@ -4,10 +4,12 @@
 #include "Skill/SpeedUp.h"
 #include <iostream>
 
-bool CharacterBase::init(MapBase* map)
+bool CharacterBase::init(int tag, MapBase* map)
 {
     if (!Sprite::init())
         return false;
+
+    this->setTag(tag);
 
     this->map = map;
     accelerate = 0;
@@ -123,7 +125,7 @@ void CharacterBase::update(float dt)
         if (inTheAir) {
             //跳起暂停走路动作
             StopWalk();
-            if (std::abs(y_speed) <= std::abs(status->gravitation * dt))
+            if (std::abs(y_speed) <= std::abs(status->gravitation * dt) && status->gravitation < 0)
                 MoveDelay(false, false);
             if (!isDoubleJump && keyMap["up"]) {
                 /*if (keyMap["down"] && floor < map->Floor.size() - 1)
@@ -134,6 +136,7 @@ void CharacterBase::update(float dt)
                 MoveDelay(true, false);
                 isDoubleJump = true;
                 DrawHalo();
+                keyMap["up"] = false;
             }
             y_speed += status->gravitation * dt;
             if (y_speed < -status->y_maxSpeed * 2.5)
@@ -298,7 +301,7 @@ void CharacterBase::DrawHalo()
 
 void CharacterBase::GunChange(GunBase* change)
 {
-    bool flip = gun->isFlippedX();
+    bool flip = gun->gun->isFlippedX();
     bool onaction = gun->onShot;
     float angle = gun->gun->getRotation();
     if(gun->gunshadow)
@@ -315,6 +318,7 @@ void CharacterBase::GunChange(GunBase* change)
     gun->setFlippedX(flip, hand1->organ->getContentSize().width);
     gun->map = this->map;
     hand1->GetGun(gun);
+    hand2->GetGun(nullptr);
     if(onaction){
         gun->gun->setRotation(angle);
         hand1->DelayWithHand(gun,true);

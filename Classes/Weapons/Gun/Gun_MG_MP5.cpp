@@ -101,8 +101,8 @@ Sequence* Gun_MG_MP5::HoldingOn(bool withgun)
 
 void Gun_MG_MP5::SetBullet()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 20), this->_flippedX, 400, 400);
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 20), this->_flippedX, 400, 400);
     unsigned seed = time(0);
     float y = rand() % 16 + 15;
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
 }

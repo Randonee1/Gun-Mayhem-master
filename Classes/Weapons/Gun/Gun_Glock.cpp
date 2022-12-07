@@ -58,9 +58,9 @@ void Gun_Glock::Shot( MapBase* map)
     gun->runAction(seq_shot);
 }
 
-void Gun_Glock::Change(GunBase* throwgun)
+void Gun_Glock::Change(GunBase* throwgun, bool withgun)
 {
-    GunBase::Change(throwgun);
+    GunBase::Change(throwgun, withgun);
     gun->stopAllActions();
     CallFunc* onchange = CallFunc::create([&]() {onShot = !onShot; });
     CallFunc* Change = CallFunc::create([&]() {change = !change; });
@@ -72,7 +72,7 @@ void Gun_Glock::Change(GunBase* throwgun)
     gunshadow_vy = 1000;
     gunshadow->setFlippedX(gun->isFlippedX());
     gun->isFlippedX() ? gunshadow->setRotation(30) : gunshadow->setRotation(-30);
-    gunshadow->setPosition(GetPositionToBackground());
+    gunshadow->setPosition(GetPositionToBackground(1));
     map->platform->addChild(gunshadow, 1);
     auto rotate = RepeatForever::create(RotateBy::create(0.5, gun->isFlippedX() ? 180 : -180));
     gunshadow->runAction(rotate); });
@@ -143,8 +143,8 @@ Sequence* Gun_Glock::BulletChange(bool withgun)
 
 void Gun_Glock::SetBullet()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(), Vec2(10, 30), this->_flippedX,400,800);
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(), Vec2(50, 30),bulletSpeed,hitSpeed,this->_flippedX));
+    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX,400,800);
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(50, 30),bulletSpeed,hitSpeed,this->_flippedX));
 }
 
 void Gun_Glock::update(float dt)

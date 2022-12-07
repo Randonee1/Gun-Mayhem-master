@@ -19,10 +19,11 @@ public:
 	virtual Sprite* ThrowGun();
 
 	void setFlippedX(bool flippedX, float offset);
+	void setFlippedX(Sprite* gun, bool flippedX, float offset);
 
 	virtual void Shot(MapBase* map);
 
-	virtual void Change(GunBase* throwgun);
+	virtual void Change(GunBase* throwgun,bool withgun);
 
 	virtual void Delay();
 
@@ -40,7 +41,7 @@ public:
 	bool onShot = false;
 	bool change = false;
 
-	Vec2 GetPositionToBackground();
+	Vec2 GetPositionToBackground(int tag);
 	Vec2 anchor;
 
 	float deltatime = 0;

@@ -26,31 +26,7 @@ void Bullet::update(float dt)
 	bool remove = false;
 	currentPoint.x += bulletSpeed * dt;
 	this->setPosition(currentPoint);
-	/*Node* player1_Body = back->getChildByTag(1)->getChildByTag(0)->getChildByTag(0);
-	Node* player2_Body = back->getChildByTag(2)->getChildByTag(0)->getChildByTag(0);
-
-	auto rect1 = player1_Body->getBoundingBox();
-	Vec2 offset1 = back->getChildByTag(1)->getPosition() + back->getChildByTag(1)->getChildByTag(0)->getPosition();
-	rect1.origin += offset1;
-
-	auto rect2 = player2_Body->getBoundingBox();
-	Vec2 offset2 = back->getChildByTag(2)->getPosition() + back->getChildByTag(2)->getChildByTag(0)->getPosition();
-	rect2.origin += offset2;
-
-	if (rect1.containsPoint(this->getPosition()))
-	{
-		remove = true;
-	}
-
-	if (rect2.containsPoint(this->getPosition()))
-	{
-		remove = true;
-	}
-
-	if (this->getPositionX() > 12000 || this->getPositionX() < -6000)
-		remove = true;
-	if (remove)
-		this->removeFromParent();*/
+	
 }
 
 Bullet* Bullet::create(Node* back, Vec2 init, Vec2 offset, float bulletSpeed,float hitSpeed, bool direction)

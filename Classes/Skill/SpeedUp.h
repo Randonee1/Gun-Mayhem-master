@@ -24,6 +24,7 @@ class SpeedUp : public SkillBase
 {
 public:
 	SpeedUp(CharacterBase* player);
+
 	~SpeedUp();
 
 	Sprite* Figure(Shadow* shadow, float ocpacity);

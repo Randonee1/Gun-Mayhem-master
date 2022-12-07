@@ -98,15 +98,23 @@ pass
 
 上图为多图层叠加缩小看之后的效果
 
+
+
 ### 11/20
 
-血迹制作
+子弹制作
+
+子弹的创建我放在了枪shot动作中
+
+弹壳制作
+
+子弹碰撞事件
 
 
 
 ### 11/21
 
-AI的初步想法
+血迹制作
 
 
 
@@ -128,7 +136,56 @@ AI的初步想法
 
 ### 11/26
 
+GunPackage/SkillPackage
+
+因为游戏中需要人物去捡包来更换枪械和技能，所以创建了 `GunPackage` 和 `SkillPackage` 两个类，这两个类都继承于 `PackageBase` 类，每个子类都一个 `updatetime` 的静态变量，记录包的更新时间。 `PackageBase ` 继承于 `Sprite` 类，里面几个重要函数： `init()` 用于初始化包， `GetPackage(CharacterBase*) ` 用于相应人物捡到包的事件， `update()` 更新包的位置。
+
+ `GunPackage` 类中 `GetPackage(CharacterBase*)` 较为简单，只需要调用人物的 `GunChange(GunChange *)` 并传入 `GunPackage` 中存放的要替换的枪就可以了。
+
+![image-20221202132812952](./README_image/image-20221202132812952.png)
+
+ `SkillPackage` 类中 `GetPackage(CharacterBase*)` 本来也想现在 `SkillPackage` 中先初始化一个 `skill` 对象，再将 `skill` 传入到人物里，但是这样会出现一个情况就是当人物捡到包之后，该包会直接被delete掉，这样包中对应的skill也会跟着一起被delete掉， `GunPackage` 不会出现这种情况是因为，传入的枪并不是 `GunPackage` 中的枪本身而是该枪的克隆  `gun->clone()`  （这个函数是之前写换枪动作的时候写的）。所以 `SkillPackage` 的初始化不能直接先初始化一个 `skill` 对象，而是先用一个东西记录要传递的技能，再在 `GetPackage` 时初始化这个技能。
+
+![image-20221202131433572](./README_image/image-20221202131433572.png)
+
 PackageEvent
 
+一开始的时候我想直接在MapBase里创建一个PackageBase*类型的vector，然后在类似于Map中的ShotEvent()检测人物与包的碰撞事件，但是不能直接将 vector<PackageBase *>直接放入到MapBase中，因为我们在PackageBase.h文件中包含了MapBase.h，但要将vector<PackageBase *>放入到MapBase中需要包含PackageBase.h，这样会出现递归包含（后面发现有好的解决办法，就是在其中一个头文件中只声明另外一个头文件中包含的类，在对应的cpp文件中包含头文件）。解决办法是不要直接在MapBase中直接声明vector<PackageBase *>而是在每个子类地图中分别声明这个vector。但是每个package都是需要单独初始化，这样就又要改每个map中的update函数，还要存放各种时间来更新地图中的包，这样程序的可读性就不高，也不利于package事件的维护。
 
+PackageEvent的作用就是来解决这个问题的。一方面可以解决MapBase和PackageBase之间的递归包含的问题，另一方面也可以独立的维护package事件。PackageEvent中有update()函数用于更新地图中的包，PackageUpdate函数可以用于响应人物与包的碰撞事件。
 
+### 11/28
+
+skill
+
+人物技能的逻辑是，在技能持续时间内改变人物的一些属性（人物的属性包括最大的速度，加速度等，都存放在status这个结构体里面），在技能持续时间结束后恢复这些改变过的属性。我们只用在每个skill的构造函数中先保存人物的原始属性，然后改变人物相应的属性，最后在析构函数里恢复人物的属性。同时为了添加技能对应的特效，所以就需要一个update()，实时更新相应的特效。
+
+### 12/1
+
+SpeedUp：快速位移
+
+![image-20221202123718949](./README_image/image-20221202123718949.png)
+
+![image-20221202124604851](./README_image/image-20221202124604851.png)
+
+这个技能除了能加快人物的移动速度和加速度之外的一大亮点就是残影的特效。我用一个链表结构来存储每个残影
+
+```c++
+struct Shadow {
+	Sprite* figure;
+	Vec2 point;
+	Shadow* next;
+	Shadow* last;
+	
+	Shadow(Sprite* figure,Vec2 point, Shadow* last) {
+		this->figure = figure;
+		this->point = point;
+		this->last = last;
+		this->next = nullptr;
+	}
+};
+```
+
+其中的每一个残影存储了位置信息和相应的图像，并存有指向上一个残影的指针和指向下一个残影的指针。首先设置残影的最大数量和更新时间，并用 `head` 和 `tail` 分别存储残影列表的头尾指针。每一次更新，先将 `head` 指针指向的残影绘制到画布上，然后创建一个新的指针，并传入当前人物的位置和对应的图像，同时移动 `head` 指针的位置。如果残影的数量达到最大值，还需要释放 `tail` 指针，对应的残影也会从画布上被移除，最后将 `tail` 指针前移。
+
+有一点需要特别注意，就是每次创建指针不能直接传入当前人物对应的指针，一是该指针会发生变化，残影的内容得不到记录，二是后面对残影的操作会关联到人物上去，会出现各种错误，所以我的做法是在 `CharacterBase` 类中定义一个 `clone()` 函数该函数根据人物的各个部件的实时的状态返回一个新的图像。

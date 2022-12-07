@@ -10,7 +10,7 @@ class AIBase : public CharacterBase
 {
 public:
 
-	bool init(MapBase* map);
+	bool init(int tag, MapBase* map);
 
 	virtual void initBody();
 
