@@ -10,6 +10,7 @@
 #include "Weapons/Gun/Gun_MG_Uzi.h"
 #include "Weapons/Gun/Gun_Modern_Sniper.h"
 #include "Weapons/Gun/Gun_Revolver.h"
+#include "Weapons/Gun/Gun_Double.h"
 
 USING_NS_CC;
 

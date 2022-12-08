@@ -13,15 +13,15 @@ public:
 	static Gun_Revolver* create();
 
 	Gun_Revolver* clone() override;
-	Sprite* ThrowGun() override;
+	Sprite* RightGun() override;
 
 	bool init() override;
 
-	void Shot(MapBase* map);
+	void Shot(MapBase* map, bool right);
 
 	Sequence* RaiseHand(bool withgun);
 
-	void Delay();
+	void Delay(bool right);
 
 	Sequence* HoldingOn(bool withgun);
 

@@ -34,7 +34,12 @@ Sprite* CharacterBase::clone()
     Sprite* _foot1 = Sprite::createWithSpriteFrameName(feet1->name);
     Sprite* _foot2 = Sprite::createWithSpriteFrameName(feet2->name);
     Sprite* _face = Sprite::createWithSpriteFrameName(face->name);
-    Sprite* _gun = gun->ThrowGun();
+    Sprite* _gun_right = gun->RightGun();
+    Sprite* _gun_left = gun->LeftGun();
+    if (gun->change) {
+        _gun_right = nullptr;
+        _gun_left = nullptr;
+    }
 
     _body->setFlippedX(body->isFlippedX());
     _head->setFlippedX(head->isFlippedX());
@@ -43,17 +48,20 @@ Sprite* CharacterBase::clone()
     _foot1->setFlippedX(feet1->isFlippedX());
     _foot2->setFlippedX(feet2->isFlippedX());
     _face->setFlippedX(face->isFlippedX());
-    _gun->setFlippedX(gun->isFlippedX());
+    if(_gun_right)_gun_right->setFlippedX(gun->isFlippedX());
+    if(_gun_left)_gun_left->setFlippedX(gun->isFlippedX());
 
 
     _foot1->setAnchorPoint(feet1->organ->getAnchorPoint());
     _foot2->setAnchorPoint(feet2->organ->getAnchorPoint());
     _face->setAnchorPoint(face->organ->getAnchorPoint());
-    _gun->setAnchorPoint(gun->gun->getAnchorPoint());
+    if(_gun_right)_gun_right->setAnchorPoint(gun->gun_right->getAnchorPoint());
+    if(_gun_left)_gun_left->setAnchorPoint(gun->gun_left->getAnchorPoint());
 
     _foot1->setRotation(feet1->organ->getRotation());
     _foot2->setRotation(feet2->organ->getRotation());
-    _gun->setRotation(gun->gun->getRotation());
+    if(_gun_right)_gun_right->setRotation(gun->gun_right->getRotation());
+    if(_gun_left)_gun_left->setRotation(gun->gun_left->getRotation());
 
     Vec2 origin = _body->getContentSize() / 2;
 
@@ -63,7 +71,8 @@ Sprite* CharacterBase::clone()
     _foot1->setPosition(feet1->getPosition() + feet1->organ->getPosition() + origin);
     _foot2->setPosition(feet2->getPosition() + feet2->organ->getPosition() + origin);
     _face->setPosition(face->getPosition() + face->organ->getPosition() + _head->getContentSize() / 2);
-    _gun->setPosition(gun->getPosition() + gun->gun->getPosition());
+    if(_gun_right)_gun_right->setPosition(gun->gun_right->getPosition());
+    if (_gun_left)_gun_left->setPosition(gun->gun_left->getPosition());
 
     _body->addChild(_head, 1);
     _body->addChild(_hand1, 1);
@@ -71,7 +80,8 @@ Sprite* CharacterBase::clone()
     _body->addChild(_foot1, 1);
     _body->addChild(_foot2, -1);
     _head->addChild(_face, 1);
-    _hand1->addChild(_gun, -1);
+    if(_gun_right)_hand1->addChild(_gun_right, -1);
+    if (_gun_left)_hand2->addChild(_gun_left, 1);
 
     _body->retain();
 
@@ -90,6 +100,7 @@ bool CharacterBase::InTheBoundary(std::vector<float>& floor, float x) const
 void CharacterBase::update(float dt)
 {
 	Sprite::update(dt);
+    gun->update(dt);
 
     if(valid)
     {
@@ -234,8 +245,8 @@ void CharacterBase::update(float dt)
             
             if(gun->shot) {
                 if(!gun->change){
-                    hand1->RaiseHandToShoot(map,gun,true);
-                    hand2->RaiseHandToShoot(map,gun,false);
+                    hand1->RaiseHandToShoot(map,true);//true代表右手
+                    hand2->RaiseHandToShoot(map,false);//false代表左手
 
                     this->_flippedX ? x_speed += gun->recoilSpeed : x_speed -= gun->recoilSpeed;
                     if (std::abs(x_speed) > status->x_maxSpeed)
@@ -246,8 +257,8 @@ void CharacterBase::update(float dt)
         if (gun->bulletCount >= gun->bulletClip && gun->deltatime > gun->shotInterval) {
             throwGun = gun->clone();
             GunChange(initGun);
-            hand1->BulletChangeWithHand(gun, throwGun, true);
-            hand2->BulletChangeWithHand(gun, throwGun, false);
+            hand1->BulletChangeWithHand(throwGun, true);
+            hand2->BulletChangeWithHand(throwGun, false);
         }
 
         if (skill) {
@@ -301,12 +312,12 @@ void CharacterBase::DrawHalo()
 
 void CharacterBase::GunChange(GunBase* change)
 {
-    bool flip = gun->gun->isFlippedX();
+    bool flip = gun->isFlippedX();
     bool onaction = gun->onShot;
-    float angle = gun->gun->getRotation();
-    if(gun->gunshadow)
-        gun->gunshadow->removeFromParent();
-    gun->removeFromParent();
+    if(gun->gunshadow_right) gun->gunshadow_right->removeFromParent();
+    if (gun->gunshadow_left) gun->gunshadow_left->removeFromParent();
+    if(gun->gun_right)gun->gun_right->removeFromParent();
+    if (gun->gun_left)gun->gun_left->removeFromParent();
     gun = change->clone();
 
     Vec2 left = hand1->initPosition;
@@ -315,14 +326,15 @@ void CharacterBase::GunChange(GunBase* change)
     hand1->setPosition(left);
     hand2->setPosition(right);
 
-    gun->setFlippedX(flip, hand1->organ->getContentSize().width);
+    if(gun->gun_right)gun->setFlippedX(gun->gun_right,flip, hand1->organ->getContentSize().width);
+    if (gun->gun_left)gun->setFlippedX(gun->gun_left, flip, hand1->organ->getContentSize().width);
+
     gun->map = this->map;
-    hand1->GetGun(gun);
-    hand2->GetGun(nullptr);
+    hand1->GetGun(gun,true);
+    hand2->GetGun(gun,false);
     if(onaction){
-        gun->gun->setRotation(angle);
-        hand1->DelayWithHand(gun,true);
-        hand2->DelayWithHand(gun, false);
+        hand1->DelayWithHand(true);
+        hand2->DelayWithHand(false);
     }
 }
 

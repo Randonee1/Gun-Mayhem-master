@@ -92,7 +92,8 @@ void Player1::initBody()
     this->addChild(body, 0);
 
     //gun->setPosition(Vec2(65, 30));
-    hand1->GetGun(gun);
+    hand1->GetGun(gun,true);
+    hand2->GetGun(gun, false);
 
     PlayerBase::initBody();
 }

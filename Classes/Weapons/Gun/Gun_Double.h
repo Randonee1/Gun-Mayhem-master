@@ -1,19 +1,19 @@
-#ifndef GUN_MODERN_SNIPER_H
-#define GUN_MODERN_SNIPER_H
+#ifndef GUN_DOUBLE
+#define GUN_DOUBLE
 
 #include "cocos2d.h"
 #include "GunBase.h"
-
 USING_NS_CC;
 
-class Gun_Modern_Sniper : public GunBase
+class Gun_Double : public GunBase
 {
 public:
 
-	static Gun_Modern_Sniper* create();
+	static Gun_Double* create();
 
-	Gun_Modern_Sniper* clone() override;
+	Gun_Double* clone() override;
 	Sprite* RightGun() override;
+	Sprite* LeftGun() override;
 
 	bool init() override;
 
@@ -25,9 +25,12 @@ public:
 
 	Sequence* HoldingOn(bool withgun);
 
-	void SetBullet() override;
+	Sequence* BulletChange(bool withgun) override;
 
-	void SetBulletCase() override;
+	void SetBullet_right();
+	void SetBullet_left();
+	
+	bool gun_switch = true;
 };
 
 #endif

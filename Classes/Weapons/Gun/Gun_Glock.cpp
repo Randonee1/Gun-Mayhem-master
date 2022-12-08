@@ -15,7 +15,7 @@ Gun_Glock* Gun_Glock::clone()
     return Gun_Glock::create();
 }
 
-Sprite* Gun_Glock::ThrowGun()
+Sprite* Gun_Glock::RightGun()
 {
     return Sprite::create("gun_test.png");
 }
@@ -25,8 +25,8 @@ bool Gun_Glock::init()
     if (!GunBase::init())
         return false;
 
-    gun = Sprite::create("gun_test.png");
-    this->addChild(gun, 0);
+    gun_right = Sprite::create("gun_test.png");
+    //this->addChild(gun, 0);
 
     anchor = Vec2(0.2, 0.25);
     initRotation = 30.0f;
@@ -37,15 +37,15 @@ bool Gun_Glock::init()
     bulletClip = 10;
     bulletCount = 0;
 
-    gun->setAnchorPoint(anchor);
-    gun->setRotation(initRotation);
+    gun_right->setAnchorPoint(anchor);
+    gun_right->setRotation(initRotation);
     return true;
 }
 
-void Gun_Glock::Shot( MapBase* map)
+void Gun_Glock::Shot( MapBase* map, bool right)
 {
-    GunBase::Shot(map);
-    gun->stopAllActions();
+    GunBase::Shot(map, right);
+    gun_right->stopAllActions();
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     CallFunc* shot = CallFunc::create(CC_CALLBACK_0(GunBase::SetBullet, this));
     CallFunc* onfire = CallFunc::create([&]() {fire = !fire; });
@@ -55,39 +55,34 @@ void Gun_Glock::Shot( MapBase* map)
     auto delay = RotateTo::create(0.9, 0);
     auto back = RotateTo::create(0.3, 30);
     auto seq_shot = Sequence::create(onshot,onfire, aim, shot, up, down,onfire, delay, back, onshot, nullptr);
-    gun->runAction(seq_shot);
+    gun_right->runAction(seq_shot);
 }
 
-void Gun_Glock::Change(GunBase* throwgun, bool withgun)
+void Gun_Glock::Change(GunBase* throwgun, bool right)
 {
-    GunBase::Change(throwgun, withgun);
-    gun->stopAllActions();
-    CallFunc* onchange = CallFunc::create([&]() {onShot = !onShot; });
-    CallFunc* Change = CallFunc::create([&]() {change = !change; });
-    CallFunc* disappear = CallFunc::create([&]() {gun->setVisible(false); });
-    CallFunc* appear = CallFunc::create([&]() {gun->setVisible(true); });
+    if(right) {
+        GunBase::Change(throwgun, right);
+        if(throwgun->gun_right)GunThrow(throwgun, this->isFlippedX(), right);
+        gun_right->stopAllActions();
+        CallFunc* onchange = CallFunc::create([&]() {onShot = !onShot; });
+        CallFunc* Change = CallFunc::create([&]() {change = !change; });
+        CallFunc* disappear = CallFunc::create([&]() {gun_right->setVisible(false); });
+        CallFunc* appear = CallFunc::create([&]() {gun_right->setVisible(true); });
 
-    CallFunc* gunthrow = CallFunc::create([&,throwgun]() {gunshadow = throwgun->ThrowGun();
-    gunshadow_vx = gun->isFlippedX() ? -1000 : 1000;
-    gunshadow_vy = 1000;
-    gunshadow->setFlippedX(gun->isFlippedX());
-    gun->isFlippedX() ? gunshadow->setRotation(30) : gunshadow->setRotation(-30);
-    gunshadow->setPosition(GetPositionToBackground(1));
-    map->platform->addChild(gunshadow, 1);
-    auto rotate = RepeatForever::create(RotateBy::create(0.5, gun->isFlippedX() ? 180 : -180));
-    gunshadow->runAction(rotate); });
-
-    //auto raise = RotateTo::create(0.1, -60);
-    auto moveback = RotateTo::create(0, 0);
-    auto throwaway = RotateTo::create(0.15, -30);
-    auto movedown = RotateTo::create(0.3, initRotation);
-    auto moveup1 = RotateTo::create(0.1, -100);
-    auto moveup2 = RotateTo::create(0.1, 130);
-    auto moveup3 = RotateTo::create(0.1, 0);
-    auto delay = RotateTo::create(1, 0);
-    auto back = RotateTo::create(0.3, 30);
-    auto seq_change = Sequence::create(onchange,Change, gunthrow, disappear,moveback,throwaway,movedown,appear, moveup1,moveup2,moveup3,Change,delay,back,onchange, nullptr);
-    gun->runAction(seq_change);
+        auto moveback = RotateTo::create(0, 0);
+        auto throwaway = RotateTo::create(0.15, -30);
+        auto movedown = RotateTo::create(0.3, initRotation);
+        auto moveup1 = RotateTo::create(0.1, -100);
+        auto moveup2 = RotateTo::create(0.1, 130);
+        auto moveup3 = RotateTo::create(0.1, 0);
+        auto delay = RotateTo::create(1, 0);
+        auto back = RotateTo::create(0.3, 30);
+        auto seq_change = Sequence::create(onchange, Change, disappear, moveback, throwaway, movedown, appear, moveup1, moveup2, moveup3, Change, delay, back, onchange, nullptr);
+        gun_right->runAction(seq_change);
+    }
+    else {
+        if(throwgun->gun_left) GunThrow(throwgun, this->isFlippedX(), right);
+    }
 }
 
 Sequence* Gun_Glock::RaiseHand(bool withgun)
@@ -102,13 +97,15 @@ Sequence* Gun_Glock::RaiseHand(bool withgun)
     }
 }
 
-void Gun_Glock::Delay()
+void Gun_Glock::Delay(bool right)
 {
+    gun_right->setRotation(0);
+    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     auto aim = RotateTo::create(0, 0);
     auto delay = RotateTo::create(0.9, 0);
     auto back = RotateTo::create(0.3, 30);
-    auto seq_shot = Sequence::create( aim, delay, back, nullptr);
-    gun->runAction(seq_shot);
+    auto seq_shot = Sequence::create(onshot, aim, delay, back, onshot,nullptr);
+    gun_right->runAction(seq_shot);
 }
 
 Sequence* Gun_Glock::HoldingOn(bool withgun)
@@ -123,44 +120,52 @@ Sequence* Gun_Glock::HoldingOn(bool withgun)
     }
 }
 
-Sequence* Gun_Glock::BulletChange(bool withgun)
-{
-    auto delay = MoveBy::create(1, Vec2(0, 0));
-    auto down = MoveTo::create(0.3, Vec2(0, 0));
-    if (withgun) {
-        auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(120, 64)));
-        auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
-        auto moveup = EaseSineOut::create(MoveTo::create(0.3, Vec2(70, 14)));
-        return Sequence::create(throwaway, movedown, moveup,delay,down, nullptr);
-    }
-    else {
-        auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(15, -5)));
-        auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
-        auto moveup = EaseSineOut::create(MoveTo::create(0.3, Vec2(15, -5)));
-        return Sequence::create(throwaway, movedown, moveup,delay,down, nullptr);
-    }
-}
 
 void Gun_Glock::SetBullet()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX,400,800);
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(50, 30),bulletSpeed,hitSpeed,this->_flippedX));
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 30), this->_flippedX,400,800);
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(50, 30),bulletSpeed,hitSpeed,this->_flippedX));
+}
+
+void Gun_Glock::GunThrow(GunBase* throwgun,bool flipped, bool right)
+{
+   
+    right? gunshadow_right = throwgun->RightGun() : gunshadow_left = throwgun->LeftGun();
+    auto gunshadow = right ? gunshadow_right : gunshadow_left;
+    gunshadow_vx = flipped ? -1000 : 1000;
+    gunshadow_vy = 1000;
+    gunshadow->setFlippedX(flipped);
+    flipped ? gunshadow->setRotation(30) : gunshadow->setRotation(-30);
+    gunshadow->setPosition(GetPositionToBackground(right));
+    map->platform->addChild(gunshadow, 1);
+    auto rotate = RepeatForever::create(RotateBy::create(0.5, flipped ? 180 : -180));
+    gunshadow->runAction(rotate);
 }
 
 void Gun_Glock::update(float dt)
 {
     GunBase::update(dt);
-
-    if (gunshadow) {
+    if (gunshadow_right || gunshadow_left) {
         gunshadow_vy -= dt * 4000;
-        Vec2 point = gunshadow->getPosition();
+    }
+    if(gunshadow_right){
+        Vec2 point = gunshadow_right->getPosition();
         point.x += gunshadow_vx * dt;
         point.y += gunshadow_vy * dt;
-        gunshadow->setPosition(point);
-        
+        gunshadow_right->setPosition(point);
         if (point.y < map->death_line) {
-            gunshadow->removeFromParent();
-            gunshadow = nullptr;
+            gunshadow_right->removeFromParent();
+            gunshadow_right = nullptr;
+        }
+    }
+    if(gunshadow_left) {
+        Vec2 point = gunshadow_left->getPosition();
+        point.x += gunshadow_vx * dt;
+        point.y += gunshadow_vy * dt;
+        gunshadow_left->setPosition(point);
+        if (point.y < map->death_line) {
+            gunshadow_left->removeFromParent();
+            gunshadow_left = nullptr;
         }
     }
 }

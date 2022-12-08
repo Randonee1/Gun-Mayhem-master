@@ -16,16 +16,17 @@ public:
 	virtual bool init();
 
 	virtual GunBase* clone();
-	virtual Sprite* ThrowGun();
+	virtual Sprite* RightGun();
+	virtual Sprite* LeftGun();
 
-	void setFlippedX(bool flippedX, float offset);
+	//void setFlippedX(bool flippedX, float offset);
 	void setFlippedX(Sprite* gun, bool flippedX, float offset);
 
-	virtual void Shot(MapBase* map);
+	virtual void Shot(MapBase* map, bool right);
 
 	virtual void Change(GunBase* throwgun,bool withgun);
 
-	virtual void Delay();
+	virtual void Delay(bool right);
 
 	virtual Sequence* RaiseHand(bool withgun);
 	virtual Sequence* BulletChange(bool withgun);
@@ -41,7 +42,7 @@ public:
 	bool onShot = false;
 	bool change = false;
 
-	Vec2 GetPositionToBackground(int tag);
+	Vec2 GetPositionToBackground(bool right);
 	Vec2 anchor;
 
 	float deltatime = 0;
@@ -59,10 +60,14 @@ public:
 	bool isGatling = false;
 	bool isSniper = false;
 
-	Sprite* gun;
+	//Sprite* gun;
+
+	Sprite* gun_left = nullptr;
+	Sprite* gun_right = nullptr;
 	MapBase* map;
 
-	Sprite* gunshadow = nullptr;
+	Sprite* gunshadow_right = nullptr;
+	Sprite* gunshadow_left = nullptr;
 	float gunshadow_vx;
 	float gunshadow_vy;
 };

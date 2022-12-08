@@ -15,7 +15,7 @@ Gun_Modern_Sniper* Gun_Modern_Sniper::clone()
 	return Gun_Modern_Sniper::create();
 }
 
-Sprite* Gun_Modern_Sniper::ThrowGun()
+Sprite* Gun_Modern_Sniper::RightGun()
 {
 	return Sprite::create("Sniper_Rifle.png");
 }
@@ -25,8 +25,8 @@ bool Gun_Modern_Sniper::init()
     if (!GunBase::init())
         return false;
 
-    gun = Sprite::create("Sniper_Rifle.png");
-    this->addChild(gun, 0);
+    gun_right = Sprite::create("Sniper_Rifle.png");
+    //this->addChild(gun, 0);
 
     isSniper = true;
 
@@ -39,15 +39,15 @@ bool Gun_Modern_Sniper::init()
     bulletClip = 10;
     bulletCount = 0;
 
-    gun->setAnchorPoint(anchor);
-    gun->setRotation(initRotation);
+    gun_right->setAnchorPoint(anchor);
+    gun_right->setRotation(initRotation);
     return true;
 }
 
-void Gun_Modern_Sniper::Shot(MapBase* map)
+void Gun_Modern_Sniper::Shot(MapBase* map, bool right)
 {
-    GunBase::Shot(map);
-    gun->stopAllActions();
+    GunBase::Shot(map, right);
+    gun_right->stopAllActions();
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     CallFunc* shot = CallFunc::create(CC_CALLBACK_0(GunBase::SetBullet, this));
     CallFunc* bulletcase = CallFunc::create(CC_CALLBACK_0(GunBase::SetBulletCase, this));
@@ -60,7 +60,7 @@ void Gun_Modern_Sniper::Shot(MapBase* map)
     auto delay5 = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
     auto seq_shot = Sequence::create(onshot, onfire, aim1, shot,delay1, onfire, delay2,bulletcase, delay3,delay4,delay5, back, onshot, nullptr);
-    gun->runAction(seq_shot);
+    gun_right->runAction(seq_shot);
 }
 
 Sequence* Gun_Modern_Sniper::RaiseHand(bool withgun)
@@ -87,14 +87,15 @@ Sequence* Gun_Modern_Sniper::RaiseHand(bool withgun)
     }
 }
 
-void Gun_Modern_Sniper::Delay()
+void Gun_Modern_Sniper::Delay(bool right)
 {
+    gun_right->setRotation(0);
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     auto aim = RotateTo::create(0, 0);
     auto delay3 = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
     auto seq_delay = Sequence::create(onshot,aim, delay3, back,onshot, nullptr);
-    gun->runAction(seq_delay);
+    gun_right->runAction(seq_delay);
 }
 
 Sequence* Gun_Modern_Sniper::HoldingOn(bool withgun)
@@ -114,10 +115,10 @@ Sequence* Gun_Modern_Sniper::HoldingOn(bool withgun)
 void Gun_Modern_Sniper::SetBullet()
 {
     unsigned seed = time(0);
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(60, 23), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(60, 23), bulletSpeed, hitSpeed, this->_flippedX));
 }
 
 void Gun_Modern_Sniper::SetBulletCase()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 20), this->_flippedX, 400, 600);
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 20), this->_flippedX, 400, 600);
 }

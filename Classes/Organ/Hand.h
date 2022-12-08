@@ -13,7 +13,7 @@ public:
 	static Hand* CreateWithName(const char* name);
 
 	//void stopActionByTag(int tag);
-	void GetGun(GunBase* Gun);
+	void GetGun(GunBase* Gun,bool right);
 
 	void setFlippedX(bool flippedX);
 
@@ -21,11 +21,11 @@ public:
 
 	void MoveDelay(bool up, bool floor) override;
 
-	void RaiseHandToShoot(MapBase* map,GunBase* gun,bool withgun);
+	void RaiseHandToShoot(MapBase* map,bool right);
 
-	void BulletChangeWithHand(GunBase* gun,GunBase* throwgun, bool withgun);
+	void BulletChangeWithHand(GunBase* throwgun, bool right);
 
-	void DelayWithHand(GunBase* gun,bool withgun);
+	void DelayWithHand(bool right);
 
 	bool actionState = false;
 	bool onShot = false;
@@ -33,7 +33,8 @@ public:
 	void SetActionState();
 	void SetShot();
 
-	GunBase* gun;
+	GunBase* Gun;
+	Sprite* gun = nullptr;
 	Point gunPoint;
 
 };

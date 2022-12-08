@@ -1,6 +1,6 @@
 #include "GunPackage.h"
 
-float GunPackage::updatetime = 1000;
+float GunPackage::updatetime = 5;
 
 GunPackage* GunPackage::createWithGun(MapBase* map)
 {
@@ -18,7 +18,7 @@ bool GunPackage::initWithGun(MapBase* map)
     if (!PackageBase::init(map))
         return false;
 
-    switch (rand() % 7)
+    switch (rand() % 8)
     {
     case 0:
         gun = Gun_MG_P90::create();
@@ -40,6 +40,10 @@ bool GunPackage::initWithGun(MapBase* map)
         break;
     case 6:
         gun = Gun_Revolver::create();
+        break;
+    case 7:
+        gun = Gun_Double::create();
+        break;
     }
 
     //gun = Gun_MG_P90::create();
@@ -49,9 +53,10 @@ bool GunPackage::initWithGun(MapBase* map)
     //gun = Gun_MG_Uzi::create();
     //gun = Gun_Modern_Sniper::create();
     //gun = Gun_Revolver::create();
+    gun = Gun_Double::create();
 
     package = Sprite::create("gun_bubble.png");
-    auto Gun = gun->ThrowGun();
+    auto Gun = gun->RightGun();
     Gun->setAnchorPoint(Vec2(0.5, 0.5));
     Gun->setPosition(package->getContentSize().width / 2, package->getContentSize().height /2);
     package->addChild(Gun, -1);

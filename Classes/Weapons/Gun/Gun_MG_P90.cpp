@@ -16,7 +16,7 @@ Gun_MG_P90* Gun_MG_P90::clone()
     return Gun_MG_P90::create();
 }
 
-Sprite* Gun_MG_P90::ThrowGun()
+Sprite* Gun_MG_P90::RightGun()
 {
     return Sprite::createWithSpriteFrameName("MG_P90.png");
 }
@@ -26,8 +26,8 @@ bool Gun_MG_P90::init()
     if (!GunBase::init())
         return false;
 
-    gun = Sprite::createWithSpriteFrameName("MG_P90.png");
-    this->addChild(gun, 0);
+    gun_right = Sprite::createWithSpriteFrameName("MG_P90.png");
+    //this->addChild(gun, 0);
 
     anchor = Vec2(0.35, 0.5);
     initRotation = 20.0f;
@@ -38,15 +38,15 @@ bool Gun_MG_P90::init()
     bulletClip = 50;
     bulletCount = 0;
 
-    gun->setAnchorPoint(anchor);
-    gun->setRotation(initRotation);
+    gun_right->setAnchorPoint(anchor);
+    gun_right->setRotation(initRotation);
     return true;
 }
 
-void Gun_MG_P90::Shot(MapBase* map)
+void Gun_MG_P90::Shot(MapBase* map, bool right)
 {
-    GunBase::Shot(map);
-    gun->stopAllActions();
+    GunBase::Shot(map, right);
+    gun_right->stopAllActions();
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     CallFunc* shot = CallFunc::create(CC_CALLBACK_0(GunBase::SetBullet, this));
     CallFunc* onfire = CallFunc::create([&]() {fire = !fire; });
@@ -56,7 +56,7 @@ void Gun_MG_P90::Shot(MapBase* map)
     auto delay3 = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
     auto seq_shot = Sequence::create(onshot, onfire, aim,shot,delay1, onfire,delay2, delay3, back, onshot, nullptr);
-    gun->runAction(seq_shot);
+    gun_right->runAction(seq_shot);
 }
 
 
@@ -76,13 +76,15 @@ Sequence* Gun_MG_P90::RaiseHand(bool withgun)
     }
 }
 
-void Gun_MG_P90::Delay()
+void Gun_MG_P90::Delay(bool right)
 {
+    gun_right->setRotation(0);
+    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     auto aim = RotateTo::create(0, 0);
     auto delay3 = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
-    auto seq_delay = Sequence::create(aim, delay3, back, nullptr);
-    gun->runAction(seq_delay);
+    auto seq_delay = Sequence::create(onshot, aim, delay3, back,onshot, nullptr);
+    gun_right->runAction(seq_delay);
 }
 
 Sequence* Gun_MG_P90::HoldingOn(bool withgun)
@@ -102,26 +104,14 @@ Sequence* Gun_MG_P90::HoldingOn(bool withgun)
 
 void Gun_MG_P90::SetBullet()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 20), this->_flippedX,300,1);
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 20), this->_flippedX,300,1);
     unsigned seed = time(0);
     float y = rand() % 16 + 10;
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
 }
 
 void Gun_MG_P90::update(float dt)
 {
     GunBase::update(dt);
 
-    if (gunshadow) {
-        gunshadow_vy -= dt * 4000;
-        Vec2 point = gunshadow->getPosition();
-        point.x += gunshadow_vx * dt;
-        point.y += gunshadow_vy * dt;
-        gunshadow->setPosition(point);
-
-        if (point.y < 0) {
-            gunshadow->removeFromParent();
-            gunshadow = nullptr;
-        }
-    }
 }

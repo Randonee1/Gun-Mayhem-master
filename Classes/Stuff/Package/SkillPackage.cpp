@@ -1,6 +1,6 @@
 #include "SkillPackage.h"
 
-float SkillPackage::updatetime = 1000;
+float SkillPackage::updatetime = 3;
 
 SkillPackage* SkillPackage::createWithSkill(MapBase* map)
 {

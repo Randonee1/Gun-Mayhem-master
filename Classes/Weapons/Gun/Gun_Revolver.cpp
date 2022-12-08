@@ -15,7 +15,7 @@ Gun_Revolver* Gun_Revolver::clone()
 	return Gun_Revolver::create();
 }
 
-Sprite* Gun_Revolver::ThrowGun()
+Sprite* Gun_Revolver::RightGun()
 {
 	return Sprite::create("revolver.png");
 }
@@ -25,8 +25,8 @@ bool Gun_Revolver::init()
     if (!GunBase::init())
         return false;
 
-    gun = Sprite::create("revolver.png");
-    this->addChild(gun, 0);
+    gun_right = Sprite::create("revolver.png");
+    //this->addChild(gun, 0);
 
     anchor = Vec2(0.25, 0.35);
     initRotation = 30.0f;
@@ -37,15 +37,15 @@ bool Gun_Revolver::init()
     bulletClip = 3;
     bulletCount = 0;
 
-    gun->setAnchorPoint(anchor);
-    gun->setRotation(initRotation);
+    gun_right->setAnchorPoint(anchor);
+    gun_right->setRotation(initRotation);
     return true;
 }
 
-void Gun_Revolver::Shot(MapBase* map)
+void Gun_Revolver::Shot(MapBase* map, bool right)
 {
-    GunBase::Shot(map);
-    gun->stopAllActions();
+    GunBase::Shot(map, right);
+    gun_right->stopAllActions();
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     CallFunc* shot = CallFunc::create(CC_CALLBACK_0(GunBase::SetBullet, this));
     CallFunc* bulletcase = CallFunc::create(CC_CALLBACK_0(GunBase::SetBulletCase, this));
@@ -72,7 +72,7 @@ void Gun_Revolver::Shot(MapBase* map)
     auto back = RotateTo::create(0.3, initRotation);
     auto seq_shot = Sequence::create(onshot, onfire, aim1, shot, up->clone(), down->clone(), shot, up->clone(), down->clone(), shot, up->clone(), down->clone(),
         shot, up->clone(), down->clone(), shot, up->clone(), down->clone(), onfire,delay1, rotateup1,rotateup2, rotateup3,rotatedelay,rotatedown,bulletcase,rotateback, delay2, back, onshot, nullptr);
-    gun->runAction(seq_shot);
+    gun_right->runAction(seq_shot);
 }
 
 Sequence* Gun_Revolver::RaiseHand(bool withgun)
@@ -103,14 +103,15 @@ Sequence* Gun_Revolver::RaiseHand(bool withgun)
     }
 }
 
-void Gun_Revolver::Delay()
+void Gun_Revolver::Delay(bool right)
 {
+    gun_right->setRotation(0);
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     auto aim = RotateTo::create(0, 0);
     auto delay = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
-    auto seq_delay = Sequence::create(aim, delay, back, nullptr);
-    gun->runAction(seq_delay);
+    auto seq_delay = Sequence::create(onshot,aim, delay, back,onshot, nullptr);
+    gun_right->runAction(seq_delay);
 }
 
 Sequence* Gun_Revolver::HoldingOn(bool withgun)
@@ -129,14 +130,14 @@ Sequence* Gun_Revolver::HoldingOn(bool withgun)
 
 void Gun_Revolver::SetBullet()
 {
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(50, 30), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(50, 30), bulletSpeed, hitSpeed, this->_flippedX));
 }
 
 void Gun_Revolver::SetBulletCase()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 600, -500);
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 400, -500);
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 200, -500);
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 400, -500);
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 30), this->_flippedX, 600, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 30), this->_flippedX, 600, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 30), this->_flippedX, 400, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 30), this->_flippedX, 200, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 30), this->_flippedX, 400, -500);
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 30), this->_flippedX, 600, -500);
 }

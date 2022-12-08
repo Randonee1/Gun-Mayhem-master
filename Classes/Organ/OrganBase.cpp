@@ -9,6 +9,7 @@ bool OrganBase::initWithName(const char* name)
     this->name = name;
     organ = Sprite::createWithSpriteFrameName(name);
     this->addChild(organ, 0);
+
     return true;
 }
 

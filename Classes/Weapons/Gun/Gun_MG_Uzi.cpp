@@ -15,7 +15,7 @@ Gun_MG_Uzi* Gun_MG_Uzi::clone()
     return Gun_MG_Uzi::create();
 }
 
-Sprite* Gun_MG_Uzi::ThrowGun()
+Sprite* Gun_MG_Uzi::RightGun()
 {
     return Sprite::createWithSpriteFrameName("MG_Uzi.png");
 }
@@ -25,8 +25,8 @@ bool Gun_MG_Uzi::init()
     if (!GunBase::init())
         return false;
 
-    gun = Sprite::createWithSpriteFrameName("MG_Uzi.png");
-    this->addChild(gun, 0);
+    gun_right = Sprite::createWithSpriteFrameName("MG_Uzi.png");
+    //this->addChild(gun, 0);
 
     anchor = Vec2(0.35, 0.6);
     initRotation = -70.0f;
@@ -37,15 +37,15 @@ bool Gun_MG_Uzi::init()
     bulletClip = 30;
     bulletCount = 0;
 
-    gun->setAnchorPoint(anchor);
-    gun->setRotation(initRotation);
+    gun_right->setAnchorPoint(anchor);
+    gun_right->setRotation(initRotation);
     return true;
 }
 
-void Gun_MG_Uzi::Shot(MapBase* map)
+void Gun_MG_Uzi::Shot(MapBase* map, bool right)
 {
-    GunBase::Shot(map);
-    gun->stopAllActions();
+    GunBase::Shot(map, right);
+    gun_right->stopAllActions();
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     CallFunc* shot = CallFunc::create(CC_CALLBACK_0(GunBase::SetBullet, this));
     CallFunc* onfire = CallFunc::create([&]() {fire = !fire; });
@@ -56,7 +56,7 @@ void Gun_MG_Uzi::Shot(MapBase* map)
     auto delay3 = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
     auto seq_shot = Sequence::create(onshot, onfire, aim1, shot, up, onfire, down, aim2, delay3, back, onshot, nullptr);
-    gun->runAction(seq_shot);
+    gun_right->runAction(seq_shot);
 }
 
 Sequence* Gun_MG_Uzi::RaiseHand(bool withgun)
@@ -76,13 +76,15 @@ Sequence* Gun_MG_Uzi::RaiseHand(bool withgun)
     }
 }
 
-void Gun_MG_Uzi::Delay()
+void Gun_MG_Uzi::Delay(bool right)
 {
+    gun_right->setRotation(0);
+    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     auto aim = RotateTo::create(0, 0);
     auto delay3 = RotateTo::create(1, 0);
     auto back = RotateTo::create(0.3, initRotation);
-    auto seq_delay = Sequence::create(aim, delay3, back, nullptr);
-    gun->runAction(seq_delay);
+    auto seq_delay = Sequence::create(onshot,aim, delay3, back,onshot, nullptr);
+    gun_right->runAction(seq_delay);
 }
 
 Sequence* Gun_MG_Uzi::HoldingOn(bool withgun)
@@ -101,8 +103,8 @@ Sequence* Gun_MG_Uzi::HoldingOn(bool withgun)
 
 void Gun_MG_Uzi::SetBullet()
 {
-    BulletCase::create(map->platform, GetPositionToBackground(1), Vec2(10, 20), this->_flippedX, 400, 400);
+    BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 20), this->_flippedX, 400, 400);
     unsigned seed = time(0);
     float y = rand() % 16 + 15;
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(1), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
 }

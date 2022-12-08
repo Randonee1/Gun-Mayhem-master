@@ -1,4 +1,5 @@
 #include "GunBase.h"
+#include "Organ/hand.h"
 
 bool GunBase::init()
 {
@@ -17,10 +18,16 @@ GunBase* GunBase::clone()
     return nullptr;
 }
 
-Sprite* GunBase::ThrowGun()
+Sprite* GunBase::RightGun()
 {
     return nullptr;
 }
+
+Sprite* GunBase::LeftGun()
+{
+    return nullptr;
+}
+
 
 //GunBase* GunBase::CreateWithName(const char* name)
 //{
@@ -33,27 +40,36 @@ Sprite* GunBase::ThrowGun()
 //    return NULL;
 //}
 
-void GunBase::setFlippedX(bool flippedX,float offset)
-{
-    gun->setFlippedX(flippedX);
-    if (_flippedX != flippedX)
-    {
-        _flippedX = flippedX;
-        this->setPositionX(-this->getPositionX()+offset);
-        flipX();
-        Vec2 anch = anchor;
-        flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
-        gun->setAnchorPoint(anch);
-        if(!onShot)
-            flippedX ? gun->setRotation(-initRotation) : gun->setRotation(initRotation);
-    }
-}
+//void GunBase::setFlippedX(bool flippedX,float offset)
+//{
+//    if(gun_right) gun_right->setFlippedX(flippedX);
+//    if (gun_left) gun_left->setFlippedX(flippedX);
+//
+//    if (_flippedX != flippedX)
+//    {
+//        _flippedX = flippedX;
+//        this->setPositionX(-this->getPositionX()+offset);
+//        flipX();
+//        Vec2 anch = anchor;
+//        flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
+//        if(gun_right) gun_right->setAnchorPoint(anch);
+//        if (gun_left) gun_left->setAnchorPoint(anch);
+//        if(!onShot)
+//        {
+//            if (gun_right)flippedX ? gun_right->setRotation(-initRotation) : gun_right->setRotation(initRotation);
+//            if (gun_left)flippedX ? gun_left->setRotation(-initRotation) : gun_left->setRotation(initRotation);
+//
+//        }
+//    }
+//}
 
 void GunBase::setFlippedX(Sprite* gun, bool flippedX, float offset)
 {
+    bool flip = gun->isFlippedX();
     gun->setFlippedX(flippedX);
-    if (_flippedX != flippedX)
+    if (flip != flippedX)
     {
+        _flippedX = flippedX;
         gun->setPositionX(-gun->getPositionX() + offset);
         Vec2 anch = anchor;
         flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
@@ -63,11 +79,12 @@ void GunBase::setFlippedX(Sprite* gun, bool flippedX, float offset)
     }
 }
 
-void GunBase::Shot(MapBase* map)
+void GunBase::Shot(MapBase* map, bool right)
 {
     onShot = false;
     this->map = map;
-    gun->stopAllActions();
+    if(gun_right && right) gun_right->stopAllActions();
+    if (gun_left && !right) gun_left->stopAllActions();
     
     bulletCount++;
     shot = false;
@@ -77,14 +94,15 @@ void GunBase::Shot(MapBase* map)
 void GunBase::Change(GunBase* throwgun, bool withgun)
 {
     onShot = false;
-    gun->stopAllActions();
+    if(gun_right) gun_right->stopAllActions();
+    if (gun_left) gun_left->stopAllActions();
 
     deltatime = 0;
     bulletCount = 0;
 
 }
 
-void GunBase::Delay()
+void GunBase::Delay(bool right)
 {
     return;
 }
@@ -98,7 +116,20 @@ Sequence* GunBase::RaiseHand(bool withgun)
 
 Sequence* GunBase::BulletChange(bool withgun)
 {
-    return nullptr;
+    auto delay = MoveBy::create(1, Vec2(0, 0));
+    auto down = MoveTo::create(0.3, Vec2(0, 0));
+    if (withgun) {
+        auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(120, 64)));
+        auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
+        auto moveup = EaseSineOut::create(MoveTo::create(0.3, Vec2(70, 14)));
+        return Sequence::create(throwaway, movedown, moveup, delay, down, nullptr);
+    }
+    else {
+        auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(15, -5)));
+        auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
+        auto moveup = EaseSineOut::create(MoveTo::create(0.3, Vec2(15, -5)));
+        return Sequence::create(throwaway, movedown, moveup, delay, down, nullptr);
+    }
 }
 
 Sequence* GunBase::HoldingOn(bool withgun)
@@ -135,11 +166,15 @@ void GunBase::update(float dt)
     }
 }
 
-Vec2 GunBase::GetPositionToBackground(int tag)
+Vec2 GunBase::GetPositionToBackground(bool right)
 {
-    auto player = this->getParent()->getParent()->getParent();
-    auto hand = player->getChildByTag(tag);
-    Vec2 hand_organ_position = this->getParent()->getPosition();
+    auto gun = gun_right ? gun_right : gun_left;
+
+    auto player = gun->getParent()->getParent()->getParent();
+    auto hand = right ? player->getChildByTag(1) : player->getChildByTag(2);
+    auto hand_organ = hand->getChildren().front();
+   
+    Vec2 hand_organ_position = hand_organ->getPosition();
     Vec2 hand_position = hand->getPosition();
     Vec2 player_position = player->getPosition();
 
