@@ -1,5 +1,6 @@
 #include "GunBase.h"
 #include "Organ/hand.h"
+#include "Sprite/CharacterBase.h"
 
 bool GunBase::init()
 {
@@ -74,8 +75,10 @@ void GunBase::setFlippedX(Sprite* gun, bool flippedX, float offset)
         Vec2 anch = anchor;
         flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
         gun->setAnchorPoint(anch);
-        if (!onShot)
-            flippedX ? gun->setRotation(-initRotation) : gun->setRotation(initRotation);
+        /*if (!onShot)
+            flippedX ? gun->setRotation(-initRotation) : gun->setRotation(initRotation);*/
+        gun->setRotation(-gun->getRotation());
+
     }
 }
 

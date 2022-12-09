@@ -1,4 +1,5 @@
 #include "Gun_Glock.h"
+#include"Sprite/CharacterBase.h"
 
 Gun_Glock* Gun_Glock::create()
 {
@@ -132,13 +133,20 @@ void Gun_Glock::GunThrow(GunBase* throwgun,bool flipped, bool right)
    
     right? gunshadow_right = throwgun->RightGun() : gunshadow_left = throwgun->LeftGun();
     auto gunshadow = right ? gunshadow_right : gunshadow_left;
-    gunshadow_vx = flipped ? -1000 : 1000;
-    gunshadow_vy = 1000;
+    float speed = 1000;
+    gunshadow_vx = flipped ? -speed : speed;
+    gunshadow_vy = speed;
+    gunshadow_vx += player->x_speed;
+    gunshadow_vy += player->y_speed;
     gunshadow->setFlippedX(flipped);
+    Vec2 anchor = throwgun->anchor;
+    flipped ? anchor.x = 1 - anchor.x : anchor.x = anchor.x;
+    gunshadow->setAnchorPoint(anchor);
     flipped ? gunshadow->setRotation(30) : gunshadow->setRotation(-30);
     gunshadow->setPosition(GetPositionToBackground(right));
     map->platform->addChild(gunshadow, 1);
-    auto rotate = RepeatForever::create(RotateBy::create(0.5, flipped ? 180 : -180));
+    float angle = rand() % 100 + 130;
+    auto rotate = RepeatForever::create(RotateBy::create(0.5, flipped ? angle : -angle));
     gunshadow->runAction(rotate);
 }
 
@@ -160,8 +168,8 @@ void Gun_Glock::update(float dt)
     }
     if(gunshadow_left) {
         Vec2 point = gunshadow_left->getPosition();
-        point.x += gunshadow_vx * dt;
-        point.y += gunshadow_vy * dt;
+        point.x += gunshadow_vx*1.1 * dt;
+        point.y += gunshadow_vy*1.1 * dt;
         gunshadow_left->setPosition(point);
         if (point.y < map->death_line) {
             gunshadow_left->removeFromParent();

@@ -99,6 +99,7 @@ void AI2::initBody()
     //gun->setPosition(Vec2(65, 30));
     hand1->GetGun(gun, true);
     hand2->GetGun(gun, false);
+    gun->player = this;
 
     AIBase::initBody();
 }

@@ -35,8 +35,7 @@ void PlayerBase::initBody()
 {
     hand1->setTag(1);
     hand2->setTag(2);
-    hand1->organ->setTag(0);
-    hand2->organ->setTag(0);
+  
 }
 
 

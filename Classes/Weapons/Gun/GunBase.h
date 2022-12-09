@@ -9,6 +9,8 @@
 
 USING_NS_CC;
 
+class CharacterBase;
+
 class GunBase : public Sprite
 {
 public:
@@ -70,6 +72,8 @@ public:
 	Sprite* gunshadow_left = nullptr;
 	float gunshadow_vx;
 	float gunshadow_vy;
+
+	CharacterBase* player;
 };
 
 #endif

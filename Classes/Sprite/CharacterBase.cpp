@@ -332,7 +332,9 @@ void CharacterBase::GunChange(GunBase* change)
     gun->map = this->map;
     hand1->GetGun(gun,true);
     hand2->GetGun(gun,false);
+    gun->player = this;
     if(onaction){
+        CCLOG("yes");
         hand1->DelayWithHand(true);
         hand2->DelayWithHand(false);
     }

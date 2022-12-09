@@ -36,7 +36,7 @@ bool Gun_Double::init()
 
     anchor = Vec2(0.3, 0.25);
     initRotation = 30.0f;
-    shotInterval = 0.3;
+    shotInterval = 0.2;
     recoilSpeed = 100;
     bulletSpeed = 2000;
     hitSpeed = 700;
@@ -86,7 +86,7 @@ Sequence* Gun_Double::RaiseHand(bool withgun)
     auto delay = MoveBy::create(1, Vec2(0, 0));
     auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
     if (withgun) {
-        return Sequence::create(MoveTo::create(0, Vec2(70, 14)), delay, down, nullptr);
+        return Sequence::create(MoveTo::create(0, Vec2(50, 14)), delay, down, nullptr);
     }
     else {
         return Sequence::create(MoveTo::create(0, Vec2(30, 14)), delay, down, nullptr);
@@ -95,11 +95,12 @@ Sequence* Gun_Double::RaiseHand(bool withgun)
 
 void Gun_Double::Delay(bool right)
 {
-    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
+    onShot = true;
+    CallFunc* onshot_end = CallFunc::create([&]() {onShot = false; });
     auto aim = RotateTo::create(0, 0);
     auto delay = RotateTo::create(0.9, 0);
     auto back = RotateTo::create(0.3, 30);
-    auto seq_shot = Sequence::create(onshot,aim, delay, back, onshot, nullptr);
+    auto seq_shot = Sequence::create(aim, delay, back, onshot_end, nullptr);
     if (right) {
         gun_right->setRotation(0);
         gun_right->runAction(seq_shot);
@@ -115,7 +116,7 @@ Sequence* Gun_Double::HoldingOn(bool withgun)
     auto delay = MoveBy::create(0.9, Vec2(0, 0));
     auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
     if (withgun) {
-        return Sequence::create(MoveTo::create(0, Vec2(70, 14)), delay, down, nullptr);
+        return Sequence::create(MoveTo::create(0, Vec2(50, 14)), delay, down, nullptr);
     }
     else {
         return Sequence::create(MoveTo::create(0, Vec2(30, 14)), delay, down, nullptr);
