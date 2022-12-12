@@ -19,8 +19,6 @@ public:
 
 	void update(float dt);
 
-private:
-
 	float gunUpdateTime;
 
 	float skillUpdateTime;

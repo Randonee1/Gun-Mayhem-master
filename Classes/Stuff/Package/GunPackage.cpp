@@ -18,7 +18,7 @@ bool GunPackage::initWithGun(MapBase* map)
     if (!PackageBase::init(map))
         return false;
 
-    switch (rand() % 8)
+    switch (rand() % 9)
     {
     case 0:
         gun = Gun_MG_P90::create();
@@ -44,6 +44,9 @@ bool GunPackage::initWithGun(MapBase* map)
     case 7:
         gun = Gun_Double::create();
         break;
+    case 8:
+        gun = Sanurai_Sword::create();
+        break;
     }
 
     //gun = Gun_MG_P90::create();
@@ -54,7 +57,7 @@ bool GunPackage::initWithGun(MapBase* map)
     //gun = Gun_Modern_Sniper::create();
     //gun = Gun_Revolver::create();
     //gun = Gun_Double::create();
-    gun = Sanurai_Sword::create();
+    //gun = Sanurai_Sword::create();
 
     package = Sprite::create("gun_bubble.png");
     auto Gun = gun->RightGun();

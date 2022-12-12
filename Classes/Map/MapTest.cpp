@@ -27,7 +27,7 @@ bool MapTest::init()
 
 	initPlayer();
 
-	packageEvent = PackageEvent::create(this);
+	//packageEvent = PackageEvent::create(this);
 
 	this->scheduleUpdate();
 
@@ -36,6 +36,7 @@ bool MapTest::init()
 
 void MapTest::update(float dt)
 {
+	MapBase::update(dt);
 	
 	Vec2 initPlatform = Vec2(platformSize.width / 2, (floor_base + floor_base + floor_height * (Floor.size() - 1)) / 2);
 	Vec2 delta = Vec2(0, 0);
@@ -53,10 +54,10 @@ void MapTest::update(float dt)
 	platform->setPosition(initPlatformPosition - delta*0.7);
 	
 
-	ShotEvent();
+	/*ShotEvent();
 
 	packageEvent->update(dt);
-	packageEvent->PackageUpdate(players);
+	packageEvent->PackageUpdate(players);*/
 }
 
 void MapTest::initBackground()

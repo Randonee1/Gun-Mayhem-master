@@ -33,8 +33,8 @@ private:
 
 	/*CharacterBase* player1;
 	CharacterBase* player2;*/
-	std::vector<CharacterBase*> players;
-	PackageEvent* packageEvent;
+	//std::vector<CharacterBase*> players;
+	//PackageEvent* packageEvent;
 };
 
 #endif

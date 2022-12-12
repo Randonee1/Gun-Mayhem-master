@@ -7,6 +7,10 @@
 
 USING_NS_CC;
 
+class PackageEvent;
+
+class CharacterBase;
+
 class MapBase : public Layer
 {
 public:
@@ -14,6 +18,8 @@ public:
 	bool init() override;
 
 	CREATE_FUNC(MapBase);
+
+	void update(float dt) override;
 
 	virtual void ShotEvent();
 
@@ -26,6 +32,7 @@ public:
 	float death_line;
 	std::vector<std::vector<float>> Floor;
 	std::vector<Bullet*>bullets;
+	std::vector<CharacterBase*> players;
 	
 protected:
 	
@@ -33,9 +40,10 @@ protected:
 
 	Size platformSize;
 
+	PackageEvent* packageEvent;
+
 	Vec2 initPlatformPosition;
 	Vec2 initbackLayerPosition;
-
 
 };
 
