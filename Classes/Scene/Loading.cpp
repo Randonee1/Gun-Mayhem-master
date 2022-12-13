@@ -44,7 +44,7 @@ void Loading::logic(float dt)
     }
     if (isloaddone) {
         //暂时的写法，后面写完WelcomeScene再换
-        auto scene = GameScene::CreateGame(0);
+        auto scene = GameScene::CreateGame(4);
         Director::getInstance()->replaceScene(scene);
     }
 }

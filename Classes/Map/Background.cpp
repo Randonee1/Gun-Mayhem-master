@@ -1,8 +1,9 @@
-#include "MapSunset.h"
+#include "Background.h"
+#include"Scene/GameScene.h"
 
-MapSunset* MapSunset::createGame()
+Background* Background::createGame()
 {
-	auto layer = new MapSunset();
+	auto layer = new Background();
 	if (layer && layer->init()) {
 		layer->autorelease();
 		return layer;
@@ -12,7 +13,7 @@ MapSunset* MapSunset::createGame()
 	return NULL;
 }
 
-bool MapSunset::init()
+bool Background::init()
 {
 	if (!MapBase::init()) {
 		return false;
@@ -33,7 +34,7 @@ bool MapSunset::init()
 	return true;
 }
 
-void MapSunset::update(float dt)
+void Background::update(float dt)
 {
 	Vec2 initPlatform = Vec2(platformSize.width / 2, (floor_base + floor_base + floor_height * (Floor.size() - 1)) / 2);
 	Vec2 delta = Vec2(0, 0);
@@ -61,7 +62,7 @@ void MapSunset::update(float dt)
 	packageEvent->PackageUpdate(players);
 }
 
-void MapSunset::initBackground()
+void Background::initBackground()
 {
 	backLayer = Sprite::create("sunset/background.png");
 	auto backLayer_left = Sprite::create("sunset/background.png");
@@ -139,15 +140,83 @@ void MapSunset::initBackground()
 	platform->setPosition(initPlatformPosition);
 	this->addChild(platform, 6);
 	platformSize = platform->getContentSize();
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//对主页面添加上一层的文字以及效果
+
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto origin = Director::getInstance()->getVisibleOrigin();
+
+
+	//添加游戏标题
+	auto label = Label::createWithTTF("Gun Mayhem", "fonts/Marker Felt.ttf", 196);
+	label->setTextColor(Color4B::WHITE);
+	label->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+	label->setPosition(origin.x + visibleSize.width / 20, origin.y + visibleSize.height * 19 / 20);
+	label->setScaleX(1.3f);
+	label->enableShadow();
+	this->addChild(label,8);
+
+
+	//设置菜单项
+	//文字菜单项
+	MenuItemFont* GameMenu = MenuItemFont::create("Game Begin", [&](Ref* sender) {
+		auto scene = GameScene::CreateGame(1);
+		Director::getInstance()->replaceScene(scene);
+		//Director::getInstance()->replaceScene(Loading::createScene());
+		});
+	GameMenu->setColor(Color3B::WHITE);
+	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	//GameMenu->setFontSize(200);
+	GameMenu->setFontSizeObj(100);
+
+	MenuItemFont* SettingMenu = MenuItemFont::create("Setting", [&](Ref* sender) {
+		//Director::getInstance()->replaceScene(setting::createScene());
+		});
+	SettingMenu->setColor(Color3B::WHITE);
+	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	SettingMenu->setFontSizeObj(100);
+	SettingMenu->setPosition(0, -200);
+
+
+	MenuItemFont* WeaponMenu = MenuItemFont::create("Weapon", [&](Ref* sender) {
+		//Director::getInstance()->replaceScene(setting::createScene());
+		});
+	WeaponMenu->setColor(Color3B::WHITE);
+	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	WeaponMenu->setFontSizeObj(100);
+	WeaponMenu->setPosition(0, -400);
+
+
+
+	//创建菜单
+	auto menu = Menu::create(GameMenu, SettingMenu, WeaponMenu, NULL);
+	menu->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 3 / 5));
+	this->addChild(menu, 8);
+
+
+	//鼠标监听器//GameBegin的监听
+	blacksprite = Sprite::create("BlacktTransparent.png");
+	blacksprite->setAnchorPoint(Point(0, 0.5));
+	this->addChild(blacksprite,7);
+	blacksprite->setVisible(false);
+
+	auto _mouseListener = EventListenerMouse::create();
+
+	_mouseListener->onMouseMove = CC_CALLBACK_1(Background::onMouseMove, this);
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
+
 }
 
-void MapSunset::initPlayer()
+void Background::initPlayer()
 {
-	CharacterBase* player1 = Player1::createWithTag(1, this);
-	platform->addChild(player1, 1);
-
-	/*CharacterBase* player1 = AI1::create(this);
+	/*CharacterBase* player1 = Player1::createWithTag(1, this);
 	platform->addChild(player1, 1);*/
+
+	CharacterBase* player1 = AI1::create(1,this);
+	platform->addChild(player1, 1);
 
 	CharacterBase* player2 = AI1::create(2, this);
 	platform->addChild(player2, 2);
@@ -162,7 +231,7 @@ void MapSunset::initPlayer()
 	players.push_back(player2);
 }
 
-void MapSunset::ShotEvent()
+void Background::ShotEvent()
 {
 	std::vector<Bullet*> temp;
 	for (auto bullet : bullets) {
@@ -195,6 +264,85 @@ void MapSunset::ShotEvent()
 				bullet = nullptr;
 				break;
 			}
+		}
+	}
+}
+
+
+//设置鼠标监听，用于滑条的显示。这里的鼠标监听类型为onMouseMove
+void Background::onMouseMove(Event* event)
+{
+	EventMouse* e = (EventMouse*)event;
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 locationInNode = convertToNodeSpace(Vec2(e->getCursorX(), e->getCursorY()));
+
+
+	Rect r1 = Rect(0, visibleSize.height * 3 / 5 - 50, visibleSize.width , 100);
+	Rect r2 = Rect(0, visibleSize.height * 3 / 5 - 250, visibleSize.width, 100);
+	Rect r3 = Rect(0, visibleSize.height * 3 / 5 - 450, visibleSize.width, 100);
+	CallFunc* setMove = CallFunc::create([&]() {
+		move = !move;
+		});
+
+	if (r1.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r2.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5 - 200)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5 - 200));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r3.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5 - 400)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5 - 400));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else {
+		if (blacksprite->isVisible()) {
+			CallFunc* func1 = CallFunc::create([&]() {
+				blacksprite->setVisible(false);
+				});
+			auto fadeout = FadeOut::create(0.1f);
+			auto seq = Sequence::create(fadeout, func1, nullptr);
+			blacksprite->runAction(seq);
 		}
 	}
 }

@@ -1,5 +1,5 @@
-#ifndef MAP_SUNSET_H
-#define MAP_SUNSET_H
+#ifndef BACKGROUND_H
+#define BACKGROUND_H
 
 #include "cocos2d.h"
 #include "MapBase.h"
@@ -7,14 +7,20 @@
 #include "Sprite/AI1.h"
 #include "Sprite/Player1.h"
 #include "Sprite/CharacterBase.h"
+#include "ui/CocosGUI.h"
+#include "editor-support/cocostudio/SimpleAudioEngine.h"
+
+using namespace cocos2d;
+using namespace ui;
+typedef void (*pFunc)(Ref*, Widget::TouchEventType);
 
 USING_NS_CC;
 
-class MapSunset : public MapBase
+class Background : public MapBase
 {
 public:
 
-	static MapSunset* createGame();
+	static Background* createGame();
 
 	bool init() override;
 
@@ -25,6 +31,8 @@ public:
 	void initPlayer();
 
 	void ShotEvent() override;
+
+	
 
 private:
 	Vec2 initCity1Position;
@@ -41,6 +49,11 @@ private:
 
 	std::vector<CharacterBase*> players;
 	PackageEvent* packageEvent;
+
+	void onMouseMove(Event* event);
+	Sprite* blacksprite;
+	bool move = false;
+
 };
 
 #endif
