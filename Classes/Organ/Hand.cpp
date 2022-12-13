@@ -13,20 +13,24 @@ Hand* Hand::CreateWithName(const char* name)
 }
 
 
-void Hand::GetGun(GunBase* Gun)
+void Hand::GetGun(GunBase* Gun,bool right)
 {
-    
-    gun = Gun;
-    gun->setPosition(Vec2(organ->getContentSize().width/2, organ->getContentSize().height/2));
-    organ->addChild(gun,-1);
-    gunPoint = gun->getPosition();
+   
+    this->Gun = Gun;
+    gun = right ? Gun->gun_right: Gun->gun_left;
+ 
+    if(gun) {
+        gun->setPosition(Vec2(organ->getContentSize().width / 2, organ->getContentSize().height / 2));
+        right ? organ->addChild(gun, -1) : organ->addChild(gun, 1);
+        gunPoint = gun->getPosition();
+    }
 }
 
 void Hand::setFlippedX(bool flippedX)
 {
     organ->setFlippedX(flippedX);
     if (gun)
-        gun->setFlippedX(flippedX, organ->getContentSize().width);
+        Gun->setFlippedX(gun,flippedX, organ->getContentSize().width);
     if (_flippedX != flippedX)
     {
         _flippedX = flippedX;
@@ -67,28 +71,42 @@ void Hand::MoveDelay(bool up, bool floor)
         OrganBase::MoveDelay(up, floor);
 }
 
-void Hand::RaiseHandToShoot(Node* back, MapBase* map,MoveTo* raise, bool withgun)
+void Hand::RaiseHandToShoot(MapBase* map,bool right)
 {
-    if(!onRaise)
-    {
-        onShot = false;
-        organ->stopAllActions();
-        CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
-        CallFunc* onraise = CallFunc::create(CC_CALLBACK_0(Hand::SetRaise, this));
-        auto delay = MoveBy::create(2, Vec2(0, 0));
-        auto down = MoveTo::create(0.3, Vec2(0, 0));
-        auto seq_shot = Sequence::create(onshot, onraise, raise, onraise, delay, down, onshot, nullptr);
-        organ->runAction(seq_shot);
-        if(withgun)
-            gun->Shot(map);
-    }
+    onShot = false;
+    organ->stopAllActions();
+    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
+    auto raise = Gun->RaiseHand(right);
+    auto seq_shot = Sequence::create(onshot, raise, onshot, nullptr);
+    organ->runAction(seq_shot);
+    if(this->gun)
+        this->Gun->Shot(map, right);
 }
 
-void Hand::BulletChangeWithHand(bool withgun)
+void Hand::BulletChangeWithHand(GunBase* throwgun,bool right)
 {
-    if (withgun)
-        gun->BulletChange();
+    onShot = false;
+    organ->stopAllActions();
+    CallFunc* onchange = CallFunc::create([&]() {onShot = !onShot; });
+    auto bulletchange = throwgun->BulletChange(right);
+    auto seq_change = Sequence::create(onchange,bulletchange,onchange, nullptr);
+    organ->runAction(seq_change);
+
+    this->Gun->Change(throwgun, right);
 }
+
+void Hand::DelayWithHand(bool right)
+{
+    onShot = false;
+    organ->stopAllActions();
+    CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
+    auto raise = Gun->HoldingOn(right);
+    auto seq_shot = Sequence::create(onshot, raise, onshot, nullptr);
+    organ->runAction(seq_shot);
+    if (this->gun)
+        this->Gun->Delay(right);
+}
+
 
 void Hand::SetActionState()
 {
@@ -100,9 +118,3 @@ void Hand::SetShot()
 
     onShot = !onShot;
 }
-
-void Hand::SetRaise()
-{
-    onRaise = !onRaise;
-}
-

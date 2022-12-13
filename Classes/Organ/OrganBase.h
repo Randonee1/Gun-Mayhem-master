@@ -20,6 +20,8 @@ public:
 
 	Sprite* organ;
 	Sequence* seq;
+	const char* name;
+	Vec2 initPosition;
 };
 
 #endif

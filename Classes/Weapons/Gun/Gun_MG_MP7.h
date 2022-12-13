@@ -1,18 +1,30 @@
-#ifndef
-#define
+#ifndef GUN_MG_MP7_H
+#define GUN_MG_MP7_H
 
 #include "cocos2d.h"
+#include "GunBase.h"
 USING_NS_CC;
 
-class 
+class Gun_MG_MP7 : public GunBase
 {
 public:
 
-	static Scene* createScene();
+	static Gun_MG_MP7* create();
+
+	Gun_MG_MP7* clone() override;
+	Sprite* RightGun() override;
 
 	bool init() override;
 
-	CREATE_FUNC();
+	void Shot(MapBase* map, bool right);
+
+	Sequence* RaiseHand(bool withgun);
+
+	void Delay(bool right);
+
+	Sequence* HoldingOn(bool withgun);
+
+	void SetBullet() override;
 };
 
 #endif

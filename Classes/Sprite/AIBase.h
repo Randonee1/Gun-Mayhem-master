@@ -1,18 +1,28 @@
 #ifndef AI_BASE_H
 #define AI_BASE_H
 
+#include "cocos2d.h"
+#include "CharacterBase.h"
 
 USING_NS_CC;
 
-class AIBase : public Sprite
+class AIBase : public CharacterBase
 {
 public:
 
-	bool init() override;
+	bool init(int tag, MapBase* map);
 
-	CREATE_FUNC(AIBase);
+	virtual void initBody();
 
 	void update(float dt) override;
+
+	void MoveEvent();
+
+	void ShotEvent();
+
+
+protected:
+
 };
 
 #endif

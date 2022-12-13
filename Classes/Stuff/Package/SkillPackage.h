@@ -1,18 +1,34 @@
-#ifndef
-#define
+#ifndef SKILL_PACKAGE_H
+#define SKILL_PACKAGE_H
 
 #include "cocos2d.h"
+#include "PackageBase.h"
+#include "Skill/Defense.h"
+#include "Skill/SpeedUp.h"
+#include "Skill/SuperJump.h"
+#include "Skill/Jetpack.h"
+
 USING_NS_CC;
 
-class 
+enum SkillType{DEFENSE, JETPACK, SPEED_UP, SUPER_JUMP};
+
+class SkillPackage : public PackageBase
 {
 public:
 
-	static Scene* createScene();
+	static float updatetime;
 
-	bool init() override;
+	static SkillPackage* createWithSkill(MapBase* map);
 
-	CREATE_FUNC();
+	bool initWithGun(MapBase* map);
+
+	void GetPackage(CharacterBase* player) override;
+
+	void update(float dt) override;
+
+	SkillType skill;
+
+private:
 };
 
 #endif

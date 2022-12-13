@@ -2,6 +2,10 @@
 #include "Layer/PlayerStateMenu.h"
 #include "Map/MapBase.h"
 #include "Map/MapTest.h"
+#include "Map/MapSpace.h"
+#include "Map/MapSunset.h"
+#include "Map/MapSeele.h"
+
 Scene* GameScene::CreateGame(int Level)
 {
     auto scene = new GameScene();
@@ -23,6 +27,15 @@ bool GameScene::initGame(int Level)
     {
     case(0):
         game = MapTest::createGame();
+        break;
+    case(1):
+        game = MapSpace::createGame();
+        break;
+    case(2):
+        game = MapSunset::createGame();
+        break;
+    case(3):
+        game = MapSeele::createGame();
         break;
     }
 

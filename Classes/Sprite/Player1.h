@@ -4,6 +4,11 @@
 #include "cocos2d.h"
 #include "PlayerBase.h"
 #include "Weapons/Gun/Gun_Glock.h"
+#include "Weapons/Gun/Gun_MG_P90.h"
+#include "Weapons/Gun/Gun_Gatling.h"
+#include "Weapons/Gun/Gun_MG_MP5.h"
+#include "Weapons/Gun/Gun_MG_MP7.h"
+#include "Weapons/Gun/Gun_Modern_Sniper.h"
 
 USING_NS_CC;
 
@@ -16,6 +21,7 @@ public:
 	bool initWithTag(int name, MapBase* map);
 
 	void initBody();
+	
 };
 
 #endif

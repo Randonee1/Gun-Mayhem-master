@@ -1,16 +1,16 @@
 #include "BulletCase.h"
 
-bool BulletCase::init(Node* back, Vec2 init,Vec2 offset, bool direction)
+bool BulletCase::init(Node* back, Vec2 init,Vec2 offset, bool direction,int rand_x, int rand_y)
 {
 	if (!Sprite::init()) {
 		return false;
 	}
 	bulletcase = Sprite::createWithSpriteFrameName("bulletcase.png");
 	//bulletcase->setFlippedX(direction);
-	direction ? bulletcase->setRotation(-90) : bulletcase->setRotation(90);
-	unsigned seed = time(0);
-	y_speed = rand()%500+750;
-	x_speed = rand()%400-200;
+	bulletcase->setFlippedX(direction);
+	
+	y_speed = float(rand() % rand_y + rand_y / 2);
+	x_speed = float(rand() % rand_x - rand_x / 2);
 	direction ? offset.x = -offset.x : offset.x = offset.x;
 	currentPoint = init + offset;
 	float r = rand() % 360 - 180;
@@ -18,7 +18,7 @@ bool BulletCase::init(Node* back, Vec2 init,Vec2 offset, bool direction)
 	bulletcase->runAction(rotate);
 	this->addChild(bulletcase, 3);
 	this->setPosition(currentPoint);
-	back->addChild(this, 5);
+	back->addChild(this, 100);
 	this->scheduleUpdate();
 	return true;
 }
@@ -34,10 +34,10 @@ void BulletCase::update(float dt)
 		this->removeFromParent();
 }
 
-BulletCase* BulletCase::create(Node* back, Vec2 init, Vec2 offset, bool direction)
+BulletCase* BulletCase::create(Node* back, Vec2 init, Vec2 offset, bool direction, int rand_x, int rand_y)
 {
 	auto bulletcase = new BulletCase();
-	if (bulletcase && bulletcase->init(back, init, offset, direction)) {
+	if (bulletcase && bulletcase->init(back, init, offset, direction,rand_x, rand_y)) {
 		bulletcase->autorelease();
 		return bulletcase;
 	}
