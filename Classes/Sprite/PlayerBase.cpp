@@ -2,11 +2,10 @@
 
 bool PlayerBase::initWithTag(int name, MapBase* map)
 {
-    if (!CharacterBase::init(map)) {
+    if (!CharacterBase::init(name, map)) {
         return false;
     }
 
-    this->setTag(name);
     keymap = GameManager::getKeyMap(name);
     initBody();
     initKeyboardListener();
@@ -34,7 +33,9 @@ void PlayerBase::update(float dt)
 
 void PlayerBase::initBody()
 {
-    return;
+    hand1->setTag(1);
+    hand2->setTag(2);
+  
 }
 
 
@@ -70,7 +71,7 @@ void PlayerBase::onKeyPressed(EventKeyboard::KeyCode keycode, Event* event)
 
     }
     if (keycode == keymap["skill"]) {
-        keyMap["skill"];
+        keyMap["skill"] = true;
     }
 }
 
@@ -84,7 +85,16 @@ void PlayerBase::onKeyReleased(EventKeyboard::KeyCode keycode, Event* event)
         keyMap["right"] = false;
         
     }
+    if (keycode == keymap["up"]) {
+        keyMap["up"] = false;
+
+    }
     if (keycode == keymap["shot"]) {
         keyMap["shot"] = false;
+
+    }
+    if (keycode == keymap["skill"]) {
+        keyMap["skill"] = false;
+
     }
 }

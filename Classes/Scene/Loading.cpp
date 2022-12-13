@@ -24,10 +24,15 @@ bool Loading::init()
 void Loading::loadResources()
 {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("test.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("space.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Player1.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("MG_gtl.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("body_fx.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("blood.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bodyColored.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("items.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("superJumpHalo.plist");
+
 
     isloaddone = true;
 }

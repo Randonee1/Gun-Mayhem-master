@@ -624,6 +624,7 @@ CC_CONSTRUCTOR_ACCESS :
 
     virtual void setVertexLayout();
     virtual void updateShaders(const char* vert, const char* frag);
+
     
 protected:
     virtual void updateColor() override;
@@ -703,6 +704,7 @@ protected:
     bool _insideBounds = true;              /// whether or not the sprite was inside bounds the previous frame
 
     std::string _fileName;
+
     int _fileType = 0;
 
     bool _stretchEnabled = true;

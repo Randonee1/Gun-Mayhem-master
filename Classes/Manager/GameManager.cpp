@@ -19,6 +19,44 @@ std::map<std::string, EventKeyboard::KeyCode> GameManager::map2 = {
     {"skill", EventKeyboard::KeyCode::KEY_2 }
 };
 
+std::map<std::string, const char*> GameManager::Bodys = {
+    {"Blue", "bodyBlue.png"},
+    {"Pink", "bodyPink.png"},
+    {"Purple", "bodyPurple.png"},
+    {"Yellow", "bodyYello.png"}
+};
+std::map<std::string, const char*> GameManager::Heads = {
+    {"Blue", "headBlue.png"},
+    {"Pink", "headPink.png"},
+    {"Purple", "headPurple.png"},
+    {"Yellow", "headYello.png"}
+};
+std::map<std::string, const char*> GameManager::Hands = {
+    {"Blue", "handBlue.png"},
+    {"Pink", "handPink.png"},
+    {"Purple", "handPurple.png"},
+    {"Yellow", "handYello.png"}
+};
+std::map<std::string, const char*> GameManager::Feet = {
+    {"Blue", "feetBlue.png"},
+    {"Pink", "feetPink.png"},
+    {"Purple", "feetPurple.png"},
+    {"Yellow", "feetYello.png"}
+};
+
+
+std::map<std::string, const char*> GameManager::Faces = {
+    {"Cross","faceCross.png"},
+    {"Emoji","faceEmoji.png"},
+    {"Normal1", "faceNormal.png"}
+};
+std::map<std::string, const char*> Hats = {
+
+};
+std::map<std::string, const char*> Costumes = {
+
+};
+
 GameManager* GameManager::getInstance()
 {
     if (_instance == NULL)

@@ -9,14 +9,32 @@ class Gun_Glock : public GunBase
 {
 public:
 
-	static Gun_Glock* CreateWithName(const char* name);
+	//CREATE_FUNC(Gun_Glock);
 
-	bool initWithName(const char* name);
+	static Gun_Glock* create();
 
-	void Shot(MapBase* map);
+	Gun_Glock* clone() override;
+	Sprite* RightGun() override;
+
+	bool init()override;
+
+	void Shot(MapBase* map, bool right);
+
+	void Change(GunBase* throwgun,bool right);
+
+	Sequence* RaiseHand(bool withgun);
+
+	void Delay(bool right);
+
+	Sequence* HoldingOn(bool withgun);
+
+	//Sequence* BulletChange(bool withgun);
 
 	void SetBullet() override;
 
+	void GunThrow(GunBase* throwgun, bool flipped, bool right);
+
+	void update(float dt) override;
 
 };
 

@@ -1,16 +1,34 @@
 #include "GunBase.h"
+#include "Organ/hand.h"
+#include "Sprite/CharacterBase.h"
 
-bool GunBase::initWithName(const char* name)
+bool GunBase::init()
 {
     if (!Sprite::init()) {
         return false;
     }
-    gun = Sprite::create(name);
     /*gun->setAnchorPoint(Vec2(0.2, 0.25));
     gun->setRotation(30.0f);*/
     this->scheduleUpdate();
-    this->addChild(gun, 0);
+
+    return true;
 }
+
+GunBase* GunBase::clone()
+{
+    return nullptr;
+}
+
+Sprite* GunBase::RightGun()
+{
+    return nullptr;
+}
+
+Sprite* GunBase::LeftGun()
+{
+    return nullptr;
+}
+
 
 //GunBase* GunBase::CreateWithName(const char* name)
 //{
@@ -23,49 +41,111 @@ bool GunBase::initWithName(const char* name)
 //    return NULL;
 //}
 
-void GunBase::setFlippedX(bool flippedX,float offset)
+//void GunBase::setFlippedX(bool flippedX,float offset)
+//{
+//    if(gun_right) gun_right->setFlippedX(flippedX);
+//    if (gun_left) gun_left->setFlippedX(flippedX);
+//
+//    if (_flippedX != flippedX)
+//    {
+//        _flippedX = flippedX;
+//        this->setPositionX(-this->getPositionX()+offset);
+//        flipX();
+//        Vec2 anch = anchor;
+//        flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
+//        if(gun_right) gun_right->setAnchorPoint(anch);
+//        if (gun_left) gun_left->setAnchorPoint(anch);
+//        if(!onShot)
+//        {
+//            if (gun_right)flippedX ? gun_right->setRotation(-initRotation) : gun_right->setRotation(initRotation);
+//            if (gun_left)flippedX ? gun_left->setRotation(-initRotation) : gun_left->setRotation(initRotation);
+//
+//        }
+//    }
+//}
+
+void GunBase::setFlippedX(Sprite* gun, bool flippedX, float offset)
 {
+    bool flip = gun->isFlippedX();
     gun->setFlippedX(flippedX);
-    if (_flippedX != flippedX)
+    if (flip != flippedX)
     {
         _flippedX = flippedX;
-        this->setPositionX(-this->getPositionX()+offset);
-        flipX();
+        gun->setPositionX(-gun->getPositionX() + offset);
         Vec2 anch = anchor;
         flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
         gun->setAnchorPoint(anch);
-        if(!onShot)
-            flippedX ? gun->setRotation(-initRotation) : gun->setRotation(initRotation);
+        /*if (!onShot)
+            flippedX ? gun->setRotation(-initRotation) : gun->setRotation(initRotation);*/
+        gun->setRotation(-gun->getRotation());
+
     }
 }
 
-void GunBase::Shot(MapBase* map)
+void GunBase::Shot(MapBase* map, bool right)
 {
     onShot = false;
     this->map = map;
-    gun->stopAllActions();
+    if(gun_right && right) gun_right->stopAllActions();
+    if (gun_left && !right) gun_left->stopAllActions();
     
     bulletCount++;
     shot = false;
     deltatime = 0;
 }
 
-void GunBase::BulletChange()
+void GunBase::Change(GunBase* throwgun, bool withgun)
 {
+    onShot = false;
+    if(gun_right) gun_right->stopAllActions();
+    if (gun_left) gun_left->stopAllActions();
+
     deltatime = 0;
     bulletCount = 0;
 
 }
 
-MoveTo* GunBase::RaiseHand(bool withgun)
+void GunBase::Delay(bool right)
 {
-    if (withgun)
-        return MoveTo::create(0, Vec2(70, 14));
-    else
-        return MoveTo::create(0, Vec2(15, -5));
+    return;
+}
+
+Sequence* GunBase::RaiseHand(bool withgun)
+{
+    return nullptr;
+}
+
+
+
+Sequence* GunBase::BulletChange(bool withgun)
+{
+    auto delay = MoveBy::create(1, Vec2(0, 0));
+    auto down = MoveTo::create(0.3, Vec2(0, 0));
+    if (withgun) {
+        auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(120, 64)));
+        auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
+        auto moveup = EaseSineOut::create(MoveTo::create(0.3, Vec2(70, 14)));
+        return Sequence::create(throwaway, movedown, moveup, delay, down, nullptr);
+    }
+    else {
+        auto throwaway = EaseSineOut::create(MoveTo::create(0.15, Vec2(15, -5)));
+        auto movedown = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
+        auto moveup = EaseSineOut::create(MoveTo::create(0.3, Vec2(15, -5)));
+        return Sequence::create(throwaway, movedown, moveup, delay, down, nullptr);
+    }
+}
+
+Sequence* GunBase::HoldingOn(bool withgun)
+{
+    return nullptr;
 }
 
 void GunBase::SetBullet()
+{
+    return;
+}
+
+void GunBase::SetBulletCase()
 {
     return;
 }
@@ -78,10 +158,10 @@ void GunBase::SetShot()
 void GunBase::update(float dt)
 {
     deltatime += dt;
-    if (deltatime < shotInterval) {
+    if (deltatime < shotInterval && bulletCount!=0) {
         shot = false;
     }
-    else if (bulletCount >= bulletClip) {
+    else if (bulletCount > bulletClip) {
         shot = false;
     }
     else {
@@ -89,11 +169,17 @@ void GunBase::update(float dt)
     }
 }
 
-Vec2 GunBase::GetPositionToBackground()
+Vec2 GunBase::GetPositionToBackground(bool right)
 {
-    Vec2 hand_organ = this->getParent()->getPosition();
-    Vec2 hand = this->getParent()->getParent()->getPosition();
-    Vec2 player = this->getParent()->getParent()->getParent()->getPosition();
+    auto gun = gun_right ? gun_right : gun_left;
 
-    return hand_organ + hand + player;
+    auto player = gun->getParent()->getParent()->getParent();
+    auto hand = right ? player->getChildByTag(1) : player->getChildByTag(2);
+    auto hand_organ = hand->getChildren().front();
+   
+    Vec2 hand_organ_position = hand_organ->getPosition();
+    Vec2 hand_position = hand->getPosition();
+    Vec2 player_position = player->getPosition();
+
+    return hand_organ_position + hand_position + player_position;
 }

@@ -10,8 +10,11 @@
 #include "Organ/OrganBase.h"
 #include "Weapons/Gun/GunBase.h"
 #include "Map/MapBase.h"
+//#include "Stuff/Package/SkillPackage.h"
 
 USING_NS_CC;
+
+class SkillBase;
 
 typedef struct _Status {
 	float acceleration;
@@ -26,7 +29,11 @@ class CharacterBase : public Sprite
 {
 public:
 
-    bool init(MapBase* map);
+    bool init(int tag, MapBase* map);
+
+    Sprite* clone();
+
+    bool InTheBoundary(std::vector<float>& floor, float x) const;
 
     void update(float dt) override;
 
@@ -38,8 +45,16 @@ public:
 
     void DrawHalo();
 
+    void GunChange(GunBase* change);
+
+    void GetOpponent(CharacterBase* opponent);
+
     std::vector<OrganBase*> organs;
     std::map<std::string, bool> keyMap;
+
+    //SkillPackage* skill;
+
+    CharacterBase* opponent;
 
     Body* body;
     Head* head;
@@ -49,9 +64,13 @@ public:
     Hand* hand1;
     Hand* hand2;
     GunBase* gun;
+    GunBase* initGun;
+    GunBase* throwGun;
     MapBase* map;
 
     Status* status = new Status();
+
+    SkillBase* skill;
 
     float accelerate;
     float x_speed;
@@ -59,8 +78,10 @@ public:
     int floor;
 
     bool isDoubleJump;
-    bool inTheAir;
-    bool valid = true;    
+    bool inTheAir = true;
+    bool valid = true;   
+    bool hit = false;
+    bool defense = false;
 };
 
 #endif
