@@ -130,6 +130,7 @@ Sequence* Gun_Revolver::HoldingOn(bool withgun)
 
 void Gun_Revolver::SetBullet()
 {
+    GunBase::SetBullet();
     map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(50, 30), bulletSpeed, hitSpeed, this->_flippedX));
 }
 

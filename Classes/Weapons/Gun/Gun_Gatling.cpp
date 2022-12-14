@@ -88,6 +88,7 @@ Sequence* Gun_Gatling::HoldingOn(bool withgun)
 
 void Gun_Gatling::SetBullet()
 {
+    GunBase::SetBullet();
     BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(50, -30), this->_flippedX, 200, 1);
     unsigned seed = time(0);
     float y = rand() % 24 + -47;

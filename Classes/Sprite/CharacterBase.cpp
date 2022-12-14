@@ -213,8 +213,6 @@ void CharacterBase::update(float dt)
 
             accelerate = keyMap["right"] ? status->acceleration : -status->acceleration;
             if (!inTheAir) {
-                CCLOG("walk");
-                CCLOG("w");
                 feet1->Walk(false);
                 feet2->Walk(true);
                 hand1->Walk(true);

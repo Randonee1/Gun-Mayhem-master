@@ -114,7 +114,7 @@ Sequence* Gun_Modern_Sniper::HoldingOn(bool withgun)
 
 void Gun_Modern_Sniper::SetBullet()
 {
-    unsigned seed = time(0);
+    GunBase::SetBullet();
     map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(60, 23), bulletSpeed, hitSpeed, this->_flippedX));
 }
 

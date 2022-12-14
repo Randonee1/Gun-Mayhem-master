@@ -103,6 +103,7 @@ Sequence* Gun_MG_Uzi::HoldingOn(bool withgun)
 
 void Gun_MG_Uzi::SetBullet()
 {
+    GunBase::SetBullet();
     BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 20), this->_flippedX, 400, 400);
     unsigned seed = time(0);
     float y = rand() % 16 + 15;

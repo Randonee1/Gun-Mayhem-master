@@ -124,6 +124,7 @@ Sequence* Gun_Glock::HoldingOn(bool withgun)
 
 void Gun_Glock::SetBullet()
 {
+    GunBase::SetBullet();
     BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 30), this->_flippedX,400,800);
     map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(50, 30),bulletSpeed,hitSpeed,this->_flippedX));
 }

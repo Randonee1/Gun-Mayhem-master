@@ -35,6 +35,8 @@ public:
 
 private:
 	//bool throw_ball = false;
+	bool onRaise = false;
+	bool isRaise = false;
 };
 
 #endif

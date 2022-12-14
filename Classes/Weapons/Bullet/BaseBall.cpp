@@ -7,7 +7,7 @@ bool BaseBall::init(Node* back, Vec2 init, Vec2 offset, float bulletSpeed, float
 	this->setFlippedX(direction);
 	bullet->setFlippedX(direction);
 	this->x_bulletSpeed = direction ? -bulletSpeed : bulletSpeed;
-	this->y_bulletSpeed = 400;
+	this->y_bulletSpeed = 0;
 	this->hitSpeed = direction ? -hitSpeed : hitSpeed;
 	currentPoint = init + offset;
 	this->addChild(bullet, 0);
@@ -20,7 +20,7 @@ bool BaseBall::init(Node* back, Vec2 init, Vec2 offset, float bulletSpeed, float
 void BaseBall::update(float dt)
 {
 	currentPoint.x += x_bulletSpeed * dt;
-	y_bulletSpeed -= 2000 * dt;
+	y_bulletSpeed -= 1000 * dt;
 	currentPoint.y += y_bulletSpeed * dt;
 	this->setPosition(currentPoint);
 }

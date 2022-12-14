@@ -104,6 +104,7 @@ Sequence* Gun_MG_P90::HoldingOn(bool withgun)
 
 void Gun_MG_P90::SetBullet()
 {
+    GunBase::SetBullet();
     BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 20), this->_flippedX,300,1);
     unsigned seed = time(0);
     float y = rand() % 16 + 10;

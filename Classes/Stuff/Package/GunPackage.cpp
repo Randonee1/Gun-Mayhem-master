@@ -18,7 +18,7 @@ bool GunPackage::initWithGun(MapBase* map)
     if (!PackageBase::init(map))
         return false;
 
-    switch (rand() % 9)
+    switch (rand() % 10)
     {
     case 0:
         gun = Gun_MG_P90::create();
@@ -46,6 +46,9 @@ bool GunPackage::initWithGun(MapBase* map)
         break;
     case 8:
         gun = Sanurai_Sword::create();
+        break;
+    case 9:
+        gun = BaseBall_Bat::create();
         break;
     }
 

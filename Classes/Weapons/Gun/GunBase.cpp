@@ -89,7 +89,7 @@ void GunBase::Shot(MapBase* map, bool right)
     if(gun_right && right) gun_right->stopAllActions();
     if (gun_left && !right) gun_left->stopAllActions();
     
-    bulletCount++;
+    //bulletCount++;
     shot = false;
     deltatime = 0;
 }
@@ -142,7 +142,7 @@ Sequence* GunBase::HoldingOn(bool withgun)
 
 void GunBase::SetBullet()
 {
-    return;
+    bulletCount++;
 }
 
 void GunBase::SetBulletCase()
