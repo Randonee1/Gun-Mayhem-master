@@ -58,6 +58,7 @@ bool GunPackage::initWithGun(MapBase* map)
     //gun = Gun_Revolver::create();
     //gun = Gun_Double::create();
     //gun = Sanurai_Sword::create();
+    gun = BaseBall_Bat::create();
 
     package = Sprite::create("gun_bubble.png");
     auto Gun = gun->RightGun();

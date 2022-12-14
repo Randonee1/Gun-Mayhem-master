@@ -10,7 +10,7 @@ class Bullet : public Sprite
 {
 public:
 
-	bool init(Node* back, Vec2 init, Vec2 offset,float bulletSpeed,float hitSpeed, bool direction);
+	virtual bool init(Node* back, Vec2 init, Vec2 offset,float bulletSpeed,float hitSpeed, bool direction);
 
 	void update(float dt) override;
 

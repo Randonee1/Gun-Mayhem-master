@@ -12,6 +12,7 @@
 #include "Weapons/Gun/Gun_Revolver.h"
 #include "Weapons/Gun/Gun_Double.h"
 #include "Weapons/others/Samurai_Sword.h"
+#include "Weapons/others/BaseBall_Bat.h"
 
 USING_NS_CC;
 

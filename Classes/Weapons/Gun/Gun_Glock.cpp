@@ -133,6 +133,7 @@ void Gun_Glock::GunThrow(GunBase* throwgun,bool flipped, bool right)
    
     right? gunshadow_right = throwgun->RightGun() : gunshadow_left = throwgun->LeftGun();
     auto gunshadow = right ? gunshadow_right : gunshadow_left;
+    gunshadow->setAnchorPoint(Vec2(0.5, 0.5));
     float speed = 1000;
     gunshadow_vx = flipped ? -speed : speed;
     gunshadow_vy = speed;

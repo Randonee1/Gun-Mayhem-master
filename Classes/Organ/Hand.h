@@ -36,6 +36,7 @@ public:
 	GunBase* Gun;
 	Sprite* gun = nullptr;
 	Point gunPoint;
+	bool isRight;
 
 };
 

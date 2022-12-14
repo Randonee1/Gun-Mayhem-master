@@ -18,7 +18,7 @@ void Hand::GetGun(GunBase* Gun,bool right)
    
     this->Gun = Gun;
     gun = right ? Gun->gun_right: Gun->gun_left;
- 
+    isRight = right;
     if(gun) {
         gun->setPosition(Vec2(organ->getContentSize().width / 2, organ->getContentSize().height / 2));
         right ? organ->addChild(gun, -1) : organ->addChild(gun, 1);
@@ -30,7 +30,7 @@ void Hand::setFlippedX(bool flippedX)
 {
     organ->setFlippedX(flippedX);
     if (gun)
-        Gun->setFlippedX(gun,flippedX, organ->getContentSize().width);
+        Gun->setFlippedX(gun,flippedX,isRight, organ->getContentSize().width);
     if (_flippedX != flippedX)
     {
         _flippedX = flippedX;
@@ -74,6 +74,7 @@ void Hand::MoveDelay(bool up, bool floor)
 void Hand::RaiseHandToShoot(MapBase* map,bool right)
 {
     onShot = false;
+    actionState = false;
     organ->stopAllActions();
     CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(Hand::SetShot, this));
     auto raise = Gun->RaiseHand(right);

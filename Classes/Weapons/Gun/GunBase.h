@@ -22,7 +22,7 @@ public:
 	virtual Sprite* LeftGun();
 
 	//void setFlippedX(bool flippedX, float offset);
-	void setFlippedX(Sprite* gun, bool flippedX, float offset);
+	void setFlippedX(Sprite* gun, bool flippedX, bool right, float offset);
 
 	virtual void Shot(MapBase* map, bool right);
 
@@ -46,6 +46,7 @@ public:
 
 	Vec2 GetPositionToBackground(bool right);
 	Vec2 anchor;
+	Vec2 anchor_left;
 
 	float deltatime = 0;
 	float shotInterval;

@@ -64,7 +64,7 @@ Sprite* GunBase::LeftGun()
 //    }
 //}
 
-void GunBase::setFlippedX(Sprite* gun, bool flippedX, float offset)
+void GunBase::setFlippedX(Sprite* gun, bool flippedX, bool right, float offset)
 {
     bool flip = gun->isFlippedX();
     gun->setFlippedX(flippedX);
@@ -72,7 +72,7 @@ void GunBase::setFlippedX(Sprite* gun, bool flippedX, float offset)
     {
         _flippedX = flippedX;
         gun->setPositionX(-gun->getPositionX() + offset);
-        Vec2 anch = anchor;
+        Vec2 anch = right? anchor : anchor_left;
         flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
         gun->setAnchorPoint(anch);
         /*if (!onShot)

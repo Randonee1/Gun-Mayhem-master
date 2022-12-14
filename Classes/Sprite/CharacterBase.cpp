@@ -213,6 +213,8 @@ void CharacterBase::update(float dt)
 
             accelerate = keyMap["right"] ? status->acceleration : -status->acceleration;
             if (!inTheAir) {
+                CCLOG("walk");
+                CCLOG("w");
                 feet1->Walk(false);
                 feet2->Walk(true);
                 hand1->Walk(true);
@@ -326,15 +328,15 @@ void CharacterBase::GunChange(GunBase* change)
     hand1->setPosition(left);
     hand2->setPosition(right);
 
-    if(gun->gun_right)gun->setFlippedX(gun->gun_right,flip, hand1->organ->getContentSize().width);
-    if (gun->gun_left)gun->setFlippedX(gun->gun_left, flip, hand1->organ->getContentSize().width);
+    if(gun->gun_right)gun->setFlippedX(gun->gun_right,flip,true, hand1->organ->getContentSize().width);
+    if (gun->gun_left)gun->setFlippedX(gun->gun_left, flip,false, hand1->organ->getContentSize().width);
 
     gun->map = this->map;
     hand1->GetGun(gun,true);
     hand2->GetGun(gun,false);
     gun->player = this;
     if(onaction){
-        CCLOG("yes");
+        //CCLOG("yes");
         hand1->DelayWithHand(true);
         hand2->DelayWithHand(false);
     }

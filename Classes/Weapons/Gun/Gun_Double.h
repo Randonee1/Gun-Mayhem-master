@@ -31,6 +31,7 @@ public:
 	void SetBullet_left();
 	
 	bool gun_switch = true;
+
 };
 
 #endif

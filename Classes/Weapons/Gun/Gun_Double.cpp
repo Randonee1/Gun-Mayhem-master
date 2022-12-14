@@ -35,6 +35,7 @@ bool Gun_Double::init()
     //this->addChild(gun, 0);
 
     anchor = Vec2(0.3, 0.25);
+    anchor_left = Vec2(0.3, 0.25);
     initRotation = 30.0f;
     shotInterval = 0.2;
     recoilSpeed = 100;
@@ -44,7 +45,7 @@ bool Gun_Double::init()
     bulletCount = 0;
 
     gun_right->setAnchorPoint(anchor);
-    gun_left->setAnchorPoint(anchor);
+    gun_left->setAnchorPoint(anchor_left);
     gun_right->setRotation(initRotation);
     gun_left->setRotation(initRotation);
     return true;
@@ -53,6 +54,7 @@ bool Gun_Double::init()
 void Gun_Double::Shot(MapBase* map, bool right)
 {
     GunBase::Shot(map, right);
+    
     //CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     CallFunc* onshot_begin = CallFunc::create([&]() {onShot = true; });
     CallFunc* onshot_end = CallFunc::create([&]() {onShot = false; });
