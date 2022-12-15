@@ -1,5 +1,6 @@
 #include "Background.h"
 #include"Scene/GameScene.h"
+#include"Scene/Setting.h"
 
 Background* Background::createGame()
 {
@@ -172,7 +173,7 @@ void Background::initBackground()
 	GameMenu->setFontSizeObj(100);
 
 	MenuItemFont* SettingMenu = MenuItemFont::create("Setting", [&](Ref* sender) {
-		//Director::getInstance()->replaceScene(setting::createScene());
+		Director::getInstance()->replaceScene(Setting::createScene());
 		});
 	SettingMenu->setColor(Color3B::WHITE);
 	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");

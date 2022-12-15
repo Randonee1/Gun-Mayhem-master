@@ -53,7 +53,7 @@ bool HelloWorld::init()
 
 void HelloWorld::SwitchToStartScene(float ft)
 {
-	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Start.mp3");
-	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Game.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Start.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Game.mp3");
 	Director::getInstance()->replaceScene(TransitionFade::create(1.f, StartScene::create()));
 }

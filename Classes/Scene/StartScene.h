@@ -3,7 +3,9 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "editor-support/cocostudio/SimpleAudioEngine.h"
-#include"Global.h"
+#include "AudioEngine.h"
+
+
 
 using namespace cocos2d;
 using namespace ui;
