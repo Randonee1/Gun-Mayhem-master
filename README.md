@@ -57,10 +57,10 @@ pass
 ![image-20221118144330603](./README_image/image-20221118144330603.png)  
 
 ### UI界面设计
-### 11.20
+### **11.20 实现开机动画、start界面。实现了目录的鼠标move监听。**
 ![1.png](./README_image/1.png)
 ![2.png](./README_image/2.png)
-实现开机动画、start界面。实现了目录的鼠标move监听。
+
 
 添加菜单项个数的鼠标move监听，在每个监听里设置回调函数。回调函数通过添加精灵，设置淡出效果，设置0.5f的延时，从而实现目录的鼠标move效果。
 
@@ -68,10 +68,10 @@ pass
 
 提升点：可以使用透明度更高的图片，效果会更好
 
-### 11.21
-对菜单栏的滑条进行优化。通过设置精灵的action代替0.5f的淡出效果，实现“鼠标菜单某位置，某位置即做出滑条反应，并稳定出现滑条”，不再出现在设置淡出效果时，若鼠标长时间不动就淡出，在视觉上造成闪退的问题。
-### 12.12
-start界面背景换为两个AI在sunset的场景。
+### **11.21 对菜单栏的滑条进行优化。**
+通过设置精灵的action代替0.5f的淡出效果，实现“鼠标菜单某位置，某位置即做出滑条反应，并稳定出现滑条”，不再出现在设置淡出效果时，若鼠标长时间不动就淡出，在视觉上造成闪退的问题。
+### **12.12 start界面背景换为两个AI在sunset的场景。**
+
 ![3.png](./README_image/3.png)
 实现：将双AI打斗的场景涉及的部分放到底层，在他的上层加菜单栏。
 
@@ -81,17 +81,37 @@ init()
 // do something
 handleSceneChange()
 ```
-问题解决：在init()中调用切换场景函数时，添加delay进行延迟，目前在我电脑上，delay最快为1.05f(不同电脑会不同，设为2.0f比较保险)  
+问题解决：在init()中调用切换场景函数时，添加delay进行延迟，目前在我电脑上，delay最快为1.05f(不同电脑会不同，设为2.0f比较保险)  
 delay设置代码如下：
 ```
 auto* delay = DelayTime::create(2.0f);
 auto* func = CallFunc::create([this]() {
-    // 切换场景
+    // 切换场景
 });
 this->runAction(Sequence::create(delay, func, nullptr));
 ```
 
-仍存在问题：切换后会有一段时间的灰屏出现，目前合理推断为程序执行捕捉场景变化函数时的状态，若要解决，可能需要改引擎。  
+仍存在问题：切换后会有一段时间的灰屏出现，目前合理推断为程序执行捕捉场景变化函数时的状态，若要解决，可能需要改引擎。  
+
+### **12.15 实现Setting界面。且完成背景音乐和音效的控制。**
+![1215_1.png](./README_image/1215_1.png)
+  
+有关背景音乐和音效的控制：在Helloworld类中预加载；在StartScene类内初始化背景音乐；在Setting类内实现对背景音乐的控制。
+
+存在问题：在StartScene类中，如果如下初始化，会导致每回一次StartScene，就叠加一个从头播放的背景音乐，最后导致多层背景音乐叠加。
+```
+auto backgroundAudioID = AudioEngine::play2d("Music/Start.mp3", true);
+```
+问题解决：通过isBackgroundMusicPlaying()函数来确认是否目前有音乐，若有，直接stop。这样的效果是每回一次StartScene,都从头播放音乐。
+```
+if (!instance->isBackgroundMusicPlaying()){}
+	else {
+		instance->stopBackgroundMusic(); //stop后无法恢复播放
+	}
+	instance->playBackgroundMusic("Music/Start.mp3", true);
+```
+
+
 
 
 
