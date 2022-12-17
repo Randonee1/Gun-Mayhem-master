@@ -135,12 +135,18 @@ bool BackgroundChoise::init() {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationSelected.png");
+		spacestation->setLocalZOrder(2);
 		Random->loadTextureNormal("customGameMenu/randomUnselected.png");
 		sunsetcity->loadTextureNormal("customGameMenu/sunsetcityUnselected.png");
+		sunsetcity->setLocalZOrder(0);
 		seele->loadTextureNormal("customGameMenu/seeleUnselected.png");
+		seele->setLocalZOrder(0);
 		irismood->loadTextureNormal("customGameMenu/irismoodUnselected.png");
+		irismood->setLocalZOrder(0);
 		highmoon->loadTextureNormal("customGameMenu/highmoonUnselected.png");
+		highmoon->setLocalZOrder(0);
 		Default->loadTextureNormal("customGameMenu/defaultUnselected.png");
+		Default->setLocalZOrder(0);
 
 		auto pic = Sprite::create("customGameMenu/spacestationPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
@@ -152,12 +158,18 @@ bool BackgroundChoise::init() {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
+		spacestation->setLocalZOrder(0);
 		Random->loadTextureNormal("customGameMenu/randomUnselected.png");
 		sunsetcity->loadTextureNormal("customGameMenu/sunsetcitySelected.png");
+		sunsetcity->setLocalZOrder(2);
 		seele->loadTextureNormal("customGameMenu/seeleUnselected.png");
+		seele->setLocalZOrder(0);
 		irismood->loadTextureNormal("customGameMenu/irismoodUnselected.png");
+		irismood->setLocalZOrder(0);
 		highmoon->loadTextureNormal("customGameMenu/highmoonUnselected.png");
+		highmoon->setLocalZOrder(0);
 		Default->loadTextureNormal("customGameMenu/defaultUnselected.png");
+		Default->setLocalZOrder(0);
 
 		auto pic = Sprite::create("customGameMenu/sunsetcityPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
@@ -168,12 +180,18 @@ bool BackgroundChoise::init() {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
+		spacestation->setLocalZOrder(0);
 		Random->loadTextureNormal("customGameMenu/randomUnselected.png");
 		sunsetcity->loadTextureNormal("customGameMenu/sunsetcityUnselected.png");
+		sunsetcity->setLocalZOrder(0);
 		seele->loadTextureNormal("customGameMenu/seeleSelected.png");
+		seele->setLocalZOrder(2);
 		irismood->loadTextureNormal("customGameMenu/irismoodUnselected.png");
+		irismood->setLocalZOrder(0);
 		highmoon->loadTextureNormal("customGameMenu/highmoonUnselected.png");
+		highmoon->setLocalZOrder(0);
 		Default->loadTextureNormal("customGameMenu/defaultUnselected.png");
+		Default->setLocalZOrder(0);
 
 		auto pic = Sprite::create("customGameMenu/seelePreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
@@ -184,12 +202,18 @@ bool BackgroundChoise::init() {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
+		spacestation->setLocalZOrder(0);
 		Random->loadTextureNormal("customGameMenu/randomUnselected.png");
 		sunsetcity->loadTextureNormal("customGameMenu/sunsetcityUnselected.png");
+		sunsetcity->setLocalZOrder(0);
 		seele->loadTextureNormal("customGameMenu/seeleUnselected.png");
+		seele->setLocalZOrder(0);
 		irismood->loadTextureNormal("customGameMenu/irismoodSelected.png");
+		irismood->setLocalZOrder(2);
 		highmoon->loadTextureNormal("customGameMenu/highmoonUnselected.png");
+		highmoon->setLocalZOrder(0);
 		Default->loadTextureNormal("customGameMenu/defaultUnselected.png");
+		Default->setLocalZOrder(0);
 
 		/*auto pic = Sprite::create("customGameMenu/irismoodPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
@@ -200,12 +224,18 @@ bool BackgroundChoise::init() {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
+		spacestation->setLocalZOrder(0);
 		Random->loadTextureNormal("customGameMenu/randomUnselected.png");
 		sunsetcity->loadTextureNormal("customGameMenu/sunsetcityUnselected.png");
+		sunsetcity->setLocalZOrder(0);
 		seele->loadTextureNormal("customGameMenu/seeleUnselected.png");
+		seele->setLocalZOrder(0);
 		irismood->loadTextureNormal("customGameMenu/irismoodUnselected.png");
+		irismood->setLocalZOrder(0);
 		highmoon->loadTextureNormal("customGameMenu/highmoonSelected.png");
+		highmoon->setLocalZOrder(2);
 		Default->loadTextureNormal("customGameMenu/defaultUnselected.png");
+		Default->setLocalZOrder(0);
 
 		/*auto pic = Sprite::create("customGameMenu/highmoonPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
@@ -216,12 +246,18 @@ bool BackgroundChoise::init() {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
+		spacestation->setLocalZOrder(0);
 		Random->loadTextureNormal("customGameMenu/randomUnselected.png");
 		sunsetcity->loadTextureNormal("customGameMenu/sunsetcityUnselected.png");
+		sunsetcity->setLocalZOrder(0);
 		seele->loadTextureNormal("customGameMenu/seeleUnselected.png");
+		seele->setLocalZOrder(0);
 		irismood->loadTextureNormal("customGameMenu/irismoodUnselected.png");
+		irismood->setLocalZOrder(0);
 		highmoon->loadTextureNormal("customGameMenu/highmoonUnselected.png");
+		highmoon->setLocalZOrder(0);
 		Default->loadTextureNormal("customGameMenu/defaultSelected.png");
+		Default->setLocalZOrder(2);
 
 		auto pic = Sprite::create("customGameMenu/defaultPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
@@ -242,17 +278,17 @@ bool BackgroundChoise::init() {
 
 
 
-	////鼠标监听器//GameBegin的监听
-	//blacksprite = Sprite::create("BlacktTransparent.png");
-	////blacksprite->setAnchorPoint(Point(0, 0.5));
-	//this->addChild(blacksprite, 7);
-	//blacksprite->setVisible(false);
+	//鼠标监听器//GameBegin的监听
+	blacksprite = Sprite::create("customGameMenu/70buttonYello.png");
+	blacksprite->setAnchorPoint(Point(0.5, 0.5));
+	this->addChild(blacksprite,1);
+	blacksprite->setVisible(false);
 
-	//auto _mouseListener = EventListenerMouse::create();
+	auto _mouseListener = EventListenerMouse::create();
 
-	//_mouseListener->onMouseMove = CC_CALLBACK_1(BackgroundChoise::onMouseMove, this);
+	_mouseListener->onMouseMove = CC_CALLBACK_1(BackgroundChoise::onMouseMove, this);
 
-	//_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
 
 }
 
@@ -278,95 +314,141 @@ void BackgroundChoise::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventTy
 	}
 }
 
+
 //
-//void BackgroundChoise::onMouseMove(Event* event)
-//{
-//	EventMouse* e = (EventMouse*)event;
-//	Size visibleSize = Director::getInstance()->getVisibleSize();
-//	Vec2 locationInNode = convertToNodeSpace(Vec2(e->getCursorX(), e->getCursorY() + visibleSize.height));
-//
-//	Rect r = Rect(0, 0, getContentSize().width, getContentSize().height);
-//
-//	// Show selected image if mouse over
-//	//r.containsPoint(locationInNode) ? selected() : unselected();
-//}
-//
-//
-//
-////设置鼠标监听，用于滑条的显示。这里的鼠标监听类型为onMouseMove
-//void BackgroundChoise::onMouseMove(Event* event)
-//{
-//	EventMouse* e = (EventMouse*)event;
-//	Size visibleSize = Director::getInstance()->getVisibleSize();
-//	Vec2 locationInNode = convertToNodeSpace(Vec2(e->getCursorX(), e->getCursorY()));
-//
-//
-//	Rect r1 = Rect(0, visibleSize.height * 3 / 5 - 50, visibleSize.width, 100);
-//	Rect r2 = Rect(0, visibleSize.height * 3 / 5 - 250, visibleSize.width, 100);
-//	Rect r3 = Rect(0, visibleSize.height * 3 / 5 - 450, visibleSize.width, 100);
-//	CallFunc* setMove = CallFunc::create([&]() {
-//		move = !move;
-//		});
-//
-//	if (r1.containsPoint(locationInNode)) {
-//		if (blacksprite->isVisible()) {
-//			if (!move) {
-//				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5)));
-//				auto seq = Sequence::create(setMove, move, setMove, nullptr);
-//				seq->setTag(1);
-//				blacksprite->stopActionByTag(1);
-//				blacksprite->runAction(seq);
-//			}
-//		}
-//		else {
-//			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5));
-//			blacksprite->setVisible(true);
-//			auto fadein = FadeIn::create(0.1);
-//			blacksprite->runAction(fadein);
-//		}
-//	}
-//	else if (r2.containsPoint(locationInNode)) {
-//		if (blacksprite->isVisible()) {
-//			if (!move) {
-//				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5 - 200)));
-//				auto seq = Sequence::create(setMove, move, setMove, nullptr);
-//				seq->setTag(1);
-//				blacksprite->stopActionByTag(1);
-//				blacksprite->runAction(seq);
-//			}
-//		}
-//		else {
-//			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5 - 200));
-//			blacksprite->setVisible(true);
-//			auto fadein = FadeIn::create(0.1);
-//			blacksprite->runAction(fadein);
-//		}
-//	}
-//	else if (r3.containsPoint(locationInNode)) {
-//		if (blacksprite->isVisible()) {
-//			if (!move) {
-//				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5 - 400)));
-//				auto seq = Sequence::create(setMove, move, setMove, nullptr);
-//				seq->setTag(1);
-//				blacksprite->stopActionByTag(1);
-//				blacksprite->runAction(seq);
-//			}
-//		}
-//		else {
-//			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5 - 400));
-//			blacksprite->setVisible(true);
-//			auto fadein = FadeIn::create(0.1);
-//			blacksprite->runAction(fadein);
-//		}
-//	}
-//	else {
-//		if (blacksprite->isVisible()) {
-//			CallFunc* func1 = CallFunc::create([&]() {
-//				blacksprite->setVisible(false);
-//				});
-//			auto fadeout = FadeOut::create(0.1f);
-//			auto seq = Sequence::create(fadeout, func1, nullptr);
-//			blacksprite->runAction(seq);
-//		}
-//	}
-//}
+//设置鼠标监听，用于滑条的显示。这里的鼠标监听类型为onMouseMove
+void BackgroundChoise::onMouseMove(Event* event)
+{
+	EventMouse* e = (EventMouse*)event;
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 locationInNode = convertToNodeSpace(Vec2(e->getCursorX(), e->getCursorY()));
+
+
+	Rect r6 = Rect(visibleSize.width * 132.5 / 2560, 1440-970, visibleSize.width * 780 / 2560, 80);
+	Rect r1 = Rect(visibleSize.width * 132.5 / 2560, 1440-570, visibleSize.width * 780 / 2560, 80);
+	Rect r2 = Rect(visibleSize.width * 132.5 / 2560, 1440-650, visibleSize.width * 780 / 2560, 80);
+	Rect r3 = Rect(visibleSize.width * 132.5 / 2560, 1440-730, visibleSize.width * 780 / 2560, 80);
+	Rect r4 = Rect(visibleSize.width * 132.5 / 2560, 1440-810, visibleSize.width * 780 / 2560, 80);
+	Rect r5 = Rect(visibleSize.width * 132.5 / 2560, 1440-890, visibleSize.width * 780 / 2560, 80);
+	CallFunc* setMove = CallFunc::create([&]() {
+		move = !move;
+		});
+	if (r1.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(visibleSize.width * 522.5 / 2560, 1440 - 530)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2( visibleSize.width * 522.5 / 2560, 1440 - 530));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r2.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2( visibleSize.width * 522.5 / 2560, 1440 - 610)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2( visibleSize.width * 522.5 / 2560, 1440 - 610));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r3.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(visibleSize.width * 522.5 / 2560, 1440 - 690)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(visibleSize.width * 522.5 / 2560, 1440 - 690));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r4.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(visibleSize.width * 522.5 / 2560, 1440 - 770)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(visibleSize.width * 522.5 / 2560, 1440 - 770));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r5.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2( visibleSize.width * 522.5 / 2560, 1440 - 850)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(visibleSize.width * 522.5 / 2560, 1440 - 850));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r6.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2( visibleSize.width * 522.5 / 2560, 1440 - 930)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(visibleSize.width * 522.5 / 2560, 1440 - 930));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+
+
+
+
+
+	else {
+		if (blacksprite->isVisible()) {
+			CallFunc* func1 = CallFunc::create([&]() {
+				blacksprite->setVisible(false);
+				});
+			auto fadeout = FadeOut::create(0.1f);
+			auto seq = Sequence::create(fadeout, func1, nullptr);
+			blacksprite->runAction(seq);
+		}
+	}
+
+}
