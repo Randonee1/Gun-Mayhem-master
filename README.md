@@ -111,6 +111,13 @@ if (!instance->isBackgroundMusicPlaying()){}
 	instance->playBackgroundMusic("Music/Start.mp3", true);
 ```
 
+### **12.17 实现BackgroundChoise界面。在GameManager类添加全局变量**
+![1217_1.png](./README_image/1217_1.png)
+该界面主要是按钮构成。地图选择的部分添加滑动色块的效果。但以图片按钮存在第一个问题就是，点击后会迅速恢复原状态，所以在回调函数中，更改主状态图片；第二个问题是，两张图片位于同一图层，这样在最后选中时，橙色位于滑动色块下层，效果不好，所以在点击回调函数中设置图层变更。
+
+该界面还有一个文本框，用于输入需要的生命数量。
+
+该界面的所有选择信息，都存入GameManager里，为后续游戏准备。
 
 
 
