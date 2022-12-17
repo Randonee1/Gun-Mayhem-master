@@ -1,6 +1,8 @@
 #include "Background.h"
 #include"Scene/GameScene.h"
 #include"Scene/Setting.h"
+#include"Scene/BackgroundChoise.h"
+#include"Manager/GameManager.h"
 
 Background* Background::createGame()
 {
@@ -163,9 +165,11 @@ void Background::initBackground()
 	//设置菜单项
 	//文字菜单项
 	MenuItemFont* GameMenu = MenuItemFont::create("Game Begin", [&](Ref* sender) {
-		auto scene = GameScene::CreateGame(1);
+		auto scene = BackgroundChoise::create();
+		//auto scene = GameScene::CreateGame(1);
 		Director::getInstance()->replaceScene(scene);
 		//Director::getInstance()->replaceScene(Loading::createScene());
+		
 		});
 	GameMenu->setColor(Color3B::WHITE);
 	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");

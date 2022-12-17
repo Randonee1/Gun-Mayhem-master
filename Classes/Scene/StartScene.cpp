@@ -1,5 +1,6 @@
 #include "StartScene.h" 
 #include"Scene/Loading.h"
+#include"Manager/GameManager.h"
 
 bool StartScene::init() {
 	
