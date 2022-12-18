@@ -10,6 +10,7 @@
 #include "Organ/OrganBase.h"
 #include "Weapons/Gun/GunBase.h"
 #include "Map/MapBase.h"
+#include "Stuff/Dust.h"
 //#include "Stuff/Package/SkillPackage.h"
 
 USING_NS_CC;
