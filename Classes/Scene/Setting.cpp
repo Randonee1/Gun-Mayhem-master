@@ -42,6 +42,14 @@ bool Setting::init()
 	offMusic->setPosition(Vec2(origin.x + visibleSize.width * 2235/2560, 1440 - 585));
 
 
+	auto instance_music = CocosDenshion::SimpleAudioEngine::getInstance();
+	float volume_music = instance_music->getBackgroundMusicVolume();
+	if (volume_music == 0) {
+		onMusic->loadTextureNormal("optionMenu/onUnselected.png");
+		offMusic->loadTextureNormal("optionMenu/offSelected.png");
+	}
+
+
 	//设置背景音乐按钮的回调函数
 	onMusic->addClickEventListener([=](Ref* sender) {                      
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
@@ -69,6 +77,13 @@ bool Setting::init()
 	auto offSound = Button::create("optionMenu/offUnselected.png", "optionMenu/offSelected.png");
 	offSound->setPosition(Vec2(origin.x + visibleSize.width * 2235 / 2560, 1440 - 890));
 	
+	auto instance_sound = CocosDenshion::SimpleAudioEngine::getInstance();
+	float volume_sound = instance_sound->getBackgroundMusicVolume();
+	if (volume_sound == 0) {
+		onMusic->loadTextureNormal("optionMenu/onUnselected.png");
+		offMusic->loadTextureNormal("optionMenu/offSelected.png");
+	}
+
 
 	//设置音效的回调函数
 	onSound->addClickEventListener([=](Ref* sender) {
