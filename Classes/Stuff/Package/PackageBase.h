@@ -18,10 +18,12 @@ public:
 	void update(float dt);
 
 	Sprite* package;
+
+	int endFloor;
 protected:
 	bool intheair = true;
 	float updatetime;
-	int endFloor;
+	//int endFloor;
 	float y_speed;
 	float gravitation = -1000;
 };

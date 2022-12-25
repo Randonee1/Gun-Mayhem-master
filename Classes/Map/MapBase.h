@@ -33,14 +33,14 @@ public:
 	std::vector<std::vector<float>> Floor;
 	std::vector<Bullet*>bullets;
 	std::vector<CharacterBase*> players;
-	
+	PackageEvent* packageEvent;
 protected:
 	
 	Size visibleSize;
 
 	Size platformSize;
 
-	PackageEvent* packageEvent;
+	/*PackageEvent* packageEvent;*/
 
 	Vec2 initPlatformPosition;
 	Vec2 initbackLayerPosition;

@@ -82,11 +82,11 @@ void MapTest::initPlayer()
 	/*auto player1 = Player1::createWithTag(1,this);
 	platform->addChild(player1, 1);*/
 
-	auto player1 = Player2::createWithTag(1, this);
+	/*auto player1 = Player2::createWithTag(1, this);
 	platform->addChild(player1, 1);
 
 	auto player2 = Player1::createWithTag(2, this);
-	platform->addChild(player2, 2);
+	platform->addChild(player2, 2);*/
 
 	//test
 	/*player2 = Player_test::createWithTag(2, back);
@@ -100,11 +100,11 @@ void MapTest::initPlayer()
 	/*auto player2 = AI1::create(this);
 	platform->addChild(player2, 2);*/
 
-	/*auto player1 = AI2::create(1,this);
-	platform->addChild(player1, 1);*/
+	auto player1 = AI2::create(1,this);
+	platform->addChild(player1, 1);
 
-	/*auto player2 = AI2::create(2,this);
-	platform->addChild(player2, 2);*/
+	auto player2 = AI2::create(2,this);
+	platform->addChild(player2, 2);
 
 	player1->GetOpponent(player2);
 	player2->GetOpponent(player1);
