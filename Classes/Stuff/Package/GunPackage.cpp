@@ -1,6 +1,6 @@
 #include "GunPackage.h"
 
-float GunPackage::updatetime = 5;
+float GunPackage::updatetime = 8;
 
 GunPackage* GunPackage::createWithGun(MapBase* map)
 {
@@ -61,7 +61,7 @@ bool GunPackage::initWithGun(MapBase* map)
     //gun = Gun_Revolver::create();
     //gun = Gun_Double::create();
     //gun = Sanurai_Sword::create();
-    gun = BaseBall_Bat::create();
+    //gun = BaseBall_Bat::create();
 
     package = Sprite::create("gun_bubble.png");
     auto Gun = gun->RightGun();

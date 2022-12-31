@@ -120,7 +120,6 @@ void CharacterBase::update(float dt)
             else if (keyMap["up"]) {
                 inTheAir = true;
                 y_speed = status->y_maxSpeed;
-                Dust::create(map,this->getPosition());
                 MoveDelay(true, false);
                 keyMap["up"] = false;
                /* if (floor < map->Floor.size() - 1)
@@ -168,6 +167,7 @@ void CharacterBase::update(float dt)
                 keyMap["down"] = false;
                 MoveDelay(true, true);
                 inTheAir = false;
+                Dust::create(map, this->getPosition());//²úÉú»Ò³¾
                 y_speed = 0;
                 this->setPositionY(map->floor_base + floor * map->floor_height);
             }

@@ -2,6 +2,7 @@
 #define BLOOD_H
 
 #include "cocos2d.h"
+#include "Manager/GameManager.h"
 
 USING_NS_CC;
 

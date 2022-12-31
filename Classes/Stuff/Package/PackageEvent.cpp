@@ -31,7 +31,7 @@ void PackageEvent::PackageUpdate(std::vector<CharacterBase*>& players)
 
 	for (auto& package : packages) {
 
-		if (package->getPositionY() < map->death_line) {
+		if (package->getPositionY() < map->death_line || package->Disappear()) {
 			package->removeFromParent();
 			package = nullptr;
 			continue;

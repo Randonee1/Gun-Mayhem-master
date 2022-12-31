@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Map/MapBase.h"
+#include "Manager/GameManager.h"
 USING_NS_CC;
 
 class Dust : public Sprite

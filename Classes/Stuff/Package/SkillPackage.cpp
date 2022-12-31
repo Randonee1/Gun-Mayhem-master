@@ -1,6 +1,6 @@
 #include "SkillPackage.h"
 
-float SkillPackage::updatetime = 7;
+float SkillPackage::updatetime = 9;
 
 SkillPackage* SkillPackage::createWithSkill(MapBase* map)
 {
@@ -18,10 +18,11 @@ bool SkillPackage::initWithGun(MapBase* map)
     if (!PackageBase::init(map))
         return false;
 
-    switch (rand() % 4) 
+    switch (rand() % 2) 
     {
     case 0:
         skill = DEFENSE;
+        package = Sprite::createWithSpriteFrameName("shieldPack.png");
         break;
     case 1:
         skill = SPEED_UP;
@@ -37,8 +38,8 @@ bool SkillPackage::initWithGun(MapBase* map)
         break;
     }
 
-    skill = SPEED_UP;
-    package = Sprite::createWithSpriteFrameName("speedup.png");
+    /*skill = SPEED_UP;
+    package = Sprite::createWithSpriteFrameName("speedup.png");*/
    /* skill = SUPER_JUMP;
     package = Sprite::create("super_jump.png");*/
    /* skill = JETPACK;

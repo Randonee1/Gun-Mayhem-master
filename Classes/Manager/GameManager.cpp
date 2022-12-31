@@ -64,6 +64,13 @@ GameManager* GameManager::getInstance()
     return _instance;
 }
 
+float GameManager::Random(int min, int max) {
+    std::random_device rd;
+    std::default_random_engine eng(rd());
+    std::uniform_real_distribution<float> distr(min, max);
+    return distr(eng);
+}
+
 std::map<std::string, EventKeyboard::KeyCode> GameManager::getKeyMap(int name)
 {
     if (name == 1)

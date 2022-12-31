@@ -50,6 +50,7 @@ void MapTest::update(float dt)
 		delta.y = delta.y * b / a;
 	}
 
+	background->setPosition(initBackgroundPosition - delta * 0.5);
 	backLayer->setPosition(initbackLayerPosition - delta*0.5);
 	platform->setPosition(initPlatformPosition - delta*0.7);
 	
@@ -62,6 +63,11 @@ void MapTest::update(float dt)
 
 void MapTest::initBackground()
 {
+	background = Sprite::create("grey_background.png");
+	initBackgroundPosition = Vec2(visibleSize.width / 2, visibleSize.height / 2);
+	background->setPosition(initBackgroundPosition);
+	this->addChild(background, 0);
+
 	backLayer = Sprite::createWithSpriteFrameName("bgd_weapontest_0.png");
 	initbackLayerPosition = Vec2(visibleSize.width / 2, visibleSize.height / 2);
 	backLayer->setPosition(initbackLayerPosition);
@@ -82,11 +88,11 @@ void MapTest::initPlayer()
 	/*auto player1 = Player1::createWithTag(1,this);
 	platform->addChild(player1, 1);*/
 
-	/*auto player1 = Player2::createWithTag(1, this);
+	auto player1 = Player2::createWithTag(1, this);
 	platform->addChild(player1, 1);
 
 	auto player2 = Player1::createWithTag(2, this);
-	platform->addChild(player2, 2);*/
+	platform->addChild(player2, 2);
 
 	//test
 	/*player2 = Player_test::createWithTag(2, back);
@@ -100,11 +106,11 @@ void MapTest::initPlayer()
 	/*auto player2 = AI1::create(this);
 	platform->addChild(player2, 2);*/
 
-	auto player1 = AI2::create(1,this);
-	platform->addChild(player1, 1);
+	/*auto player1 = AI2::create(1,this);
+	platform->addChild(player1, 1);*/
 
-	auto player2 = AI2::create(2,this);
-	platform->addChild(player2, 2);
+	/*auto player2 = AI2::create(2,this);
+	platform->addChild(player2, 2);*/
 
 	player1->GetOpponent(player2);
 	player2->GetOpponent(player1);

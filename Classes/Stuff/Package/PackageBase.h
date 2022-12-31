@@ -15,6 +15,8 @@ public:
 
 	virtual void GetPackage(CharacterBase* player);
 
+	bool Disappear();
+
 	void update(float dt);
 
 	Sprite* package;
@@ -23,6 +25,8 @@ public:
 protected:
 	bool intheair = true;
 	float updatetime;
+	float duration = 10;
+
 	//int endFloor;
 	float y_speed;
 	float gravitation = -1000;

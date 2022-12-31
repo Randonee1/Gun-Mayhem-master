@@ -30,7 +30,8 @@ public:
 	void ShotEvent() override;
 
 private:
-
+	Vec2 initBackgroundPosition;
+	Sprite* background;
 	/*CharacterBase* player1;
 	CharacterBase* player2;*/
 	//std::vector<CharacterBase*> players;

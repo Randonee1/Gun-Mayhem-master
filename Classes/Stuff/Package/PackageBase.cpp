@@ -29,8 +29,21 @@ void PackageBase::GetPackage(CharacterBase* player)
     return;
 }
 
+bool PackageBase::Disappear() {
+    return (!package->isVisible());
+}
+
 void PackageBase::update(float dt)
 {   
+    duration -= dt;
+    if (duration < 0 && duration+dt>=0) {
+        auto fade = FadeOut::create(1);
+        auto disappear = CallFunc::create([&]() {package->setVisible(false); });
+        auto seq = Sequence::create(fade, disappear, nullptr);
+        package->runAction(seq->clone());
+        if(!package->getChildren().empty())
+            package->getChildren().front()->runAction(seq->clone());
+    }
     if (getPositionY() > endFloor) {
         y_speed += dt * gravitation;
         this->setPosition(this->getPositionX(), this->getPositionY() + y_speed * dt);

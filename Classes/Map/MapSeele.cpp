@@ -27,7 +27,7 @@ bool MapSeele::init()
 
 	initPlayer();
 
-	packageEvent = PackageEvent::create(this);
+	//packageEvent = PackageEvent::create(this);
 
 	this->scheduleUpdate();
 
@@ -36,6 +36,8 @@ bool MapSeele::init()
 
 void MapSeele::update(float dt)
 {
+	MapBase::update(dt);
+
 	Vec2 initPlatform = Vec2(platformSize.width / 2, (floor_base + floor_base + floor_height * (Floor.size() - 1)) / 2);
 	Vec2 delta = Vec2(0, 0);
 	for (auto& player : players) { delta += player->getPosition(); }
@@ -54,10 +56,10 @@ void MapSeele::update(float dt)
 
 	EyeBlink();
 
-	ShotEvent();
+	/*ShotEvent();
 
 	packageEvent->update(dt);
-	packageEvent->PackageUpdate(players);
+	packageEvent->PackageUpdate(players);*/
 }
 
 void MapSeele::initBackground()
@@ -76,6 +78,7 @@ void MapSeele::initBackground()
 	initPlatformPosition = Vec2(visibleSize.width / 2, visibleSize.height / 2);
 	platform->setPosition(initPlatformPosition);
 	this->addChild(platform, 1);
+
 	platformSize = platform->getContentSize();
 
 	initEyes();
@@ -86,14 +89,20 @@ void MapSeele::initPlayer()
 	/*CharacterBase* player1 = Player1::createWithTag(1, this);
 	platform->addChild(player1, 1);*/
 
-	CharacterBase* player1 = AI1::create(1, this);
-	platform->addChild(player1, 1);
+	/*CharacterBase* player1 = AI1::create(1, this);
+	platform->addChild(player1, 1);*/
 
-	CharacterBase* player2 = AI1::create(2, this);
-	platform->addChild(player2, 2);
+	/*CharacterBase* player2 = AI1::create(2, this);
+	platform->addChild(player2, 2);*/
 
 	/*CharacterBase* player2 = Player1::createWithTag(2, this);
 	platform->addChild(player2, 2);*/
+
+	auto player1 = AI2::create(1,this);
+	platform->addChild(player1, 1);
+
+	auto player2 = AI2::create(2,this);
+	platform->addChild(player2, 2);
 
 	player1->GetOpponent(player2);
 	player2->GetOpponent(player1);

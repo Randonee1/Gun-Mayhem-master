@@ -14,6 +14,8 @@ class GameManager
 public:
 	static GameManager* getInstance();
 
+	static float Random(int min, int max);
+
 	static std::map<std::string, EventKeyboard::KeyCode> getKeyMap(int name);
 
 	static GameManager* _instance;
