@@ -25,11 +25,11 @@ bool AI2::init(int tag, MapBase* map)
     status->y_maxSpeed = 1275;
     status->recoil_speed = 100;
 
-    floor = map->Floor.size() - 1;
+    //floor = map->Floor.size() - 1;
 
-    unsigned seed = time(0);
+    /*unsigned seed = time(0);
     setPosition(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,
-        map->platform->getContentSize().height + 2000);
+        map->platform->getContentSize().height + 2000);*/
 
     return true;
 }

@@ -50,7 +50,10 @@ public:
 
     void GetOpponent(CharacterBase* opponent);
 
+    void DustUpdate();
+
     std::vector<OrganBase*> organs;
+    std::vector<Dust*> dusts;
     std::map<std::string, bool> keyMap;
 
     //SkillPackage* skill;
@@ -82,7 +85,7 @@ public:
     bool inTheAir = true;
     bool valid = true;   
     bool hit = false;
-    bool defense = false;
+    bool defense;
 };
 
 #endif

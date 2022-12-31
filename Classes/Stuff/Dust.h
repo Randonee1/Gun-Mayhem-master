@@ -10,13 +10,15 @@ class Dust : public Sprite
 {
 public:
 
-	static void create(MapBase* map, Vec2 point);
+	static Dust* create(MapBase* map, Vec2 point);
 
 	bool init() override;
 
 	void update(float dt) override;
 
 	std::vector<Sprite*> Dusts;
+    
+	bool dissipate = false;
 };
 
 #endif

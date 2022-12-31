@@ -27,7 +27,7 @@ public:
 
 	void initPlayer();
 
-	void ShotEvent() override;
+	//void ShotEvent() override;
 
 private:
 	Vec2 initBackgroundPosition;

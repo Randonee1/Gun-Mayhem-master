@@ -28,11 +28,12 @@ bool Player1::initWithTag(int name, MapBase* map)
     /*floor_base = background->getContentSize().height + 30 - 270;
     floor_height = 270;
     Floor = { {0,1945},{270,1675} };*/
-    floor = map->Floor.size()-1;
 
-    unsigned seed = time(0);
+    //floor = map->Floor.size()-1;
+
+    /*unsigned seed = time(0);
     setPosition(rand() % int(map->platform->getContentSize().width/2)+map->platform->getContentSize().width/4, 
-        map->platform->getContentSize().height + 2000);
+        map->platform->getContentSize().height + 2000);*/
 
     return true;
 }

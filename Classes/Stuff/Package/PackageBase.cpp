@@ -15,8 +15,10 @@ bool PackageBase::init(MapBase* map)
 
     endFloor = endfloor * map->floor_height + map->floor_base;
 
-    setPosition(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,
-        map->platform->getContentSize().height + 2000);
+    float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
+    while (!map->InTheBoundary(map->Floor.back(), x))
+        x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
+    setPosition(x, map->platform->getContentSize().height + 2000);
 
     map->platform->addChild(this, 0);
 

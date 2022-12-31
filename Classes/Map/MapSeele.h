@@ -30,7 +30,7 @@ public:
 
 	void EyeBlink();
 
-	void ShotEvent() override;
+	//void ShotEvent() override;
 
 private:
 

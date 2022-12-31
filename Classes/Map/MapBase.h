@@ -23,6 +23,8 @@ public:
 
 	virtual void ShotEvent();
 
+	bool InTheBoundary(std::vector<float>& floor, float x) const;
+
 	//void bindPlayerStateMenu(PlayerStateMenu* playerState);
 	Sprite* platform;
 	Sprite* backLayer;

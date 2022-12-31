@@ -22,7 +22,7 @@ public:
 
 	void initPlayer();
 
-	void ShotEvent() override;
+	//void ShotEvent() override;
 
 private: 
 
@@ -32,8 +32,6 @@ private:
 	Sprite* planet1;
 	Sprite* planet2;
 
-	CharacterBase* player1;
-	CharacterBase* player2;
 };
 
 #endif

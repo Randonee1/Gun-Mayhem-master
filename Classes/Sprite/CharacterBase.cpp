@@ -15,8 +15,16 @@ bool CharacterBase::init(int tag, MapBase* map)
     accelerate = 0;
     x_speed = 0;
     y_speed = 0;
+    defense = false;
     isDoubleJump = false;
     inTheAir = true;
+    floor = map->Floor.size() - 1;
+    
+    float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
+    while(!InTheBoundary(map->Floor.back(),x))
+        x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
+
+    this->setPosition(x,map->platform->getContentSize().height + 2000);
 
     skill = new Defense(this, 3);
 
@@ -167,7 +175,7 @@ void CharacterBase::update(float dt)
                 keyMap["down"] = false;
                 MoveDelay(true, true);
                 inTheAir = false;
-                Dust::create(map, this->getPosition());//²úÉú»Ò³¾
+                DustUpdate();
                 y_speed = 0;
                 this->setPositionY(map->floor_base + floor * map->floor_height);
             }
@@ -193,9 +201,10 @@ void CharacterBase::update(float dt)
                 skill = new Defense(this, 3);
                 this->setVisible(true); valid = true;
                 });
-            unsigned seed = time(0);
-            Vec2 position = Vec2(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,
-                map->platform->getContentSize().height + 2000);
+            float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
+            while (!InTheBoundary(map->Floor.back(), x))
+                x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
+            Vec2 position = Vec2(x, map->platform->getContentSize().height + 2000);
             auto move1 = MoveTo::create(0.5, position);
             auto move2 = EaseSineOut::create(move1);
             this->runAction(Sequence::create(func1, move2, func2, nullptr));
@@ -344,4 +353,21 @@ void CharacterBase::GunChange(GunBase* change)
 void CharacterBase::GetOpponent(CharacterBase* opponent)
 {
     this->opponent = opponent;
+}
+
+void CharacterBase::DustUpdate()
+{
+    for (auto& dust : dusts) {
+        if (dust->dissipate) {
+            dust->removeFromParent();
+            dust = nullptr;
+        }
+    }
+    std::vector<Dust*> temp;
+    for (auto dust : dusts) {
+        if (dust)
+            temp.push_back(dust);
+    }
+    dusts = temp;
+    dusts.push_back(Dust::create(map, this->getPosition()));
 }

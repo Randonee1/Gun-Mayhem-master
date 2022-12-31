@@ -1,6 +1,6 @@
 #include "Dust.h"
 
-void Dust::create(MapBase* map, Vec2 point)
+Dust* Dust::create(MapBase* map, Vec2 point)
 {
 	auto dust = new Dust();
 	if (dust && dust->init()) {
@@ -8,10 +8,10 @@ void Dust::create(MapBase* map, Vec2 point)
 		dust->setPosition(point);
 		map->platform->addChild(dust, 3);
 		dust->autorelease();
-		return;
+		return dust;
 	}
 	CC_SAFE_DELETE(dust);
-	return;
+	return nullptr;
 }
 
 bool Dust::init()
@@ -27,12 +27,14 @@ bool Dust::init()
 		float y = rand() % 2 - 1 < 0 ? GameManager::Random(10, 20) : -(GameManager::Random(10, 20));
 		auto move = EaseSineOut::create(MoveBy::create(1, Vec2(x, y)));
 		auto shrink = ScaleBy::create(1, 0);
+		auto Dissipate = CallFunc::create([&]() {dissipate = true; });
 		auto spa = Spawn::create(move, shrink, nullptr);
+		auto seq = Sequence::create(spa, Dissipate, nullptr);
 		dust->setScale(GameManager::Random(3, 6)/2.0f);
 		dust->setOpacity(GameManager::Random(100, 200));
 		dust->setPosition(x, 0);
 		this->addChild(dust);
-		dust->runAction(spa);
+		dust->runAction(seq);
 	}
 	return true;
 }
