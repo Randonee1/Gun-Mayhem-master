@@ -37,8 +37,8 @@ bool Player2::initWithTag(int name, MapBase* map)
 
 void Player2::initBody()
 {
-    std::string player_name = "Pink";
-    std::string face_name = "Normal1";
+    std::string player_name = "Yellow";
+    std::string face_name = "Emoji";
     //头和身体
     body = Body::CreateWithName(GameManager::Bodys[player_name]);
     organs.push_back(body);
