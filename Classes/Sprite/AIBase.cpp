@@ -69,15 +69,23 @@ void AIBase::MoveEvent()
                 }
                 else {//相差多层的情况:找最近的台阶
                     int d = pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2);
-                    PackageBase* colsePackage ;
-                    for (int i = 0; i < this->map->packageEvent->packages.size(); i++) {
-                        PackageBase* package = this->map->packageEvent->packages[i];
-                        int temp_d = pow(abs(this->getPositionX() - package->getPositionX()), 2) + pow(abs(this->getPositionY() - package->getPositionY()), 2);
-                        d = std::min(temp_d, d);
-                        colsePackage = d == temp_d ? this->map->packageEvent->packages[i] : colsePackage;
+                    PackageBase* colsePackage;
+                    if (!this->map->packageEvent->packages.empty()) {
+                        colsePackage = this->map->packageEvent->packages[0];
+                        d = pow(abs(this->getPositionX() - colsePackage->getPositionX()), 2) + pow(abs(this->getPositionY() - colsePackage->getPositionY()), 2);
+                        for (int i = 1; i < this->map->packageEvent->packages.size(); i++) {
+                            PackageBase* package = this->map->packageEvent->packages[i];
+                            if (package != nullptr) {
+                                int temp_d = pow(abs(this->getPositionX() - package->getPositionX()), 2) + pow(abs(this->getPositionY() - package->getPositionY()), 2);
+                                d = std::min(temp_d, d);
+                                colsePackage = d == temp_d ? this->map->packageEvent->packages[i] : colsePackage;
+                            }
+                            
+                        }
                     }
+                   
                     int colse_step = 0;
-                    if (d == pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2)||this->gun != this->initGun) {
+                    if (d >= pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2)||this->gun != this->initGun) {
                         float minDistance = 9999;
                         
                         int target_floor = this->floor + up;
@@ -91,7 +99,7 @@ void AIBase::MoveEvent()
                             }
                         }
                     }
-                    else {
+                    else if(!this->map->packageEvent->packages.empty()){
                         /*this->getColsePackage(colsePackage);*/
                         auto package = colsePackage;
                         int distance = 0;
