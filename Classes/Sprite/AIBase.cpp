@@ -68,6 +68,7 @@ void AIBase::MoveEvent()
                     }
                 }
                 else {//相差多层的情况:找最近的台阶
+                    //找最近Package
                     int d = pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2);
                     PackageBase* colsePackage;
                     if (!this->map->packageEvent->packages.empty()) {
@@ -85,6 +86,7 @@ void AIBase::MoveEvent()
                     }
                    
                     int colse_step = 0;
+                    //找人的情况
                     if (d >= pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2)||this->gun != this->initGun) {
                         float minDistance = 9999;
                         
@@ -99,7 +101,7 @@ void AIBase::MoveEvent()
                             }
                         }
                     }
-                    else if(!this->map->packageEvent->packages.empty()){
+                    else if(!this->map->packageEvent->packages.empty()){//找Package情况
                         /*this->getColsePackage(colsePackage);*/
                         auto package = colsePackage;
                         int distance = 0;
@@ -132,14 +134,12 @@ void AIBase::MoveEvent()
                         }
                         colse_step = -1;
                     }
-                    
                     step = colse_step;
                 }
                 this->jumpTofloor(up, step);
             }
         }
-        else {
-
+        else {//回到最顶层
             if (this->floor < this->map->Floor.size() - 1) {
                 float minDistance = 9999;
                 int colse_step = 0;
@@ -195,7 +195,7 @@ void AIBase::MoveEvent()
 
 void AIBase::ShotEvent()
 {
-    if (this->shotLasttime) {
+    if (this->shotLasttime) {//上次开枪，则本次不开枪。（棒球棒）
         this->keyMap["shot"] = false;
         Sleep(1);
         this->shotLasttime = false;
@@ -232,7 +232,7 @@ void AIBase::reset() {
     keyMap["down"] = false;
    
 }
-int AIBase::find_thisStep() {
+int AIBase::find_thisStep() {//找到自身所处step
     for (int i = 0; i < this->map->Floor[this->floor].size(); i += 2) {
         if (this->getPositionX() >= this->map->Floor[this->floor][i] &&
             this->getPositionX() <= this->map->Floor[this->floor][i + 1]) {
@@ -242,7 +242,7 @@ int AIBase::find_thisStep() {
     return -1;
 }
 
-bool AIBase::opponentReadytodie() {
+bool AIBase::opponentReadytodie() {//判定玩家是否准备死亡
     for (int floor = opponent->floor; floor >= 0; floor--) {
         for (int i = 0; i < this->map->Floor[floor].size(); i += 2) {
             if (opponent->getPositionX() >= this->map->Floor[floor][i] &&
@@ -254,7 +254,7 @@ bool AIBase::opponentReadytodie() {
     return true;
 }
 
-void AIBase::jumpTofloor(int up, int step) {
+void AIBase::jumpTofloor(int up, int step) {//跳跃函数，up：1（上跳），-1（下跳）；step：目标台阶
     if (step < 0) { return; }
     std::string keyboard = up == 1 ? "up" : "down";
     float add_width = 20;
