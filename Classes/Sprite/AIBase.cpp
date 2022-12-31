@@ -71,6 +71,7 @@ void AIBase::MoveEvent()
                     int d = pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2);
                     PackageBase* colsePackage;
                     if (!this->map->packageEvent->packages.empty()) {
+
                         colsePackage = this->map->packageEvent->packages[0];
                         d = pow(abs(this->getPositionX() - colsePackage->getPositionX()), 2) + pow(abs(this->getPositionY() - colsePackage->getPositionY()), 2);
                         for (int i = 1; i < this->map->packageEvent->packages.size(); i++) {

@@ -55,6 +55,13 @@ void PackageEvent::PackageUpdate(std::vector<CharacterBase*>& players)
 		}
 
 	}
+
+	std::vector<PackageBase* > temp2;
+	for (auto package : packages) {
+		if (package)
+			temp2.push_back(package);
+	}
+	packages = temp2;
 }
 
 void PackageEvent::update(float dt)
