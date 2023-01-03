@@ -1,6 +1,6 @@
 #include "SkillPackage.h"
 
-float SkillPackage::updatetime = 9;
+float SkillPackage::updatetime = 3;
 
 SkillPackage* SkillPackage::createWithSkill(MapBase* map)
 {
@@ -30,11 +30,19 @@ bool SkillPackage::initWithGun(MapBase* map)
         break;
     case 3:
         skill = SUPER_JUMP;
-        package = Sprite::createWithSpriteFrameName("tinilize.png");
+        package = Sprite::createWithSpriteFrameName("superJump.png");
         break;
     case 4:
         skill = JETPACK;
-        package = Sprite::createWithSpriteFrameName("tinilize.png");
+        package = Sprite::createWithSpriteFrameName("jetPack.png");
+        break;
+    case 5:
+        skill = EXTRA_LIFE;
+        package = Sprite::createWithSpriteFrameName("extraLife.png");
+        break;
+    case 6:
+        skill = DOUBLE_TEAM;
+        package = Sprite::createWithSpriteFrameName("doubleTeam.png");
         break;
     }
 
@@ -42,8 +50,8 @@ bool SkillPackage::initWithGun(MapBase* map)
     package = Sprite::createWithSpriteFrameName("speedup.png");*/
    /* skill = SUPER_JUMP;
     package = Sprite::create("super_jump.png");*/
-   /* skill = JETPACK;
-    package = Sprite::createWithSpriteFrameName("tinilize.png");*/
+    skill = JETPACK;
+    package = Sprite::createWithSpriteFrameName("jetPack.png");
     this->addChild(package, 0);
 
     return true;

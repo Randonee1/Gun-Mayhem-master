@@ -66,6 +66,7 @@ bool GunPackage::initWithGun(MapBase* map)
     package = Sprite::create("gun_bubble.png");
     auto Gun = gun->RightGun();
     Gun->setAnchorPoint(Vec2(0.5, 0.5));
+    Gun->setScale(0.6);
     Gun->setPosition(package->getContentSize().width / 2, package->getContentSize().height /2);
     package->addChild(Gun, -1);
     this->addChild(package, 0);

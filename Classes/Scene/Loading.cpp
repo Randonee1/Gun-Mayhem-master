@@ -32,7 +32,7 @@ void Loading::loadResources()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bodyColored.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("items.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("superJumpHalo.plist");
-
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("colorSpots.plist");
 
     isloaddone = true;
 }
@@ -44,7 +44,7 @@ void Loading::logic(float dt)
     }
     if (isloaddone) {
         //暂时的写法，后面写完WelcomeScene再换
-        auto scene = GameScene::CreateGame(3);
-        Director::getInstance()->replaceScene(scene);
+        auto scene = GameScene::CreateGame(0);
+        Director::getInstance()->replaceScene(TransitionCrossFade::create(0.2f,scene));
     }
 }

@@ -129,9 +129,8 @@ void CharacterBase::update(float dt)
                 inTheAir = true;
                 y_speed = status->y_maxSpeed;
                 MoveDelay(true, false);
+                DustUpdate();
                 keyMap["up"] = false;
-               /* if (floor < map->Floor.size() - 1)
-                    floor++;*/
             }
             else if (keyMap["down"]) {
                 if (floor > 0) {
@@ -147,10 +146,6 @@ void CharacterBase::update(float dt)
             if (std::abs(y_speed) <= std::abs(status->gravitation * dt) && status->gravitation < 0)
                 MoveDelay(false, false);
             if (!isDoubleJump && keyMap["up"]) {
-                /*if (keyMap["down"] && floor < map->Floor.size() - 1)
-                    floor++;
-                if (getPositionY() > map->floor_base + floor * map->floor_height && floor < map->Floor.size() - 1)
-                    floor++;*/
                 y_speed = status->y_maxSpeed / 1.2;
                 MoveDelay(true, false);
                 isDoubleJump = true;
@@ -160,7 +155,6 @@ void CharacterBase::update(float dt)
             y_speed += status->gravitation * dt;
             if (y_speed < -status->y_maxSpeed * 2.5)
                 y_speed = -status->y_maxSpeed * 2.5;
-            //keyMap["up"] = false;
         }
         if (y_speed > 0) {
             if (getPositionY() + y_speed * dt > map->floor_base + floor * map->floor_height &&
@@ -208,9 +202,6 @@ void CharacterBase::update(float dt)
             auto move1 = MoveTo::create(0.5, position);
             auto move2 = EaseSineOut::create(move1);
             this->runAction(Sequence::create(func1, move2, func2, nullptr));
-            /*y_speed = 0;
-            floor = map->Floor.size() - 1;
-            setPosition(initPosition);*/
         }
 
 
@@ -358,7 +349,7 @@ void CharacterBase::GetOpponent(CharacterBase* opponent)
 void CharacterBase::DustUpdate()
 {
     for (auto& dust : dusts) {
-        if (dust->dissipate) {
+        if (dust->dissipate == dust->Dusts.size()) {
             dust->removeFromParent();
             dust = nullptr;
         }

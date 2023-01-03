@@ -67,3 +67,8 @@ bool MapBase::InTheBoundary(std::vector<float>& floor, float x) const
 	}
 	return false;
 }
+
+void MapBase::bindPlayerStateMenu(PlayerStateMenu* playerState)
+{
+	this->playerState = playerState;
+}

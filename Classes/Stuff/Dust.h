@@ -18,7 +18,7 @@ public:
 
 	std::vector<Sprite*> Dusts;
     
-	bool dissipate = false;
+	int dissipate = 0;
 };
 
 #endif

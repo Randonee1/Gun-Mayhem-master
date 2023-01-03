@@ -2,6 +2,7 @@
 #define MAP_BASE_H
 
 #include "cocos2d.h"
+#include "Layer/PlayerStateMenu.h"
 #include "Weapons/Bullet/Bullet.h"
 #include "Stuff/Blood.h"
 
@@ -25,7 +26,7 @@ public:
 
 	bool InTheBoundary(std::vector<float>& floor, float x) const;
 
-	//void bindPlayerStateMenu(PlayerStateMenu* playerState);
+	void bindPlayerStateMenu(PlayerStateMenu* playerState);
 	Sprite* platform;
 	Sprite* backLayer;
 
@@ -37,12 +38,12 @@ public:
 	std::vector<CharacterBase*> players;
 	PackageEvent* packageEvent;
 protected:
+
+	PlayerStateMenu* playerState;
 	
 	Size visibleSize;
 
 	Size platformSize;
-
-	/*PackageEvent* packageEvent;*/
 
 	Vec2 initPlatformPosition;
 	Vec2 initbackLayerPosition;

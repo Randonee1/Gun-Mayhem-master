@@ -10,7 +10,7 @@
 
 USING_NS_CC;
 
-enum SkillType{DEFENSE, JETPACK, SPEED_UP, SUPER_JUMP};
+enum SkillType{DEFENSE, JETPACK, SPEED_UP, SUPER_JUMP, DOUBLE_TEAM, EXTRA_LIFE};
 
 class SkillPackage : public PackageBase
 {

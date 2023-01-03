@@ -4,108 +4,78 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>doubleTeam.png</key>
+            <key>1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{117,117}</string>
+                <string>{45,45}</string>
                 <key>spriteSourceSize</key>
-                <string>{117,117}</string>
+                <string>{45,45}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{117,117}}</string>
+                <string>{{0,0},{45,45}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>extraLife.png</key>
+            <key>2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{116,116}</string>
+                <string>{45,45}</string>
                 <key>spriteSourceSize</key>
-                <string>{116,116}</string>
+                <string>{45,45}</string>
                 <key>textureRect</key>
-                <string>{{117,0},{116,116}}</string>
+                <string>{{45,0},{45,45}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>jetPack.png</key>
+            <key>3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{116,116}</string>
+                <string>{45,45}</string>
                 <key>spriteSourceSize</key>
-                <string>{116,116}</string>
+                <string>{45,45}</string>
                 <key>textureRect</key>
-                <string>{{233,0},{116,116}}</string>
+                <string>{{90,0},{45,45}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>shieldPack.png</key>
+            <key>4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{116,116}</string>
+                <string>{45,45}</string>
                 <key>spriteSourceSize</key>
-                <string>{116,116}</string>
+                <string>{45,45}</string>
                 <key>textureRect</key>
-                <string>{{349,0},{116,116}}</string>
+                <string>{{135,0},{45,45}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>speedup.png</key>
+            <key>5.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{116,116}</string>
+                <string>{45,45}</string>
                 <key>spriteSourceSize</key>
-                <string>{116,116}</string>
+                <string>{45,45}</string>
                 <key>textureRect</key>
-                <string>{{465,0},{116,116}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>superJump.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{116,116}</string>
-                <key>spriteSourceSize</key>
-                <string>{116,116}</string>
-                <key>textureRect</key>
-                <string>{{581,0},{116,116}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>tinilize.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{116,116}</string>
-                <key>spriteSourceSize</key>
-                <string>{116,116}</string>
-                <key>textureRect</key>
-                <string>{{697,0},{116,116}}</string>
+                <string>{{180,0},{45,45}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -119,13 +89,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>items.png</string>
+            <string>colorSpots.png</string>
             <key>size</key>
-            <string>{813,117}</string>
+            <string>{225,45}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:299eb7ea23884f6e5d9f4733daabe39a:a96aa0dbebe55859e917d5b274f9625d:9b2c40378ce3448cae3ca053079d3001$</string>
+            <string>$TexturePacker:SmartUpdate:a9401305365cc61d1f226f46647d48d6:06704fc8a6930b3a5ed9fd6271b5e964:dc77a445c757bcebec09a129fb411706$</string>
             <key>textureFileName</key>
-            <string>items.png</string>
+            <string>colorSpots.png</string>
         </dict>
     </dict>
 </plist>

@@ -13,9 +13,14 @@ public:
 
 	~Jetpack();
 
+	void Emission();
+
 	void update(float dt) override;
 
 private:
+
+	Sprite* jetpack;
+	std::vector<Sprite*> Exhaust;
 
 	float anti_gravitation;
 	float gravitation;

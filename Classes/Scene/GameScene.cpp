@@ -19,7 +19,7 @@ Scene* GameScene::CreateGame(int Level)
 
 bool GameScene::initGame(int Level)
 {
-    //auto playerStateMenu = PlayerStateMenu::create();
+    auto playerStateMenu = PlayerStateMenu::create();
     MapBase* game;
 
     //后续会加入其他的一些模式
@@ -39,10 +39,10 @@ bool GameScene::initGame(int Level)
         break;
     }
 
-    //game->bindPlayerStateMenu(playerStateMenu);
+    game->bindPlayerStateMenu(playerStateMenu);
     //playerStateMenu->initPlayerState();
     this->addChild(game);
-    //this->addChild(playerStateMenu);
+    this->addChild(playerStateMenu);
 
     return true;
 }

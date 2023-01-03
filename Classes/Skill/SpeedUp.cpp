@@ -10,8 +10,8 @@ SpeedUp::SpeedUp(CharacterBase* player)
 	acceleration = player->status->acceleration;
 	x_maxSpeed = player->status->x_maxSpeed;
 
-	player->status->acceleration *= 3;
-	player->status->x_maxSpeed *= 3;
+	player->status->acceleration *= 2;
+	player->status->x_maxSpeed *= 2;
 
 	
 	head = nullptr;

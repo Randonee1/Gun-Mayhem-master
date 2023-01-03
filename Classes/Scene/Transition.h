@@ -14,7 +14,7 @@ public:
 	
 	static Transition* create(float t, Scene* scene);
 
-
+private:
 };
 
 #endif
