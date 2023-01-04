@@ -17,6 +17,7 @@ USING_NS_CC;
 
 class SkillBase;
 
+
 typedef struct _Status {
 	float acceleration;
     float resistance;
@@ -80,6 +81,7 @@ public:
     float x_speed;
     float y_speed;
     int floor;
+    int floor_actual;
 
     bool isDoubleJump;
     bool inTheAir = true;

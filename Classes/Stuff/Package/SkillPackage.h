@@ -10,8 +10,6 @@
 
 USING_NS_CC;
 
-enum SkillType{DEFENSE, JETPACK, SPEED_UP, SUPER_JUMP, DOUBLE_TEAM, EXTRA_LIFE};
-
 class SkillPackage : public PackageBase
 {
 public:
@@ -25,7 +23,7 @@ public:
 	void GetPackage(CharacterBase* player) override;
 
 	void update(float dt) override;
-
+	 
 	SkillType skill;
 
 private:

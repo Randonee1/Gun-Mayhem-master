@@ -29,140 +29,89 @@ void AIBase::MoveEvent()
     
     //this->reset();
     int distance = 100 * 5;
-    if (this->floor == opponent->floor && opponent->gun->fire && !this->inTheAir) {
-        this->keyMap["up"] = true;
-    }
-    if (!this->inTheAir||!Readytodie(opponent)) {//*¶ÔÊÖÃ»ËÀ¾Í¼ÌÐøÅÐ¶¨*
+    
+    if (!Readytodie(opponent)) {//*¶ÔÊÖÃ»ËÀ¾Í¼ÌÐøÅÐ¶¨*
         //this->reset();
-        if (opponent->floor >= 0 && opponent->floor < this->map->Floor.size()) {//player in the map
-
-            if (this->floor == opponent->floor) {//Í¬Ò»²ã£¬×óÓÒÒÆ¶¯
-                if (opponent->getPosition().x - this->getPosition().x > distance) {
-                    keyMap["left"] = false;
-                    keyMap["right"] = true;
-                }
-                else if (opponent->getPosition().x - this->getPosition().x < -distance) {
-                    keyMap["right"] = false;
-                    keyMap["left"] = true;
-                }
-                else {
-
-                    keyMap["right"] = false;
-                    keyMap["left"] = false;
-                }
-                if (!this->InTheBoundary(this->map->Floor[this->floor], this->getPositionX() + (this->x_speed>0?20:-20) ) && //*ÌáÇ°ÆðÌø*
-                    !opponent->inTheAir) {
-                    keyMap["up"] = true;
-                }
+        if (this->floor_actual == opponent->floor_actual) {//Í¬Ò»²ã£¬×óÓÒÒÆ¶¯
+            if (opponent->getPosition().x - this->getPosition().x > distance) {
+                keyMap["left"] = false;
+                keyMap["right"] = true;
             }
-            else if(!this->inTheAir) {//²»ÔÚÍ¬Ò»²ã£¬ÐèÒªÉÏÏÂÒÆ¶¯
-                int up = this->floor < opponent->floor ? 1 : -1;
-                int step = 0;
-                if (std::abs(this->floor - opponent->floor) == 1) {//Ïà²îÒ»²ãµÄÇé¿ö:ÕÒÈË
-                    //int i = 0;
-                    for (int i = 0; i < (this->map->Floor[opponent->floor].size()); i += 2) {
-                        if (opponent->getPositionX() > this->map->Floor[opponent->floor][i] && opponent->getPositionX() < this->map->Floor[opponent->floor][i + 1]) {
-                            //keyMap["shot"] = true;
-                            step = i;
-                            break;
-                        }
-                    }
-                }
-                else {//Ïà²î¶à²ãµÄÇé¿ö:ÕÒ×î½üµÄÌ¨½×
-                    //ÕÒ×î½üPackage
-                    int d = pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2);
-                    PackageBase* colsePackage;
-                    if (!this->map->packageEvent->packages.empty()) {
+            else if (opponent->getPosition().x - this->getPosition().x < -distance) {
+                keyMap["right"] = false;
+                keyMap["left"] = true;
+            }
+            else {
 
-                        colsePackage = this->map->packageEvent->packages[0];
-                        d = pow(abs(this->getPositionX() - colsePackage->getPositionX()), 2) + pow(abs(this->getPositionY() - colsePackage->getPositionY()), 2);
-                        for (int i = 1; i < this->map->packageEvent->packages.size(); i++) {
-                            PackageBase* package = this->map->packageEvent->packages[i];
-                            if (package != nullptr) {
-                                int temp_d = pow(abs(this->getPositionX() - package->getPositionX()), 2) + pow(abs(this->getPositionY() - package->getPositionY()), 2);
-                                d = std::min(temp_d, d);
-                                colsePackage = d == temp_d ? this->map->packageEvent->packages[i] : colsePackage;
-                            }
-
-                        }
-                    }
-
-                    int colse_step = 0;
-                    //ÕÒÈËµÄÇé¿ö
-                    if (d >= pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2) || this->gun != this->initGun) {
-                        float minDistance = 9999;
-
-                        int target_floor = this->floor + up;
-                        for (int i = 0; i < (this->map->Floor[target_floor].size()); i += 2) {
-                            float temp_MinDistance1 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i]);
-                            float temp_MinDistance2 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i + 1]);
-                            temp_MinDistance1 = std::min(temp_MinDistance1, temp_MinDistance2);
-                            if (temp_MinDistance1 < minDistance) {
-                                minDistance = temp_MinDistance1;
-                                colse_step = i;
-                            }
-                        }
-                    }
-                    else if (!this->map->packageEvent->packages.empty()) {//ÕÒPackageÇé¿ö
-                        /*this->getColsePackage(colsePackage);*/
-                        auto package = colsePackage;
-                        int distance = 0;
-                        this->reset();
-                        while (package != nullptr || abs(package->endFloor - this->floor) >= 2) {
-                            if (package->endFloor == this->floor) {
-                                if (opponent->getPosition().x - this->getPosition().x > distance) {
-                                    keyMap["left"] = false;
-                                    keyMap["right"] = true;
-                                }
-                                else if (opponent->getPosition().x - this->getPosition().x < -distance) {
-                                    keyMap["right"] = false;
-                                    keyMap["left"] = true;
-                                }
-                                else {
-                                    keyMap["right"] = false;
-                                    keyMap["left"] = false;
-                                }
-                            }
-                            else if (abs(package->endFloor - this->floor) == 1) {
-                                int i = 0;
-                                for (; i < this->map->Floor[package->endFloor].size(); i += 2) {
-                                    if (package->getPositionX() > this->map->Floor[package->endFloor][i] && package->getPositionX() < this->map->Floor[package->endFloor][i + 1]) {
-                                        break;
-                                    }
-                                }
-                                int up = this->floor < package->endFloor ? 1 : -1;
-                                this->jumpTofloor(up, i);
-                            }
-                        }
-                        colse_step = -1;
-                    }
-                    step = colse_step;
-                }
-                this->jumpTofloor(up, step);
+                keyMap["right"] = false;
+                keyMap["left"] = false;
+            }
+            if (!this->InTheBoundary(this->map->Floor[this->floor], this->getPositionX() + (this->x_speed>0?20:-20) ) && //*ÌáÇ°ÆðÌø*
+                !opponent->inTheAir) {
+                keyMap["up"] = true;
             }
         }
-        else {//»Øµ½×î¶¥²ã
-            if (this->floor < this->map->Floor.size() - 1) {
-                float minDistance = 9999;
-                int colse_step = 0;
-                int target_floor = this->floor + 1;
-                for (int i = 0; i < (this->map->Floor[target_floor].size()); i += 2) {
-                    float temp_MinDistance1 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i]);
-                    float temp_MinDistance2 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i + 1]);
-                    temp_MinDistance1 = std::min(temp_MinDistance1, temp_MinDistance2);
-                    if (temp_MinDistance1 < minDistance) {
-                        minDistance = temp_MinDistance1;
-                        colse_step = i;
-                    }
-                }
-                this->jumpTofloor(1, colse_step);
-            }
+        else if (!this->inTheAir && this->floor != opponent->floor) {
+            FindFloor();
         }
+        //else {//»Øµ½×î¶¥²ã
+        //    if (this->floor < this->map->Floor.size() - 1) {
+        //        float minDistance = 9999;
+        //        int colse_step = 0;
+        //        int target_floor = this->floor + 1;
+        //        for (int i = 0; i < (this->map->Floor[target_floor].size()); i += 2) {
+        //            float temp_MinDistance1 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i]);
+        //            float temp_MinDistance2 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i + 1]);
+        //            temp_MinDistance1 = std::min(temp_MinDistance1, temp_MinDistance2);
+        //            if (temp_MinDistance1 < minDistance) {
+        //                minDistance = temp_MinDistance1;
+        //                colse_step = i;
+        //            }
+        //        }
+        //        this->jumpTofloor(1, colse_step);
+        //    }
+        //}
     }
 
     if (this->inTheAir && !this->isDoubleJump) {
-        keyMap["up"] = false;//*ÏÈ²»Òª¶þ¶ÎÌø*
+        keyMap["up"] = false;//*È¡ÏûÎÞÎ½µÄ¶þ¶ÎÌø*
     }
+
+    //·ÀÖ¹ÅÜ³ö±ß½ç
+    if (this->inTheAir) {
+        if (this->y_speed < 0 && this->getPositionY() - map->floor_base - map->floor_height*floor < map->floor_base) {
+            if (this->getPositionX() < this->map->Floor[floor].front()) {
+                keyMap["left"] = false;
+                keyMap["right"] = true;
+                keyMap["up"] = true;
+            }
+            else if (this->getPositionX() > this->map->Floor[floor].back()) {
+                keyMap["right"] = false;
+                keyMap["left"] = true;
+                keyMap["up"] = true;
+            }
+        }
+        if (map->floor_base + map->floor_height * floor_actual - this->getPositionY() > map->floor_height) {
+            keyMap["up"] = true;
+        }
+    }
+    
+    //Èç¹û±»×Óµ¯´òÖÐ
+    if (std::abs(this->x_speed) > this->status->x_maxSpeed) {
+        if (x_speed < 0) {
+            keyMap["left"] = false;
+            keyMap["right"] = true;
+        }
+        else {
+            keyMap["right"] = false;
+            keyMap["left"] = true;
+        }
+    }
+
+    if (this->floor_actual == opponent->floor_actual && opponent->gun->fire && !this->inTheAir) {
+        this->keyMap["up"] = true;
+    }
+
 
 /* if (opponent->getPosition().x - this->getPosition().x > 400) {
         keyMap["left"] = false;
@@ -301,33 +250,90 @@ void AIBase::jumpTofloor(int up, int step) {//ÌøÔ¾º¯Êý£¬up£º1£¨ÉÏÌø£©£¬-1£¨ÏÂÌø£
         }
     }
 }
-//void AIBase::getColsePackage(PackageBase* package) {
-//    int distance = 0;
-//    this->reset();
-//    while (package != nullptr || abs(package->endFloor-this->floor)>=2) {
-//        if (package->endFloor == this->floor) {
-//            if (opponent->getPosition().x - this->getPosition().x > distance) {
-//                keyMap["left"] = false;
-//                keyMap["right"] = true;
-//            }
-//            else if (opponent->getPosition().x - this->getPosition().x < -distance) {
-//                keyMap["right"] = false;
-//                keyMap["left"] = true;
-//            }
-//            else {
-//                keyMap["riuu'haoght"] = false;
-//                keyMap["left"] = false;
-//            }
-//        }
-//        else if (abs(package->endFloor - this->floor) == 1) {
-//            int i = 0;
-//            for (; i < this->map->Floor[package->endFloor].size(); i+=2) {
-//                if (package->getPositionX() > this->map->Floor[package->endFloor][i] && package->getPositionX() < this->map->Floor[package->endFloor][i + 1]) {
-//                    break;
-//                }
-//            }
-//            int up = this->floor < package->endFloor ? 1 : -1;
-//            this->jumpTofloor(up, i);
-//        }
-//    }
-//}
+
+void AIBase::FindFloor() {
+    //²»ÔÚÍ¬Ò»²ã£¬ÐèÒªÉÏÏÂÒÆ¶¯
+    int up = this->floor < opponent->floor ? 1 : -1;
+    int step = 0;
+    if (std::abs(this->floor - opponent->floor) == 1) {//Ïà²îÒ»²ãµÄÇé¿ö:ÕÒÈË
+        //int i = 0;
+        for (int i = 0; i < (this->map->Floor[opponent->floor].size()); i += 2) {
+            if (opponent->getPositionX() > this->map->Floor[opponent->floor][i] && opponent->getPositionX() < this->map->Floor[opponent->floor][i + 1]) {
+                //keyMap["shot"] = true;
+                step = i;
+                break;
+            }
+        }
+    }
+    else {//Ïà²î¶à²ãµÄÇé¿ö:ÕÒ×î½üµÄÌ¨½×
+        //ÕÒ×î½üPackage
+        int d = pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2);
+        PackageBase* colsePackage;
+        if (!this->map->packageEvent->packages.empty()) {
+
+            colsePackage = this->map->packageEvent->packages[0];
+            d = pow(abs(this->getPositionX() - colsePackage->getPositionX()), 2) + pow(abs(this->getPositionY() - colsePackage->getPositionY()), 2);
+            for (int i = 1; i < this->map->packageEvent->packages.size(); i++) {
+                PackageBase* package = this->map->packageEvent->packages[i];
+                if (package != nullptr) {
+                    int temp_d = pow(abs(this->getPositionX() - package->getPositionX()), 2) + pow(abs(this->getPositionY() - package->getPositionY()), 2);
+                    d = std::min(temp_d, d);
+                    colsePackage = d == temp_d ? this->map->packageEvent->packages[i] : colsePackage;
+                }
+
+            }
+        }
+
+        int colse_step = 0;
+        //ÕÒÈËµÄÇé¿ö
+        if (d >= pow(abs(this->getPositionX() - opponent->getPositionX()), 2) + pow(abs(this->getPositionY() - opponent->getPositionY()), 2) || this->gun != this->initGun) {
+            float minDistance = 9999;
+
+            int target_floor = this->floor + up;
+            for (int i = 0; i < (this->map->Floor[target_floor].size()); i += 2) {
+                float temp_MinDistance1 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i]);
+                float temp_MinDistance2 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i + 1]);
+                temp_MinDistance1 = std::min(temp_MinDistance1, temp_MinDistance2);
+                if (temp_MinDistance1 < minDistance) {
+                    minDistance = temp_MinDistance1;
+                    colse_step = i;
+                }
+            }
+        }
+        else if (!this->map->packageEvent->packages.empty()) {//ÕÒPackageÇé¿ö
+            /*this->getColsePackage(colsePackage);*/
+            auto package = colsePackage;
+            int distance = 0;
+            this->reset();
+            while (package != nullptr || abs(package->endFloor - this->floor) >= 2) {
+                if (package->endFloor == this->floor) {
+                    if (opponent->getPosition().x - this->getPosition().x > distance) {
+                        keyMap["left"] = false;
+                        keyMap["right"] = true;
+                    }
+                    else if (opponent->getPosition().x - this->getPosition().x < -distance) {
+                        keyMap["right"] = false;
+                        keyMap["left"] = true;
+                    }
+                    else {
+                        keyMap["right"] = false;
+                        keyMap["left"] = false;
+                    }
+                }
+                else if (abs(package->endFloor - this->floor) == 1) {
+                    int i = 0;
+                    for (; i < this->map->Floor[package->endFloor].size(); i += 2) {
+                        if (package->getPositionX() > this->map->Floor[package->endFloor][i] && package->getPositionX() < this->map->Floor[package->endFloor][i + 1]) {
+                            break;
+                        }
+                    }
+                    int up = this->floor < package->endFloor ? 1 : -1;
+                    this->jumpTofloor(up, i);
+                }
+            }
+            colse_step = -1;
+        }
+        step = colse_step;
+    }
+    this->jumpTofloor(up, step);
+}

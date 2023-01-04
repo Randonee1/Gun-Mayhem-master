@@ -1,6 +1,6 @@
 #include "SkillPackage.h"
 
-float SkillPackage::updatetime = 3;
+float SkillPackage::updatetime = 9;
 
 SkillPackage* SkillPackage::createWithSkill(MapBase* map)
 {
@@ -50,8 +50,8 @@ bool SkillPackage::initWithGun(MapBase* map)
     package = Sprite::createWithSpriteFrameName("speedup.png");
    /* skill = SUPER_JUMP;
     package = Sprite::create("super_jump.png");*/
-    skill = JETPACK;
-    package = Sprite::createWithSpriteFrameName("jetPack.png");
+    /*skill = JETPACK;
+    package = Sprite::createWithSpriteFrameName("jetPack.png");*/
     this->addChild(package, 0);
 
     return true;
@@ -61,6 +61,8 @@ void SkillPackage::GetPackage(CharacterBase* player)
 {
     if (player->skill)
         delete player->skill;
+
+    player->skill->skillTpye = skill;
 
     switch (skill) {
     case DEFENSE:

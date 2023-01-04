@@ -19,6 +19,7 @@ bool CharacterBase::init(int tag, MapBase* map)
     isDoubleJump = false;
     inTheAir = true;
     floor = map->Floor.size() - 1;
+    floor_actual = floor;
     
     float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
     while(!InTheBoundary(map->Floor.back(),x))
@@ -118,6 +119,7 @@ void CharacterBase::update(float dt)
 
         if (!inTheAir) {
             y_speed = 0;
+            floor_actual = floor;
             isDoubleJump = false;
             if (!InTheBoundary(map->Floor[floor],getPositionX())) {
                 keyMap["down"] = true;
@@ -224,13 +226,17 @@ void CharacterBase::update(float dt)
             if (x_speed * accelerate > 0 && std::abs(x_speed) > status->x_maxSpeed )
                 x_speed -= accelerate * dt;
         }
-        else if(! inTheAir) {
+        else if(! inTheAir) {//不受外力自然摩擦减速
             accelerate = x_speed > 0 ? -status->resistance : status->resistance;
             if (std::abs(accelerate * dt) > std::abs(x_speed))
                 x_speed = 0;
             else
                 x_speed += accelerate * dt;
         }
+        /*if (std::abs(x_speed) > status->x_maxSpeed) {
+            accelerate = x_speed > 0? -status->resistance*5 : status->resistance*5;
+            x_speed += accelerate * dt;
+        }*/
         this->setPositionX(getPositionX() + x_speed * dt);
   
         if (gun->isGatling) {

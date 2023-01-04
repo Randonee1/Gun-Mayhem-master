@@ -28,7 +28,7 @@ public:
 
 	void jumpTofloor(int, int);//斜跳跃至上下层的第step个台阶
 
-	int findCloestStep(int floor);//寻找到floor层的最近step
+	void FindFloor();//不同层之间的寻路
 
 	//void getColsePackage(PackageBase*);//捡起最近的包裹
 

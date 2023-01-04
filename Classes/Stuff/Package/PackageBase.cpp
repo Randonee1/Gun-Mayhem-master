@@ -7,17 +7,16 @@ bool PackageBase::init(MapBase* map)
 
     updatetime = 0;
     y_speed = 0;
+    this->map = map;
 
     unsigned seed = time(0);
     srand(seed);
-    int endfloor = rand() % (map->Floor.size());
-    endfloor = map->Floor.size() - 1;
+    endFloor = rand() % (map->Floor.size());
+    //endfloor = map->Floor.size() - 1;
 
-    endFloor = endfloor * map->floor_height + map->floor_base;
-
-    float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
-    while (!map->InTheBoundary(map->Floor.back(), x))
-        x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
+    float x = GameManager::Random(int(map->Floor[endFloor].front()), int(map->Floor[endFloor].back()));
+    while (!map->InTheBoundary(map->Floor[endFloor], x))
+        x = GameManager::Random(int(map->Floor[endFloor].front()), int(map->Floor[endFloor].back()));
     setPosition(x, map->platform->getContentSize().height + 2000);
 
     map->platform->addChild(this, 0);
@@ -46,8 +45,10 @@ void PackageBase::update(float dt)
         if(!package->getChildren().empty())
             package->getChildren().front()->runAction(seq->clone());
     }
-    if (getPositionY() > endFloor) {
+    if (getPositionY() > map->floor_base + map->floor_height * endFloor) {
         y_speed += dt * gravitation;
         this->setPosition(this->getPositionX(), this->getPositionY() + y_speed * dt);
     }
+    if (y_speed == 0)
+        this->intheair = false;
 }

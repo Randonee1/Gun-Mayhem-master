@@ -22,7 +22,10 @@ public:
 	Sprite* package;
 
 	int endFloor;
+
 protected:
+
+	MapBase* map;
 	bool intheair = true;
 	float updatetime;
 	float duration = 10;
