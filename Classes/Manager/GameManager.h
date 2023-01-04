@@ -31,8 +31,9 @@ public:
 	static std::map<std::string, const char*> Costumes;
 
 	static int Live;
-	static void getl();
+	//static void getl();
 
+	//±³¾°Ñ¡Ôñ
 	static int BackChoise;
 	static std::vector<std::string> BackChoises;
 };

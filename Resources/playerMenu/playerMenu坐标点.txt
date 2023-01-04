@@ -1,0 +1,18 @@
+player①
+
+weapon按钮 350，620
+bodycolor按钮 350，740
+decoration按钮 1040，620
+face按钮 1040，740
+aiplayer按钮 350，830
+humanplayer 350，890
+
+player②
+
+所有按钮x坐标＋1170
+
+返回按钮与继续按钮位置与素材都不变
+
+
+人物素材还没做好，可能要两三天左右😟
+

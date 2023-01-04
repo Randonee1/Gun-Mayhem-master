@@ -1,5 +1,6 @@
 #include"Scene/BackgroundChoise.h"
 #include"Scene/StartScene.h"
+#include"Scene/PlayerSetup.h"
 #include"Manager/GameManager.h"
 #include<vector>
 #include<time.h>
@@ -15,7 +16,7 @@ bool BackgroundChoise::init() {
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
 	//创建背景
-	auto background = Sprite::create("customGameMenu/background.png");
+	auto background = Sprite::create("customGameMenu/background1.png");
 	background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	background->setPosition(origin.x, origin.y);
 	auto contentSize = background->getContentSize();
@@ -25,13 +26,13 @@ bool BackgroundChoise::init() {
 	
 
 
-	auto inputBox = Sprite::create("editbox.png");
-	auto editbox1 = EditBox::create(Size(inputBox->getContentSize().width, inputBox->getContentSize().height), Scale9Sprite::create("editbox.png"));
+	auto inputBox = Sprite::create("customGameMenu/word.png");
+	auto editbox1 = EditBox::create(Size(inputBox->getContentSize().width, inputBox->getContentSize().height), Scale9Sprite::create("customGameMenu/word.png"));
 	
 	//auto editbox1 = EditBox::create(Size(200, 35), Scale9Sprite::create("editbox.png"));
 	//editbox1->setAnchorPoint(Point(0, 0));
-	editbox1->setPosition(Vec2(697, 1440-1064));
-	editbox1->setPlaceHolder("name:");//占位字符
+	editbox1->setPosition(Vec2(755.5, 1440-1045.5));
+	editbox1->setPlaceHolder("");//占位字符
 	//editbox1->setMaxLength(8);
 	editbox1->setFontColor(Color3B::BLACK);//设置输入字体的颜色
 	editbox1->setTag(1);
@@ -151,7 +152,7 @@ bool BackgroundChoise::init() {
 		auto pic = Sprite::create("customGameMenu/spacestationPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
 		this->addChild(pic);
-		GameManager::BackChoise = 0;
+		GameManager::BackChoise = 1;
 		});
 
 	sunsetcity->addClickEventListener([=](Ref* sender) {
@@ -174,7 +175,7 @@ bool BackgroundChoise::init() {
 		auto pic = Sprite::create("customGameMenu/sunsetcityPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
 		this->addChild(pic);
-		GameManager::BackChoise = 1;
+		GameManager::BackChoise = 2;
 		});
 	seele->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
@@ -196,7 +197,7 @@ bool BackgroundChoise::init() {
 		auto pic = Sprite::create("customGameMenu/seelePreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
 		this->addChild(pic);
-		GameManager::BackChoise = 2;
+		GameManager::BackChoise = 3;
 		});
 	irismood->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
@@ -218,7 +219,7 @@ bool BackgroundChoise::init() {
 		/*auto pic = Sprite::create("customGameMenu/irismoodPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
 		this->addChild(pic);*/
-		GameManager::BackChoise = 3;
+		GameManager::BackChoise = 5;
 		});
 	highmoon->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
@@ -240,7 +241,7 @@ bool BackgroundChoise::init() {
 		/*auto pic = Sprite::create("customGameMenu/highmoonPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
 		this->addChild(pic);*/
-		GameManager::BackChoise = 4;
+		GameManager::BackChoise = 6;
 		});
 	Default->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
@@ -262,7 +263,7 @@ bool BackgroundChoise::init() {
 		auto pic = Sprite::create("customGameMenu/defaultPreview.png");
 		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
 		this->addChild(pic);
-		GameManager::BackChoise = 5;
+		GameManager::BackChoise = 0;
 		});
 
 
@@ -307,7 +308,7 @@ void BackgroundChoise::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventTy
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		//Director::getInstance()->replaceScene(StartScene::create());
+		Director::getInstance()->replaceScene(PlayerSetup::create());
 		break;
 	default:
 		break;

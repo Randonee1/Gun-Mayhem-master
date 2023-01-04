@@ -58,11 +58,11 @@ std::map<std::string, const char*> Costumes = {
 };
 
 int GameManager::Live=10;
-void GameManager::getl() {
-    log(" % d", Live);
-}
+//void GameManager::getl() {
+//    log(" % d", Live);
+//}
 
-int GameManager::BackChoise = 5;
+int GameManager::BackChoise = 0;
 std::vector<std::string> GameManager::BackChoises = {
     "spacestation","sunsetcity","seele","irismood","highmoon","default"
 };
