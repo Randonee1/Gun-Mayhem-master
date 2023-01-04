@@ -5,95 +5,74 @@ SuperJump::SuperJump(CharacterBase* player)
 	this->player = player;
 	duration = 0;
 	Duration = 10;
+	
 
-	y_maxSpeed = player->status->y_maxSpeed;
-
-	player->status->y_maxSpeed *= 2;
-
-	head = nullptr;
-	tail = nullptr;
+	storingPower = false;
+	headPosition = Vec2(65 / 2.2 - 8, 130 / 2.2 - 2);
 }
 
 SuperJump::~SuperJump()
 {
-
-	while (head) {
-		Halo* temp = head;
-		head = head->next;
-		delete temp;
-		temp = nullptr;
-	}
-	player->status->y_maxSpeed = y_maxSpeed;
+	/*player->body->organ->stopAllActions();
+	player->head->organ->stopAllActions();
+	player->body->organ->setPosition(Vec2(0, 0));
+	player->head->organ->setPosition(Vec2(0, 0));
+	auto seq = Sequence::create(EaseSineOut::create(MoveBy::create(0.7, Vec2(0, -10))),
+		EaseSineOut::create(MoveBy::create(0.7, Vec2(0, 10))), nullptr);
+	auto rep = RepeatForever::create(seq);
+	player->head->organ->runAction(rep);*/
 }
 
-Spawn* SuperJump::HaloFade(Sprite* self)
-{
-	auto fade = FadeOut::create(0.1);
-	auto shrink = ScaleBy::create(0, 0.1);
-	auto enlarge = ScaleBy::create(0.15, 2);
-	CallFunc* remove = CallFunc::create([self]() {self->setVisible(false); });
-	auto seq = Sequence::create(enlarge,remove,nullptr);
-	return Spawn::create(seq,nullptr);
-}
 
 void SuperJump::update(float dt)
 {
 	SkillBase::update(dt);
 
-	while (head != nullptr) {
-		if (!head->halo_back->isVisible()) {
-			Halo* temp = head;
-			head = head->next;
-			temp->halo_back->stopAllActions();
-			temp->halo_front->stopAllActions();
-			delete temp;
-			temp = nullptr;
-		}
-		else
-			break;
+	if (storingPower && time < 2) {
+		time += dt;
+		speed += player->status->y_maxSpeed / 2 * dt;
+		CCLOG("%f", speed);
 	}
 
-	Halo* ptr = head;
-	
-	while (ptr != nullptr) {
-		ptr->halo_back->setPositionX(player->getPositionX());
-		ptr->halo_front->setPositionX(player->getPositionX());
-		ptr = ptr->next;
+	if (player->inTheAir && player->y_speed == player->status->y_maxSpeed + player->status->gravitation *dt) {
+		//CCLOG("first");
+		//CCLOG("%d", player->floor);
+
+		/*player->head->organ->stopAllActions();
+		player->body->organ->runAction(EaseSineOut::create(MoveBy::create(1, Vec2(0, -20))));
+		player->head->organ->runAction(EaseSineOut::create(MoveBy::create(1, Vec2(0, -20))));*/
+
+		time = 0;
+		speed = player->status->y_maxSpeed;
+
+		storingPower = true;
+		player->inTheAir = false;
+		
+		player->floor = player->floor_actual;
+
+		for (int i = 2; i < player->organs.size(); i++)
+			player->organs[i]->stopActionByTag(player->organs[i]->lastDelayTag);
+		player->MoveDelay(true, true);
+		player->setPositionY(player->getPositionY() - player->y_speed*dt);
+		player->y_speed = 0;
 	}
+	else if (storingPower && player->keyMap["release"]) {
 
-	if(player->y_speed > 0)
-	{
-		if (halo_delta > halo_interval) {
-			Sprite* halo_back = Sprite::createWithSpriteFrameName("jumphaloback.png");
-			Sprite* halo_front = Sprite::createWithSpriteFrameName("jumphalofront.png");
-			/*halo_back->setScale(0.5);
-			halo_front->setScale(0.5);*/
-			Vec2 point = player->getPosition();
-			point.y += 50;
+		//CCLOG("other");
+		/*player->body->organ->stopAllActions();
+		player->head->organ->stopAllActions();
+		player->body->organ->setPosition(Vec2(0, 0));
+		player->head->organ->setPosition(Vec2(0, 0));
+		auto seq = Sequence::create(EaseSineOut::create(MoveBy::create(0.7, Vec2(0, -10))),
+			EaseSineOut::create(MoveBy::create(0.7, Vec2(0, 10))), nullptr);
+		auto rep = RepeatForever::create(seq);
+		player->head->organ->runAction(rep);*/
 
-			halo_back->setPosition(point);
-			halo_front->setPosition(point);
-			player->map->platform->addChild(halo_back, 0);
-			player->map->platform->addChild(halo_front, player->getTag());
-			halo_back->runAction(HaloFade(halo_back));
-			halo_front->runAction(HaloFade(halo_front));
-
-			if (head) {
-				tail->next = new Halo(halo_back, halo_front);
-				tail = tail->next;
-			}
-			else {
-				head = new Halo(halo_back, halo_front);
-				tail = head;
-			}
-
-
-			halo_delta = 0;
-		}
-		else {
-			halo_delta += player->y_speed * dt;
-		}
+		storingPower = false;
+		player->inTheAir = true;
+		player->y_speed = speed;
+		speed = player->status->y_maxSpeed;
+		player->MoveDelay(true, false);
+		player->DustUpdate();
 	}
-	else
-		halo_delta = 0;
 }

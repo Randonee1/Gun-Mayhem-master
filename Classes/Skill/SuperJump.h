@@ -25,18 +25,14 @@ public:
 
 	~SuperJump();
 
-	Spawn* HaloFade(Sprite* self);
-
 	void update(float dt) override;
 
 private:
-	float y_maxSpeed;
 
-	float halo_interval = 80;
-	float halo_delta = 0;
-
-	Halo* head;
-	Halo* tail;
+	bool storingPower;
+	Vec2 headPosition;
+	float time;
+	float speed;
 };
 
 #endif

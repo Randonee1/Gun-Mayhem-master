@@ -87,6 +87,7 @@ void PlayerBase::onKeyReleased(EventKeyboard::KeyCode keycode, Event* event)
     }
     if (keycode == keymap["up"]) {
         keyMap["up"] = false;
+        keyMap["release"] = true;
 
     }
     if (keycode == keymap["shot"]) {

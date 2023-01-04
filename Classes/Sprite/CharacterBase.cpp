@@ -277,6 +277,10 @@ void CharacterBase::update(float dt)
                 skill->update(dt);
             }
         }
+        if (keyMap["release"]) {
+            CCLOG("release");
+            keyMap["release"] = false;
+        }
         
     }
 }

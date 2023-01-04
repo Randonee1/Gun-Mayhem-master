@@ -76,7 +76,6 @@ void AIBase::MoveEvent()
     if (this->inTheAir && !this->isDoubleJump) {
         keyMap["up"] = false;//*取消无谓的二段跳*
     }
-
     //防止跑出边界
     if (this->inTheAir) {
         if (this->y_speed < 0 && this->getPositionY() - map->floor_base - map->floor_height*floor < map->floor_base) {
