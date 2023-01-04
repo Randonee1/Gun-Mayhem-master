@@ -46,12 +46,12 @@ bool SkillPackage::initWithGun(MapBase* map)
         break;
     }
 
-    /*skill = SPEED_UP;
-    package = Sprite::createWithSpriteFrameName("speedup.png");*/
+    skill = SPEED_UP;
+    package = Sprite::createWithSpriteFrameName("speedup.png");
    /* skill = SUPER_JUMP;
     package = Sprite::create("super_jump.png");*/
-    skill = JETPACK;
-    package = Sprite::createWithSpriteFrameName("jetPack.png");
+    /*skill = JETPACK;
+    package = Sprite::createWithSpriteFrameName("jetPack.png");*/
     this->addChild(package, 0);
 
     return true;

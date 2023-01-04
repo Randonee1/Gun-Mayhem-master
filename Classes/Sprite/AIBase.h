@@ -23,6 +23,7 @@ public:
 
 	int find_thisStep();
 
+	bool Readytodie(CharacterBase* player);
 	bool opponentReadytodie();
 
 	void jumpTofloor(int, int);//斜跳跃至上下层的第step个台阶

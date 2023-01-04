@@ -97,7 +97,7 @@ void MapSpace::initBackground()
 
 void MapSpace::initPlayer()
 {
-	auto player1 = Player1::createWithTag(1,this);
+	auto player1 = Player2::createWithTag(1,this);
 	platform->addChild(player1, 1);
 
 	/*player2 = Player1::createWithTag(2, this);
@@ -106,7 +106,7 @@ void MapSpace::initPlayer()
 	player1 = AI1::create(this);
 	platform->addChild(player1, 1);*/
 
-	auto player2 = AI1::create(2, this);
+	auto player2 = AI2::create(2, this);
 	platform->addChild(player2, 2);
 
 	player1->GetOpponent(player2);

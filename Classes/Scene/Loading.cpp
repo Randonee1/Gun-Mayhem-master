@@ -44,7 +44,7 @@ void Loading::logic(float dt)
     }
     if (isloaddone) {
         //暂时的写法，后面写完WelcomeScene再换
-        auto scene = GameScene::CreateGame(0);
-        Director::getInstance()->replaceScene(TransitionCrossFade::create(0.2f,scene));
+        //auto scene = GameScene::CreateGame(1);
+        Director::getInstance()->replaceScene(Transition::create(0.2f, GameScene::CreateGame(1)));
     }
 }
