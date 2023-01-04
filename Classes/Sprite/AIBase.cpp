@@ -27,12 +27,12 @@ void AIBase::update(float dt)
 void AIBase::MoveEvent()
 {
     
-    this->reset();
+    //this->reset();
     int distance = 100 * 5;
     if (this->floor == opponent->floor && opponent->gun->fire && !this->inTheAir) {
         this->keyMap["up"] = true;
     }
-    if (!Readytodie(opponent)) {//*¶ÔÊÖÃ»ËÀ¾Í¼ÌÐøÅÐ¶¨*
+    if (!this->inTheAir||!Readytodie(opponent)) {//*¶ÔÊÖÃ»ËÀ¾Í¼ÌÐøÅÐ¶¨*
         //this->reset();
         if (opponent->floor >= 0 && opponent->floor < this->map->Floor.size()) {//player in the map
 
@@ -55,7 +55,7 @@ void AIBase::MoveEvent()
                     keyMap["up"] = true;
                 }
             }
-            else {//²»ÔÚÍ¬Ò»²ã£¬ÐèÒªÉÏÏÂÒÆ¶¯
+            else if(!this->inTheAir) {//²»ÔÚÍ¬Ò»²ã£¬ÐèÒªÉÏÏÂÒÆ¶¯
                 int up = this->floor < opponent->floor ? 1 : -1;
                 int step = 0;
                 if (std::abs(this->floor - opponent->floor) == 1) {//Ïà²îÒ»²ãµÄÇé¿ö:ÕÒÈË
@@ -289,9 +289,11 @@ void AIBase::jumpTofloor(int up, int step) {//ÌøÔ¾º¯Êý£¬up£º1£¨ÉÏÌø£©£¬-1£¨ÏÂÌø£
         }
         if (this->getPositionX() <= this->map->Floor[target_floor][step] + add_width * 5) {
             keyMap["right"] = true;
+            keyMap["left"] = false;
         }
         else if (this->getPositionX() >= this->map->Floor[target_floor][step + 1] - add_width * 5) {
             keyMap["left"] = true;
+            keyMap["right"] = false;
         }
         if (!this->InTheBoundary(this->map->Floor[this->floor], this->getPositionX()) && !opponent->inTheAir) {
             keyMap["up"] = true;
