@@ -119,6 +119,12 @@ if (!instance->isBackgroundMusicPlaying()){}
 
 该界面的所有选择信息，都存入GameManager里，为后续游戏准备。
 
+### **1.4 实现PlayerSetup类**
+里面按钮都关联全局变量的设置。  
+![1.4_3.png](./README_image/1.4_3.png)
+![1.4_1.png](./README_image/1.4_1.png)  
+![1.4_2.png](./README_image/1.4_2.png)  
+
 
 
 
