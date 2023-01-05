@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "PlayerBase.h"
 #include "Weapons/Gun/Gun_Glock.h"
+#include "Manager/UserManager.h"
 
 USING_NS_CC;
 

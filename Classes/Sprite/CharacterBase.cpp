@@ -2,6 +2,7 @@
 #include "Skill/SkillBase.h"
 #include "Skill/Defense.h"
 #include "Skill/SpeedUp.h"
+#include "Map/MapBase.h"
 #include <iostream>
 
 bool CharacterBase::init(int tag, MapBase* map)

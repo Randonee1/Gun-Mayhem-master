@@ -34,9 +34,11 @@ void Loading::loadResources()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("body_fx.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("blood.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bodyColored.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("face_and_hat.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("items.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("superJumpHalo.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("colorSpots.plist");
+    CCLOG("done");
 
     isloaddone = true;
 }

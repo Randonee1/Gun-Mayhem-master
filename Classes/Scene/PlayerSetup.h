@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "extensions\cocos-ext.h"
 #include "ui/CocosGUI.h"
+#include "Transition.h"
 #include"Manager/UserManager.h"
 #include<algorithm>
 #include<string>
@@ -16,6 +17,7 @@ class PlayerSetup : public Scene
 {
 public:
 	virtual bool init();
+	Sprite* PlayerPattern(int tag);
 	void buttonCallBack(Ref* ref, cocos2d::ui::Widget::TouchEventType type);
 	void buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventType type);
 	
@@ -71,6 +73,7 @@ public:
 	CREATE_FUNC(PlayerSetup);
 
 private:
+	UserManager* manager;
 	void onMouseMove(Event* event);
 	Sprite* blacksprite;
 	bool move = false;

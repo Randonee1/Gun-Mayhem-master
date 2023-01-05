@@ -84,38 +84,38 @@ void MapSeele::initBackground()
 	initEyes();
 }
 
-void MapSeele::initPlayer()
-{
-	/*CharacterBase* player1 = Player1::createWithTag(1, this);
-	platform->addChild(player1, 1);*/
-
-	/*CharacterBase* player1 = AI1::create(1, this);
-	platform->addChild(player1, 1);
-
-	CharacterBase* player2 = AI1::create(2, this);
-	platform->addChild(player2, 2);*/
-
-	/*CharacterBase* player2 = Player1::createWithTag(2, this);
-	platform->addChild(player2, 2);*/
-
-	auto player1 = Player2::createWithTag(1, this);
-	platform->addChild(player1, 1);
-
-	/*auto player2 = Player2::createWithTag(2, this);
-	platform->addChild(player2, 2);*/
-
-	/*auto player1 = AI2::create(1,this);
-	platform->addChild(player1, 1);*/
-
-	auto player2 = AI2::create(2,this);
-	platform->addChild(player2, 2);
-
-	player1->GetOpponent(player2);
-	player2->GetOpponent(player1);
-
-	players.push_back(player1);
-	players.push_back(player2);
-}
+//void MapSeele::initPlayer()
+//{
+//	/*CharacterBase* player1 = Player1::createWithTag(1, this);
+//	platform->addChild(player1, 1);*/
+//
+//	/*CharacterBase* player1 = AI1::create(1, this);
+//	platform->addChild(player1, 1);
+//
+//	CharacterBase* player2 = AI1::create(2, this);
+//	platform->addChild(player2, 2);*/
+//
+//	/*CharacterBase* player2 = Player1::createWithTag(2, this);
+//	platform->addChild(player2, 2);*/
+//
+//	auto player1 = Player2::createWithTag(1, this);
+//	platform->addChild(player1, 1);
+//
+//	/*auto player2 = Player2::createWithTag(2, this);
+//	platform->addChild(player2, 2);*/
+//
+//	/*auto player1 = AI2::create(1,this);
+//	platform->addChild(player1, 1);*/
+//
+//	auto player2 = AI2::create(2,this);
+//	platform->addChild(player2, 2);
+//
+//	player1->GetOpponent(player2);
+//	player2->GetOpponent(player1);
+//
+//	players.push_back(player1);
+//	players.push_back(player2);
+//}
 
 void MapSeele::initEyes()
 {

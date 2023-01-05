@@ -2,7 +2,7 @@
 #define BACKGROUND_CHOISE_H
 
 #include "cocos2d.h"
-
+#include "Transition.h"
 #include "extensions\cocos-ext.h"
 #include "ui/CocosGUI.h"
 

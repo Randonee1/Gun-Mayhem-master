@@ -7,7 +7,7 @@ bool AIBase::init(int tag, MapBase* map)
         return false;
 
     initBody();
-    
+
     return true;
 }
 
@@ -20,16 +20,87 @@ void AIBase::initBody()
 void AIBase::update(float dt)
 {
     MoveEvent();
-    //ShotEvent();
+    ShotEvent();
     CharacterBase::update(dt);
 }
 
 void AIBase::MoveEvent()
 {
-    
+
     //this->reset();
     int distance = 100 * 5;
-    
+    if ((abs(this->floor - opponent->floor) >= 2 || Readytodie(opponent)) && !this->map->packageEvent->packages.empty() && (this->gun == this->initGun || this->skill == nullptr)) {//ÕÒ°ü
+        //this->findPackage = true;
+        double distance_package = 999999999;
+        PackageBase* close_package = nullptr;
+        for (auto package : this->map->packageEvent->packages) {
+            if (!package->intheair) {
+                if ((((this->floor - package->endFloor) * (this->floor - opponent->floor) <= 0) && abs(this->floor - opponent->floor) >= 2) || Readytodie(opponent)) {
+                    double temp_distance = sqrt(pow(this->getPositionX() - package->getPositionX(), 2) + pow(this->getPositionY() - package->getPositionY(), 2));
+                    if (distance_package > temp_distance) {
+                        distance_package = temp_distance;
+                        close_package = package;
+                    }
+                }
+            }
+
+        }
+        if (close_package != nullptr) {//ÕÒÂ·
+            this->findPackage = true;
+            if (this->floor == close_package->endFloor) {//Í¬Ò»²ã£¬×óÓÒÒÆ¶¯
+                if (close_package->getPosition().x - this->getPosition().x > 0) {
+                    keyMap["left"] = false;
+                    keyMap["right"] = true;
+                }
+                else if (close_package->getPosition().x - this->getPosition().x < -0) {
+                    keyMap["right"] = false;
+                    keyMap["left"] = true;
+                }
+                else {
+
+                    keyMap["right"] = false;
+                    keyMap["left"] = false;
+                }
+                if (!this->InTheBoundary(this->map->Floor[this->floor], this->getPositionX() + (this->x_speed > 0 ? 20 : -20)) && //*ÌáÇ°ÆðÌø*
+                    !opponent->inTheAir) {
+                    keyMap["up"] = true;
+                }
+            }
+            else {//²»ÔÚÍ¬Ò»²ã£¬ÐèÒªÉÏÏÂÒÆ¶¯
+                if (!this->inTheAir) {
+                    int up = this->floor < close_package->endFloor ? 1 : -1;
+                    int step = 0;
+                    if (std::abs(this->floor - close_package->endFloor) == 1) {//Ïà²îÒ»²ãµÄÇé¿ö:ÕÒÈË
+                        //int i = 0;
+                        for (int i = 0; i < (this->map->Floor[close_package->endFloor].size()); i += 2) {
+                            if (close_package->getPositionX() > this->map->Floor[close_package->endFloor][i] && close_package->getPositionX() < this->map->Floor[close_package->endFloor][i + 1]) {
+                                //keyMap["shot"] = true;
+                                step = i;
+                                break;
+                            }
+                        }
+                    }
+                    else {//Ïà²î¶à²ãµÄÇé¿ö:ÕÒ×î½üµÄÌ¨½×
+                        int colse_step = 0;
+                        //ÕÒÈËµÄÇé¿ö
+                        float minDistance = 9999;
+                        int target_floor = this->floor + up;
+                        for (int i = 0; i < (this->map->Floor[target_floor].size()); i += 2) {
+                            float temp_MinDistance1 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i]);
+                            float temp_MinDistance2 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i + 1]);
+                            temp_MinDistance1 = std::min(temp_MinDistance1, temp_MinDistance2);
+                            if (temp_MinDistance1 < minDistance) {
+                                minDistance = temp_MinDistance1;
+                                colse_step = i;
+                            }
+                        }
+                        step = colse_step;
+                    }
+                    this->jumpTofloor(up, step);
+                }
+            }
+        }
+    }
     if (!Readytodie(opponent)) {//*¶ÔÊÖÃ»ËÀ¾Í¼ÌÐøÅÐ¶¨*
         //this->reset();
         if (this->floor_actual == opponent->floor_actual) {//Í¬Ò»²ã£¬×óÓÒÒÆ¶¯
@@ -46,7 +117,7 @@ void AIBase::MoveEvent()
                 keyMap["right"] = false;
                 keyMap["left"] = false;
             }
-            if (!this->InTheBoundary(this->map->Floor[this->floor], this->getPositionX() + (this->x_speed>0?20:-20) ) && //*ÌáÇ°ÆðÌø*
+            if (!this->InTheBoundary(this->map->Floor[this->floor], this->getPositionX() + (this->x_speed > 0 ? 20 : -20)) && //*ÌáÇ°ÆðÌø*
                 !opponent->inTheAir) {
                 keyMap["up"] = true;
             }
@@ -76,9 +147,10 @@ void AIBase::MoveEvent()
     if (this->inTheAir && !this->isDoubleJump) {
         keyMap["up"] = false;//*È¡ÏûÎÞÎ½µÄ¶þ¶ÎÌø*
     }
+
     //·ÀÖ¹ÅÜ³ö±ß½ç
     if (this->inTheAir) {
-        if (this->y_speed < 0 && this->getPositionY() - map->floor_base - map->floor_height*floor < map->floor_base) {
+        if (this->y_speed < 0 && this->getPositionY() - map->floor_base - map->floor_height * floor < map->floor_base) {
             if (this->getPositionX() < this->map->Floor[floor].front()) {
                 keyMap["left"] = false;
                 keyMap["right"] = true;
@@ -94,7 +166,7 @@ void AIBase::MoveEvent()
             keyMap["up"] = true;
         }
     }
-    
+
     //Èç¹û±»×Óµ¯´òÖÐ
     if (std::abs(this->x_speed) > this->status->x_maxSpeed) {
         if (x_speed < 0) {
@@ -112,69 +184,66 @@ void AIBase::MoveEvent()
     }
 
 
-/* if (opponent->getPosition().x - this->getPosition().x > 400) {
-        keyMap["left"] = false;
-        keyMap["right"] = true;
-    }
-    else if (opponent->getPosition().x - this->getPosition().x < -400) {
-        keyMap["right"] = false;
-        keyMap["left"] = true;
-    }
-    else {
-        keyMap["right"] = false;
-        keyMap["left"] = false;
-    }
-
-    if (this->floor == opponent->floor && opponent->gun->fire && !this->inTheAir) {//¶ÔÊÖ¿ªÇ¹²¢ÇÒÁ½¸öÈËÔÙÍ¬Ò»²ã
-        keyMap["up"] = true;
-    }
-
-    if (this->inTheAir && this->getPositionX() < this->map->Floor[floor][0]) {//ÔÙ¿ÕÖÐ²¢ÇÒ³öÁËÕâÒ»²ãµÄ±ß½ç
-        keyMap["left"] = false;
-        keyMap["right"] = true;
-        keyMap["up"] = true;
-    }
-    else if (this->inTheAir && this->getPositionX() > this->map->Floor[floor][1]) {//Í¬ÉÏµ«·´·½Ïò
-        keyMap["right"] = false;
-        keyMap["left"] = true;
-        keyMap["up"] = true;
-    }
-
-    if (!opponent->inTheAir && opponent->floor > this->floor && !this->inTheAir) {//¶ÔÊÖÔÙÉÏÃæ£¬ÒÆ¶¯½Ó½ü
-        keyMap["up"] = true;
-    }
-    else if (!opponent->inTheAir && opponent->floor < this->floor) {//¶ÔÊÖÔÙÏÂÃæ£¬ÒÆ¶¯½Ó½ü
-        keyMap["down"] = true;
-    }*/
+    /* if (opponent->getPosition().x - this->getPosition().x > 400) {
+            keyMap["left"] = false;
+            keyMap["right"] = true;
+        }
+        else if (opponent->getPosition().x - this->getPosition().x < -400) {
+            keyMap["right"] = false;
+            keyMap["left"] = true;
+        }
+        else {
+            keyMap["right"] = false;
+            keyMap["left"] = false;
+        }
+        if (this->floor == opponent->floor && opponent->gun->fire && !this->inTheAir) {//¶ÔÊÖ¿ªÇ¹²¢ÇÒÁ½¸öÈËÔÙÍ¬Ò»²ã
+            keyMap["up"] = true;
+        }
+        if (this->inTheAir && this->getPositionX() < this->map->Floor[floor][0]) {//ÔÙ¿ÕÖÐ²¢ÇÒ³öÁËÕâÒ»²ãµÄ±ß½ç
+            keyMap["left"] = false;
+            keyMap["right"] = true;
+            keyMap["up"] = true;
+        }
+        else if (this->inTheAir && this->getPositionX() > this->map->Floor[floor][1]) {//Í¬ÉÏµ«·´·½Ïò
+            keyMap["right"] = false;
+            keyMap["left"] = true;
+            keyMap["up"] = true;
+        }
+        if (!opponent->inTheAir && opponent->floor > this->floor && !this->inTheAir) {//¶ÔÊÖÔÙÉÏÃæ£¬ÒÆ¶¯½Ó½ü
+            keyMap["up"] = true;
+        }
+        else if (!opponent->inTheAir && opponent->floor < this->floor) {//¶ÔÊÖÔÙÏÂÃæ£¬ÒÆ¶¯½Ó½ü
+            keyMap["down"] = true;
+        }*/
 }
 
 void AIBase::ShotEvent()
 {
-    if (this->shotLasttime) {//ÉÏ´Î¿ªÇ¹£¬Ôò±¾´Î²»¿ªÇ¹¡££¨°ôÇò°ô£©
+    if (this->gun->releaseToShot) {//ÉÏ´Î¿ªÇ¹£¬Ôò±¾´Î²»¿ªÇ¹¡££¨°ôÇò°ô£©
         this->keyMap["shot"] = false;
         Sleep(1);
-        this->shotLasttime = false;
+        //this->shotLasttime = false;
     }
     else {
-        if ((opponent->floor != map->Floor.size() - 1 || !opponent->inTheAir)  && this->valid )
+        if ((opponent->floor != map->Floor.size() - 1 || !opponent->inTheAir) && this->valid)
         {
-            if (opponent->getPosition().x - this->getPosition().x < 0 && this->floor == opponent->floor) {
+            if (opponent->getPosition().x - this->getPosition().x < 0 && std::abs(opponent->getPositionY()-this->getPositionY())<400) {
                 this->Flip(true);
                 this->keyMap["shot"] = true;
-                this->shotLasttime = true;
+                //this->shotLasttime = true;
             }
-            else if (opponent->getPosition().x - this->getPosition().x > 0 && this->floor == opponent->floor) {
+            else if (opponent->getPosition().x - this->getPosition().x > 0 && std::abs(opponent->getPositionY() - this->getPositionY()) < 400) {
                 this->Flip(false);
                 this->keyMap["shot"] = true;
-                this->shotLasttime = true;
+                //this->shotLasttime = true;
             }
             else {
                 this->keyMap["shot"] = false;
             }
-        
+
         }
     }
-    if (std::abs(opponent->getPositionY() - this->getPositionY())>100) {
+    if (std::abs(opponent->getPositionY() - this->getPositionY()) > 100) {
         this->keyMap["shot"] = false;
     }
 }
@@ -185,7 +254,7 @@ void AIBase::reset() {
     keyMap["right"] = false;
     keyMap["up"] = false;
     keyMap["down"] = false;
-   
+
 }
 int AIBase::find_thisStep() {//ÕÒµ½×ÔÉíËù´¦step
     for (int i = 0; i < this->map->Floor[this->floor].size(); i += 2) {
@@ -198,7 +267,7 @@ int AIBase::find_thisStep() {//ÕÒµ½×ÔÉíËù´¦step
 }
 
 bool AIBase::Readytodie(CharacterBase* player) {
-    
+
     if (player->getPositionX() <= this->map->Floor[player->floor].front() ||
         player->getPositionX() >= this->map->Floor[player->floor].back()) {
         return true;
@@ -229,11 +298,11 @@ void AIBase::jumpTofloor(int up, int step) {//ÌøÔ¾º¯Êý£¬up£º1£¨ÉÏÌø£©£¬-1£¨ÏÂÌø£
     int this_step = this->find_thisStep();
     int target_floor = this->floor + up;
     if (step >= 0 && step < this->map->Floor[target_floor].size()) {
-        if (!opponent->inTheAir&&this->getPositionX() > this->map->Floor[target_floor][step] - add_width * 3 && this->getPositionX() < this->map->Floor[target_floor][step + 1] + add_width * 3
+        if (!opponent->inTheAir && this->getPositionX() > this->map->Floor[target_floor][step] - add_width * 3 && this->getPositionX() < this->map->Floor[target_floor][step + 1] + add_width * 3
             || (this_step >= 0 && this->getPositionX() - this->map->Floor[this->floor][this_step] >= 0 && this->getPositionX() - this->map->Floor[this->floor][this_step] <= add_width)
             || (this_step >= 0 && this->getPositionX() - this->map->Floor[this->floor][this_step + 1] <= 0 && this->getPositionX() - this->map->Floor[this->floor][this_step + 1] >= -add_width)) {
             keyMap[keyboard] = true;
-            
+
         }
         if (this->getPositionX() <= this->map->Floor[target_floor][step] + add_width * 5) {
             keyMap["right"] = true;

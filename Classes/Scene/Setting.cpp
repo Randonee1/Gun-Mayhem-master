@@ -104,7 +104,7 @@ bool Setting::init()
 	this->addChild(offSound);
 
 
-	
+	return true;
 
 }
 
@@ -113,7 +113,7 @@ void Setting::buttonCallBack(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		Director::getInstance()->replaceScene(StartScene::create());
+		Director::getInstance()->replaceScene(Transition::create(0.5f,StartScene::create()));
 		break;
 	default:
 		break;

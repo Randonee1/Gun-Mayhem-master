@@ -25,7 +25,7 @@ public:
 
 	void initBackground();
 
-	void initPlayer();
+	//void initPlayer();
 
 	//void ShotEvent() override;
 

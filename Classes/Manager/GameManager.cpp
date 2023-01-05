@@ -23,34 +23,57 @@ std::map<std::string, const char*> GameManager::Bodys = {
     {"Blue", "bodyBlue.png"},
     {"Pink", "bodyPink.png"},
     {"Purple", "bodyPurple.png"},
-    {"Yellow", "bodyYello.png"}
+    {"Yellow", "bodyYello.png"},
+    {"Black", "bodyBlack.png"},
+    {"Green", "bodyGreen.png"},
+    {"Red", "bodyRed.png"},
+    {"White", "bodyWhite.png"}
 };
 std::map<std::string, const char*> GameManager::Heads = {
     {"Blue", "headBlue.png"},
     {"Pink", "headPink.png"},
     {"Purple", "headPurple.png"},
-    {"Yellow", "headYello.png"}
+    {"Yellow", "headYello.png"},
+    {"Black", "headBlack.png"},
+    {"Green", "headGreen.png"},
+    {"Red", "headRed.png"},
+    {"White", "headWhite.png"}
 };
 std::map<std::string, const char*> GameManager::Hands = {
     {"Blue", "handBlue.png"},
     {"Pink", "handPink.png"},
     {"Purple", "handPurple.png"},
-    {"Yellow", "handYello.png"}
+    {"Yellow", "handYello.png"},
+    {"Black", "handBlack.png"},
+    {"Green", "handGreen.png"},
+    {"Red", "handRed.png"},
+    {"White", "handWhite.png"}
 };
 std::map<std::string, const char*> GameManager::Feet = {
     {"Blue", "feetBlue.png"},
     {"Pink", "feetPink.png"},
     {"Purple", "feetPurple.png"},
-    {"Yellow", "feetYello.png"}
+    {"Yellow", "feetYello.png"},
+    {"Black", "feetBlack.png"},
+    {"Green", "feetGreen.png"},
+    {"Red", "feetRed.png"},
+    {"White", "feetWhite.png"}
 };
 
 
 std::map<std::string, const char*> GameManager::Faces = {
-    {"Cross","faceCross.png"},
-    {"Emoji","faceEmoji.png"},
-    {"Normal1", "faceNormal.png"}
+    {"Cross","cross.png"},
+    {"Smile","smile.png"},
+    {"Normal", "normal.png"},
+    {"Dot", "dot.png"},
+    {"Glass", "glass.png"}
 };
 std::map<std::string, const char*> Hats = {
+    {"Angel", "angel.png"},
+    {"BlackHat", "blackhat.png"},
+    {"Drop", "drop.png"},
+    {"Tie", "tie.png" },
+    {"WhiteHat", "whitehat.png"}
 
 };
 std::map<std::string, const char*> Costumes = {

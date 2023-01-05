@@ -9,14 +9,13 @@
 #include "Organ/Head.h"
 #include "Organ/OrganBase.h"
 #include "Weapons/Gun/GunBase.h"
-#include "Map/MapBase.h"
 #include "Stuff/Dust.h"
 //#include "Stuff/Package/SkillPackage.h"
 
 USING_NS_CC;
 
 class SkillBase;
-
+class MapBase;
 
 typedef struct _Status {
 	float acceleration;

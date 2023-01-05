@@ -34,6 +34,7 @@ public:
 
 protected:
 	bool shotLasttime;
+	bool findPackage;
 };
 
 #endif

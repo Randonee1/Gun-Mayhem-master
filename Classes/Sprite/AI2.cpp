@@ -36,22 +36,22 @@ bool AI2::init(int tag, MapBase* map)
 
 void AI2::initBody()
 {
+    auto manager = UserManager::getInstance();
+
     std::string player_name;
-    switch (rand() % 4) {
-    case 0:
-        player_name = "Blue";
-        break;
-    case 1:
-        player_name = "Pink";
-        break;
-    case 2:
-        player_name = "Purple";
-        break;
-    case 3:
-        player_name = "Yellow";
-        break;
+    std::string face_name;
+
+    /*if (this->getTag() == 1) {
+        player_name = manager->player1_skin;
+        face_name = manager->player1_face;
     }
-    std::string face_name = "Cross";
+    else {
+        player_name = manager->player2_skin;
+        face_name = manager->player2_face;
+    }*/
+    player_name = manager->player_skin[this->getTag()];
+    face_name = manager->player_face[this->getTag()];
+
     //头和身体
     body = Body::CreateWithName(GameManager::Bodys[player_name]);
     organs.push_back(body);

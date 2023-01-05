@@ -5,6 +5,9 @@
 #include "Layer/PlayerStateMenu.h"
 #include "Weapons/Bullet/Bullet.h"
 #include "Stuff/Blood.h"
+#include "Manager/GameManager.h"
+#include "Manager/UserManager.h"
+
 
 USING_NS_CC;
 
@@ -24,9 +27,12 @@ public:
 
 	virtual void ShotEvent();
 
+	virtual void initPlayer();
+
 	bool InTheBoundary(std::vector<float>& floor, float x) const;
 
 	void bindPlayerStateMenu(PlayerStateMenu* playerState);
+
 	Sprite* platform;
 	Sprite* backLayer;
 

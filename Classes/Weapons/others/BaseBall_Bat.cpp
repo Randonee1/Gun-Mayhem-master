@@ -31,6 +31,8 @@ bool BaseBall_Bat::init()
     if (!GunBase::init())
         return false;
 
+    releaseToShot = true;
+
     gun_right = Sprite::create("baseball_bat.png");
     gun_left = Sprite::create("baseball.png");
 

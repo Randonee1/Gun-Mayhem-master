@@ -291,13 +291,14 @@ bool BackgroundChoise::init() {
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
 
+	return true;
 }
 
 void BackgroundChoise::buttonCallBack(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		Director::getInstance()->replaceScene(StartScene::create());
+		Director::getInstance()->replaceScene(Transition::create(0.5f,StartScene::create()));
 		break;
 	default:
 		break;
@@ -308,7 +309,7 @@ void BackgroundChoise::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventTy
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		Director::getInstance()->replaceScene(PlayerSetup::create());
+		Director::getInstance()->replaceScene(Transition::create(0.5f,PlayerSetup::create()));
 		break;
 	default:
 		break;

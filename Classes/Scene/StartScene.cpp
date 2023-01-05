@@ -12,6 +12,9 @@ bool StartScene::init() {
 	{
 		return false;
 	}
+	initGame();
+
+	initButton();
 
 	return true;
 }
@@ -36,6 +39,17 @@ void StartScene::initMusic()
 
 void StartScene::initGame()
 {
+	auto manager = UserManager::getInstance();
+
+	manager->player_type[1] = false;
+	manager->player_type[2] = false;
+
+	manager->player_face[1] = manager->FaceRandom();
+	manager->player_face[2] = manager->FaceRandom();
+
+	manager->player_skin[1] = manager->SkinRandom();
+	manager->player_skin[2] = manager->SkinRandom();
+
 	switch (rand() % 4)
 	{
 	case(0):
@@ -51,7 +65,86 @@ void StartScene::initGame()
 		game = MapSeele::createGame();
 		break;
 	}
+	
 	this->addChild(game,-1);
+
+	manager->player_face[1] = "Normal";
+	manager->player_face[2] = "Normal";
+
+	manager->player_skin[1] = "White";
+	manager->player_skin[2] = "White";
+}
+
+void StartScene::initButton()
+{
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+
+	//对主页面添加上一层的文字以及效果
+
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto origin = Director::getInstance()->getVisibleOrigin();
+
+
+	//添加游戏标题
+	auto label = Label::createWithTTF("Gun Mayhem", "fonts/Marker Felt.ttf", 196);
+	label->setTextColor(Color4B::WHITE);
+	label->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+	label->setPosition(origin.x + visibleSize.width / 20, origin.y + visibleSize.height * 19 / 20);
+	label->setScaleX(1.3f);
+	label->enableShadow();
+	this->addChild(label, 8);
+
+
+	//设置菜单项
+	//文字菜单项
+	MenuItemFont* GameMenu = MenuItemFont::create("Game Begin", [&](Ref* sender) {
+		auto scene = BackgroundChoise::create();
+		//auto scene = GameScene::CreateGame(1);
+		Director::getInstance()->replaceScene(Transition::create(0.5f,scene));
+		//Director::getInstance()->replaceScene(Loading::createScene());
+
+		});
+	GameMenu->setColor(Color3B::WHITE);
+	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	//GameMenu->setFontSize(200);
+	GameMenu->setFontSizeObj(100);
+
+	MenuItemFont* SettingMenu = MenuItemFont::create("Setting", [&](Ref* sender) {
+		Director::getInstance()->replaceScene(Transition::create(0.5f, Setting::createScene()));
+		});
+	SettingMenu->setColor(Color3B::WHITE);
+	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	SettingMenu->setFontSizeObj(100);
+	SettingMenu->setPosition(0, -200);
+
+
+	MenuItemFont* WeaponMenu = MenuItemFont::create("Weapon", [&](Ref* sender) {
+		//Director::getInstance()->replaceScene(setting::createScene());
+		});
+	WeaponMenu->setColor(Color3B::WHITE);
+	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	WeaponMenu->setFontSizeObj(100);
+	WeaponMenu->setPosition(0, -400);
+
+
+
+	//创建菜单
+	auto menu = Menu::create(GameMenu, SettingMenu, WeaponMenu, NULL);
+	menu->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 3 / 5));
+	this->addChild(menu, 8);
+
+
+	//鼠标监听器//GameBegin的监听
+	blacksprite = Sprite::create("BlacktTransparent.png");
+	blacksprite->setAnchorPoint(Point(0, 0.5));
+	this->addChild(blacksprite, 7);
+	blacksprite->setVisible(false);
+
+	auto _mouseListener = EventListenerMouse::create();
+
+	_mouseListener->onMouseMove = CC_CALLBACK_1(StartScene::onMouseMove, this);
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
 }
 
 void StartScene::onMouseMove(Event* event)
@@ -134,76 +227,4 @@ void StartScene::onMouseMove(Event* event)
 void StartScene::onEnterTransitionDidFinish()
 {
 	initMusic();
-
-	initGame();
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-
-	//对主页面添加上一层的文字以及效果
-
-	auto visibleSize = Director::getInstance()->getVisibleSize();
-	auto origin = Director::getInstance()->getVisibleOrigin();
-
-
-	//添加游戏标题
-	auto label = Label::createWithTTF("Gun Mayhem", "fonts/Marker Felt.ttf", 196);
-	label->setTextColor(Color4B::WHITE);
-	label->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-	label->setPosition(origin.x + visibleSize.width / 20, origin.y + visibleSize.height * 19 / 20);
-	label->setScaleX(1.3f);
-	label->enableShadow();
-	this->addChild(label, 8);
-
-
-	//设置菜单项
-	//文字菜单项
-	MenuItemFont* GameMenu = MenuItemFont::create("Game Begin", [&](Ref* sender) {
-		auto scene = BackgroundChoise::create();
-		//auto scene = GameScene::CreateGame(1);
-		Director::getInstance()->replaceScene(scene);
-		//Director::getInstance()->replaceScene(Loading::createScene());
-
-		});
-	GameMenu->setColor(Color3B::WHITE);
-	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
-	//GameMenu->setFontSize(200);
-	GameMenu->setFontSizeObj(100);
-
-	MenuItemFont* SettingMenu = MenuItemFont::create("Setting", [&](Ref* sender) {
-		Director::getInstance()->replaceScene(Setting::createScene());
-		});
-	SettingMenu->setColor(Color3B::WHITE);
-	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
-	SettingMenu->setFontSizeObj(100);
-	SettingMenu->setPosition(0, -200);
-
-
-	MenuItemFont* WeaponMenu = MenuItemFont::create("Weapon", [&](Ref* sender) {
-		//Director::getInstance()->replaceScene(setting::createScene());
-		});
-	WeaponMenu->setColor(Color3B::WHITE);
-	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
-	WeaponMenu->setFontSizeObj(100);
-	WeaponMenu->setPosition(0, -400);
-
-
-
-	//创建菜单
-	auto menu = Menu::create(GameMenu, SettingMenu, WeaponMenu, NULL);
-	menu->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 3 / 5));
-	this->addChild(menu, 8);
-
-
-	//鼠标监听器//GameBegin的监听
-	blacksprite = Sprite::create("BlacktTransparent.png");
-	blacksprite->setAnchorPoint(Point(0, 0.5));
-	this->addChild(blacksprite, 7);
-	blacksprite->setVisible(false);
-
-	auto _mouseListener = EventListenerMouse::create();
-
-	_mouseListener->onMouseMove = CC_CALLBACK_1(StartScene::onMouseMove, this);
-
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
-	
 }

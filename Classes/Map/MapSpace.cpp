@@ -95,26 +95,26 @@ void MapSpace::initBackground()
 	platform->addChild(support, 4);
 }
 
-void MapSpace::initPlayer()
-{
-	auto player1 = Player2::createWithTag(1,this);
-	platform->addChild(player1, 1);
-
-	/*player2 = Player1::createWithTag(2, this);
-	platform->addChild(player2, 2);
-
-	player1 = AI1::create(this);
-	platform->addChild(player1, 1);*/
-
-	auto player2 = AI2::create(2, this);
-	platform->addChild(player2, 2);
-
-	player1->GetOpponent(player2);
-	player2->GetOpponent(player1);
-
-	players.push_back(player1);
-	players.push_back(player2);
-}
+//void MapSpace::initPlayer()
+//{
+//	auto player1 = Player2::createWithTag(1,this);
+//	platform->addChild(player1, 1);
+//
+//	/*player2 = Player1::createWithTag(2, this);
+//	platform->addChild(player2, 2);
+//
+//	player1 = AI1::create(this);
+//	platform->addChild(player1, 1);*/
+//
+//	auto player2 = AI2::create(2, this);
+//	platform->addChild(player2, 2);
+//
+//	player1->GetOpponent(player2);
+//	player2->GetOpponent(player1);
+//
+//	players.push_back(player1);
+//	players.push_back(player2);
+//}
 
 //void MapSpace::ShotEvent()
 //{

@@ -143,26 +143,26 @@ void MapSunset::initBackground()
 	platformSize = platform->getContentSize();
 }
 
-void MapSunset::initPlayer()
-{
-	CharacterBase* player1 = Player1::createWithTag(1, this);
-	platform->addChild(player1, 1);
-
-	/*CharacterBase* player1 = AI1::create(this);
-	platform->addChild(player1, 1);*/
-
-	CharacterBase* player2 = AI1::create(2,this);
-	platform->addChild(player2, 2);
-
-	/*CharacterBase* player2 = Player1::createWithTag(2, this);
-	platform->addChild(player2, 2);*/
-
-	player1->GetOpponent(player2);
-	player2->GetOpponent(player1);
-
-	players.push_back(player1);
-	players.push_back(player2);
-}
+//void MapSunset::initPlayer()
+//{
+//	CharacterBase* player1 = Player1::createWithTag(1, this);
+//	platform->addChild(player1, 1);
+//
+//	/*CharacterBase* player1 = AI1::create(this);
+//	platform->addChild(player1, 1);*/
+//
+//	CharacterBase* player2 = AI1::create(2,this);
+//	platform->addChild(player2, 2);
+//
+//	/*CharacterBase* player2 = Player1::createWithTag(2, this);
+//	platform->addChild(player2, 2);*/
+//
+//	player1->GetOpponent(player2);
+//	player2->GetOpponent(player1);
+//
+//	players.push_back(player1);
+//	players.push_back(player2);
+//}
 
 //void MapSunset::ShotEvent()
 //{

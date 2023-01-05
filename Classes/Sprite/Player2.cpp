@@ -37,8 +37,22 @@ bool Player2::initWithTag(int name, MapBase* map)
 
 void Player2::initBody()
 {
-    std::string player_name = "Pink";
-    std::string face_name = "Normal1";
+    auto manager = UserManager::getInstance();
+
+    std::string player_name;
+    std::string face_name;
+
+    /*if (this->getTag() == 1) {
+        player_name = manager->player1_skin;
+        face_name = manager->player1_face;
+    }
+    else {
+        player_name = manager->player2_skin;
+        face_name = manager->player2_face;
+    }*/
+    player_name = manager->player_skin[this->getTag()];
+    face_name = manager->player_face[this->getTag()];
+
     //头和身体
     body = Body::CreateWithName(GameManager::Bodys[player_name]);
     organs.push_back(body);

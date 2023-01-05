@@ -16,6 +16,7 @@ bool PlayerSetup::init() {
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	manager = UserManager::getInstance();
 
 	//创建背景
 	auto background = Sprite::create("playerMenu/background.png");
@@ -39,6 +40,10 @@ bool PlayerSetup::init() {
 	Continue->setPosition(Vec2(origin.x + visibleSize.width * 1690 / 2560, origin.y + 1440 - 1230));
 	this->addChild(Continue);
 	//player1的一系列
+	auto pattern1 = PlayerPattern(1);
+	pattern1->setPosition(Vec2(origin.x + 695, origin.y + 735));
+	this->addChild(pattern1);
+
 	auto UserID1 = ui::Button::create("playerMenu/UserID.png", "playerMenu/UserIDOn.png");
 	UserID1->setScale(1.0f);
 	UserID1->addTouchEventListener(CC_CALLBACK_2(PlayerSetup::UserID1, this));
@@ -68,6 +73,15 @@ bool PlayerSetup::init() {
 	auto human1 = Button::create("playerMenu/humanplayerBotton.png", "playerMenu/humanplayerSelected.png");
 	human1->setPosition(Vec2(origin.x + visibleSize.width * 350 / 2560, 1440 - 890));
 
+	if (manager->player_type[1]) {
+		ai1->loadTextureNormal("playerMenu/aiplayerBotton.png");
+		human1->loadTextureNormal("playerMenu/humanplayerSelected.png");
+	}
+	else {
+		ai1->loadTextureNormal("playerMenu/aiplayerSelected.png");
+		human1->loadTextureNormal("playerMenu/humanplayerBotton.png");
+	}
+
 	//判断当前AI选择情况（3种：未选择，AI，human）  有了初始化.cpp后需要写这部分
 	/*
 	if(未选择）{}
@@ -83,11 +97,13 @@ bool PlayerSetup::init() {
 
 	ai1->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
+		manager->player_type[1] = false;
 		ai1->loadTextureNormal("playerMenu/aiplayerSelected.png");
 		human1->loadTextureNormal("playerMenu/humanplayerBotton.png");
 		});
 	human1->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
+		manager->player_type[1] = true;
 		ai1->loadTextureNormal("playerMenu/aiplayerBotton.png");
 		human1->loadTextureNormal("playerMenu/humanplayerSelected.png");
 		});
@@ -97,6 +113,10 @@ bool PlayerSetup::init() {
 	
 
 	//player2
+	auto pattern2 = PlayerPattern(2);
+	pattern2->setPosition(Vec2(origin.x + 1865, origin.y + 735));
+	this->addChild(pattern2);
+
 	auto UserID2 = ui::Button::create("playerMenu/UserID.png", "playerMenu/UserIDOn.png");
 	UserID2->setScale(1.0f);
 	UserID2->addTouchEventListener(CC_CALLBACK_2(PlayerSetup::UserID2, this));
@@ -126,6 +146,15 @@ bool PlayerSetup::init() {
 	auto human2 = Button::create("playerMenu/humanplayerBotton.png", "playerMenu/humanplayerSelected.png");
 	human2->setPosition(Vec2(origin.x + visibleSize.width * (350 + 1170) / 2560, 1440 - 890));
 
+	if (manager->player_type[2]) {
+		ai2->loadTextureNormal("playerMenu/aiplayerBotton.png");
+		human2->loadTextureNormal("playerMenu/humanplayerSelected.png");
+	}
+	else {
+		ai2->loadTextureNormal("playerMenu/aiplayerSelected.png");
+		human2->loadTextureNormal("playerMenu/humanplayerBotton.png");
+	}
+
 	//判断当前AI选择情况（3种：未选择，AI，human）  有了初始化.cpp后需要写这部分
 	/*
 	if(未选择）{}
@@ -141,17 +170,68 @@ bool PlayerSetup::init() {
 
 	ai2->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
+		manager->player_type[2] = false;
 		ai2->loadTextureNormal("playerMenu/aiplayerSelected.png");
 		human2->loadTextureNormal("playerMenu/humanplayerBotton.png");
 		});
 	human2->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
+		manager->player_type[2] = true;
 		ai2->loadTextureNormal("playerMenu/aiplayerBotton.png");
 		human2->loadTextureNormal("playerMenu/humanplayerSelected.png");
 		});
 	this->addChild(ai2);
 	this->addChild(human2);
 
+	return true;
+}
+
+Sprite* PlayerSetup::PlayerPattern(int tag)
+{
+	Sprite* player = new Sprite();
+
+	Sprite* body = Sprite::createWithSpriteFrameName(GameManager::Bodys[manager->player_skin[tag]]);
+	Sprite* head = Sprite::createWithSpriteFrameName(GameManager::Heads[manager->player_skin[tag]]);
+	Sprite* hand1 = Sprite::createWithSpriteFrameName(GameManager::Hands[manager->player_skin[tag]]);
+	Sprite* hand2 = Sprite::createWithSpriteFrameName(GameManager::Hands[manager->player_skin[tag]]);
+	Sprite* foot1 = Sprite::createWithSpriteFrameName(GameManager::Feet[manager->player_skin[tag]]);
+	Sprite* foot2 = Sprite::createWithSpriteFrameName(GameManager::Feet[manager->player_skin[tag]]);
+	Sprite* face = Sprite::createWithSpriteFrameName(GameManager::Faces[manager->player_face[tag]]);
+
+	/*body->setScale(2);
+	head->setScale(2);
+	hand1->setScale(2);
+	hand2->setScale(2);
+	foot1->setScale(2);
+	foot2->setScale(2);
+	face->setScale(2);*/
+
+	head->setPosition(Vec2(65 / 2.2 - 8, 130 / 2.2 - 2));
+	player->addChild(head, 1);
+
+	hand1->setPosition(Vec2(-31 / 2.2, -55 / 2.2));
+	player->addChild(hand1, 4);
+
+	face->setPosition(Vec2(30 / 2.2, 0) + head->getContentSize()/2);
+	head->addChild(face, 2);
+
+	hand2->setPosition(Vec2(109 / 2.2, -29 / 2.2));
+	player->addChild(hand2, -1);
+
+	foot1->setPosition(Vec2(-67 / 2.2, -199 / 2.2));
+	foot1->setAnchorPoint(Vec2(0.2, 0.25));
+	player->addChild(foot1, 3);
+
+	foot2->setPosition(Vec2(33 / 2.2, -169 / 2.2));
+	foot2->setAnchorPoint(Vec2(0.2, 0.25));
+	player->addChild(foot2, -1);
+
+	body->setPosition(Vec2(0, 0));
+	player->addChild(body, 0);
+
+	player->setScale(2);
+
+	return player;
 }
 
 //----------------------------------Back and Continue--------------------------------------------------------
@@ -159,7 +239,7 @@ void PlayerSetup::buttonCallBack(Ref* ref, cocos2d::ui::Widget::TouchEventType t
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		Director::getInstance()->replaceScene(BackgroundChoise::create());
+		Director::getInstance()->replaceScene(Transition::create(0.5f,BackgroundChoise::create()));
 		break;
 	default:
 		break;
@@ -217,11 +297,12 @@ void PlayerSetup::UserID1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 		this->addChild(editbox);
 		
 		//name = text;
-		if (find(UserManager::UserName.begin(), UserManager::UserName.end(), name) != UserManager::UserName.end()) {
-			UserManager::UserName.push_back(name);
-			UserManager::User_marks.insert(std::pair<std::string, int>(name, 0));
+
+		if (find(manager->UserName.begin(), manager->UserName.end(), name) != manager->UserName.end()) {
+			manager->UserName.push_back(name);
+			manager->User_marks.insert(std::pair<std::string, int>(name, 0));
 		}
-		UserManager::player1 = name;
+		manager->player1 = name;
 
 		break;
 	default:
@@ -259,11 +340,11 @@ void PlayerSetup::UserID2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	std::string name = text;
 
 	confirm->addClickEventListener([=](Ref* sender) {
-		if (find(UserManager::UserName.begin(), UserManager::UserName.end(), name) != UserManager::UserName.end()) {
-			UserManager::UserName.push_back(name);
-			UserManager::User_marks.insert(std::pair<std::string, int>(name, 0));
+		if (find(manager->UserName.begin(), manager->UserName.end(), name) != manager->UserName.end()) {
+			manager->UserName.push_back(name);
+			manager->User_marks.insert(std::pair<std::string, int>(name, 0));
 		}
-		UserManager::player2 = name;
+		manager->player2 = name;
 
 		Director::getInstance()->replaceScene(PlayerSetup::create());
 		});
@@ -286,7 +367,7 @@ void PlayerSetup::SQblack1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[1] = "Black";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -301,7 +382,7 @@ void PlayerSetup::SQblue1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[1] = "Blue";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -315,7 +396,7 @@ void PlayerSetup::SQgreen1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[1] = "Green";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -329,7 +410,7 @@ void PlayerSetup::SQpink1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[1] = "Pink";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -343,7 +424,7 @@ void PlayerSetup::SQpurple1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[1] = "Purple";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -357,7 +438,7 @@ void PlayerSetup::SQred1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[1] = "Red";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -371,7 +452,7 @@ void PlayerSetup::SQwhite1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[1] = "White";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -385,7 +466,7 @@ void PlayerSetup::SQyellow1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[1] = "Yellow";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -468,7 +549,7 @@ void PlayerSetup::SQblack2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[2] = "Black";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -483,7 +564,7 @@ void PlayerSetup::SQblue2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[2] = "Blue";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -497,7 +578,7 @@ void PlayerSetup::SQgreen2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[2] = "Green";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -511,7 +592,7 @@ void PlayerSetup::SQpink2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[2] = "Pink";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -525,7 +606,7 @@ void PlayerSetup::SQpurple2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[2] = "Purple";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -539,7 +620,7 @@ void PlayerSetup::SQred2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[2] = "Red";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -553,7 +634,7 @@ void PlayerSetup::SQwhite2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[2] = "White";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -567,7 +648,7 @@ void PlayerSetup::SQyellow2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_skin[2] = "Yellow";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -904,7 +985,7 @@ void PlayerSetup::FCcross1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Cross";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -918,7 +999,7 @@ void PlayerSetup::FCglass1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Glass";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -932,7 +1013,7 @@ void PlayerSetup::FCnormal1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Normal";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -946,7 +1027,7 @@ void PlayerSetup::FCsmiledot1(Ref* ref, cocos2d::ui::Widget::TouchEventType type
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Dot";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -960,7 +1041,7 @@ void PlayerSetup::FCsmiletiebag1(Ref* ref, cocos2d::ui::Widget::TouchEventType t
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Smile";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -1028,7 +1109,7 @@ void PlayerSetup::FCcross2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[2] = "Cross";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -1042,7 +1123,7 @@ void PlayerSetup::FCglass2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Glass";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -1056,7 +1137,7 @@ void PlayerSetup::FCnormal2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Normal";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -1070,7 +1151,7 @@ void PlayerSetup::FCsmiledot2(Ref* ref, cocos2d::ui::Widget::TouchEventType type
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Dot";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -1084,7 +1165,7 @@ void PlayerSetup::FCsmiletiebag2(Ref* ref, cocos2d::ui::Widget::TouchEventType t
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_face[1] = "Smile";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());

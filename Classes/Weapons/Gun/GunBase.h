@@ -62,6 +62,7 @@ public:
 	bool fire = false;
 	bool isGatling = false;
 	bool isSniper = false;
+	bool releaseToShot = false;
 
 	//Sprite* gun;
 

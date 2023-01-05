@@ -14,7 +14,11 @@ public:
 	
 	static Transition* create(float t, Scene* scene);
 
+	void LRFinish(void);
+	void OnSencondActionFinish(void);
+
 private:
+	int m_FinishCnt;
 };
 
 #endif

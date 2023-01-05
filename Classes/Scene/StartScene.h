@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "editor-support/cocostudio/SimpleAudioEngine.h"
 #include "AudioEngine.h"
+#include "Transition.h"
 #include "Map/MapBase.h"
 #include"Scene/Setting.h"
 #include"Scene/BackgroundChoise.h"
@@ -27,6 +28,8 @@ public:
 	void initMusic();
 
 	void initGame();
+
+	void initButton();
 
 	void onMouseMove(Event* event);
 

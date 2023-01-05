@@ -2,6 +2,7 @@
 #define _SETTING_
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "Transition.h"
 #include "editor-support/cocostudio/SimpleAudioEngine.h"
 
 using namespace CocosDenshion;

@@ -22,11 +22,11 @@ public:
 	Sprite* package;
 
 	int endFloor;
-
+	bool intheair = true;
 protected:
 
 	MapBase* map;
-	bool intheair = true;
+	/*bool intheair = true;*/
 	float updatetime;
 	float duration = 10;
 
