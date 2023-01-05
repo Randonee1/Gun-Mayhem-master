@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "GameScene.h"
+#include "StartScene.h"
 #include "Transition.h"
 
 USING_NS_CC;

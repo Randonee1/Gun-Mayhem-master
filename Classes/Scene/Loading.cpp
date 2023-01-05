@@ -13,11 +13,15 @@ bool Loading::init()
     if (!Layer::init())
         return false;
     isloaddone = false;
-    auto back = LayerColor::create(Color4B::GRAY, 12000, 10000);
-    back->setIgnoreAnchorPointForPosition(false);
-    back->setAnchorPoint(Vec2(0.5, 0.5));
-    this->addChild(back);
-    schedule(CC_SCHEDULE_SELECTOR(Loading::logic));
+    
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    auto sprite = Sprite::create("logo.jpeg");
+    sprite->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
+    sprite->setTextureRect(Rect(0, 0, 0.85f * sprite->getContentSize().width, sprite->getContentSize().height));
+    this->addChild(sprite, 0);
+
+    schedule(CC_SCHEDULE_SELECTOR(Loading::logic),3.0f);
     return true;
 }
 
@@ -39,12 +43,15 @@ void Loading::loadResources()
 
 void Loading::logic(float dt)
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Start.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Music/Game.mp3");
+
     if (!isloaddone) {
         loadResources();
     }
     if (isloaddone) {
         //暂时的写法，后面写完WelcomeScene再换
         //auto scene = GameScene::CreateGame(1);
-        Director::getInstance()->replaceScene(Transition::create(0.2f, GameScene::CreateGame(0)));
+        Director::getInstance()->replaceScene(TransitionFade::create(1.f, StartScene::create()));
     }
 }

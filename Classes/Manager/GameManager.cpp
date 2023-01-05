@@ -57,6 +57,14 @@ std::map<std::string, const char*> Costumes = {
 
 };
 
+int GameManager::Live = 10;
+
+int GameManager::BackChoise = 0;
+
+std::vector<std::string> GameManager::BackChoises = {
+    "spacestation","sunsetcity","seele","irismood","highmoon","default"
+};
+
 GameManager* GameManager::getInstance()
 {
     if (_instance == NULL)
