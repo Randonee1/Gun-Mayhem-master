@@ -12,7 +12,10 @@ public:
 
 	bool init() override;
 
+	void SetLive(const char*);
+
 	CREATE_FUNC(PlayerStateMenu);
+
 
 	//void initPlayerState();
 private:
@@ -20,6 +23,8 @@ private:
 	Sprite* boardPlayer2;
 	Sprite* boardBack1;
 	Sprite* boardBack2;
+	Label* livePlayer1;
+	Label* livePlayer2;
 };
 
 #endif

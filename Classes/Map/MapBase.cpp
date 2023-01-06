@@ -112,10 +112,11 @@ void MapBase::bindPlayerStateMenu(PlayerStateMenu* playerState)
 void MapBase::GameOver(CharacterBase* player)
 {
 	auto move = EaseSineOut::create(MoveTo::create(1, initPlatformPosition));
+	auto delay = DelayTime::create(1);
 	auto func = CallFunc::create([&]() {
 		Director::getInstance()->replaceScene(Transition::create(0.5f, PlayerSetup::create())); 
 		});
-	if(!gameOver)player->runAction(Sequence::create(move, func, nullptr));
+	if(!gameOver)player->runAction(Sequence::create(move,delay, func, nullptr));
 	gameOver = true;
 }
 

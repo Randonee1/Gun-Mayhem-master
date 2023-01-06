@@ -1130,7 +1130,7 @@ void PlayerSetup::FCglass2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-		manager->player_face[1] = "Glass";
+		manager->player_face[2] = "Glass";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -1144,7 +1144,7 @@ void PlayerSetup::FCnormal2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-		manager->player_face[1] = "Normal";
+		manager->player_face[2] = "Normal";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -1158,7 +1158,7 @@ void PlayerSetup::FCsmiledot2(Ref* ref, cocos2d::ui::Widget::TouchEventType type
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-		manager->player_face[1] = "Dot";
+		manager->player_face[2] = "Dot";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -1172,7 +1172,7 @@ void PlayerSetup::FCsmiletiebag2(Ref* ref, cocos2d::ui::Widget::TouchEventType t
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-		manager->player_face[1] = "Smile";
+		manager->player_face[2] = "Smile";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
