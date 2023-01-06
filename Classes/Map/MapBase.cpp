@@ -107,6 +107,7 @@ bool MapBase::InTheBoundary(std::vector<float>& floor, float x) const
 void MapBase::bindPlayerStateMenu(PlayerStateMenu* playerState)
 {
 	this->playerState = playerState;
+	playerState->bindMap(this);
 }
 
 void MapBase::GameOver(CharacterBase* player)

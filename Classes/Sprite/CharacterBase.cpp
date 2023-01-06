@@ -28,7 +28,7 @@ bool CharacterBase::init(int tag, MapBase* map)
     while(!InTheBoundary(map->Floor.back(),x))
         x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
 
-    this->setPosition(x,map->platform->getContentSize().height + 5000);
+    this->setPosition(x,map->platform->getContentSize().height/2 + 4500);
 
     skill = new Defense(this, 3);
 
@@ -46,6 +46,8 @@ Sprite* CharacterBase::clone()
     Sprite* _foot1 = Sprite::createWithSpriteFrameName(feet1->name);
     Sprite* _foot2 = Sprite::createWithSpriteFrameName(feet2->name);
     Sprite* _face = Sprite::createWithSpriteFrameName(face->name);
+    Sprite* _hat = GameManager::Hats[UserManager::getInstance()->player_hat[getTag()]] ?
+        Sprite::createWithSpriteFrameName(GameManager::Hats[UserManager::getInstance()->player_hat[getTag()]]) : new Sprite();
     Sprite* _gun_right = gun->RightGun();
     Sprite* _gun_left = gun->LeftGun();
     if (gun->change) {
@@ -60,6 +62,7 @@ Sprite* CharacterBase::clone()
     _foot1->setFlippedX(feet1->isFlippedX());
     _foot2->setFlippedX(feet2->isFlippedX());
     _face->setFlippedX(face->isFlippedX());
+    _hat->setFlippedX(hat->isFlippedX());
     if(_gun_right)_gun_right->setFlippedX(gun->isFlippedX());
     if(_gun_left)_gun_left->setFlippedX(gun->isFlippedX());
 
@@ -83,6 +86,7 @@ Sprite* CharacterBase::clone()
     _foot1->setPosition(feet1->getPosition() + feet1->organ->getPosition() + origin);
     _foot2->setPosition(feet2->getPosition() + feet2->organ->getPosition() + origin);
     _face->setPosition(face->getPosition() + face->organ->getPosition() + _head->getContentSize() / 2);
+    _hat->setPosition(hat->organ->getPosition() + _head->getContentSize() / 2);
     if(_gun_right)_gun_right->setPosition(gun->gun_right->getPosition());
     if (_gun_left)_gun_left->setPosition(gun->gun_left->getPosition());
 
@@ -92,6 +96,7 @@ Sprite* CharacterBase::clone()
     _body->addChild(_foot1, 1);
     _body->addChild(_foot2, -1);
     _head->addChild(_face, 1);
+    _head->addChild(_hat, 2);
     if(_gun_right)_hand1->addChild(_gun_right, -1);
     if (_gun_left)_hand2->addChild(_gun_left, 1);
 
@@ -158,8 +163,8 @@ void CharacterBase::update(float dt)
                 keyMap["up"] = false;
             }
             y_speed += status->gravitation * dt;
-            if (y_speed < -status->y_maxSpeed * 2.3)
-                y_speed = -status->y_maxSpeed * 2.3;
+            if (y_speed < -status->y_maxSpeed * 2.4)
+                y_speed = -status->y_maxSpeed * 2.4;
         }
         if (y_speed > 0) {
             if (getPositionY() + y_speed * dt > map->floor_base + floor * map->floor_height &&
@@ -288,7 +293,6 @@ void CharacterBase::update(float dt)
             }
         }
         if (keyMap["release"]) {
-            CCLOG("release");
             keyMap["release"] = false;
         }
         

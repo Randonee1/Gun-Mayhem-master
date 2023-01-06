@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+class MapBase;
+
 class PlayerStateMenu : public Layer
 {
 public:
@@ -14,11 +16,19 @@ public:
 
 	void SetLive(const char*);
 
+	void bindMap(MapBase* map);
+
+	Sprite* CreateAvatar(int tag);
+
+	void onEnterTransitionDidFinish() override;
+
 	CREATE_FUNC(PlayerStateMenu);
 
 
 	//void initPlayerState();
 private:
+	MapBase* map;
+
 	Sprite* boardPlayer1;
 	Sprite* boardPlayer2;
 	Sprite* boardBack1;
