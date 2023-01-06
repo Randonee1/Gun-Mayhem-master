@@ -276,9 +276,7 @@ void PlayerSetup::UserID1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	backButton->addClickEventListener([=](Ref* sender) {
 		Director::getInstance()->replaceScene(PlayerSetup::create());
 		});
-	confirm->addClickEventListener([=](Ref* sender) {
-		Director::getInstance()->replaceScene(PlayerSetup::create());
-		});
+	
 	////文本框
 	auto inputBox = Sprite::create("playerMenu/Id/textSquare.png");
 	auto editbox = EditBox::create(Size(inputBox->getContentSize().width, inputBox->getContentSize().height), Scale9Sprite::create("playerMenu/Id/textSquare.png"));
@@ -286,8 +284,19 @@ void PlayerSetup::UserID1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	editbox->setFontColor(Color3B::BLACK);//设置输入字体的颜色
 	editbox->setFont("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF", 70);
 	editbox->setTextHorizontalAlignment(TextHAlignment::CENTER);
-	auto text = editbox->getText();
-	std::string name=text;
+	confirm->addClickEventListener([=](Ref* sender) {
+		auto text = editbox->getText();
+		std::string name = text;
+		if (find(manager->UserName.begin(), manager->UserName.end(), name) == manager->UserName.end()) {
+			manager->UserName.push_back(name);
+			manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { 0,0,0,0,0,0 }));
+		}
+		manager->player1 = name;
+		manager->Standing[name][3] += 1;//对局数+1
+
+		Director::getInstance()->replaceScene(PlayerSetup::create());
+		});
+	
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		this->addChild(back);
@@ -295,14 +304,6 @@ void PlayerSetup::UserID1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 		this->addChild(backButton);
 		this->addChild(confirm);
 		this->addChild(editbox);
-		
-		//name = text;
-
-		if (find(manager->UserName.begin(), manager->UserName.end(), name) != manager->UserName.end()) {
-			manager->UserName.push_back(name);
-			manager->User_marks.insert(std::pair<std::string, int>(name, 0));
-		}
-		manager->player1 = name;
 
 		break;
 	default:
@@ -336,15 +337,17 @@ void PlayerSetup::UserID2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	editbox->setFontColor(Color3B::BLACK);//设置输入字体的颜色
 	editbox->setFont("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF",70);
 	editbox->setTextHorizontalAlignment(TextHAlignment::CENTER);//居中
-	auto text = editbox->getText();
-	std::string name = text;
+	
 
 	confirm->addClickEventListener([=](Ref* sender) {
-		if (find(manager->UserName.begin(), manager->UserName.end(), name) != manager->UserName.end()) {
+		auto text = editbox->getText();
+		std::string name = text;
+		if (find(manager->UserName.begin(), manager->UserName.end(), name) == manager->UserName.end()) {
 			manager->UserName.push_back(name);
-			manager->User_marks.insert(std::pair<std::string, int>(name, 0));
+			manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { 0,0,0,0,0,0 }));
 		}
 		manager->player2 = name;
+		manager->Standing[name][3] += 1;//对局数+1
 
 		Director::getInstance()->replaceScene(PlayerSetup::create());
 		});

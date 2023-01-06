@@ -1,5 +1,7 @@
 #include "StartScene.h" 
 #include"Scene/Loading.h"
+#include"Scene/Credits.h"
+#include"Scene/Standing.h"
 #include"Manager/GameManager.h"
 #include "Map/MapTest.h"
 #include "Map/MapSpace.h"
@@ -12,6 +14,8 @@ bool StartScene::init() {
 	{
 		return false;
 	}
+	initFile();
+
 	initGame();
 
 	initButton();
@@ -115,7 +119,7 @@ void StartScene::initButton()
 	SettingMenu->setColor(Color3B::WHITE);
 	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
 	SettingMenu->setFontSizeObj(100);
-	SettingMenu->setPosition(0, -200);
+	SettingMenu->setPosition(0, -140);
 
 
 	MenuItemFont* WeaponMenu = MenuItemFont::create("Weapon", [&](Ref* sender) {
@@ -124,13 +128,29 @@ void StartScene::initButton()
 	WeaponMenu->setColor(Color3B::WHITE);
 	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
 	WeaponMenu->setFontSizeObj(100);
-	WeaponMenu->setPosition(0, -400);
+	WeaponMenu->setPosition(0, -280);
+
+	MenuItemFont* StandingMenu = MenuItemFont::create("Standing", [&](Ref* sender) {
+		Director::getInstance()->replaceScene(Transition::create(0.5f, Standing::createScene()));
+		});
+	StandingMenu->setColor(Color3B::WHITE);
+	StandingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	StandingMenu->setFontSizeObj(100);
+	StandingMenu->setPosition(0, -500);
+
+	MenuItemFont* creditsMenu = MenuItemFont::create("Credits", [&](Ref* sender) {
+		Director::getInstance()->replaceScene(Transition::create(0.5f, Credits::createScene()));
+		});
+	creditsMenu->setColor(Color3B::WHITE);
+	creditsMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	creditsMenu->setFontSizeObj(100);
+	creditsMenu->setPosition(0, -640);
 
 
 
 	//创建菜单
-	auto menu = Menu::create(GameMenu, SettingMenu, WeaponMenu, NULL);
-	menu->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 3 / 5));
+	auto menu = Menu::create(GameMenu, SettingMenu, WeaponMenu,StandingMenu,creditsMenu, NULL);
+	menu->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 2 / 3));
 	this->addChild(menu, 8);
 
 
@@ -154,9 +174,11 @@ void StartScene::onMouseMove(Event* event)
 	Vec2 locationInNode = convertToNodeSpace(Vec2(e->getCursorX(), e->getCursorY()));
 
 
-	Rect r1 = Rect(0, visibleSize.height * 3 / 5 - 50, visibleSize.width, 100);
-	Rect r2 = Rect(0, visibleSize.height * 3 / 5 - 250, visibleSize.width, 100);
-	Rect r3 = Rect(0, visibleSize.height * 3 / 5 - 450, visibleSize.width, 100);
+	Rect r1 = Rect(0, visibleSize.height * 2 / 3 - 50, visibleSize.width, 140);
+	Rect r2 = Rect(0, visibleSize.height * 2 / 3 - 190, visibleSize.width, 140);
+	Rect r3 = Rect(0, visibleSize.height * 2 / 3 - 310, visibleSize.width, 140);
+	Rect r4 = Rect(0, visibleSize.height * 2 / 3 - 550, visibleSize.width, 140);
+	Rect r5 = Rect(0, visibleSize.height * 2 / 3 - 690, visibleSize.width, 140);
 	CallFunc* setMove = CallFunc::create([&]() {
 		move = !move;
 		});
@@ -164,7 +186,7 @@ void StartScene::onMouseMove(Event* event)
 	if (r1.containsPoint(locationInNode)) {
 		if (blacksprite->isVisible()) {
 			if (!move) {
-				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5)));
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 2 / 3)));
 				auto seq = Sequence::create(setMove, move, setMove, nullptr);
 				seq->setTag(1);
 				blacksprite->stopActionByTag(1);
@@ -172,7 +194,7 @@ void StartScene::onMouseMove(Event* event)
 			}
 		}
 		else {
-			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5));
+			blacksprite->setPosition(Vec2(0, visibleSize.height * 2 / 3));
 			blacksprite->setVisible(true);
 			auto fadein = FadeIn::create(0.1);
 			blacksprite->runAction(fadein);
@@ -181,7 +203,7 @@ void StartScene::onMouseMove(Event* event)
 	else if (r2.containsPoint(locationInNode)) {
 		if (blacksprite->isVisible()) {
 			if (!move) {
-				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5 - 200)));
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 2 / 3 - 140)));
 				auto seq = Sequence::create(setMove, move, setMove, nullptr);
 				seq->setTag(1);
 				blacksprite->stopActionByTag(1);
@@ -189,7 +211,7 @@ void StartScene::onMouseMove(Event* event)
 			}
 		}
 		else {
-			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5 - 200));
+			blacksprite->setPosition(Vec2(0, visibleSize.height * 2 / 3 - 140));
 			blacksprite->setVisible(true);
 			auto fadein = FadeIn::create(0.1);
 			blacksprite->runAction(fadein);
@@ -198,7 +220,7 @@ void StartScene::onMouseMove(Event* event)
 	else if (r3.containsPoint(locationInNode)) {
 		if (blacksprite->isVisible()) {
 			if (!move) {
-				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 3 / 5 - 400)));
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 2 / 3 - 280)));
 				auto seq = Sequence::create(setMove, move, setMove, nullptr);
 				seq->setTag(1);
 				blacksprite->stopActionByTag(1);
@@ -206,7 +228,41 @@ void StartScene::onMouseMove(Event* event)
 			}
 		}
 		else {
-			blacksprite->setPosition(Vec2(0, visibleSize.height * 3 / 5 - 400));
+			blacksprite->setPosition(Vec2(0, visibleSize.height * 2 / 3 - 280));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r4.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 2 / 3 - 500)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(0, visibleSize.height * 2 / 3 - 500));
+			blacksprite->setVisible(true);
+			auto fadein = FadeIn::create(0.1);
+			blacksprite->runAction(fadein);
+		}
+	}
+	else if (r5.containsPoint(locationInNode)) {
+		if (blacksprite->isVisible()) {
+			if (!move) {
+				auto move = EaseSineOut::create(MoveTo::create(0.08, Vec2(0, visibleSize.height * 2 / 3 - 640)));
+				auto seq = Sequence::create(setMove, move, setMove, nullptr);
+				seq->setTag(1);
+				blacksprite->stopActionByTag(1);
+				blacksprite->runAction(seq);
+			}
+		}
+		else {
+			blacksprite->setPosition(Vec2(0, visibleSize.height * 2 / 3 - 640));
 			blacksprite->setVisible(true);
 			auto fadein = FadeIn::create(0.1);
 			blacksprite->runAction(fadein);
@@ -227,4 +283,50 @@ void StartScene::onMouseMove(Event* event)
 void StartScene::onEnterTransitionDidFinish()
 {
 	initMusic();
+}
+
+void StartScene::initFile() {
+	////写文件 后面注销掉就好
+	//std::ofstream outClientFile("StandingFile.txt", std::ios::out);
+	//if (!outClientFile) {
+	//	log("File Write ERROR");
+	//	std::exit(EXIT_FAILURE);
+	//}
+	//log("Write SUCCESS!");
+	///*outClientFile << "name" <<" "<< 1<<" " << 2 <<" " << 3<<" " << 4<<" " << 5 <<" " << 6 << std::endl;
+	//outClientFile << "name2" << " " << 19 << " " << 2.8767567 << " " << 3.8768765 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name3" << " " << 3324 << " " << 2.3242 << " " << 32 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name4" << " " << 321335 << " " << 12 << " " << 13 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name5" << " " << 12433 << " " << 32.52 << " " << 43 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name6" << " " << 24683 << " " << 49 << " " << 65.43 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name7" << " " << 97 << " " << 48.9 << " " << 56.246256<< " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name8" << " " << 9087 << " " << 21.2411 << " " << 31.2 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name9" << " " << 35 << " " << 223.12 << " " << 9.32 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name10" << " " << 308 << " " << 23.4 << " " << 76 << " " << 4 << " " << 5 << " " << 6 << std::endl;*/
+	//outClientFile << "name11" << " " << 332980 << " " << 1.2 << " " <<89 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "name12" << " " << 123218 << " " << 2 << " " << 4 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	//outClientFile << "aaaaaaa" << " " << 11.34255 << " " << 22.3543 << " " << 2<< " " << 44 << " " << 55 << " " << 66 << std::endl;
+	//outClientFile.close();
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//读文件
+	std::ifstream inClientFile("StandingFile.txt",std::ios::in);
+	if (!inClientFile) {
+		log("File Open Erro");
+		std::exit(EXIT_FAILURE);
+	}
+	auto manager = UserManager::getInstance();
+	std::string name;
+	double mark;
+	double rate;
+	double kill_per_game;
+	double num;
+	double kill_this_game;
+	double shot_this_game;
+
+	while (inClientFile >> name >> mark >> rate >> kill_per_game >> num >> kill_this_game >> shot_this_game) {
+		manager->UserName.push_back(name);
+		manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { mark,rate,kill_per_game,num,kill_this_game,shot_this_game }));
+	}
+
+
 }

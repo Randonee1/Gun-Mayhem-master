@@ -10,6 +10,11 @@
 #include"Scene/Setting.h"
 #include"Scene/BackgroundChoise.h"
 #include"Manager/GameManager.h"
+#include"Manager/UserManager.h"
+
+
+#include<fstream>
+
 
 using namespace cocos2d;
 using namespace ui;
@@ -30,6 +35,8 @@ public:
 	void initGame();
 
 	void initButton();
+
+	void initFile();
 
 	void onMouseMove(Event* event);
 
