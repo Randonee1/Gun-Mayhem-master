@@ -19,6 +19,8 @@ public:
 
 	std::string FaceRandom();
 
+	std::string HatRandom();
+
 	std::vector<std::string> UserName;
 
 	std::map<std::string, int> User_marks;
@@ -48,6 +50,7 @@ public:
 	std::string player2_hat;*/
 	std::map<int, std::string> player_hat;
 
+	int Live;
 };
 
 #endif

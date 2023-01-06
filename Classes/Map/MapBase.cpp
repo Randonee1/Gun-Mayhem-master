@@ -1,4 +1,5 @@
 #include "MapBase.h"
+#include "Scene/PlayerSetup.h"
 #include "Stuff/Package/PackageEvent.h"
 #include "Sprite/CharacterBase.h"
 #include "Sprite/AI2.h"
@@ -17,6 +18,11 @@ bool MapBase::init()
 
 void MapBase::update(float dt)
 {
+	for (auto& player : players) {
+		if (player->Live == 0) {
+			GameOver(player);
+		}
+	}
 	ShotEvent();
 	packageEvent->update(dt);
 	packageEvent->PackageUpdate(players);
@@ -46,6 +52,8 @@ void MapBase::ShotEvent()
 			rect.origin += offset;
 
 			if (rect.containsPoint(bullet->getPosition()) && player->valid) {
+
+				bullet->player->hitCount++;
 
 				player->x_speed += player->defense ? bullet->hitSpeed / 10 : bullet->hitSpeed;
 				player->hit = true;
@@ -99,5 +107,15 @@ bool MapBase::InTheBoundary(std::vector<float>& floor, float x) const
 void MapBase::bindPlayerStateMenu(PlayerStateMenu* playerState)
 {
 	this->playerState = playerState;
+}
+
+void MapBase::GameOver(CharacterBase* player)
+{
+	auto move = EaseSineOut::create(MoveTo::create(1, initPlatformPosition));
+	auto func = CallFunc::create([&]() {
+		Director::getInstance()->replaceScene(Transition::create(0.5f, PlayerSetup::create())); 
+		});
+	if(!gameOver)player->runAction(Sequence::create(move, func, nullptr));
+	gameOver = true;
 }
 

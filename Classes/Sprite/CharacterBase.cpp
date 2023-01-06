@@ -3,6 +3,7 @@
 #include "Skill/Defense.h"
 #include "Skill/SpeedUp.h"
 #include "Map/MapBase.h"
+#include "Manager/Shake.h"
 #include <iostream>
 
 bool CharacterBase::init(int tag, MapBase* map)
@@ -13,6 +14,7 @@ bool CharacterBase::init(int tag, MapBase* map)
     this->setTag(tag);
 
     this->map = map;
+    Live = UserManager::getInstance()->Live;
     accelerate = 0;
     x_speed = 0;
     y_speed = 0;
@@ -26,7 +28,7 @@ bool CharacterBase::init(int tag, MapBase* map)
     while(!InTheBoundary(map->Floor.back(),x))
         x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
 
-    this->setPosition(x,map->platform->getContentSize().height + 2000);
+    this->setPosition(x,map->platform->getContentSize().height + 5000);
 
     skill = new Defense(this, 3);
 
@@ -156,8 +158,8 @@ void CharacterBase::update(float dt)
                 keyMap["up"] = false;
             }
             y_speed += status->gravitation * dt;
-            if (y_speed < -status->y_maxSpeed * 2.5)
-                y_speed = -status->y_maxSpeed * 2.5;
+            if (y_speed < -status->y_maxSpeed * 2.3)
+                y_speed = -status->y_maxSpeed * 2.3;
         }
         if (y_speed > 0) {
             if (getPositionY() + y_speed * dt > map->floor_base + floor * map->floor_height &&
@@ -173,8 +175,10 @@ void CharacterBase::update(float dt)
                 MoveDelay(true, true);
                 inTheAir = false;
                 DustUpdate();
+                if (firstLand) { DustUpdate(); DustUpdate(); DustUpdate(); DustUpdate();}
                 y_speed = 0;
                 this->setPositionY(map->floor_base + floor * map->floor_height);
+                if (firstLand)firstLand = false;
             }
             else {
                 this->setPositionY(getPositionY() + y_speed * dt);
@@ -193,16 +197,21 @@ void CharacterBase::update(float dt)
                 this->setVisible(false); this->Flip(false);
                 y_speed = 0; x_speed = 0; valid = false; floor = map->Floor.size() - 1;
                 if (skill) { delete skill; skill = nullptr; }
+                //this->map->runAction(Sequence::create(MoveBy::create(0.01, Vec2(-100, -50)), MoveBy::create(0.01, Vec2(200, 100)), MoveBy::create(0.01, Vec2(-100, -50)), nullptr));
+                this->map->runAction(Shake::createWithStrength(0.16, 25, 10));
+                Live--;
+                if (Live == 0)this->stopAllActions();
                 });
             CallFunc* func2 = CallFunc::create([&]() {
-                skill = new Defense(this, 3);
+                firstLand = true;
+                skill = new Defense(this, 6);
                 this->setVisible(true); valid = true;
                 });
             float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
             while (!InTheBoundary(map->Floor.back(), x))
                 x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
-            Vec2 position = Vec2(x, map->platform->getContentSize().height + 2000);
-            auto move1 = MoveTo::create(0.5, position);
+            Vec2 position = Vec2(x, map->platform->getContentSize().height + 5000);
+            auto move1 = MoveTo::create(1, position);
             auto move2 = EaseSineOut::create(move1);
             this->runAction(Sequence::create(func1, move2, func2, nullptr));
         }
@@ -286,9 +295,10 @@ void CharacterBase::update(float dt)
     }
 }
 
+
 void CharacterBase::MoveDelay(bool up, bool floor)
 {
-    for (int i = 2; i < organs.size(); i++)
+    for (int i = 3; i < organs.size(); i++)
         organs[i]->MoveDelay(up, floor);
 }
 

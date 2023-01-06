@@ -1,17 +1,20 @@
 #include "Bullet.h"
+#include "Sprite/CharacterBase.h"
 
-bool Bullet::init(Node* back, Vec2 init, Vec2 offset, float bulletSpeed,float hitSpeed, bool direction)
+bool Bullet::init(CharacterBase* player, Vec2 init, Vec2 offset)
 {
 	if (!Sprite::init()) {
 		return false;
 	}
-	this->back = back;
+	player->shotCount++;
+	this->player = player;
+	this->back = player->map->platform;
 	bullet = Sprite::createWithSpriteFrameName("razer.png");
-	this->setFlippedX(direction);
-	bullet->setFlippedX(direction);
-	this->bulletSpeed = direction? -bulletSpeed: bulletSpeed;
-	this->hitSpeed = direction ? -hitSpeed : hitSpeed;
-	direction ? offset.x = -offset.x : offset.x = offset.x;
+	this->setFlippedX(player->isFlippedX());
+	bullet->setFlippedX(player->isFlippedX());
+	this->bulletSpeed = player->isFlippedX() ? -player->gun->bulletSpeed: player->gun->bulletSpeed;
+	this->hitSpeed = player->isFlippedX() ? -player->gun->hitSpeed : player->gun->hitSpeed;
+	player->isFlippedX() ? offset.x = -offset.x : offset.x = offset.x;
 	currentPoint = init + offset;
 	this->addChild(bullet, 0);
 	this->setPosition(currentPoint);
@@ -28,10 +31,10 @@ void Bullet::update(float dt)
 	
 }
 
-Bullet* Bullet::create(Node* back, Vec2 init, Vec2 offset, float bulletSpeed,float hitSpeed, bool direction)
+Bullet* Bullet::create(CharacterBase* player, Vec2 init, Vec2 offset)
 {
 	auto bullet = new Bullet();
-	if (bullet && bullet->init(back, init, offset, bulletSpeed,hitSpeed, direction)) {
+	if (bullet && bullet->init(player, init, offset)) {
 		bullet->autorelease();
 		return bullet;
 	}

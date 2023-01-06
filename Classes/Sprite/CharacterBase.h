@@ -7,6 +7,7 @@
 #include "Organ/Foot.h"
 #include "Organ/Hand.h"
 #include "Organ/Head.h"
+#include "Organ/Hat.h"
 #include "Organ/OrganBase.h"
 #include "Weapons/Gun/GunBase.h"
 #include "Stuff/Dust.h"
@@ -63,6 +64,7 @@ public:
     Body* body;
     Head* head;
     Face* face;
+    Hat* hat;
     Foot* feet1;
     Foot* feet2;
     Hand* hand1;
@@ -87,6 +89,12 @@ public:
     bool valid = true;   
     bool hit = false;
     bool defense;
+    bool firstLand = true;
+
+    int shotCount = 0;
+    int hitCount = 0;
+
+    int Live;
 };
 
 #endif

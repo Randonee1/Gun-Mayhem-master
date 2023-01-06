@@ -108,7 +108,7 @@ void Gun_MG_P90::SetBullet()
     BulletCase::create(map->platform, GetPositionToBackground(true), Vec2(10, 20), this->_flippedX,300,1);
     unsigned seed = time(0);
     float y = rand() % 16 + 10;
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(60, y), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(player, GetPositionToBackground(true), Vec2(60, y)));
 }
 
 void Gun_MG_P90::update(float dt)

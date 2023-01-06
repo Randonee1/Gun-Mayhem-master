@@ -115,7 +115,7 @@ Sequence* Gun_Modern_Sniper::HoldingOn(bool withgun)
 void Gun_Modern_Sniper::SetBullet()
 {
     GunBase::SetBullet();
-    map->bullets.push_back(Bullet::create(map->platform, GetPositionToBackground(true), Vec2(60, 23), bulletSpeed, hitSpeed, this->_flippedX));
+    map->bullets.push_back(Bullet::create(player, GetPositionToBackground(true), Vec2(60, 23)));
 }
 
 void Gun_Modern_Sniper::SetBulletCase()

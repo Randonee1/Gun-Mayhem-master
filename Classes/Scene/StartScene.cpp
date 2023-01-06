@@ -47,8 +47,13 @@ void StartScene::initGame()
 	manager->player_face[1] = manager->FaceRandom();
 	manager->player_face[2] = manager->FaceRandom();
 
+	manager->player_hat[1] = manager->HatRandom();
+	manager->player_hat[2] = manager->HatRandom();
+
 	manager->player_skin[1] = manager->SkinRandom();
 	manager->player_skin[2] = manager->SkinRandom();
+
+	manager->Live = 10000;
 
 	switch (rand() % 4)
 	{
@@ -68,8 +73,14 @@ void StartScene::initGame()
 	
 	this->addChild(game,-1);
 
+	manager->player_type[1] = true;
+	manager->player_type[2] = true;
+
 	manager->player_face[1] = "Normal";
 	manager->player_face[2] = "Normal";
+
+	manager->player_hat[1] = "None";
+	manager->player_hat[2] = "None";
 
 	manager->player_skin[1] = "White";
 	manager->player_skin[2] = "White";

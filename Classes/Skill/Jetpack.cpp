@@ -56,7 +56,7 @@ void Jetpack::Emission()
 
 	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 	Animate* animate = Animate::create(animation);
-	float y = GameManager::Random(50, 200)-player->y_speed*0.5/2;
+	float y = GameManager::Random(-20, 150) - (player->y_speed * 0.5)/3;
 	float x = GameManager::Random(-100, 100)+ player->x_speed*0.5/2;
 	auto move = EaseSineOut::create(MoveBy::create(0.5f, Vec2(x, -y)));
 	auto shrink = ScaleBy::create(0.5f, 0);

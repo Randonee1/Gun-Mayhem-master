@@ -68,19 +68,19 @@ std::map<std::string, const char*> GameManager::Faces = {
     {"Dot", "dot.png"},
     {"Glass", "glass.png"}
 };
-std::map<std::string, const char*> Hats = {
+std::map<std::string, const char*> GameManager::Hats = {
     {"Angel", "angel.png"},
     {"BlackHat", "blackhat.png"},
     {"Drop", "drop.png"},
     {"Tie", "tie.png" },
-    {"WhiteHat", "whitehat.png"}
+    {"WhiteHat", "whitehat.png"},
+    {"None", nullptr}
+};
+std::map<std::string, const char*> GameManager::Costumes = {
 
 };
-std::map<std::string, const char*> Costumes = {
 
-};
-
-int GameManager::Live = 10;
+//int GameManager::Live = 10;
 
 int GameManager::BackChoise = 0;
 

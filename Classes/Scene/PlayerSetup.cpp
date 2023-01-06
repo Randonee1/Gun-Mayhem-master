@@ -3,7 +3,6 @@
 #include"Scene/Loading.h"
 #include"Manager/GameManager.h"
 #include"Sprite/CharacterBase.h"
-#include"Sprite/Player1.h"
 #include"Sprite/Player2.h"
 
 
@@ -197,6 +196,8 @@ Sprite* PlayerSetup::PlayerPattern(int tag)
 	Sprite* foot1 = Sprite::createWithSpriteFrameName(GameManager::Feet[manager->player_skin[tag]]);
 	Sprite* foot2 = Sprite::createWithSpriteFrameName(GameManager::Feet[manager->player_skin[tag]]);
 	Sprite* face = Sprite::createWithSpriteFrameName(GameManager::Faces[manager->player_face[tag]]);
+	Sprite* hat = GameManager::Hats[manager->player_hat[tag]]?
+		Sprite::createWithSpriteFrameName(GameManager::Hats[manager->player_hat[tag]]): new Sprite();
 
 	/*body->setScale(2);
 	head->setScale(2);
@@ -211,6 +212,9 @@ Sprite* PlayerSetup::PlayerPattern(int tag)
 
 	hand1->setPosition(Vec2(-31 / 2.2, -55 / 2.2));
 	player->addChild(hand1, 4);
+
+	hat->setPosition(Vec2(0, 0) + head->getContentSize() / 2);
+	head->addChild(hat, 3);
 
 	face->setPosition(Vec2(30 / 2.2, 0) + head->getContentSize()/2);
 	head->addChild(face, 2);
@@ -250,7 +254,7 @@ void PlayerSetup::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventType ty
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		Director::getInstance()->replaceScene(GameScene::CreateGame(GameManager::BackChoise));
+		Director::getInstance()->replaceScene(Transition::create(0.5f, GameScene::CreateGame(GameManager::BackChoise)));
 		break;
 	default:
 		break;
@@ -733,7 +737,7 @@ void PlayerSetup::DECdrop1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[1] = "Drop";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -747,7 +751,7 @@ void PlayerSetup::DECtire1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[1] = "Tie";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -761,7 +765,7 @@ void PlayerSetup::DECblackhat1(Ref* ref, cocos2d::ui::Widget::TouchEventType typ
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[1] = "BlackHat";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -775,7 +779,7 @@ void PlayerSetup::DECwhitehat1(Ref* ref, cocos2d::ui::Widget::TouchEventType typ
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[1] = "WhiteHat";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -789,7 +793,7 @@ void PlayerSetup::DECangel1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[1] = "Angel";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -859,7 +863,7 @@ void PlayerSetup::DECdrop2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[2] = "Drop";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -873,7 +877,7 @@ void PlayerSetup::DECtire2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[2] = "Tie";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -887,7 +891,7 @@ void PlayerSetup::DECblackhat2(Ref* ref, cocos2d::ui::Widget::TouchEventType typ
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[2] = "BlackHat";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -901,7 +905,7 @@ void PlayerSetup::DECwhitehat2(Ref* ref, cocos2d::ui::Widget::TouchEventType typ
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[2] = "WhiteHat";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());
@@ -915,7 +919,7 @@ void PlayerSetup::DECangel2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		//在 初始化.cpp 里初始化信息
-
+		manager->player_hat[2] = "Angel";
 
 		//回去
 		Director::getInstance()->replaceScene(PlayerSetup::create());

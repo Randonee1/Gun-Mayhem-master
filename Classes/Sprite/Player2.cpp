@@ -41,6 +41,7 @@ void Player2::initBody()
 
     std::string player_name;
     std::string face_name;
+    std::string hat_name;
 
     /*if (this->getTag() == 1) {
         player_name = manager->player1_skin;
@@ -52,12 +53,15 @@ void Player2::initBody()
     }*/
     player_name = manager->player_skin[this->getTag()];
     face_name = manager->player_face[this->getTag()];
+    hat_name = manager->player_hat[this->getTag()];
 
-    //头和身体
+    //头和身体和帽子
     body = Body::CreateWithName(GameManager::Bodys[player_name]);
     organs.push_back(body);
     head = Head::CreateWithName(GameManager::Heads[player_name]);
     organs.push_back(head);
+    hat = Hat::CreateWithName(GameManager::Hats[hat_name]);
+    organs.push_back(hat);
     //四肢和脸
     face = Face::CreateWithName(GameManager::Faces[face_name]);
     organs.push_back(face);
@@ -80,6 +84,9 @@ void Player2::initBody()
     hand1->initPosition = Vec2(-31 / 2.2, -55 / 2.2);
     hand1->setPosition(hand1->initPosition);
     this->addChild(hand1, 4);
+
+    hat->setPosition(Vec2(0, 0));
+    head->addChild(hat, 3);
 
     face->setPosition(Vec2(30 / 2.2, 0));
     head->addChild(face, 2);

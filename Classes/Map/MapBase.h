@@ -7,6 +7,7 @@
 #include "Stuff/Blood.h"
 #include "Manager/GameManager.h"
 #include "Manager/UserManager.h"
+#include "Scene/Transition.h"
 
 
 USING_NS_CC;
@@ -33,6 +34,8 @@ public:
 
 	void bindPlayerStateMenu(PlayerStateMenu* playerState);
 
+	void GameOver(CharacterBase* player);
+
 	Sprite* platform;
 	Sprite* backLayer;
 
@@ -45,7 +48,9 @@ public:
 	PackageEvent* packageEvent;
 protected:
 
-	PlayerStateMenu* playerState;
+	bool gameOver = false;
+
+	PlayerStateMenu* playerState = nullptr;
 	
 	Size visibleSize;
 

@@ -11,6 +11,11 @@ public:
 
 	bool initGame(int Level);
 	
+	void initKeyboardListener();
+
+	void onKeyReleased(EventKeyboard::KeyCode keycode, Event* event);
+
+	void EscapeEvent();
 };
 
 #endif 

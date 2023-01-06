@@ -135,7 +135,7 @@ void BaseBall_Bat::SetBullet()
     gunshadow_left->removeFromParent();
     gunshadow_left = nullptr;
     gun_left->setVisible(true);
-    map->bullets.push_back(BaseBall::create(map->platform, GetPositionToBackground(true), Vec2(0, 0), bulletSpeed + std::abs(player->x_speed), hitSpeed, this->_flippedX));
+    map->bullets.push_back(BaseBall::create(player, GetPositionToBackground(true), Vec2(0, 0)));
 }
 
 void BaseBall_Bat::update(float dt)

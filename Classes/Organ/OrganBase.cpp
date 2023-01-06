@@ -38,7 +38,7 @@ void OrganBase::MoveDelay(bool up, bool floor)
         }
         else {
             auto move1 = MoveTo::create(0.1, Vec2(0, 0));
-            auto move2 = MoveBy::create(0.06, Vec2(0, 15));
+            auto move2 = MoveBy::create(0.06, Vec2(0, 10));
             seq = Sequence::create(move1, move2, nullptr);
             tag = 2;
         }

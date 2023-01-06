@@ -7,7 +7,9 @@ bool PlayerBase::initWithTag(int name, MapBase* map)
     }
 
     keymap = GameManager::getKeyMap(name);
+    
     initBody();
+
     initKeyboardListener();
     
     return true;

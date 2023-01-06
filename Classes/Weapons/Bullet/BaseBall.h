@@ -5,15 +5,17 @@
 #include "Bullet.h"
 USING_NS_CC;
 
+class CharacterBase;
+
 class BaseBall : public Bullet
 {
 public:
 
-	bool init(Node* back, Vec2 init, Vec2 offset, float bulletSpeed, float hitSpeed, bool direction) override;
+	bool init(CharacterBase* player, Vec2 init, Vec2 offset) override;
 
 	void update(float dt) override;
 
-	static BaseBall* create(Node* back, Vec2 init, Vec2 offset, float bulletSpeed, float hitSpeed, bool direction);
+	static BaseBall* create(CharacterBase* player, Vec2 init, Vec2 offset);
 
 	float x_bulletSpeed;
 	float y_bulletSpeed;

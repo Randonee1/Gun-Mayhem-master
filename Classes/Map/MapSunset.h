@@ -4,11 +4,10 @@
 #include "cocos2d.h"
 #include "MapBase.h"
 #include "Stuff/Package/PackageEvent.h"
-#include "Sprite/AI1.h"
 #include "Sprite/AI2.h"
-#include "Sprite/Player1.h"
 #include "Sprite/Player2.h"
 #include "Sprite/CharacterBase.h"
+
 
 USING_NS_CC;
 

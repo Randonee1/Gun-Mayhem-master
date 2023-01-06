@@ -21,6 +21,7 @@ public:
 private:
 	void onMouseMove(Event* event);
 	Sprite* blacksprite;
+	EditBox* editbox1;
 	bool move = false;
 };
 

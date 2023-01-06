@@ -1,14 +1,17 @@
 #include "BaseBall.h"
+#include "Sprite/CharacterBase.h"
 
-bool BaseBall::init(Node* back, Vec2 init, Vec2 offset, float bulletSpeed, float hitSpeed, bool direction)
+bool BaseBall::init(CharacterBase* player, Vec2 init, Vec2 offset)
 {
-	this->back = back;
+	player->shotCount++;
+	this->player = player;
+	this->back = player->map->platform;
 	bullet = Sprite::create("baseball.png");
-	this->setFlippedX(direction);
-	bullet->setFlippedX(direction);
-	this->x_bulletSpeed = direction ? -bulletSpeed : bulletSpeed;
+	this->setFlippedX(player->isFlippedX());
+	bullet->setFlippedX(player->isFlippedX());
+	this->x_bulletSpeed = player->x_speed + (player->isFlippedX() ? -player->gun->bulletSpeed : player->gun->bulletSpeed);
 	this->y_bulletSpeed = 0;
-	this->hitSpeed = direction ? -hitSpeed : hitSpeed;
+	this->hitSpeed = player->isFlippedX() ? -player->gun->hitSpeed : player->gun->hitSpeed;
 	currentPoint = init + offset;
 	this->addChild(bullet, 0);
 	this->setPosition(currentPoint);
@@ -25,10 +28,10 @@ void BaseBall::update(float dt)
 	this->setPosition(currentPoint);
 }
 
-BaseBall* BaseBall::create(Node* back, Vec2 init, Vec2 offset, float bulletSpeed, float hitSpeed, bool direction)
+BaseBall* BaseBall::create(CharacterBase* player, Vec2 init, Vec2 offset)
 {
 	auto ball = new BaseBall();
-	if (ball && ball->init(back, init, offset, bulletSpeed, hitSpeed, direction)) {
+	if (ball && ball->init(player, init, offset)) {
 		ball->autorelease();
 		return ball;
 	}

@@ -32,7 +32,7 @@ public:
 	static std::map<std::string, const char*> Hats;
 	static std::map<std::string, const char*> Costumes;
 
-	static int Live;
+	//static int Live;
 	
 	static int BackChoise;
 	static std::vector<std::string> BackChoises;

@@ -27,7 +27,7 @@ bool BackgroundChoise::init() {
 
 
 	auto inputBox = Sprite::create("customGameMenu/word.png");
-	auto editbox1 = EditBox::create(Size(inputBox->getContentSize().width, inputBox->getContentSize().height), Scale9Sprite::create("customGameMenu/word.png"));
+	editbox1 = EditBox::create(Size(inputBox->getContentSize().width, inputBox->getContentSize().height), Scale9Sprite::create("customGameMenu/word.png"));
 	
 	//auto editbox1 = EditBox::create(Size(200, 35), Scale9Sprite::create("editbox.png"));
 	//editbox1->setAnchorPoint(Point(0, 0));
@@ -38,9 +38,9 @@ bool BackgroundChoise::init() {
 	editbox1->setTag(1);
 	this->addChild(editbox1, 2);
 
-	auto text=editbox1->getText();
+	/*auto text=editbox1->getText();
 	int live = *text - '0';
-	GameManager::Live = live;
+	GameManager::Live = live;*/
 
 
 	//²¼ÖÃ°´Å¥
@@ -307,6 +307,17 @@ void BackgroundChoise::buttonCallBack(Ref* ref, cocos2d::ui::Widget::TouchEventT
 
 void BackgroundChoise::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 {
+	auto text = editbox1->getText();
+	std::string Live = text;
+	int live = 0;
+	if (Live.empty())live = 10;
+	for (int i = 0; i < Live.size(); ++i) {
+		if (isdigit(Live[i])) live = live * 10 + int(Live[i] - '0');
+		else { live = 10; break; }
+	}
+
+	UserManager::getInstance()->Live = live;
+
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		Director::getInstance()->replaceScene(Transition::create(0.5f,PlayerSetup::create()));

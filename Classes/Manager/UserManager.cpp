@@ -10,6 +10,9 @@ UserManager::UserManager()
     player_face[2] = "Normal";
     player_skin[1] = "White";
     player_skin[2] = "White";
+    player_hat[1] = "None";
+    player_hat[2] = "None";
+    Live = 10000;
 }
 
 UserManager* UserManager::getInstance()
@@ -74,6 +77,34 @@ std::string UserManager::FaceRandom()
     }
 
     return face;
+}
+
+std::string UserManager::HatRandom()
+{
+    std::string hat;
+
+    switch (rand() % 6) {
+    case 0:
+        hat = "Angel";
+        break;
+    case 1:
+        hat = "BlackHat";
+        break;
+    case 2:
+        hat = "Drop";
+        break;
+    case 3:
+        hat = "Tie";
+        break;
+    case 4:
+        hat = "WhiteHat";
+        break;
+    case 5: 
+        hat = "None";
+        break;
+    }
+
+    return hat;
 }
 
 //std::vector<std::string> UserManager::UserName = {};
