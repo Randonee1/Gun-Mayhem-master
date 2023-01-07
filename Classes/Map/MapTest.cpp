@@ -41,7 +41,7 @@ void MapTest::update(float dt)
 	Vec2 initPlatform = Vec2(platformSize.width / 2, (floor_base + floor_base + floor_height * (Floor.size() - 1)) / 2);
 	Vec2 delta = Vec2(0, 0);
 	for (auto& player : players) { delta += player->getPosition();}
-	delta = (delta + initPlatform*3) / (players.size() + 3) - initPlatform;
+	delta = (delta + initPlatform*4) / (players.size() + 4) - initPlatform;
 
 	float a = std::pow(delta.x, 2) + std::pow(delta.y, 2);
 	float b = std::pow(visibleSize.height/1.2 , 2) + std::pow(visibleSize.width/1.2 , 2);

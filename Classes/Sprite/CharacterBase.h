@@ -73,6 +73,7 @@ public:
     GunBase* initGun;
     GunBase* throwGun;
     MapBase* map;
+    Label* playerName;
 
     Status* status = new Status();
 
@@ -90,6 +91,7 @@ public:
     bool hit = false;
     bool defense;
     bool firstLand = true;
+    bool isDoppelganger = false;
 
     int shotCount = 0;
     int hitCount = 0;

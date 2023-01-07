@@ -1,5 +1,6 @@
 #include "MapBase.h"
 #include "Scene/PlayerSetup.h"
+#include "Scene/AfterGame.h"
 #include "Stuff/Package/PackageEvent.h"
 #include "Sprite/CharacterBase.h"
 #include "Sprite/AI2.h"
@@ -53,17 +54,19 @@ void MapBase::ShotEvent()
 
 			if (rect.containsPoint(bullet->getPosition()) && player->valid) {
 
-				bullet->player->hitCount++;
+				if (!(bullet->player->isDoppelganger && bullet->player->getTag() == player->getTag())) {
+					bullet->player->hitCount++;
 
-				player->x_speed += player->defense ? bullet->hitSpeed / 10 : bullet->hitSpeed;
-				player->hit = true;
-				auto blood = Blood::create();
-				blood->setPosition(bullet->getPosition());
-				platform->addChild(blood, 4);
+					player->x_speed += player->defense ? bullet->hitSpeed / 10 : bullet->hitSpeed;
+					player->hit = true;
+					auto blood = Blood::create();
+					blood->setPosition(bullet->getPosition());
+					platform->addChild(blood, 4);
 
-				bullet->removeFromParent();
-				bullet = nullptr;
-				break;
+					bullet->removeFromParent();
+					bullet = nullptr;
+					break;
+				}
 			}
 		}
 	}
@@ -115,7 +118,7 @@ void MapBase::GameOver(CharacterBase* player)
 	auto move = EaseSineOut::create(MoveTo::create(1, initPlatformPosition));
 	auto delay = DelayTime::create(1);
 	auto func = CallFunc::create([&]() {
-		Director::getInstance()->replaceScene(Transition::create(0.5f, PlayerSetup::create())); 
+		Director::getInstance()->replaceScene(Transition::create(0.5f, AfterGame::create()));
 		});
 	if(!gameOver)player->runAction(Sequence::create(move,delay, func, nullptr));
 	gameOver = true;

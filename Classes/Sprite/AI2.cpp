@@ -87,7 +87,7 @@ void AI2::initBody()
     hat->setPosition(Vec2(0, 0));
     head->addChild(hat, 3);
 
-    face->setPosition(Vec2(30 / 2.2, 0));
+    face->setPosition(Vec2(0, 0));
     head->addChild(face, 2);
 
     hand2->initPosition = Vec2(109 / 2.2, -29 / 2.2);
@@ -108,10 +108,10 @@ void AI2::initBody()
     hand2->GetGun(gun, false);
     gun->player = this;
 
-    auto name = Label::createWithTTF(manager->player_name[getTag()], "fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF", 36);
-    name->setAnchorPoint(Vec2(0.5, 0.5));
-    name->setPosition(0, 140);
-    this->addChild(name, 1);
+    playerName = Label::createWithTTF(manager->player_name[getTag()], "fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF", 36);
+    playerName->setAnchorPoint(Vec2(0.5, 0.5));
+    playerName->setPosition(0, 140);
+    this->addChild(playerName, 1);
 
     AIBase::initBody();
 }

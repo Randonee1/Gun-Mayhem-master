@@ -217,7 +217,7 @@ Sprite* PlayerSetup::PlayerPattern(int tag)
 	hat->setPosition(Vec2(0, 0) + head->getContentSize() / 2);
 	head->addChild(hat, 3);
 
-	face->setPosition(Vec2(30 / 2.2, 0) + head->getContentSize()/2);
+	face->setPosition(Vec2(0, 0) + head->getContentSize()/2);
 	head->addChild(face, 2);
 
 	hand2->setPosition(Vec2(109 / 2.2, -29 / 2.2));
@@ -256,7 +256,7 @@ void PlayerSetup::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventType ty
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
 		Director::getInstance()->replaceScene(Transition::create(0.5f, GameScene::CreateGame(GameManager::BackChoise)));
-		//Director::getInstance()->replaceScene(Transition::create(0.5f, AfterGame::createScene()));
+
 		break;
 	default:
 		break;
