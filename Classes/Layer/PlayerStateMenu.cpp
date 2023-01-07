@@ -102,9 +102,6 @@ Sprite* PlayerStateMenu::CreateAvatar(int tag)
     face->setFlippedX(true);
     hat->setFlippedX(true);
 
-    Vec2 anchor = face->getAnchorPoint();
-    anchor.x = 1 - anchor.x;
-    face->setAnchorPoint(anchor);
 
     head->setPosition(Vec2(-(65 / 2.2 - 8), 130 / 2.2 - 2));
 	player->addChild(head, 1);

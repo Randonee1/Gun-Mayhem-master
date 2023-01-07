@@ -53,17 +53,19 @@ void MapBase::ShotEvent()
 
 			if (rect.containsPoint(bullet->getPosition()) && player->valid) {
 
-				bullet->player->hitCount++;
+				if (!(bullet->player->isDoppelganger && bullet->player->getTag() == player->getTag())) {
+					bullet->player->hitCount++;
 
-				player->x_speed += player->defense ? bullet->hitSpeed / 10 : bullet->hitSpeed;
-				player->hit = true;
-				auto blood = Blood::create();
-				blood->setPosition(bullet->getPosition());
-				platform->addChild(blood, 4);
+					player->x_speed += player->defense ? bullet->hitSpeed / 10 : bullet->hitSpeed;
+					player->hit = true;
+					auto blood = Blood::create();
+					blood->setPosition(bullet->getPosition());
+					platform->addChild(blood, 4);
 
-				bullet->removeFromParent();
-				bullet = nullptr;
-				break;
+					bullet->removeFromParent();
+					bullet = nullptr;
+					break;
+				}
 			}
 		}
 	}

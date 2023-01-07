@@ -14,8 +14,10 @@ public:
 
 	void update(float dt) override;
 
-private:
+	void ShotEvent();
 
+private:
+	CharacterBase* doppelganger;
 };
 
 #endif

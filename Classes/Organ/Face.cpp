@@ -28,11 +28,15 @@ void Face::setFlippedX(bool flippedX)
     organ->setFlippedX(flippedX);
     if (_flippedX != flippedX)
     {
+        _flippedX = flippedX;
+        //this->setPositionX(-this->getPositionX());
         Vec2 anch = organ->getAnchorPoint();
         anch.x = 1-anch.x;
         organ->setAnchorPoint(anch);
-        _flippedX = flippedX;
-        //this->setPositionX(-this->getPositionX());
+        Vec2 point = organ->getPosition();
+        point.x = -point.x;
+        organ->setPosition(point);
+        
         flipX();
     }
 }

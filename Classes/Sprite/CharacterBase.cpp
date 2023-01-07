@@ -69,7 +69,6 @@ Sprite* CharacterBase::clone()
 
     _foot1->setAnchorPoint(feet1->organ->getAnchorPoint());
     _foot2->setAnchorPoint(feet2->organ->getAnchorPoint());
-    _face->setAnchorPoint(face->organ->getAnchorPoint());
     if(_gun_right)_gun_right->setAnchorPoint(gun->gun_right->getAnchorPoint());
     if(_gun_left)_gun_left->setAnchorPoint(gun->gun_left->getAnchorPoint());
 
@@ -118,8 +117,8 @@ void CharacterBase::update(float dt)
 {
 	Sprite::update(dt);
     gun->update(dt);
-    if (map->playerState) { map->playerState->SetLive(Live, getTag()); }
-    if (map->playerState) { map->playerState->SetAmmo(gun->bulletClip-gun->bulletCount, getTag()); }
+    if (map->playerState && !isDoppelganger) { map->playerState->SetLive(Live, getTag()); }
+    if (map->playerState && !isDoppelganger) { map->playerState->SetAmmo(gun->bulletClip-gun->bulletCount, getTag()); }
 
     if(valid)
     {
