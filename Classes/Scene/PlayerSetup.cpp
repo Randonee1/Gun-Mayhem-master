@@ -255,8 +255,7 @@ void PlayerSetup::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventType ty
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		//Director::getInstance()->replaceScene(Transition::create(0.5f, GameScene::CreateGame(GameManager::BackChoise)));
-		Director::getInstance()->replaceScene(Transition::create(0.5f, AfterGame::createScene()));
+		Director::getInstance()->replaceScene(Transition::create(0.5f, GameScene::CreateGame(GameManager::BackChoise)));
 		break;
 	default:
 		break;

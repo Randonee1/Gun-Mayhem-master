@@ -18,7 +18,7 @@ bool SkillPackage::initWithGun(MapBase* map)
     if (!PackageBase::init(map))
         return false;
 
-    switch (rand() % 2) 
+    switch (rand() % 5) 
     {
     case 0:
         skill = DEFENSE;
@@ -28,21 +28,21 @@ bool SkillPackage::initWithGun(MapBase* map)
         skill = SPEED_UP;
         package = Sprite::createWithSpriteFrameName("speedup.png");
         break;
-    case 3:
-        skill = SUPER_JUMP;
-        package = Sprite::createWithSpriteFrameName("superJump.png");
+    case 2:
+        skill = DOUBLE_TEAM;
+        package = Sprite::createWithSpriteFrameName("doubleTeam.png");
         break;
-    case 4:
+    case 3:
         skill = JETPACK;
         package = Sprite::createWithSpriteFrameName("jetPack.png");
         break;
-    case 5:
+    case 4:
         skill = EXTRA_LIFE;
         package = Sprite::createWithSpriteFrameName("extraLife.png");
         break;
-    case 6:
-        skill = DOUBLE_TEAM;
-        package = Sprite::createWithSpriteFrameName("doubleTeam.png");
+    case 5:
+        skill = SUPER_JUMP;
+        package = Sprite::createWithSpriteFrameName("superJump.png");
         break;
     }
 
@@ -54,8 +54,8 @@ bool SkillPackage::initWithGun(MapBase* map)
     package = Sprite::createWithSpriteFrameName("jetPack.png");*/
     /*skill = EXTRA_LIFE;
     package = Sprite::createWithSpriteFrameName("extraLife.png");*/
-    skill = DOUBLE_TEAM;
-    package = Sprite::createWithSpriteFrameName("doubleTeam.png");
+    /*skill = DOUBLE_TEAM;
+    package = Sprite::createWithSpriteFrameName("doubleTeam.png");*/
 
     this->addChild(package, 0);
 

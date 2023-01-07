@@ -109,7 +109,7 @@ Sprite* PlayerStateMenu::CreateAvatar(int tag)
 	hat->setPosition(Vec2(0, 0) + head->getContentSize() / 2);
 	head->addChild(hat, 3);
 
-	face->setPosition(Vec2(-30 / 2.2, 0) + head->getContentSize() / 2);
+	face->setPosition(Vec2(0, 0) + head->getContentSize() / 2);
 	head->addChild(face, 2);
 
 	body->setPosition(Vec2(0, 0));

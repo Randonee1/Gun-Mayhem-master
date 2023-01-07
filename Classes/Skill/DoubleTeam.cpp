@@ -24,6 +24,8 @@ DoubleTeam::DoubleTeam(CharacterBase* player)
 
 DoubleTeam::~DoubleTeam()
 {
+	if (doppelganger->gun->gunshadow_right)
+		doppelganger->gun->gunshadow_right->removeFromParent();
 	doppelganger->removeFromParent();
 	doppelganger = nullptr;
 }

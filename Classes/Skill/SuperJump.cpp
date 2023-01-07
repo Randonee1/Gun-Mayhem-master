@@ -31,7 +31,6 @@ void SuperJump::update(float dt)
 	if (storingPower && time < 2) {
 		time += dt;
 		speed += player->status->y_maxSpeed / 2 * dt;
-		CCLOG("%f", speed);
 	}
 
 	if (player->inTheAir && player->y_speed == player->status->y_maxSpeed + player->status->gravitation *dt) {

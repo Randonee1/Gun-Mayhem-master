@@ -1,5 +1,6 @@
 #include "MapBase.h"
 #include "Scene/PlayerSetup.h"
+#include "Scene/AfterGame.h"
 #include "Stuff/Package/PackageEvent.h"
 #include "Sprite/CharacterBase.h"
 #include "Sprite/AI2.h"
@@ -117,7 +118,7 @@ void MapBase::GameOver(CharacterBase* player)
 	auto move = EaseSineOut::create(MoveTo::create(1, initPlatformPosition));
 	auto delay = DelayTime::create(1);
 	auto func = CallFunc::create([&]() {
-		Director::getInstance()->replaceScene(Transition::create(0.5f, PlayerSetup::create())); 
+		Director::getInstance()->replaceScene(Transition::create(0.5f, AfterGame::create()));
 		});
 	if(!gameOver)player->runAction(Sequence::create(move,delay, func, nullptr));
 	gameOver = true;
