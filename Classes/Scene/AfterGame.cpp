@@ -34,10 +34,10 @@ bool AfterGame::init()
 	std::string player1 = manager->player1;
 	std::string player2 = manager->player2;
 	auto map = manager->Standing;
-	//测试
-	map[player1] = { 100 ,0.75,7,6,4,420,300};
-	//map[player1] = { 100,0.89,12,8,8,576,463 };
-	map[player2] = { 100,0.89,12,8,8,576,463};
+	////测试
+	//map[player1] = { 100 ,0.75,7,6,4,420,300};
+	////map[player1] = { 100,0.89,12,8,8,576,463 };
+	//map[player2] = { 100,0.89,12,8,8,576,463};
 
 	//更新map
 	map = calculate(player1,map);
@@ -49,22 +49,27 @@ bool AfterGame::init()
 	//判断没有输入名字的情况
 	if (player1 == "") {
 		manager->Standing.erase("");
+		manager->UserName.erase(find(manager->UserName.begin(), manager->UserName.end(), ""));
 	}
 	else if (player2 == "") {
 		manager->Standing.erase("");
+		manager->UserName.erase(find(manager->UserName.begin(), manager->UserName.end(), ""));
 	}
 
 	//写文件
-	std::ofstream outClientFile("StandingFile.txt", std::ios::out);
-	if (!outClientFile) {
-		log("File Write ERROR");
-		std::exit(EXIT_FAILURE);
+	if(player1 == "" && player2 == ""){}//其实没必要,稍微快一点
+	else{
+		std::ofstream outClientFile("StandingFile.txt", std::ios::out);
+		if (!outClientFile) {
+			log("File Write ERROR");
+			std::exit(EXIT_FAILURE);
+		}
+		std::map<std::string, std::vector<double>>::iterator it;
+		for (it = manager->Standing.begin(); it != manager->Standing.end(); ++it) {
+			outClientFile << it->first << " " << it->second[0] << " " << it->second[1] << " " << it->second[2] << " " << it->second[3] << " " << it->second[4] << " " << it->second[5] << " " << it->second[6] << std::endl;
+		}
+		outClientFile.close();
 	}
-	std::map<std::string, std::vector<double>>::iterator it;
-	for (it = manager->Standing.begin(); it != manager->Standing.end();++it) {
-		outClientFile << it->first << " " << it->second[0] << " " << it->second[1] << " " << it->second[2] << " " << it->second[3] << " " << it->second[4] << " " << it->second[5] <<" "<<it->second[6]<< std::endl;
-	}
-	outClientFile.close();
 
 	return true;
 }

@@ -301,27 +301,27 @@ void StartScene::onEnterTransitionDidFinish()
 }
 
 void StartScene::initFile() {
-	//写文件 后面注销掉就好
+	////写文件 后面注销掉就好
 	//std::ofstream outClientFile("StandingFile.txt", std::ios::out);
 	//if (!outClientFile) {
 	//	log("File Write ERROR");
 	//	std::exit(EXIT_FAILURE);
 	//}
 	//log("Write SUCCESS!");
-	///*outClientFile << "name" <<" "<< 1<<" " << 2 <<" " << 3<<" " << 4<<" " << 5 <<" " << 6 << std::endl;
-	//outClientFile << "name2" << " " << 19 << " " << 2.8767567 << " " << 3.8768765 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name3" << " " << 3324 << " " << 2.3242 << " " << 32 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name4" << " " << 321335 << " " << 12 << " " << 13 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name5" << " " << 12433 << " " << 32.52 << " " << 43 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name6" << " " << 24683 << " " << 49 << " " << 65.43 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name7" << " " << 97 << " " << 48.9 << " " << 56.246256<< " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name8" << " " << 9087 << " " << 21.2411 << " " << 31.2 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name9" << " " << 35 << " " << 223.12 << " " << 9.32 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name10" << " " << 308 << " " << 23.4 << " " << 76 << " " << 4 << " " << 5 << " " << 6 << std::endl;*/
-	//outClientFile << "name11" << " " << 332980 << " " << 1.2 << " " <<89 << " " << 4 << " " << 5 << " " << 6 <<" "<<7<< std::endl;
-	//outClientFile << "name12" << " " << 123218 << " " << 2 << " " << 4 << " " << 4 << " " << 5 << " " << 6 << " " << 7 << std::endl;
-	//outClientFile << "aaaaaaa" << " " << 11.34255 << " " << 22.3543 << " " << 2<< " " << 44 << " " << 55 << " " << 66 << " " << 7 << std::endl;
-	//outClientFile.close();
+	/*outClientFile << "name" <<" "<< 1<<" " << 2 <<" " << 3<<" " << 4<<" " << 5 <<" " << 6 << std::endl;
+	outClientFile << "name2" << " " << 19 << " " << 2.8767567 << " " << 3.8768765 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	outClientFile << "name3" << " " << 3324 << " " << 2.3242 << " " << 32 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	outClientFile << "name4" << " " << 321335 << " " << 12 << " " << 13 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	outClientFile << "name5" << " " << 12433 << " " << 32.52 << " " << 43 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	outClientFile << "name6" << " " << 24683 << " " << 49 << " " << 65.43 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	outClientFile << "name7" << " " << 97 << " " << 48.9 << " " << 56.246256<< " " << 4 << " " << 5 << " " << 6 << std::endl;
+	outClientFile << "name8" << " " << 9087 << " " << 21.2411 << " " << 31.2 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	outClientFile << "name9" << " " << 35 << " " << 223.12 << " " << 9.32 << " " << 4 << " " << 5 << " " << 6 << std::endl;
+	outClientFile << "name10" << " " << 308 << " " << 23.4 << " " << 76 << " " << 4 << " " << 5 << " " << 6 << std::endl;*/
+	/*outClientFile << "name11" << " " << 332980 << " " << 1.2 << " " <<89 << " " << 4 << " " << 5 << " " << 6 <<" "<<7<< std::endl;
+	outClientFile << "name12" << " " << 123218 << " " << 2 << " " << 4 << " " << 4 << " " << 5 << " " << 6 << " " << 7 << std::endl;
+	outClientFile << "aaaaaaa" << " " << 11.34255 << " " << 22.3543 << " " << 2<< " " << 44 << " " << 55 << " " << 66 << " " << 7 << std::endl;*/
+	/*outClientFile.close();*/
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//读文件
 	std::ifstream inClientFile("StandingFile.txt",std::ios::in);

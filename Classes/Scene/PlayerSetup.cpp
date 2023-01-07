@@ -255,6 +255,15 @@ void PlayerSetup::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventType ty
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
+		if (manager->player1 == "" && find(manager->UserName.begin(), manager->UserName.end(), "") == manager->UserName.end()) {
+			manager->UserName.push_back("");
+			manager->Standing.insert(std::pair<std::string, std::vector<double>>("", { 0,0,0,0,0,0,0 }));
+		}
+		if (manager->player2 == "" && find(manager->UserName.begin(), manager->UserName.end(), "") == manager->UserName.end()) {
+			manager->UserName.push_back("");
+			manager->Standing.insert(std::pair<std::string, std::vector<double>>("", { 0,0,0,0,0,0,0 }));
+		}
+
 		Director::getInstance()->replaceScene(Transition::create(0.5f, GameScene::CreateGame(GameManager::BackChoise)));
 
 		break;
