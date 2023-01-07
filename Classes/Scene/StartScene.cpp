@@ -48,6 +48,9 @@ void StartScene::initGame()
 	manager->player_type[1] = false;
 	manager->player_type[2] = false;
 
+	manager->player_name[1] = "player1";
+	manager->player_name[2] = "player2";
+
 	manager->player_face[1] = manager->FaceRandom();
 	manager->player_face[2] = manager->FaceRandom();
 
@@ -120,7 +123,7 @@ void StartScene::initButton()
 
 		});
 	GameMenu->setColor(Color3B::WHITE);
-	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
 	//GameMenu->setFontSize(200);
 	GameMenu->setFontSizeObj(100);
 
@@ -128,7 +131,7 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Setting::createScene()));
 		});
 	SettingMenu->setColor(Color3B::WHITE);
-	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
 	SettingMenu->setFontSizeObj(100);
 	SettingMenu->setPosition(0, -140);
 
@@ -137,7 +140,7 @@ void StartScene::initButton()
 		//Director::getInstance()->replaceScene(setting::createScene());
 		});
 	WeaponMenu->setColor(Color3B::WHITE);
-	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
 	WeaponMenu->setFontSizeObj(100);
 	WeaponMenu->setPosition(0, -280);
 
@@ -145,7 +148,7 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Standing::createScene()));
 		});
 	StandingMenu->setColor(Color3B::WHITE);
-	StandingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	StandingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
 	StandingMenu->setFontSizeObj(100);
 	StandingMenu->setPosition(0, -500);
 
@@ -153,7 +156,7 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Credits::createScene()));
 		});
 	creditsMenu->setColor(Color3B::WHITE);
-	creditsMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF");
+	creditsMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
 	creditsMenu->setFontSizeObj(100);
 	creditsMenu->setPosition(0, -640);
 

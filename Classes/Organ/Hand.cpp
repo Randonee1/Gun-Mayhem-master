@@ -15,7 +15,6 @@ Hand* Hand::CreateWithName(const char* name)
 
 void Hand::GetGun(GunBase* Gun,bool right)
 {
-   
     this->Gun = Gun;
     gun = right ? Gun->gun_right: Gun->gun_left;
     isRight = right;

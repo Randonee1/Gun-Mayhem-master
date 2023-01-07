@@ -14,9 +14,11 @@ public:
 
 	bool init() override;
 
-	void SetLive(const char*);
-
 	void bindMap(MapBase* map);
+
+	void SetLive(int live, int tag);
+
+	void SetAmmo(int ammo, int tag);
 
 	Sprite* CreateAvatar(int tag);
 
@@ -29,12 +31,13 @@ public:
 private:
 	MapBase* map;
 
-	Sprite* boardPlayer1;
-	Sprite* boardPlayer2;
-	Sprite* boardBack1;
-	Sprite* boardBack2;
-	Label* livePlayer1;
-	Label* livePlayer2;
+	std::map<int, Sprite*>boardPlayer;
+	
+	std::map<int, Sprite*>boardBack;
+	
+	std::map<int, Label*>livePlayer;
+	
+	std::map<int, Label*>ammoPlayer;
 };
 
 #endif

@@ -46,11 +46,10 @@ public:
 	std::vector<Bullet*>bullets;
 	std::vector<CharacterBase*> players;
 	PackageEvent* packageEvent;
+	PlayerStateMenu* playerState = nullptr;
 protected:
 
 	bool gameOver = false;
-
-	PlayerStateMenu* playerState = nullptr;
 	
 	Size visibleSize;
 
