@@ -55,7 +55,7 @@ bool Standing::init()
 		name->setTextColor(Color4B::BLACK);
 		name->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 		
-		std::string sacc = twoDec_ToString(vec[i].second[1]);
+		std::string sacc = twoDec_ToString(vec[i].second[1]*100);
 		sacc = sacc + "%";
 		auto acc = Label::createWithTTF(sacc, "fonts/gill-sans-mt-condensed/Gill Sans MT Condensed.TTF", 72);
 		acc->setTextColor(Color4B::BLACK);

@@ -4,6 +4,7 @@
 #include"Manager/GameManager.h"
 #include"Sprite/CharacterBase.h"
 #include"Sprite/Player2.h"
+#include"Scene/AfterGame.h"
 
 
 bool PlayerSetup::init() {
@@ -254,7 +255,8 @@ void PlayerSetup::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventType ty
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		Director::getInstance()->replaceScene(Transition::create(0.5f, GameScene::CreateGame(GameManager::BackChoise)));
+		//Director::getInstance()->replaceScene(Transition::create(0.5f, GameScene::CreateGame(GameManager::BackChoise)));
+		Director::getInstance()->replaceScene(Transition::create(0.5f, AfterGame::createScene()));
 		break;
 	default:
 		break;
@@ -293,10 +295,10 @@ void PlayerSetup::UserID1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 		std::string name = text;
 		if (find(manager->UserName.begin(), manager->UserName.end(), name) == manager->UserName.end()) {
 			manager->UserName.push_back(name);
-			manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { 0,0,0,0,0,0 }));
+			manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { 0,0,0,0,0,0,0 }));
 		}
 		manager->player1 = name;
-		manager->Standing[name][3] += 1;//对局数+1
+		//manager->Standing[name][3] += 1;//对局数+1
 
 		Director::getInstance()->replaceScene(PlayerSetup::create());
 		});
@@ -345,13 +347,14 @@ void PlayerSetup::UserID2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 
 	confirm->addClickEventListener([=](Ref* sender) {
 		auto text = editbox->getText();
+		log(text);
 		std::string name = text;
 		if (find(manager->UserName.begin(), manager->UserName.end(), name) == manager->UserName.end()) {
 			manager->UserName.push_back(name);
-			manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { 0,0,0,0,0,0 }));
+			manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { 0,0,0,0,0,0,0 }));
 		}
 		manager->player2 = name;
-		manager->Standing[name][3] += 1;//对局数+1
+		//manager->Standing[name][3] += 1;//对局数+1
 
 		Director::getInstance()->replaceScene(PlayerSetup::create());
 		});

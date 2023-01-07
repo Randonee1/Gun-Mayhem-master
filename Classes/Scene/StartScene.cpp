@@ -314,9 +314,9 @@ void StartScene::initFile() {
 	//outClientFile << "name8" << " " << 9087 << " " << 21.2411 << " " << 31.2 << " " << 4 << " " << 5 << " " << 6 << std::endl;
 	//outClientFile << "name9" << " " << 35 << " " << 223.12 << " " << 9.32 << " " << 4 << " " << 5 << " " << 6 << std::endl;
 	//outClientFile << "name10" << " " << 308 << " " << 23.4 << " " << 76 << " " << 4 << " " << 5 << " " << 6 << std::endl;*/
-	//outClientFile << "name11" << " " << 332980 << " " << 1.2 << " " <<89 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "name12" << " " << 123218 << " " << 2 << " " << 4 << " " << 4 << " " << 5 << " " << 6 << std::endl;
-	//outClientFile << "aaaaaaa" << " " << 11.34255 << " " << 22.3543 << " " << 2<< " " << 44 << " " << 55 << " " << 66 << std::endl;
+	//outClientFile << "name11" << " " << 332980 << " " << 1.2 << " " <<89 << " " << 4 << " " << 5 << " " << 6 <<" "<<7<< std::endl;
+	//outClientFile << "name12" << " " << 123218 << " " << 2 << " " << 4 << " " << 4 << " " << 5 << " " << 6 << " " << 7 << std::endl;
+	//outClientFile << "aaaaaaa" << " " << 11.34255 << " " << 22.3543 << " " << 2<< " " << 44 << " " << 55 << " " << 66 << " " << 7 << std::endl;
 	//outClientFile.close();
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//¶ÁÎÄ¼þ
@@ -333,10 +333,13 @@ void StartScene::initFile() {
 	double num;
 	double kill_this_game;
 	double shot_this_game;
+	double shoton_this_game;
 
-	while (inClientFile >> name >> mark >> rate >> kill_per_game >> num >> kill_this_game >> shot_this_game) {
-		manager->UserName.push_back(name);
-		manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { mark,rate,kill_per_game,num,kill_this_game,shot_this_game }));
+	while (inClientFile >> name >> mark >> rate >> kill_per_game >> num >> kill_this_game >> shot_this_game >> shoton_this_game) {
+		if (find(manager->UserName.begin(), manager->UserName.end(), name) == manager->UserName.end()) {
+			manager->UserName.push_back(name);
+			manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { mark,rate,kill_per_game,num,kill_this_game,shot_this_game,shoton_this_game }));
+		}
 	}
 
 

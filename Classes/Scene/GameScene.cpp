@@ -6,6 +6,7 @@
 #include "Map/MapSpace.h"
 #include "Map/MapSunset.h"
 #include "Map/MapSeele.h"
+#include"Scene/AfterGame.h"
 
 Scene* GameScene::CreateGame(int Level)
 {
@@ -67,5 +68,5 @@ void GameScene::onKeyReleased(EventKeyboard::KeyCode keycode, Event* event)
 void GameScene::EscapeEvent()
 {
     //构想：点击esc游戏暂停，出现一个弹窗，两个选项，一个重开游戏，一个结束游戏
-    Director::getInstance()->replaceScene(Transition::create(0.5f, PlayerSetup::create()));
+    Director::getInstance()->replaceScene(Transition::create(0.5f, AfterGame::create()));
 }
