@@ -1,0 +1,9 @@
+Sprite::create("baseball_bat.png"); baseball_bat(棒球棒)
+Sprite::create("revolver.png"); revolver（左轮）
+Sprite::create("Sniper_Rifle.png");Sniper_Rifle（狙击枪）
+Sprite::createWithSpriteFrameName("MG_Uzi.png"); uzi
+Sprite::createWithSpriteFrameName("MG_P90.png"); p90
+Sprite::createWithSpriteFrameName("MG_MP7.png"); mp7
+Sprite::createWithSpriteFrameName("MG_MP5.png"); mp5
+Sprite::create("gun_test.png");double(克洛克双枪)
+Sprite::createWithSpriteFrameName("Gatling.png"); gatling（加特林）

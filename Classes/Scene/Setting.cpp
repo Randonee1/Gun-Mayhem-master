@@ -114,6 +114,4 @@ void Setting::buttonCallBack(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 	default:
 		break;
 	}
-
-
 }

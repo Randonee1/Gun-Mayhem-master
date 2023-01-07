@@ -7,6 +7,7 @@
 #include "Map/MapSpace.h"
 #include "Map/MapSunset.h"
 #include "Map/MapSeele.h"
+#include"Scene/GunLibrary.h"
 
 bool StartScene::init() {
 	
@@ -137,7 +138,7 @@ void StartScene::initButton()
 
 
 	MenuItemFont* WeaponMenu = MenuItemFont::create("Weapon", [&](Ref* sender) {
-		//Director::getInstance()->replaceScene(setting::createScene());
+		Director::getInstance()->replaceScene(Transition::create(0.5f, GunLibrary::createScene()));
 		});
 	WeaponMenu->setColor(Color3B::WHITE);
 	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
@@ -300,7 +301,7 @@ void StartScene::onEnterTransitionDidFinish()
 }
 
 void StartScene::initFile() {
-	////写文件 后面注销掉就好
+	//写文件 后面注销掉就好
 	//std::ofstream outClientFile("StandingFile.txt", std::ios::out);
 	//if (!outClientFile) {
 	//	log("File Write ERROR");

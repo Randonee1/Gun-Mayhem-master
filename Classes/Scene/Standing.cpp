@@ -200,7 +200,8 @@ bool Standing::init()
 			this->addChild(ctp);
 			break;
 		}
-			
+		default:
+			break;
 		}
 	}
 	return true;
