@@ -118,6 +118,7 @@ void CharacterBase::update(float dt)
 {
 	Sprite::update(dt);
     gun->update(dt);
+    if (map->playerState) { map->playerState->SetLive(Live, getTag()); }
     if (map->playerState) { map->playerState->SetAmmo(gun->bulletClip-gun->bulletCount, getTag()); }
 
     if(valid)
@@ -206,7 +207,7 @@ void CharacterBase::update(float dt)
                 this->map->runAction(Shake::createWithStrength(0.16, 25, 10));
                 Live--;
                 if (Live == 0)this->stopAllActions();
-                if (map->playerState) { map->playerState->SetLive(Live, getTag()); }
+                
                 });
             CallFunc* func2 = CallFunc::create([&]() {
                 firstLand = true;

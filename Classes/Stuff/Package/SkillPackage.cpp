@@ -46,12 +46,15 @@ bool SkillPackage::initWithGun(MapBase* map)
         break;
     }
 
-    skill = SPEED_UP;
-    package = Sprite::createWithSpriteFrameName("speedup.png");
+    /*skill = SPEED_UP;
+    package = Sprite::createWithSpriteFrameName("speedup.png");*/
     /*skill = SUPER_JUMP;
     package = Sprite::create("super_jump.png");*/
     /*skill = JETPACK;
     package = Sprite::createWithSpriteFrameName("jetPack.png");*/
+    skill = EXTRA_LIFE;
+    package = Sprite::createWithSpriteFrameName("extraLife.png");
+
     this->addChild(package, 0);
 
     return true;
@@ -74,6 +77,9 @@ void SkillPackage::GetPackage(CharacterBase* player)
         break;
     case JETPACK:
         player->skill = new Jetpack(player);
+        break;
+    case EXTRA_LIFE:
+        player->skill = new ExtraLife(player);
         break;
     }
     if (player->skill)
