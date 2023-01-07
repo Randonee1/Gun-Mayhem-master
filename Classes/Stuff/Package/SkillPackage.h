@@ -7,6 +7,7 @@
 #include "Skill/SpeedUp.h"
 #include "Skill/SuperJump.h"
 #include "Skill/Jetpack.h"
+#include "Skill/ExtraLife.h"
 
 USING_NS_CC;
 

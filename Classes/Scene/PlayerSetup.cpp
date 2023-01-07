@@ -300,6 +300,8 @@ void PlayerSetup::UserID1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 		manager->player1 = name;
 		//manager->Standing[name][3] += 1;//对局数+1
 
+		manager->player_name[1] = text;
+
 		Director::getInstance()->replaceScene(PlayerSetup::create());
 		});
 	
@@ -355,6 +357,8 @@ void PlayerSetup::UserID2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 		}
 		manager->player2 = name;
 		//manager->Standing[name][3] += 1;//对局数+1
+
+		manager->player_name[2] = text;
 
 		Director::getInstance()->replaceScene(PlayerSetup::create());
 		});

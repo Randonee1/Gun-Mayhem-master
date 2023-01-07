@@ -6,6 +6,8 @@ UserManager::UserManager()
 {
     player_type[1] = false;
     player_type[2] = false;
+    player_name[1] = "player1";
+    player_name[2] = "player2";
     player_face[1] = "Normal";
     player_face[2] = "Normal";
     player_skin[1] = "White";

@@ -31,6 +31,8 @@ public:
 
 	std::string player2;
 
+	std::map<int, std::string> player_name;
+
 	//trueΪplayer, falseΪAI
 	/*bool player1_type = false;
 

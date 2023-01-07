@@ -16,9 +16,8 @@ bool Loading::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    auto sprite = Sprite::create("logo.jpeg");
+    auto sprite = Sprite::create("logo.png");
     sprite->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
-    sprite->setTextureRect(Rect(0, 0, 0.85f * sprite->getContentSize().width, sprite->getContentSize().height));
     this->addChild(sprite, 0);
 
     schedule(CC_SCHEDULE_SELECTOR(Loading::logic),3.0f);

@@ -108,5 +108,10 @@ void AI2::initBody()
     hand2->GetGun(gun, false);
     gun->player = this;
 
+    auto name = Label::createWithTTF(manager->player_name[getTag()], "fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF", 36);
+    name->setAnchorPoint(Vec2(0.5, 0.5));
+    name->setPosition(0, 140);
+    this->addChild(name, 1);
+
     AIBase::initBody();
 }

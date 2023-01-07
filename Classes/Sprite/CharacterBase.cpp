@@ -118,6 +118,8 @@ void CharacterBase::update(float dt)
 {
 	Sprite::update(dt);
     gun->update(dt);
+    if (map->playerState) { map->playerState->SetLive(Live, getTag()); }
+    if (map->playerState) { map->playerState->SetAmmo(gun->bulletClip-gun->bulletCount, getTag()); }
 
     if(valid)
     {
@@ -202,10 +204,10 @@ void CharacterBase::update(float dt)
                 this->setVisible(false); this->Flip(false);
                 y_speed = 0; x_speed = 0; valid = false; floor = map->Floor.size() - 1;
                 if (skill) { delete skill; skill = nullptr; }
-                //this->map->runAction(Sequence::create(MoveBy::create(0.01, Vec2(-100, -50)), MoveBy::create(0.01, Vec2(200, 100)), MoveBy::create(0.01, Vec2(-100, -50)), nullptr));
                 this->map->runAction(Shake::createWithStrength(0.16, 25, 10));
                 Live--;
                 if (Live == 0)this->stopAllActions();
+                
                 });
             CallFunc* func2 = CallFunc::create([&]() {
                 firstLand = true;
