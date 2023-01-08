@@ -3,12 +3,7 @@
 
 #include "cocos2d.h"
 #include "PackageBase.h"
-#include "Skill/Defense.h"
-#include "Skill/SpeedUp.h"
-#include "Skill/SuperJump.h"
-#include "Skill/Jetpack.h"
-#include "Skill/ExtraLife.h"
-#include "Skill/DoubleTeam.h"
+#include "Skill/SkillBase.h"
 
 USING_NS_CC;
 

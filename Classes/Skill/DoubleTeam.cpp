@@ -3,18 +3,26 @@
 
 DoubleTeam::DoubleTeam(CharacterBase* player)
 {
+	skillTpye = DOUBLE_TEAM;
 	this->player = player;
 	duration = 0;
 	Duration = 10;
 	doppelganger = AI2::create(player->getTag(), player->map);
 	doppelganger->isDoppelganger = true;
+	doppelganger->firstLand = false;
 	doppelganger->playerName->setString("doppelganger");
 	doppelganger->Live = 1;
 	doppelganger->isDoubleJump = player->isDoubleJump;
 	doppelganger->inTheAir = player->inTheAir;
 	doppelganger->floor = player->floor;
 	doppelganger->floor_actual = player->floor_actual;
-	if (doppelganger->skill) { delete doppelganger->skill; doppelganger->skill = nullptr; }
+	if (!doppelganger->skills.empty()) {
+		for (auto& skill : doppelganger->skills) {
+			delete skill;
+			skill = nullptr;
+		}
+		doppelganger->skills.clear();
+	}
 
 	doppelganger->Flip(player->isFlippedX());
 	doppelganger->GetOpponent(player->opponent);
@@ -32,10 +40,10 @@ DoubleTeam::~DoubleTeam()
 
 void DoubleTeam::update(float dt)
 {
-	SkillBase::update(dt);
-	if (doppelganger->Live == 0)
-		duration = 10;
 	ShotEvent();
+	if (doppelganger->Live == 0)
+		skillEnd = true;
+	
 }
 
 void DoubleTeam::ShotEvent()
@@ -55,7 +63,7 @@ void DoubleTeam::ShotEvent()
 		rect.origin += offset;
 
 		if (rect.containsPoint(bullet->getPosition()) && doppelganger->valid && 
-			bullet->player->getTag()!=doppelganger->getTag()) {
+			bullet->player->tag!=doppelganger->tag) {
 
 			doppelganger->x_speed +=  bullet->hitSpeed;
 			doppelganger->hit = true;

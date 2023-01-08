@@ -28,7 +28,6 @@ bool Gun_Gatling::init()
     isGatling = true;
 
     gun_right = Sprite::createWithSpriteFrameName("Gatling.png");
-    //this->addChild(gun, 0);
 
     anchor = Vec2(0.06, 0.7);
     initRotation = 0.0f;

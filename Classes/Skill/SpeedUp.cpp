@@ -2,7 +2,7 @@
 
 SpeedUp::SpeedUp(CharacterBase* player)
 {
-
+	skillTpye = SPEED_UP;
 	this->player = player;
 	duration = 0;
 	Duration = 10;
@@ -10,8 +10,8 @@ SpeedUp::SpeedUp(CharacterBase* player)
 	acceleration = player->status->acceleration;
 	x_maxSpeed = player->status->x_maxSpeed;
 
-	player->status->acceleration *= 2.5;
-	player->status->x_maxSpeed *= 2.5;
+	player->status->acceleration *= 2;
+	player->status->x_maxSpeed *= 2;
 
 	
 	head = nullptr;
@@ -53,7 +53,6 @@ void SpeedUp::update(float dt)
 		
 		if (head != nullptr) {
 			head->next = new Shadow(player->clone(), player->getPosition(), head);
-			//auto figure = Figure(head, 50);
 			head->figure->setPosition(head->point);
 			player->map->platform->addChild(head->figure, 0);
 			head = head->next;

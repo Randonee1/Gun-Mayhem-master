@@ -10,8 +10,6 @@ public:
 
 	bool initWithName(const char* name);
 
-	//static OrganBase* CreateWithName(const char* name);
-
 	virtual void setFlippedX(bool flippedX);
 
 	virtual void MoveDelay(bool up, bool floor);

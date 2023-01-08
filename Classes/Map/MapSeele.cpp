@@ -214,39 +214,3 @@ void MapSeele::EyeBlink()
 
 }
 
-//void MapSeele::ShotEvent()
-//{
-//	std::vector<Bullet*> temp;
-//	for (auto bullet : bullets) {
-//		if (bullet)
-//			temp.push_back(bullet);
-//	}
-//	bullets = temp;
-//
-//	for (auto& bullet : bullets) {
-//
-//		if (bullet->getPositionX() > 12000 || bullet->getPositionX() < -6000) {
-//			bullet->removeFromParent();
-//			bullet = nullptr;
-//			continue;
-//		}
-//		for (auto& player : players) {
-//
-//			auto rect = player->body->organ->getBoundingBox();
-//			Vec2 offset = player->getPosition() + player->body->getPosition();
-//			rect.origin += offset;
-//
-//			if (rect.containsPoint(bullet->getPosition()) && player->valid) {
-//				player->x_speed += bullet->hitSpeed;
-//				player->hit = true;
-//				auto blood = Blood::create();
-//				blood->setPosition(bullet->getPosition());
-//				platform->addChild(blood, 4);
-//
-//				bullet->removeFromParent();
-//				bullet = nullptr;
-//				break;
-//			}
-//		}
-//	}
-//}

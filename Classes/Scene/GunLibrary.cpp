@@ -29,6 +29,8 @@ bool GunLibrary::init()
 	auto d=Sprite::create("gun_test.png"); //double(克洛克双枪)
 	auto gatling=Sprite::createWithSpriteFrameName("Gatling.png"); //gatling（加特林）
 
+	auto black = ui::Button::create("gun_board.png", "gun_board.png");
+
 	int x = 580;
 	int y = 247.5;
 	baseball_bat->setPosition(Vec2(origin.x + visibleSize.width * (410) / 2560, origin.y + 1440-454));

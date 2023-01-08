@@ -12,7 +12,7 @@ bool CharacterBase::init(int tag, MapBase* map)
         return false;
 
     this->setTag(tag);
-
+    this->tag = tag;
     this->map = map;
     Live = UserManager::getInstance()->Live;
     accelerate = 0;
@@ -30,7 +30,7 @@ bool CharacterBase::init(int tag, MapBase* map)
 
     this->setPosition(x,map->platform->getContentSize().height/2 + 4500);
 
-    skill = new Defense(this, 3);
+    skills.push_back(new Defense(this, 3));
 
     this->scheduleUpdate();
 
@@ -199,18 +199,9 @@ void CharacterBase::update(float dt)
         {
             GunChange(initGun->clone());
 
-            CallFunc* func1 = CallFunc::create([&]() {
-                this->setVisible(false); this->Flip(false);
-                y_speed = 0; x_speed = 0; valid = false; floor = map->Floor.size() - 1;
-                if (skill) { delete skill; skill = nullptr; }
-                this->map->runAction(Shake::createWithStrength(0.16, 25, 10));
-                Live--;
-                if (Live == 0)this->stopAllActions();
-                
-                });
+            CallFunc* func1 = CallFunc::create(CC_CALLBACK_0(CharacterBase::Death, this));
             CallFunc* func2 = CallFunc::create([&]() {
-                firstLand = true;
-                skill = new Defense(this, 6);
+                skills.push_back(new Defense(this, 6));
                 this->setVisible(true); valid = true;
                 });
             float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
@@ -284,15 +275,22 @@ void CharacterBase::update(float dt)
             hand2->BulletChangeWithHand(throwGun, false);
         }
 
-        if (skill) {
-            if (skill->duration > skill->Duration) {
-                delete skill;
-                skill = nullptr;
+        if (!skills.empty()) {
+            for(auto& skill: skills) {
+                if (skill->skillEnd) {
+                    delete skill;
+                    skill = nullptr;
+                }
+                else {
+                    skill->update(dt);
+                }
             }
-            else {
-                skill->update(dt);
+            for (auto it = skills.begin(); it != skills.end();) {
+                if (*it == nullptr) it = skills.erase(it);
+                else it++;
             }
         }
+
         if (keyMap["release"]) {
             keyMap["release"] = false;
         }
@@ -361,10 +359,32 @@ void CharacterBase::GunChange(GunBase* change)
     hand2->GetGun(gun,false);
     gun->player = this;
     if(onaction){
-        //CCLOG("yes");
         hand1->DelayWithHand(true);
         hand2->DelayWithHand(false);
     }
+}
+
+void CharacterBase::Death()
+{
+    valid = false;
+    this->setVisible(false); 
+    this->Flip(false);
+    y_speed = 0; 
+    x_speed = 0;  
+    floor = map->Floor.size() - 1;
+    
+    if (!skills.empty()) {
+        for (auto& skill : skills) {
+            delete skill;
+            skill = nullptr;
+        }
+        skills.clear();
+    }
+
+    this->map->runAction(Shake::createWithStrength(0.16, 25, 10));
+    Live--;
+    if (Live == 0)this->stopAllActions();
+    firstLand = true;
 }
 
 void CharacterBase::GetOpponent(CharacterBase* opponent)

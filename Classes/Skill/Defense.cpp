@@ -2,6 +2,7 @@
 
 Defense::Defense(CharacterBase* player, float time)
 {
+	skillTpye = DEFENSE;
 	this->player = player;
 	duration = 0;
 	Duration = time;

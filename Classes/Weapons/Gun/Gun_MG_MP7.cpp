@@ -26,7 +26,6 @@ bool Gun_MG_MP7::init()
         return false;
 
     gun_right = Sprite::createWithSpriteFrameName("MG_MP7.png");
-    //this->addChild(gun, 0);
 
     anchor = Vec2(0.52, 0.5);
     initRotation = 20.0f;

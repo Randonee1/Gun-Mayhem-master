@@ -17,10 +17,13 @@ public:
 
 	CharacterBase* player;
 
+	SkillType skillTpye;
+
+	bool skillEnd = false;
+
 	float Duration;
 	float duration;
 
-	SkillType skillTpye;
 };
 
 #endif

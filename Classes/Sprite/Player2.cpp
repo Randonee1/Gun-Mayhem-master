@@ -18,20 +18,14 @@ bool Player2::initWithTag(int name, MapBase* map)
         return false;
     }
 
-    status->acceleration = 1500;
+    status->acceleration = 1500*1.5;
     status->gravitation = -2757;
     status->resistance = 800;
 
-    status->x_maxSpeed = 448;
+    status->x_maxSpeed = 448*1.5;
     status->y_maxSpeed = 1275;
     status->recoil_speed = 100;
 
-    //floor = map->Floor.size() - 1;
-
-   /* unsigned seed = time(0);
-    setPosition(rand() % int(map->platform->getContentSize().width / 2) + map->platform->getContentSize().width / 4,
-        map->platform->getContentSize().height + 2000);*/
-    
     return true;
 }
 
@@ -43,14 +37,6 @@ void Player2::initBody()
     std::string face_name;
     std::string hat_name;
 
-    /*if (this->getTag() == 1) {
-        player_name = manager->player1_skin;
-        face_name = manager->player1_face;
-    }
-    else {
-        player_name = manager->player2_skin;
-        face_name = manager->player2_face;
-    }*/
     player_name = manager->player_skin[this->getTag()];
     face_name = manager->player_face[this->getTag()];
     hat_name = manager->player_hat[this->getTag()];
@@ -104,7 +90,6 @@ void Player2::initBody()
     body->setPosition(Vec2(0, 0));
     this->addChild(body, 0);
 
-    //gun->setPosition(Vec2(65, 30));
     hand1->GetGun(gun,true);
     hand2->GetGun(gun, false);
     gun->player = this;

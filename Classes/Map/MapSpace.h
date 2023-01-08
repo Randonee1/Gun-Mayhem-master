@@ -20,10 +20,6 @@ public:
 
 	void initBackground();
 
-	//void initPlayer();
-
-	//void ShotEvent() override;
-
 private: 
 
 	Vec2 initPlanet1Position;

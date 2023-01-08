@@ -2,6 +2,7 @@
 
 Jetpack::Jetpack(CharacterBase* player)
 {
+	skillTpye = JETPACK;
 	this->player = player;
 	duration = 0;
 	Duration = 10;

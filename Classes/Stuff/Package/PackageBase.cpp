@@ -12,7 +12,6 @@ bool PackageBase::init(MapBase* map)
     unsigned seed = time(0);
     srand(seed);
     endFloor = rand() % (map->Floor.size());
-    //endfloor = map->Floor.size() - 1;
 
     float x = GameManager::Random(int(map->Floor[endFloor].front()), int(map->Floor[endFloor].back()));
     while (!map->InTheBoundary(map->Floor[endFloor], x))

@@ -80,8 +80,6 @@ std::map<std::string, const char*> GameManager::Costumes = {
 
 };
 
-//int GameManager::Live = 10;
-
 int GameManager::BackChoise = 0;
 
 std::vector<std::string> GameManager::BackChoises = {

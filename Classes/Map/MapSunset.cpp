@@ -26,8 +26,6 @@ bool MapSunset::init()
 
 	initPlayer();
 
-	//packageEvent = PackageEvent::create(this);
-
 	this->scheduleUpdate();
 
 	return true;
@@ -57,10 +55,6 @@ void MapSunset::update(float dt)
 	mountain2->setPosition(initMountain2Position - delta * 0.6);
 	platform->setPosition(initPlatformPosition - delta * 0.7);
 
-	/*ShotEvent();
-
-	packageEvent->update(dt);
-	packageEvent->PackageUpdate(players);*/
 }
 
 void MapSunset::initBackground()
@@ -129,8 +123,6 @@ void MapSunset::initBackground()
 	initMountain2Position = Vec2(visibleSize.width / 2 , visibleSize.height / 2 - 700);
 	mountain2_left->setPosition(-mountain2->getContentSize().width / 2 + 510, mountain2->getContentSize().height / 2);
 	mountain2_right->setPosition(mountain2->getContentSize().width * 3 / 2 - 510, mountain2->getContentSize().height / 2);
-	/*mountain2_left->setFlippedX(true);
-	mountain2_right->setFlippedX(true);*/
 	mountain2->addChild(mountain2_left, 0);
 	mountain2->addChild(mountain2_right, -1);
 	mountain2->setPosition(initMountain2Position);
@@ -142,61 +134,3 @@ void MapSunset::initBackground()
 	this->addChild(platform, 6);
 	platformSize = platform->getContentSize();
 }
-
-//void MapSunset::initPlayer()
-//{
-//	CharacterBase* player1 = Player1::createWithTag(1, this);
-//	platform->addChild(player1, 1);
-//
-//	/*CharacterBase* player1 = AI1::create(this);
-//	platform->addChild(player1, 1);*/
-//
-//	CharacterBase* player2 = AI1::create(2,this);
-//	platform->addChild(player2, 2);
-//
-//	/*CharacterBase* player2 = Player1::createWithTag(2, this);
-//	platform->addChild(player2, 2);*/
-//
-//	player1->GetOpponent(player2);
-//	player2->GetOpponent(player1);
-//
-//	players.push_back(player1);
-//	players.push_back(player2);
-//}
-
-//void MapSunset::ShotEvent()
-//{
-//	std::vector<Bullet*> temp;
-//	for (auto bullet : bullets) {
-//		if (bullet)
-//			temp.push_back(bullet);
-//	}
-//	bullets = temp;
-//
-//	for (auto &bullet : bullets) {
-//
-//		if(bullet->getPositionX() > 12000 || bullet->getPositionX() < -6000) {
-//			bullet->removeFromParent();
-//			bullet = nullptr;
-//			continue;
-//		}
-//		for (auto &player : players) {
-//
-//			auto rect = player->body->organ->getBoundingBox();
-//			Vec2 offset = player->getPosition() + player->body->getPosition();
-//			rect.origin += offset;
-//
-//			if (rect.containsPoint(bullet->getPosition()) && player->valid) {
-//				player->x_speed += bullet->hitSpeed;
-//				player->hit = true;
-//				auto blood = Blood::create();
-//				blood->setPosition(bullet->getPosition());
-//				platform->addChild(blood, 4);
-//
-//				bullet->removeFromParent();
-//				bullet = nullptr;
-//				break;
-//			}
-//		}
-//	}
-//}

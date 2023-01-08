@@ -33,7 +33,6 @@ void Foot::setFlippedX(bool flippedX)
 
         actionState = false;
         organ->stopActionByTag(10);
-        //organ->setPosition(Vec2(0, 0));
     }
 }
 
@@ -47,7 +46,6 @@ void Foot::MoveDelay(bool up, bool floor)
             auto move = MoveBy::create(0.1, Vec2(0, -15));
             auto seq1 = Sequence::create(moveback, move, nullptr);
             auto rotate1 = RotateTo::create(0, 80);
-            //auto rotate2 = RotateTo::create(0.1, 80);
             auto seq2 = Sequence::create(rotate1,  nullptr);
             spa = Spawn::create(seq1 ,seq2, nullptr);
             tag = 1;

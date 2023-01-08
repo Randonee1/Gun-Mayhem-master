@@ -23,10 +23,6 @@ public:
 
 	void initBackground();
 
-	//void initPlayer();
-
-	//void ShotEvent() override;
-
 private:
 	Vec2 initCity1Position;
 	Vec2 initCity2Position;
@@ -40,8 +36,6 @@ private:
 	Sprite* mountain1;
 	Sprite* mountain2;
 
-	/*std::vector<CharacterBase*> players;
-	PackageEvent* packageEvent;*/
 };
 
 #endif

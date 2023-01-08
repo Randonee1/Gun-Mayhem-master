@@ -2,6 +2,7 @@
 
 SuperJump::SuperJump(CharacterBase* player)
 {
+	skillTpye = SUPER_JUMP;
 	this->player = player;
 	duration = 0;
 	Duration = 10;

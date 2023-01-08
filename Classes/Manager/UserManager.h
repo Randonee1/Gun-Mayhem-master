@@ -31,27 +31,16 @@ public:
 
 	std::string player2;
 
+
+
 	std::map<int, std::string> player_name;
 
-	//trueΪplayer, falseΪAI
-	/*bool player1_type = false;
-
-	bool player2_type = false;*/
 	std::map<int, bool> player_type;
 
-	/*std::string player1_skin = "White";
-
-	std::string player2_skin = "White";*/
 	std::map<int, std::string> player_skin;
 
-	/*std::string player1_face = "Normal";
-
-	std::string player2_face = "Normal";*/
 	std::map<int, std::string> player_face;
 
-	/*std::string player1_hat;
-
-	std::string player2_hat;*/
 	std::map<int, std::string> player_hat;
 
 	int Live;

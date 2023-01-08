@@ -52,9 +52,9 @@ void MapBase::ShotEvent()
 			Vec2 offset = player->getPosition() + player->body->getPosition();
 			rect.origin += offset;
 
-			if (rect.containsPoint(bullet->getPosition()) && player->valid) {
+			if (rect.containsPoint(bullet->getPosition()) && player->valid && bullet->player != nullptr) {
 
-				if (!(bullet->player->isDoppelganger && bullet->player->getTag() == player->getTag())) {
+				if (!(bullet->player->tag == player->tag)) {
 					bullet->player->hitCount++;
 
 					player->x_speed += player->defense ? bullet->hitSpeed / 10 : bullet->hitSpeed;

@@ -6,7 +6,6 @@ bool BulletCase::init(Node* back, Vec2 init,Vec2 offset, bool direction,int rand
 		return false;
 	}
 	bulletcase = Sprite::createWithSpriteFrameName("bulletcase.png");
-	//bulletcase->setFlippedX(direction);
 	bulletcase->setFlippedX(direction);
 	
 	y_speed = float(rand() % rand_y + rand_y / 2);

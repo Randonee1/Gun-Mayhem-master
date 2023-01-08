@@ -12,7 +12,6 @@ class Hand : public OrganBase
 public:
 	static Hand* CreateWithName(const char* name);
 
-	//void stopActionByTag(int tag);
 	void GetGun(GunBase* Gun,bool right);
 
 	void setFlippedX(bool flippedX);

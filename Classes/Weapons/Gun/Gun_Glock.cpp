@@ -27,7 +27,6 @@ bool Gun_Glock::init()
         return false;
 
     gun_right = Sprite::create("gun_test.png");
-    //this->addChild(gun, 0);
 
     anchor = Vec2(0.2, 0.25);
     initRotation = 30.0f;

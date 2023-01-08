@@ -22,22 +22,16 @@ public:
 
 	void initBackground();
 
-	//void initPlayer();
-
 	void initEyes();
 
 	void EyeBlink();
-
-	//void ShotEvent() override;
 
 private:
 
 	Sprite* seele;
 	Vec2 initSeelePosition;
-
 	std::vector<Sprite*> eyes;
-	/*std::vector<CharacterBase*> players;
-	PackageEvent* packageEvent;*/
+	
 };
 
 #endif

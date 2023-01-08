@@ -10,8 +10,6 @@ class PlayerStateMenu : public Layer
 {
 public:
 
-	//static Scene* createScene();
-
 	bool init() override;
 
 	void bindMap(MapBase* map);
@@ -26,8 +24,6 @@ public:
 
 	CREATE_FUNC(PlayerStateMenu);
 
-
-	//void initPlayerState();
 private:
 	MapBase* map;
 

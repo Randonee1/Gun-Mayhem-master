@@ -15,17 +15,6 @@ bool PlayerBase::initWithTag(int name, MapBase* map)
     return true;
 }
 
-//PlayerBase* PlayerBase::createWithTag(int name, Sprite* background)
-//{
-//    auto player = new PlayerBase();
-//    if (player && player->initWithTag(name, background)) {
-//        player->autorelease();
-//        return player;
-//    }
-//    CC_SAFE_DELETE(player);
-//    return NULL;
-//}
-
 void PlayerBase::update(float dt)
 {
     CharacterBase::update(dt);

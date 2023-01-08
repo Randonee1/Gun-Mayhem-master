@@ -33,7 +33,6 @@ void Hand::setFlippedX(bool flippedX)
     if (_flippedX != flippedX)
     {
         _flippedX = flippedX;
-        //organ->setPositionX(-organ->getPositionX());
         this->setPositionX(-this->getPositionX());
         flipX();
 

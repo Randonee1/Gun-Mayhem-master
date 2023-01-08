@@ -1,6 +1,12 @@
 #include "SkillPackage.h"
+#include "Skill/Defense.h"
+#include "Skill/SpeedUp.h"
+#include "Skill/SuperJump.h"
+#include "Skill/Jetpack.h"
+#include "Skill/ExtraLife.h"
+#include "Skill/DoubleTeam.h"
 
-float SkillPackage::updatetime = 5;
+float SkillPackage::updatetime = 4;
 
 SkillPackage* SkillPackage::createWithSkill(MapBase* map)
 {
@@ -64,33 +70,32 @@ bool SkillPackage::initWithGun(MapBase* map)
 
 void SkillPackage::GetPackage(CharacterBase* player)
 {
-    if (player->skill)
-        delete player->skill;
+    for (auto sk : player->skills) {
+        if (skill == sk->skillTpye)
+            return;
+    }
 
     switch (skill) {
     case DEFENSE:
-        player->skill = new Defense(player);
+        player->skills.push_back(new Defense(player));
         break;
     case SPEED_UP:
-        player->skill = new SpeedUp(player);
+        player->skills.push_back(new SpeedUp(player));
         break;
     case SUPER_JUMP:
-        player->skill = new SuperJump(player);
+        player->skills.push_back(new SuperJump(player));
         break;
     case JETPACK:
-        player->skill = new Jetpack(player);
+        player->skills.push_back(new Jetpack(player));
         break;
     case EXTRA_LIFE:
-        player->skill = new ExtraLife(player);
+        player->skills.push_back(new ExtraLife(player));
         break;
     case DOUBLE_TEAM:
-        player->skill = new DoubleTeam(player);
+        player->skills.push_back(new DoubleTeam(player));
         break;
     }
-    if (player->skill)
-        player->skill->skillTpye = skill;
-    else
-        player->skill->skillTpye = NONE;
+    
 }
 
 void SkillPackage::update(float dt)

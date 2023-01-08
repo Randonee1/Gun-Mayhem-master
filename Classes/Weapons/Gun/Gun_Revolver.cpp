@@ -26,7 +26,6 @@ bool Gun_Revolver::init()
         return false;
 
     gun_right = Sprite::create("revolver.png");
-    //this->addChild(gun, 0);
 
     anchor = Vec2(0.25, 0.35);
     initRotation = 30.0f;
@@ -53,11 +52,7 @@ void Gun_Revolver::Shot(MapBase* map, bool right)
     auto aim1 = RotateTo::create(0, 0);
     auto up = RotateTo::create(0.03, -40);
     auto down = RotateTo::create(0.03, 0);
-    /*auto up2 = RotateTo::create(0.05, -10);
-    auto down2 = RotateTo::create(0.05, 0);
-    auto up3 = RotateTo::create(0.05, -10);
-    auto down3 = RotateTo::create(0.05, 0);*/
-
+   
     auto delay1 = RotateTo::create(0.2, 0);
 
     auto rotateup1 = RotateTo::create(0.1, -140);

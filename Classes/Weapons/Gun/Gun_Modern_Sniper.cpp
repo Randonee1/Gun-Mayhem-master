@@ -26,7 +26,6 @@ bool Gun_Modern_Sniper::init()
         return false;
 
     gun_right = Sprite::create("Sniper_Rifle.png");
-    //this->addChild(gun, 0);
 
     isSniper = true;
 
@@ -65,9 +64,7 @@ void Gun_Modern_Sniper::Shot(MapBase* map, bool right)
 
 Sequence* Gun_Modern_Sniper::RaiseHand(bool withgun)
 {
-    /*auto movebackward = EaseSineOut::create(MoveBy::create(0.05, Vec2(-20, 0)));
-    auto moveforward = EaseSineOut::create(MoveBy::create(0.05, Vec2(20, 0)));*/
-
+  
     auto delay = MoveBy::create(1, Vec2(0, 0));
     auto down = EaseSineOut::create(MoveTo::create(0.3, Vec2(0, 0)));
     if (withgun) {

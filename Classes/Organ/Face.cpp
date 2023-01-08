@@ -29,7 +29,6 @@ void Face::setFlippedX(bool flippedX)
     if (_flippedX != flippedX)
     {
         _flippedX = flippedX;
-        //this->setPositionX(-this->getPositionX());
         Vec2 anch = organ->getAnchorPoint();
         anch.x = 1-anch.x;
         organ->setAnchorPoint(anch);

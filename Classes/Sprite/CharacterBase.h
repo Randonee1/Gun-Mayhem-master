@@ -49,6 +49,8 @@ public:
 
     void GunChange(GunBase* change);
 
+    void Death();
+
     void GetOpponent(CharacterBase* opponent);
 
     void DustUpdate();
@@ -77,7 +79,8 @@ public:
 
     Status* status = new Status();
 
-    SkillBase* skill;
+    //SkillBase* skill;
+    std::vector<SkillBase*>skills;
 
     float accelerate;
     float x_speed;
@@ -97,6 +100,8 @@ public:
     int hitCount = 0;
 
     int Live;
+
+    int tag;
 };
 
 #endif

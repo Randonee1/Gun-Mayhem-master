@@ -32,7 +32,6 @@ bool Gun_Double::init()
 
     gun_right = Sprite::create("gun_test.png");
     gun_left = Sprite::create("gun_test.png");
-    //this->addChild(gun, 0);
 
     anchor = Vec2(0.3, 0.25);
     anchor_left = Vec2(0.3, 0.25);
@@ -55,7 +54,6 @@ void Gun_Double::Shot(MapBase* map, bool right)
 {
     GunBase::Shot(map, right);
     
-    //CallFunc* onshot = CallFunc::create(CC_CALLBACK_0(GunBase::SetShot, this));
     CallFunc* onshot_begin = CallFunc::create([&]() {onShot = true; });
     CallFunc* onshot_end = CallFunc::create([&]() {onShot = false; });
     CallFunc* shot_right = CallFunc::create(CC_CALLBACK_0(Gun_Double::SetBullet_right, this));//×Óµ¯Éä³ö

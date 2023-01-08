@@ -32,14 +32,10 @@ void Hat::setFlippedX(bool flippedX)
     organ->setFlippedX(flippedX);
     if (_flippedX != flippedX)
     {
-        /*Vec2 anch = organ->getAnchorPoint();
-        anch.x = 1 - anch.x;
-        organ->setAnchorPoint(anch);*/
         Vec2 point = organ->getPosition();
         point.x = -point.x;
         organ->setPosition(point);
         _flippedX = flippedX;
-        //this->setPositionX(-this->getPositionX());
         flipX();
     }
 }

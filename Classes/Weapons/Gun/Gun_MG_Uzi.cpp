@@ -26,7 +26,6 @@ bool Gun_MG_Uzi::init()
         return false;
 
     gun_right = Sprite::createWithSpriteFrameName("MG_Uzi.png");
-    //this->addChild(gun, 0);
 
     anchor = Vec2(0.35, 0.6);
     initRotation = -70.0f;

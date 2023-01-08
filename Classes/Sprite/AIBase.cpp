@@ -26,10 +26,11 @@ void AIBase::update(float dt)
 
 void AIBase::MoveEvent()
 {
+    if(!valid)this->reset();
 
-    //this->reset();
     int distance = 100 * 5;
-    if ((abs(this->floor - opponent->floor) >= 2 || Readytodie(opponent)) && !this->map->packageEvent->packages.empty() && (this->gun == this->initGun || this->skill == nullptr)) {//找包
+    if ((abs(this->floor - opponent->floor) >= 2 || Readytodie(opponent)) && !this->map->packageEvent->packages.empty() && 
+        (this->gun == this->initGun || skills.empty())) {//找包
         //this->findPackage = true;
         double distance_package = 999999999;
         PackageBase* close_package = nullptr;
@@ -125,23 +126,7 @@ void AIBase::MoveEvent()
         else if (!this->inTheAir && this->floor != opponent->floor) {
             FindFloor();
         }
-        //else {//回到最顶层
-        //    if (this->floor < this->map->Floor.size() - 1) {
-        //        float minDistance = 9999;
-        //        int colse_step = 0;
-        //        int target_floor = this->floor + 1;
-        //        for (int i = 0; i < (this->map->Floor[target_floor].size()); i += 2) {
-        //            float temp_MinDistance1 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i]);
-        //            float temp_MinDistance2 = std::abs(this->getPositionX() - this->map->Floor[target_floor][i + 1]);
-        //            temp_MinDistance1 = std::min(temp_MinDistance1, temp_MinDistance2);
-        //            if (temp_MinDistance1 < minDistance) {
-        //                minDistance = temp_MinDistance1;
-        //                colse_step = i;
-        //            }
-        //        }
-        //        this->jumpTofloor(1, colse_step);
-        //    }
-        //}
+        
     }
 
     if (this->inTheAir && !this->isDoubleJump) {

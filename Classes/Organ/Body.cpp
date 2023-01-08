@@ -21,13 +21,3 @@ Body* Body::CreateWithName(const char* name)
     return NULL;
 }
 
-//void Body::setFlippedX(bool flippedX)
-//{
-//    body->setFlippedX(flippedX);
-//    if (_flippedX != flippedX)
-//    {
-//        _flippedX = flippedX;
-//        this->setPositionX(-this->getPositionX());
-//        flipX();
-//    }
-//}
