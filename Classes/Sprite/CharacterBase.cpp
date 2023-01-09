@@ -201,7 +201,7 @@ void CharacterBase::update(float dt)
 
             CallFunc* func1 = CallFunc::create(CC_CALLBACK_0(CharacterBase::Death, this));
             CallFunc* func2 = CallFunc::create([&]() {
-                skills.push_back(new Defense(this, 6));
+                skills.push_back(new Defense(this, 3));
                 this->setVisible(true); valid = true;
                 });
             float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));

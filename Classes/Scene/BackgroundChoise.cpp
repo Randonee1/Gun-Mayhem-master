@@ -95,39 +95,38 @@ bool BackgroundChoise::init() {
 
 		//…Ë÷√Õº∆¨
 		srand((unsigned)time(0));
-		int num = rand() % 6;
+		int num = rand() % 4;
 		//std::vector<Button*>a = { spacestation ,sunsetcity,seele,irismood,highmoon,Default };
 		switch (num) {
 		case 0: {
-			Sprite* pic0 = Sprite::create("customGameMenu/spacestationPreview.png");
-			pic0->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
-			this->addChild(pic0);
-			break; }
-		case 1: {
-			Sprite* pic1 = Sprite::create("customGameMenu/sunsetcityPreview.png");
-			pic1->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
-			this->addChild(pic1);
-			break; }
-		case 2: {
-			Sprite* pic2 = Sprite::create("customGameMenu/seelePreview.png");
-			pic2->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
-			this->addChild(pic2);
-			break; }
-		case 3: {
-			/*auto pic3 = Sprite::create("customGameMenu/irismoodPreview.png");
-			pic3->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
-			this->addChild(pic3);*/
-			break; }
-		case 4: {
-			/*auto pic4 = Sprite::create("customGameMenu/highmoonPreview.png");
-			pic4->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
-			this->addChild(pic4);*/
-			break; }
-		case 5: {
 			Sprite* pic5 = Sprite::create("customGameMenu/defaultPreview.png");
 			pic5->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
 			this->addChild(pic5);
-			break; }
+			break;
+			}
+		case 1: {
+			Sprite* pic0 = Sprite::create("customGameMenu/spacestationPreview.png");
+			pic0->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
+			this->addChild(pic0);
+			break;
+			}
+		case 2: {
+			Sprite* pic1 = Sprite::create("customGameMenu/sunsetcityPreview.png");
+			pic1->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
+			this->addChild(pic1);
+			break;
+			}
+		case 3: {
+			Sprite* pic2 = Sprite::create("customGameMenu/seelePreview.png");
+			pic2->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
+			this->addChild(pic2);
+			break;
+			}
+		case 4: 
+			break; 
+		case 5: 
+			break;
+			
 		}
 		GameManager::BackChoise = num;
 		});

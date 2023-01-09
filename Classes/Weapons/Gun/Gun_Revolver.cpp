@@ -33,7 +33,7 @@ bool Gun_Revolver::init()
     recoilSpeed = 500;
     bulletSpeed = 3500;
     hitSpeed = 650;
-    bulletClip = 15;
+    bulletClip = 25;
     bulletCount = 0;
 
     gun_right->setAnchorPoint(anchor);

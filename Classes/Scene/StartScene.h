@@ -47,4 +47,5 @@ private:
 	Sprite* blacksprite;
 	bool move = false;
 };
+
 #endif

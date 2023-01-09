@@ -21,6 +21,7 @@ bool StartScene::init() {
 
 	initButton();
 
+
 	return true;
 }
 
@@ -124,15 +125,14 @@ void StartScene::initButton()
 
 		});
 	GameMenu->setColor(Color3B::WHITE);
-	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
+	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
 	//GameMenu->setFontSize(200);
 	GameMenu->setFontSizeObj(100);
-
 	MenuItemFont* SettingMenu = MenuItemFont::create("Setting", [&](Ref* sender) {
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Setting::createScene()));
 		});
 	SettingMenu->setColor(Color3B::WHITE);
-	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
+	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
 	SettingMenu->setFontSizeObj(100);
 	SettingMenu->setPosition(0, -140);
 
@@ -141,15 +141,15 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, GunLibrary::createScene()));
 		});
 	WeaponMenu->setColor(Color3B::WHITE);
-	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
+	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
 	WeaponMenu->setFontSizeObj(100);
 	WeaponMenu->setPosition(0, -280);
-
+	
 	MenuItemFont* StandingMenu = MenuItemFont::create("Standing", [&](Ref* sender) {
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Standing::createScene()));
 		});
 	StandingMenu->setColor(Color3B::WHITE);
-	StandingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
+	StandingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
 	StandingMenu->setFontSizeObj(100);
 	StandingMenu->setPosition(0, -500);
 
@@ -157,10 +157,9 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Credits::createScene()));
 		});
 	creditsMenu->setColor(Color3B::WHITE);
-	creditsMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.TTF");
+	creditsMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
 	creditsMenu->setFontSizeObj(100);
 	creditsMenu->setPosition(0, -640);
-
 
 
 	//´´½¨²Ëµ¥
