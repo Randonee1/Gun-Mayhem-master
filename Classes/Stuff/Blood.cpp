@@ -51,6 +51,28 @@ bool Blood::init()
 	bloodDrop2->setRotation(-Angle(x_speed2, y_speed2));
 	bloodDrop3->setRotation(-Angle(x_speed3, y_speed3));
 
+	switch (rand() % 3) {
+	case 0:
+		Hit = Sprite::create("hit_blue.png");
+		break;
+	case 1:
+		Hit = Sprite::create("hit_yellow.png");
+		break;
+	case 2:
+		Hit = Sprite::create("hit_red.png");
+		break;
+	}
+	Hit->setPosition(0, 50);
+	Hit->setRotation(GameManager::Random(-40, 40));
+	Hit->setScale(0);
+	auto in = ScaleTo::create(0.15, 1.3);
+	auto delay = DelayTime::create(0.2);
+	auto out = ScaleTo::create(0.1, 0);
+	auto func = CallFunc::create([&]() {Hit->setVisible(false); });
+	auto seq = Sequence::create(in, delay, out, func, nullptr);
+	this->addChild(Hit);
+	Hit->runAction(seq);
+
 	this->scheduleUpdate();
 
 	return true;

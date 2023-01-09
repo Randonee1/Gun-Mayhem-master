@@ -59,9 +59,12 @@ void MapBase::ShotEvent()
 
 					player->x_speed += player->defense ? bullet->hitSpeed / 10 : bullet->hitSpeed;
 					player->hit = true;
-					auto blood = Blood::create();
-					blood->setPosition(bullet->getPosition());
-					platform->addChild(blood, 4);
+
+					if(!player->defense) {
+						auto blood = Blood::create();
+						blood->setPosition(bullet->getPosition());
+						platform->addChild(blood, 4);
+					}
 
 					bullet->removeFromParent();
 					bullet = nullptr;

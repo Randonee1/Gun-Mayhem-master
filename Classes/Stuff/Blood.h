@@ -26,6 +26,8 @@ public:
 	Sprite* bloodDrop2;
 	Sprite* bloodDrop3;
 
+	Sprite* Hit;
+
 	float x_speed1;
 	float y_speed1;
 	float x_speed2;
