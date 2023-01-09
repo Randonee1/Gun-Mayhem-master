@@ -1,7 +1,6 @@
 #include "GameScene.h"
 #include "PlayerSetup.h"
 #include "Layer/PlayerStateMenu.h"
-#include "Map/MapBase.h"
 #include "Map/MapTest.h"
 #include "Map/MapSpace.h"
 #include "Map/MapSunset.h"
@@ -24,7 +23,6 @@ bool GameScene::initGame(int Level)
     initKeyboardListener();
 
     auto playerStateMenu = PlayerStateMenu::create();
-    MapBase* game;
 
     //后续会加入其他的一些模式
     switch (Level)
@@ -68,5 +66,6 @@ void GameScene::onKeyReleased(EventKeyboard::KeyCode keycode, Event* event)
 void GameScene::EscapeEvent()
 {
     //构想：点击esc游戏暂停，出现一个弹窗，两个选项，一个重开游戏，一个结束游戏
+    game->Record();
     Director::getInstance()->replaceScene(Transition::create(0.5f, AfterGame::create()));
 }

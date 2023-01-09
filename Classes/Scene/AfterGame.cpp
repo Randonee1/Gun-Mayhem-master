@@ -31,13 +31,13 @@ bool AfterGame::init()
 	this->addChild(Continue);
 
 	auto manager = UserManager::getInstance();
-	std::string player1 = manager->player1;
-	std::string player2 = manager->player2;
+	std::string player1 = manager->player_name[1];
+	std::string player2 = manager->player_name[2];
 	auto map = manager->Standing;
-	////测试
-	map[player1] = { 100 ,0.75,7,6,4,420,300};
-	////map[player1] = { 100,0.89,12,8,8,576,463 };
-	map[player2] = { 100,0.89,12,8,8,576,463};
+	//////测试
+	//map[player1] = { 100 ,0.75,7,6,4,420,300};
+	//////map[player1] = { 100,0.89,12,8,8,576,463 };
+	//map[player2] = { 100,0.89,12,8,8,576,463};
 
 	//更新map
 	map = calculate(player1,map);
@@ -50,7 +50,7 @@ bool AfterGame::init()
 	
 	double hit_1 =vec1[6] ;
 	double ts_1 = vec1[5];
-	double acc_1 = hit_1/ts_1;
+	double acc_1 = (ts_1 != 0) ? hit_1 / ts_1 : 0;
 	double mark_1 = acc_1*vec1[4];
 	double ctp_1 =vec1[0] ;
 	double kpg_1 = vec1[2];
@@ -58,7 +58,7 @@ bool AfterGame::init()
 
 	double hit_2 = vec2[6];
 	double ts_2 = vec2[5];
-	double acc_2 = hit_2 / ts_2;
+	double acc_2 = (ts_2 != 0) ? hit_2 / ts_2 : 0;
 	double mark_2 = acc_2 * vec2[4];
 	double ctp_2 = vec2[0];
 	double kpg_2 = vec2[2];
@@ -162,14 +162,14 @@ bool AfterGame::init()
 
 
 	//判断没有输入名字的情况
-	if (player1 == "") {
+	/*if (player1 == "") {
 		manager->Standing.erase("");
 		manager->UserName.erase(find(manager->UserName.begin(), manager->UserName.end(), ""));
 	}
 	else if (player2 == "") {
 		manager->Standing.erase("");
 		manager->UserName.erase(find(manager->UserName.begin(), manager->UserName.end(), ""));
-	}
+	}*/
 
 	//写文件
 	if(player1 == "" && player2 == ""){}//其实没必要,稍微快一点
@@ -193,7 +193,7 @@ std::map<std::string, std::vector<double>> AfterGame::calculate(std::string s, s
 	//name;   mark=命中率*击杀数；生涯命中率；场均击杀；    总场数；该局击杀数；该局射击数;该局命中数
 	m[s][3] += 1;//总场数；
 	double num = m[s][3];
-	double rate = m[s][6] / m[s][5];//该局命中率
+	double rate = (m[s][5]!=0)? m[s][6] / m[s][5] : 0;//该局命中率
 	double mark = rate * m[s][4];
 	m[s][0] += mark;//总分数
 	m[s][1] = (m[s][1] * (num - 1) + rate) / num;//生涯命中率

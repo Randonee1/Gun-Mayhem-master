@@ -118,6 +118,7 @@ void MapBase::bindPlayerStateMenu(PlayerStateMenu* playerState)
 
 void MapBase::GameOver(CharacterBase* player)
 {
+	Record();
 	auto move = EaseSineOut::create(MoveTo::create(1, initPlatformPosition));
 	auto delay = DelayTime::create(1);
 	auto func = CallFunc::create([&]() {
@@ -125,5 +126,28 @@ void MapBase::GameOver(CharacterBase* player)
 		});
 	if(!gameOver)player->runAction(Sequence::create(move,delay, func, nullptr));
 	gameOver = true;
+}
+
+void MapBase::Record()
+{
+	auto manager = UserManager::getInstance();
+	std::string player1 = manager->player_name[1];
+	std::string player2 = manager->player_name[2];
+	if (manager->Standing[player1].empty()){
+		manager->Standing[player1].resize(7);
+		manager->Standing[player1][3] = 1;
+	}
+	if (manager->Standing[player2].empty()){
+		manager->Standing[player2].resize(7);
+		manager->Standing[player2][3] = 1;
+	}
+	manager->Standing[player1][4] = manager->Live - players[1]->Live;
+	manager->Standing[player1][5] = players[0]->shotCount;
+	manager->Standing[player1][6] = players[0]->hitCount;
+
+	manager->Standing[player2][4] = manager->Live - players[0]->Live;
+	manager->Standing[player2][5] = players[1]->shotCount;
+	manager->Standing[player2][6] = players[1]->hitCount;
+
 }
 

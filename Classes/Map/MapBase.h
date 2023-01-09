@@ -28,6 +28,7 @@ public:
 
 	virtual void ShotEvent();
 
+
 	virtual void initPlayer();
 
 	bool InTheBoundary(std::vector<float>& floor, float x) const;
@@ -35,6 +36,8 @@ public:
 	void bindPlayerStateMenu(PlayerStateMenu* playerState);
 
 	void GameOver(CharacterBase* player);
+
+	void Record();
 
 	Sprite* platform;
 	Sprite* backLayer;

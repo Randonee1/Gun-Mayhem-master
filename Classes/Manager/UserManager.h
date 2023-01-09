@@ -27,9 +27,9 @@ public:
 
 	std::map<std::string, std::vector<double>>Standing;//name;   mark=命中率*击杀数；生涯命中率；场均击杀；    总场数；该局击杀数；该局射击数;该局命中数
 
-	std::string player1;
+	//std::string player1;
 
-	std::string player2;
+	//std::string player2;
 
 
 
