@@ -41,14 +41,19 @@ void MapTest::update(float dt)
 	Vec2 initPlatform = Vec2(platformSize.width / 2, (floor_base + floor_base + floor_height * (Floor.size() - 1)) / 2);
 	Vec2 delta = Vec2(0, 0);
 	for (auto& player : players) { delta += player->getPosition();}
-	delta = (delta + initPlatform*4) / (players.size() + 4) - initPlatform;
+	delta = (delta  + initPlatform*3.5) / (players.size() + 3.5) - initPlatform;
 
 	float a = std::pow(delta.x, 2) + std::pow(delta.y, 2);
-	float b = std::pow(visibleSize.height/1.2 , 2) + std::pow(visibleSize.width/1.2 , 2);
-	if (a > b) {
-		delta.x = delta.x * b / a;
-		delta.y = delta.y * b / a;
+	float b = std::pow(visibleSize.height/2 , 2) + std::pow(visibleSize.width/2 , 2);
+	if (delta.y < 0 && a > b) {
+		delta.x = delta.x * std::sqrt(b) / std::sqrt(a);
+		delta.y = delta.y * std::sqrt(b) / std::sqrt(a);
 	}
+	/*if (delta.y > 0) {
+		if (delta.x > b)delta.x = std::sqrt(b);
+		if (delta.x < -b)delta.x = -std::sqrt(b);
+		if (delta.y > initPlatform.y/2 + 1000) delta.y = 2000;
+	}*/
 
 	background->setPosition(initBackgroundPosition - delta * 0.5);
 	backLayer->setPosition(initbackLayerPosition - delta*0.5);

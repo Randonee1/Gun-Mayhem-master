@@ -72,7 +72,10 @@ void Jetpack::update(float dt)
 {
 	SkillBase::update(dt);
 
-	if (player->keyMap["up"] == true && player->inTheAir && player->isDoubleJump) {
+	if (player->getPositionY() > player->map->platform->getContentSize().height + 1000) flyable = false;
+	if (player->getPositionY() < player->map->platform->getContentSize().height + 500) flyable = true;
+
+	if (player->keyMap["up"] == true && player->inTheAir && player->isDoubleJump  && flyable) {
 		if (onAction)
 			player->MoveDelay(true, false);
 		onAction = false;

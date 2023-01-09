@@ -48,6 +48,7 @@ void PackageBase::update(float dt)
         y_speed += dt * gravitation;
         this->setPosition(this->getPositionX(), this->getPositionY() + y_speed * dt);
     }
-    if (y_speed == 0)
+    else{
         this->intheair = false;
+    }
 }

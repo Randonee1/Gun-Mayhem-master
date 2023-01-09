@@ -28,7 +28,7 @@ bool CharacterBase::init(int tag, MapBase* map)
     while(!InTheBoundary(map->Floor.back(),x))
         x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
 
-    this->setPosition(x,map->platform->getContentSize().height/2 + 4500);
+    this->setPosition(x,map->platform->getContentSize().height + 4500);
 
     skills.push_back(new Defense(this, 3));
 
@@ -207,8 +207,8 @@ void CharacterBase::update(float dt)
             float x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
             while (!InTheBoundary(map->Floor.back(), x))
                 x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
-            Vec2 position = Vec2(x, map->platform->getContentSize().height + 5000);
-            auto move1 = MoveTo::create(1, position);
+            Vec2 position = Vec2(x, map->platform->getContentSize().height + 2000);
+            auto move1 = MoveTo::create(0.7, position);
             auto move2 = EaseSineOut::create(move1);
             this->runAction(Sequence::create(func1, move2, func2, nullptr));
         }

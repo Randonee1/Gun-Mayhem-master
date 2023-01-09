@@ -39,13 +39,13 @@ bool Blood::init()
 	BloodSpurtingOut2->runAction(spa2);
 
 	
-	x_speed1 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);
-	x_speed2 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);
-	x_speed3 = rand() % 2 - 1 < 0 ? rand() % 500 + 1000 : -(rand() % 500 + 1000);
+	x_speed1 = rand() % 2 - 1 < 0 ? rand() % 500 + 200 : -(rand() % 500 + 200);
+	x_speed2 = rand() % 2 - 1 < 0 ? rand() % 500 + 800 : -(rand() % 500 + 800);
+	x_speed3 = rand() % 2 - 1 < 0 ? rand() % 500 + 500 : -(rand() % 500 + 500);
 
-	y_speed1 = rand() % 500 + 750;
-	y_speed2 = rand() % 500 + 750;
-	y_speed3 = rand() % 500 + 750;
+	y_speed1 = rand() % 500 + 200;
+	y_speed2 = rand() % 500 + 800;
+	y_speed3 = rand() % 500 + 500;
 
 	bloodDrop1->setRotation(-Angle(x_speed1, y_speed1));
 	bloodDrop2->setRotation(-Angle(x_speed2, y_speed2));

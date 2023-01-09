@@ -24,8 +24,9 @@ private:
 
 	float anti_gravitation;
 	float gravitation;
+
 	bool onAction = true;
-	
+	bool flyable = true;
 };
 
 #endif
