@@ -51,7 +51,7 @@ bool AfterGame::init()
 	double hit_1 =vec1[6] ;
 	double ts_1 = vec1[5];
 	double acc_1 = (ts_1 != 0) ? hit_1 / ts_1 : 0;
-	double mark_1 = acc_1*vec1[4];
+	double mark_1 = acc_1*vec1[4]*100;
 	double ctp_1 =vec1[0] ;
 	double kpg_1 = vec1[2];
 	double cacc_1 =vec1[1] ;
@@ -59,7 +59,7 @@ bool AfterGame::init()
 	double hit_2 = vec2[6];
 	double ts_2 = vec2[5];
 	double acc_2 = (ts_2 != 0) ? hit_2 / ts_2 : 0;
-	double mark_2 = acc_2 * vec2[4];
+	double mark_2 = acc_2 * vec2[4]*100;
 	double ctp_2 = vec2[0];
 	double kpg_2 = vec2[2];
 	double cacc_2 = vec2[1];
@@ -182,7 +182,7 @@ std::map<std::string, std::vector<double>> AfterGame::calculate(std::string s, s
 	m[s][3] += 1;//总场数；
 	double num = m[s][3];
 	double rate = (m[s][5]!=0)? m[s][6] / m[s][5] : 0;//该局命中率
-	double mark = rate * m[s][4];
+	double mark = rate * m[s][4]*100;
 	m[s][0] += mark;//总分数
 	m[s][1] = (m[s][1] * (num - 1) + rate) / num;//生涯命中率
 	m[s][2] = (m[s][2] * (num - 1) + m[s][4]) / num;//场均击杀

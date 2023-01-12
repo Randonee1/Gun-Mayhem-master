@@ -49,14 +49,14 @@ bool Setting::init()
 	//ÉèÖÃ±³¾°ÒôÀÖ°´Å¥µÄ»Øµ÷º¯Êý
 	onMusic->addClickEventListener([=](Ref* sender) {                      
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//µã»÷ÉùÒô
-		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1);
+		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
 		onMusic->loadTextureNormal("optionMenu/onSelected.png");
 		offMusic->loadTextureNormal("optionMenu/offUnselected.png");
 		});
 	
 	offMusic->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//µã»÷ÉùÒô
-		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0);
+		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.0f);
 		onMusic->loadTextureNormal("optionMenu/onUnselected.png");
 		offMusic->loadTextureNormal("optionMenu/offSelected.png");
 		});
