@@ -122,10 +122,7 @@ void CharacterBase::update(float dt)
 
     if(valid)
     {
-        if (keyMap["skill"]) {
-
-        }
-
+       
         if (!inTheAir) {
             y_speed = 0;
             floor_actual = floor;

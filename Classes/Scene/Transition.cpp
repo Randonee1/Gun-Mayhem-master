@@ -26,26 +26,15 @@ void Transition::onEnter()
 	auto pLeft = Sprite::create("black.png");
 	pLeft->setScaleX(visibleSize.width / pLeft->getContentSize().width);
 	
-	//auto pLeft2 = Sprite::create("board_back.png");
-
 	pLeft->setAnchorPoint(Point(1, 0.5));
-
-	//pLeft2->setAnchorPoint(Point(1, 0.5));
-
-	//pLeft2->setPosition(Point(pLeft->getContentSize().width, pLeft->getContentSize().height / 2));
 
 	addChild(pLeft, 1);
 
 	pLeft->setPosition(stLeftBegin);
 
-	//pLeft->addChild(pLeft2);
 	auto pActionLeft = MoveBy::create(_duration / 2, Vec2(visibleSize.width,0));//
 	auto pActionLeft2 = MoveBy::create(_duration / 2, Vec2(visibleSize.width, 0));//
 
-	/*if (UserDefault::getInstance()->getIntegerForKey("backeffect", 1) == 1)
-	{
-		SimpleAudioEngine::getInstance()->playEffect("sound/GUITransitionOpen.wav");
-	}*/
 	pLeft->runAction(Sequence::create(
 		pActionLeft,
 		CallFuncN::create(CC_CALLBACK_0(Transition::OnSencondActionFinish, this)),

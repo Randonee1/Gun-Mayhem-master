@@ -204,7 +204,7 @@ void AIBase::MoveEvent()
 
 void AIBase::ShotEvent()
 {
-    if (this->gun->releaseToShot) {//上次开枪，则本次不开枪。（棒球棒）
+    if (this->gun->releaseToShot && this->keyMap["shot"] == true) {//上次开枪，则本次不开枪。（棒球棒）
         this->keyMap["shot"] = false;
         Sleep(1);
         //this->shotLasttime = false;

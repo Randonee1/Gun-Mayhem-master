@@ -2,15 +2,15 @@
 
 GameManager* GameManager::_instance;
 
-std::map<std::string, EventKeyboard::KeyCode> GameManager::map1 = {
+std::map<std::string, EventKeyboard::KeyCode> GameManager::map2 = {
     {"up", EventKeyboard::KeyCode::KEY_W},
     {"down", EventKeyboard::KeyCode::KEY_S},
     {"left", EventKeyboard::KeyCode::KEY_A},
     {"right", EventKeyboard::KeyCode::KEY_D},
-    {"shot", EventKeyboard::KeyCode::KEY_O },
-    {"skill", EventKeyboard::KeyCode::KEY_P }
+    {"shot", EventKeyboard::KeyCode::KEY_J },
+    {"skill", EventKeyboard::KeyCode::KEY_K }
 };
-std::map<std::string, EventKeyboard::KeyCode> GameManager::map2 = {
+std::map<std::string, EventKeyboard::KeyCode> GameManager::map1 = {
     {"up", EventKeyboard::KeyCode::KEY_UP_ARROW},
     {"down", EventKeyboard::KeyCode::KEY_DOWN_ARROW},
     {"left", EventKeyboard::KeyCode::KEY_LEFT_ARROW},

@@ -29,41 +29,6 @@ Sprite* GunBase::LeftGun()
     return nullptr;
 }
 
-
-//GunBase* GunBase::CreateWithName(const char* name)
-//{
-//    auto gun = new GunBase();
-//    if (gun && gun->initWithName(name)) {
-//        gun->autorelease();
-//        return gun;
-//    }
-//    CC_SAFE_DELETE(gun);
-//    return NULL;
-//}
-
-//void GunBase::setFlippedX(bool flippedX,float offset)
-//{
-//    if(gun_right) gun_right->setFlippedX(flippedX);
-//    if (gun_left) gun_left->setFlippedX(flippedX);
-//
-//    if (_flippedX != flippedX)
-//    {
-//        _flippedX = flippedX;
-//        this->setPositionX(-this->getPositionX()+offset);
-//        flipX();
-//        Vec2 anch = anchor;
-//        flippedX ? anch.x = 1 - anchor.x : anch.x = anchor.x;
-//        if(gun_right) gun_right->setAnchorPoint(anch);
-//        if (gun_left) gun_left->setAnchorPoint(anch);
-//        if(!onShot)
-//        {
-//            if (gun_right)flippedX ? gun_right->setRotation(-initRotation) : gun_right->setRotation(initRotation);
-//            if (gun_left)flippedX ? gun_left->setRotation(-initRotation) : gun_left->setRotation(initRotation);
-//
-//        }
-//    }
-//}
-
 void GunBase::setFlippedX(Sprite* gun, bool flippedX, bool right, float offset)
 {
     bool flip = gun->isFlippedX();

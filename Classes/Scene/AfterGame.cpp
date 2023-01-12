@@ -159,18 +159,6 @@ bool AfterGame::init()
 	Cacc2->setPosition(Vec2(origin.x + visibleSize.width * x2 / 2560, y2 - 100 * 5));
 	this->addChild(Cacc2);
 
-
-
-	//判断没有输入名字的情况
-	/*if (player1 == "") {
-		manager->Standing.erase("");
-		manager->UserName.erase(find(manager->UserName.begin(), manager->UserName.end(), ""));
-	}
-	else if (player2 == "") {
-		manager->Standing.erase("");
-		manager->UserName.erase(find(manager->UserName.begin(), manager->UserName.end(), ""));
-	}*/
-
 	//写文件
 	if(player1 == "" && player2 == ""){}//其实没必要,稍微快一点
 	else{
