@@ -286,14 +286,22 @@ void CharacterBase::update(float dt)//精简版本
         y_speed = 0;isDoubleJump = false;
         //普通跳跃
         if (keyMap["up"]) {
-            inTheAir = true;y_speed = status->y_maxSpeed;keyMap["up"] = false;
+            inTheAir = true;
+            y_speed = status->y_maxSpeed;
+            keyMap["up"] = false;
+            MoveDelay(true, false);
         }
     }
     //在空中
     if (inTheAir) {
+        if (y_speed<0)
+            MoveDelay(false, false);
 		//二段跳判定
         if (!isDoubleJump && keyMap["up"]) {
-            y_speed = status->y_maxSpeed / 1.2;isDoubleJump = true;keyMap["up"] = false;
+            MoveDelay(true, false);
+            y_speed = status->y_maxSpeed / 1.2;
+            isDoubleJump = true;
+            keyMap["up"] = false;
         }
     }
     //处在下降过程中

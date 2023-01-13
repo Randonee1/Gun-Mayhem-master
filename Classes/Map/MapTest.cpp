@@ -49,11 +49,6 @@ void MapTest::update(float dt)
 		delta.x = delta.x * std::sqrt(b) / std::sqrt(a);
 		delta.y = delta.y * std::sqrt(b) / std::sqrt(a);
 	}
-	/*if (delta.y > 0) {
-		if (delta.x > b)delta.x = std::sqrt(b);
-		if (delta.x < -b)delta.x = -std::sqrt(b);
-		if (delta.y > initPlatform.y/2 + 1000) delta.y = 2000;
-	}*/
 
 	background->setPosition(initBackgroundPosition - delta * 0.5);
 	backLayer->setPosition(initbackLayerPosition - delta*0.5);

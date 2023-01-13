@@ -117,7 +117,7 @@ void StartScene::initButton()
 
 	//设置菜单项
 	//文字菜单项
-	MenuItemFont* GameMenu = MenuItemFont::create("Game Begin", [&](Ref* sender) {
+	MenuItemFont* GameMenu = MenuItemFont::create("          ", [&](Ref* sender) {
 		auto scene = BackgroundChoise::create();
 		//auto scene = GameScene::CreateGame(1);
 		Director::getInstance()->replaceScene(Transition::create(0.5f,scene));
@@ -125,41 +125,74 @@ void StartScene::initButton()
 
 		});
 	GameMenu->setColor(Color3B::WHITE);
-	GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
+	//GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
 	//GameMenu->setFontSize(200);
 	GameMenu->setFontSizeObj(100);
-	MenuItemFont* SettingMenu = MenuItemFont::create("Setting", [&](Ref* sender) {
+
+	//Label
+	Label* Game = Label::createWithTTF("Game Begin","fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf", 100);
+	Game->setColor(Color3B::WHITE);
+	Game->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 2 / 3));
+	this->addChild(Game,8);
+
+
+
+	MenuItemFont* SettingMenu = MenuItemFont::create("       ", [&](Ref* sender) {
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Setting::createScene()));
 		});
 	SettingMenu->setColor(Color3B::WHITE);
-	SettingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
+	//SettingMenu->setFontNameObj("fonts/Gill Sans MT Condensed Bold.ttf");
 	SettingMenu->setFontSizeObj(100);
 	SettingMenu->setPosition(0, -140);
 
+	//Label
+	Label* Setting = Label::createWithTTF("Setting", "fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf", 100);
+	Setting->setColor(Color3B::WHITE);
+	Setting->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 2 / 3-140));
+	this->addChild(Setting, 8);
 
-	MenuItemFont* WeaponMenu = MenuItemFont::create("Weapon", [&](Ref* sender) {
+
+	MenuItemFont* WeaponMenu = MenuItemFont::create("      ", [&](Ref* sender) {
 		Director::getInstance()->replaceScene(Transition::create(0.5f, GunLibrary::createScene()));
 		});
 	WeaponMenu->setColor(Color3B::WHITE);
-	WeaponMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
+	//WeaponMenu->setFontNameObj("fonts/Gill Sans MT Condensed Bold.ttf");
 	WeaponMenu->setFontSizeObj(100);
 	WeaponMenu->setPosition(0, -280);
+
+	//Label
+	Label* Weapon = Label::createWithTTF("Weapon", "fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf", 100);
+	Weapon->setColor(Color3B::WHITE);
+	Weapon->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 2 / 3 - 280));
+	this->addChild(Weapon, 8);
 	
-	MenuItemFont* StandingMenu = MenuItemFont::create("Standing", [&](Ref* sender) {
+	MenuItemFont* StandingMenu = MenuItemFont::create("        ", [&](Ref* sender) {
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Standing::createScene()));
 		});
 	StandingMenu->setColor(Color3B::WHITE);
-	StandingMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
+	//StandingMenu->setFontNameObj("fonts/Gill Sans MT Condensed Bold.ttf");
 	StandingMenu->setFontSizeObj(100);
 	StandingMenu->setPosition(0, -500);
 
-	MenuItemFont* creditsMenu = MenuItemFont::create("Credits", [&](Ref* sender) {
+	//Label
+	Label* Standing = Label::createWithTTF("Standing", "fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf", 100);
+	Standing->setColor(Color3B::WHITE);
+	Standing->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 2 / 3 - 500));
+	this->addChild(Standing, 8);
+
+	MenuItemFont* creditsMenu = MenuItemFont::create("       ", [&](Ref* sender) {
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Credits::createScene()));
 		});
 	creditsMenu->setColor(Color3B::WHITE);
-	creditsMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
+	//creditsMenu->setFontNameObj("fonts/Gill Sans MT Condensed Bold.ttf");
 	creditsMenu->setFontSizeObj(100);
 	creditsMenu->setPosition(0, -640);
+
+	//Label
+	Label* Credits = Label::createWithTTF("Credits", "fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf", 100);
+	Credits->setColor(Color3B::WHITE);
+	Credits->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 2 / 3 - 640));
+	this->addChild(Credits, 8);
 
 
 	//创建菜单

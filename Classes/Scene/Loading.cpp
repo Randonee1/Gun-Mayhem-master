@@ -51,8 +51,7 @@ void Loading::logic(float dt)
         loadResources();
     }
     if (isloaddone) {
-        //暂时的写法，后面写完WelcomeScene再换
-        //auto scene = GameScene::CreateGame(1);
+        
         Director::getInstance()->replaceScene(TransitionFade::create(1.f, StartScene::create()));
     }
 }

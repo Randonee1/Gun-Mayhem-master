@@ -84,14 +84,14 @@ bool Setting::init()
 	//设置音效的回调函数
 	onSound->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
-		SimpleAudioEngine::getInstance()->setEffectsVolume(0);
+		SimpleAudioEngine::getInstance()->setEffectsVolume(0.0f);
 		onSound->loadTextureNormal("optionMenu/onSelected.png");
 		offSound->loadTextureNormal("optionMenu/offUnselected.png");
 		});
 
 	offSound->addClickEventListener([=](Ref* sender) {
 		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
-		SimpleAudioEngine::getInstance()->setEffectsVolume(1);
+		SimpleAudioEngine::getInstance()->setEffectsVolume(1.0f);
 		onSound->loadTextureNormal("optionMenu/onUnselected.png");
 		offSound->loadTextureNormal("optionMenu/offSelected.png");
 		});

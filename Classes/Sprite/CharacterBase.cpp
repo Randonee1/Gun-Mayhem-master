@@ -28,7 +28,7 @@ bool CharacterBase::init(int tag, MapBase* map)
     while(!InTheBoundary(map->Floor.back(),x))
         x = GameManager::Random(int(map->Floor.back().front()), int(map->Floor.back().back()));
 
-    this->setPosition(x,map->platform->getContentSize().height + 4500);
+    this->setPosition(x,map->platform->getContentSize().height + 4000);
 
     skills.push_back(new Defense(this, 3));
 
