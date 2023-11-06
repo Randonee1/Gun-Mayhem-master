@@ -1,4 +1,9 @@
 # Gun-Mayhem-master
+
+![logo](.\Resources\logo.png)
+
+![image-20231106202137990](.\README_image\image-20231106202137990.png)
+
 ## Runtime Environment
 |environment|Version|
 |---|---|
@@ -6,7 +11,7 @@
 |Cocos-2dx|4.0|
 |Windows|Windows 10, Windows 11|
 ## General Design
-![General Design](./README_image/3.2.png)
+![image-20231106201215916](.\README_image\image-20231106201215916.png)
 
 ## Function
 * Game start interface, background music, volume control, pause and resume function, exit
