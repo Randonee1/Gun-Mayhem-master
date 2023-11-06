@@ -36,7 +36,7 @@ See [doc/Design](https://github.com/Randonee1/Advanced-Language-Programming/blob
 
 See [doc/Setup](https://github.com/Randonee1/Advanced-Language-Programming/blob/main/doc/Setup.md)
 
-### Game Play
+## Game Play
 
 Execute the `Gun-Mayhem.exe` in [dist](https://github.com/Randonee1/Advanced-Language-Programming/tree/main/dist)
 
