@@ -1,8 +1,8 @@
 # Gun-Mayhem-master
 
-![logo](.\Resources\logo.png)
+![logo](./Resources/logo.png)
 
-![image-20231106202137990](.\README_image\image-20231106202137990.png)
+![image-20231106202137990](./README_image/image-20231106202137990.png)
 
 ## Runtime Environment
 |environment|Version|
