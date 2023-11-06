@@ -25,11 +25,11 @@
 
 ## Detailed Design
 
-See [doc/Design.md](https://github.com/Randonee1/Advanced-Language-Programming/doc/Design.md)
+See [doc/Design](https://github.com/Randonee1/Advanced-Language-Programming/blob/main/doc/Design.md)
 
 ## Setup
 
-See [doc/Setup.md](https://github.com/Randonee1/Advanced-Language-Programming/doc/Setup.md)
+See [doc/Setup](https://github.com/Randonee1/Advanced-Language-Programming/blob/main/doc/Setup.md)
 
 ## Developer
 
