@@ -22,7 +22,7 @@ public:
 	std::map<std::string, std::vector<double>> calculate(std::string, std::map<std::string, std::vector<double>>&);
 
 	std::string Dec_ToString(double d);
-	// implement the "static create()" method manually
+
 	CREATE_FUNC(AfterGame);
 };
 #endif

@@ -7,8 +7,6 @@
 
 USING_NS_CC;
 
-
-
 class PlayerBase : public CharacterBase
 {
 public:
@@ -18,7 +16,9 @@ public:
 	virtual void initBody();
 
 	void initKeyboardListener();
+
 	void onKeyPressed(EventKeyboard::KeyCode keycode, Event* event);
+
 	void onKeyReleased(EventKeyboard::KeyCode keycode, Event* event);
 
 	void update(float dt) override;

@@ -82,27 +82,12 @@ bool PlayerSetup::init() {
 		human1->loadTextureNormal("playerMenu/humanplayerBotton.png");
 	}
 
-	//判断当前AI选择情况（3种：未选择，AI，human）  有了初始化.cpp后需要写这部分
-	/*
-	if(未选择）{}
-	else if(AI）{
-	    ai1->loadTextureNormal("playerMenu/aiplayerSelected.png");
-		human1->loadTextureNormal("playerMenu/humanplayerBotton.png");
-	}
-	else{
-		ai1->loadTextureNormal("playerMenu/aiplayerBotton.png");
-		human1->loadTextureNormal("playerMenu/humanplayerSelected.png");
-	}
-	*/
-
 	ai1->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 		manager->player_type[1] = false;
 		ai1->loadTextureNormal("playerMenu/aiplayerSelected.png");
 		human1->loadTextureNormal("playerMenu/humanplayerBotton.png");
 		});
 	human1->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 		manager->player_type[1] = true;
 		ai1->loadTextureNormal("playerMenu/aiplayerBotton.png");
 		human1->loadTextureNormal("playerMenu/humanplayerSelected.png");
@@ -155,27 +140,12 @@ bool PlayerSetup::init() {
 		human2->loadTextureNormal("playerMenu/humanplayerBotton.png");
 	}
 
-	//判断当前AI选择情况（3种：未选择，AI，human）  有了初始化.cpp后需要写这部分
-	/*
-	if(未选择）{}
-	else if(AI）{
-		ai1->loadTextureNormal("playerMenu/aiplayerSelected.png");
-		human1->loadTextureNormal("playerMenu/humanplayerBotton.png");
-	}
-	else{
-		ai1->loadTextureNormal("playerMenu/aiplayerBotton.png");
-		human1->loadTextureNormal("playerMenu/humanplayerSelected.png");
-	}
-	*/
-
 	ai2->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 		manager->player_type[2] = false;
 		ai2->loadTextureNormal("playerMenu/aiplayerSelected.png");
 		human2->loadTextureNormal("playerMenu/humanplayerBotton.png");
 		});
 	human2->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 		manager->player_type[2] = true;
 		ai2->loadTextureNormal("playerMenu/aiplayerBotton.png");
 		human2->loadTextureNormal("playerMenu/humanplayerSelected.png");
@@ -199,14 +169,6 @@ Sprite* PlayerSetup::PlayerPattern(int tag)
 	Sprite* face = Sprite::createWithSpriteFrameName(GameManager::Faces[manager->player_face[tag]]);
 	Sprite* hat = GameManager::Hats[manager->player_hat[tag]]?
 		Sprite::createWithSpriteFrameName(GameManager::Hats[manager->player_hat[tag]]): new Sprite();
-
-	/*body->setScale(2);
-	head->setScale(2);
-	hand1->setScale(2);
-	hand2->setScale(2);
-	foot1->setScale(2);
-	foot2->setScale(2);
-	face->setScale(2);*/
 
 	head->setPosition(Vec2(65 / 2.2 - 8, 130 / 2.2 - 2));
 	player->addChild(head, 1);
@@ -255,15 +217,7 @@ void PlayerSetup::buttonCotinue(Ref* ref, cocos2d::ui::Widget::TouchEventType ty
 {
 	switch (type) {
 	case Widget::TouchEventType::ENDED:
-		/*if (manager->player1 == "" && find(manager->UserName.begin(), manager->UserName.end(), "") == manager->UserName.end()) {
-			manager->UserName.push_back("");
-			manager->Standing.insert(std::pair<std::string, std::vector<double>>("", { 0,0,0,0,0,0,0 }));
-		}
-		if (manager->player2 == "" && find(manager->UserName.begin(), manager->UserName.end(), "") == manager->UserName.end()) {
-			manager->UserName.push_back("");
-			manager->Standing.insert(std::pair<std::string, std::vector<double>>("", { 0,0,0,0,0,0,0 }));
-		}*/
-
+		
 		Director::getInstance()->replaceScene(Transition::create(0.5f, GameScene::CreateGame(GameManager::BackChoise)));
 
 		break;
@@ -304,10 +258,7 @@ void PlayerSetup::UserID1(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 		std::string name = text;
 		if (find(manager->UserName.begin(), manager->UserName.end(), name) == manager->UserName.end() && name != "") {
 			manager->UserName.push_back(name);
-			//manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { 0,0,0,0,0,0,0 }));
 		}
-		//manager->player1 = name;
-		//manager->Standing[name][3] += 1;//对局数+1
 
 		if(name != "")manager->player_name[1] = text;
 
@@ -362,11 +313,8 @@ void PlayerSetup::UserID2(Ref* ref, cocos2d::ui::Widget::TouchEventType type)
 		std::string name = text;
 		if (find(manager->UserName.begin(), manager->UserName.end(), name) == manager->UserName.end() && name != "") {
 			manager->UserName.push_back(name);
-			//manager->Standing.insert(std::pair<std::string, std::vector<double>>(name, { 0,0,0,0,0,0,0 }));
 		}
-		//manager->player2 = name;
-		//manager->Standing[name][3] += 1;//对局数+1
-
+		
 		if(name != "")manager->player_name[2] = name;
 
 		Director::getInstance()->replaceScene(PlayerSetup::create());

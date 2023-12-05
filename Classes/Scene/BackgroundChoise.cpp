@@ -29,19 +29,11 @@ bool BackgroundChoise::init() {
 	auto inputBox = Sprite::create("customGameMenu/word.png");
 	editbox1 = EditBox::create(Size(inputBox->getContentSize().width, inputBox->getContentSize().height), Scale9Sprite::create("customGameMenu/word.png"));
 	
-	//auto editbox1 = EditBox::create(Size(200, 35), Scale9Sprite::create("editbox.png"));
-	//editbox1->setAnchorPoint(Point(0, 0));
 	editbox1->setPosition(Vec2(755.5, 1440-1045.5));
 	editbox1->setPlaceHolder("");//占位字符
-	//editbox1->setMaxLength(8);
 	editbox1->setFontColor(Color3B::BLACK);//设置输入字体的颜色
 	editbox1->setTag(1);
 	this->addChild(editbox1, 2);
-
-	/*auto text=editbox1->getText();
-	int live = *text - '0';
-	GameManager::Live = live;*/
-
 
 	//布置按钮
 	//back按钮
@@ -81,9 +73,7 @@ bool BackgroundChoise::init() {
 
 
 	//设置地图选择按钮的监听
-	Random->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
-		
+	Random->addClickEventListener([=](Ref* sender) {		
 		//设置按钮的点击后的持续效果
 		Random->loadTextureNormal("customGameMenu/randomSelected.png");
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
@@ -96,7 +86,6 @@ bool BackgroundChoise::init() {
 		//设置图片
 		srand((unsigned)time(0));
 		int num = rand() % 4;
-		//std::vector<Button*>a = { spacestation ,sunsetcity,seele,irismood,highmoon,Default };
 		switch (num) {
 		case 0: {
 			Sprite* pic5 = Sprite::create("customGameMenu/defaultPreview.png");
@@ -132,7 +121,6 @@ bool BackgroundChoise::init() {
 		});
 
 	spacestation->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationSelected.png");
 		spacestation->setLocalZOrder(2);
@@ -155,7 +143,6 @@ bool BackgroundChoise::init() {
 		});
 
 	sunsetcity->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
 		spacestation->setLocalZOrder(0);
@@ -177,7 +164,6 @@ bool BackgroundChoise::init() {
 		GameManager::BackChoise = 2;
 		});
 	seele->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
 		spacestation->setLocalZOrder(0);
@@ -199,7 +185,6 @@ bool BackgroundChoise::init() {
 		GameManager::BackChoise = 3;
 		});
 	irismood->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
 		spacestation->setLocalZOrder(0);
@@ -215,13 +200,9 @@ bool BackgroundChoise::init() {
 		Default->loadTextureNormal("customGameMenu/defaultUnselected.png");
 		Default->setLocalZOrder(0);
 
-		/*auto pic = Sprite::create("customGameMenu/irismoodPreview.png");
-		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
-		this->addChild(pic);*/
 		GameManager::BackChoise = 5;
 		});
 	highmoon->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
 		spacestation->setLocalZOrder(0);
@@ -237,14 +218,10 @@ bool BackgroundChoise::init() {
 		Default->loadTextureNormal("customGameMenu/defaultUnselected.png");
 		Default->setLocalZOrder(0);
 
-		/*auto pic = Sprite::create("customGameMenu/highmoonPreview.png");
-		pic->setPosition(Vec2(origin.x + visibleSize.width * 1683 / 2560, 1440 - 735));
-		this->addChild(pic);*/
 		GameManager::BackChoise = 6;
 		});
 	Default->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
-
+		
 		spacestation->loadTextureNormal("customGameMenu/spacestationUnselected.png");
 		spacestation->setLocalZOrder(0);
 		Random->loadTextureNormal("customGameMenu/randomUnselected.png");

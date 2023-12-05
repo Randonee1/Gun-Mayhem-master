@@ -119,14 +119,11 @@ void StartScene::initButton()
 	//文字菜单项
 	MenuItemFont* GameMenu = MenuItemFont::create("          ", [&](Ref* sender) {
 		auto scene = BackgroundChoise::create();
-		//auto scene = GameScene::CreateGame(1);
 		Director::getInstance()->replaceScene(Transition::create(0.5f,scene));
-		//Director::getInstance()->replaceScene(Loading::createScene());
 
 		});
 	GameMenu->setColor(Color3B::WHITE);
-	//GameMenu->setFontNameObj("fonts/gill-sans-mt-condensed/Gill Sans MT Condensed Bold.ttf");
-	//GameMenu->setFontSize(200);
+	
 	GameMenu->setFontSizeObj(100);
 
 	//Label
@@ -141,7 +138,6 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Setting::createScene()));
 		});
 	SettingMenu->setColor(Color3B::WHITE);
-	//SettingMenu->setFontNameObj("fonts/Gill Sans MT Condensed Bold.ttf");
 	SettingMenu->setFontSizeObj(100);
 	SettingMenu->setPosition(0, -140);
 
@@ -156,7 +152,6 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, GunLibrary::createScene()));
 		});
 	WeaponMenu->setColor(Color3B::WHITE);
-	//WeaponMenu->setFontNameObj("fonts/Gill Sans MT Condensed Bold.ttf");
 	WeaponMenu->setFontSizeObj(100);
 	WeaponMenu->setPosition(0, -280);
 
@@ -170,7 +165,6 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Standing::createScene()));
 		});
 	StandingMenu->setColor(Color3B::WHITE);
-	//StandingMenu->setFontNameObj("fonts/Gill Sans MT Condensed Bold.ttf");
 	StandingMenu->setFontSizeObj(100);
 	StandingMenu->setPosition(0, -500);
 
@@ -184,7 +178,6 @@ void StartScene::initButton()
 		Director::getInstance()->replaceScene(Transition::create(0.5f, Credits::createScene()));
 		});
 	creditsMenu->setColor(Color3B::WHITE);
-	//creditsMenu->setFontNameObj("fonts/Gill Sans MT Condensed Bold.ttf");
 	creditsMenu->setFontSizeObj(100);
 	creditsMenu->setPosition(0, -640);
 
@@ -194,12 +187,10 @@ void StartScene::initButton()
 	Credits->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 2 / 3 - 640));
 	this->addChild(Credits, 8);
 
-
 	//创建菜单
 	auto menu = Menu::create(GameMenu, SettingMenu, WeaponMenu,StandingMenu,creditsMenu, NULL);
 	menu->setPosition(Vec2(origin.x + visibleSize.width * 6 / 7, origin.y + visibleSize.height * 2 / 3));
 	this->addChild(menu, 8);
-
 
 	//鼠标监听器//GameBegin的监听
 	blacksprite = Sprite::create("BlacktTransparent.png");

@@ -31,7 +31,6 @@ void AIBase::MoveEvent()
     int distance = 100 * 5;
     if ((abs(this->floor - opponent->floor) >= 2 || Readytodie(opponent)) && !this->map->packageEvent->packages.empty() && 
         (this->gun == this->initGun || skills.empty())) {//找包
-        //this->findPackage = true;
         double distance_package = 999999999;
         PackageBase* close_package = nullptr;
         for (auto package : this->map->packageEvent->packages) {
@@ -72,10 +71,8 @@ void AIBase::MoveEvent()
                     int up = this->floor < close_package->endFloor ? 1 : -1;
                     int step = 0;
                     if (std::abs(this->floor - close_package->endFloor) == 1) {//相差一层的情况:找人
-                        //int i = 0;
                         for (int i = 0; i < (this->map->Floor[close_package->endFloor].size()); i += 2) {
                             if (close_package->getPositionX() > this->map->Floor[close_package->endFloor][i] && close_package->getPositionX() < this->map->Floor[close_package->endFloor][i + 1]) {
-                                //keyMap["shot"] = true;
                                 step = i;
                                 break;
                             }
@@ -103,7 +100,6 @@ void AIBase::MoveEvent()
         }
     }
     if (!Readytodie(opponent)) {//*对手没死就继续判定*
-        //this->reset();
         if (this->floor_actual == opponent->floor_actual) {//同一层，左右移动
             if (opponent->getPosition().x - this->getPosition().x > distance) {
                 keyMap["left"] = false;
@@ -168,38 +164,6 @@ void AIBase::MoveEvent()
         this->keyMap["up"] = true;
     }
 
-
-    /* if (opponent->getPosition().x - this->getPosition().x > 400) {
-            keyMap["left"] = false;
-            keyMap["right"] = true;
-        }
-        else if (opponent->getPosition().x - this->getPosition().x < -400) {
-            keyMap["right"] = false;
-            keyMap["left"] = true;
-        }
-        else {
-            keyMap["right"] = false;
-            keyMap["left"] = false;
-        }
-        if (this->floor == opponent->floor && opponent->gun->fire && !this->inTheAir) {//对手开枪并且两个人再同一层
-            keyMap["up"] = true;
-        }
-        if (this->inTheAir && this->getPositionX() < this->map->Floor[floor][0]) {//再空中并且出了这一层的边界
-            keyMap["left"] = false;
-            keyMap["right"] = true;
-            keyMap["up"] = true;
-        }
-        else if (this->inTheAir && this->getPositionX() > this->map->Floor[floor][1]) {//同上但反方向
-            keyMap["right"] = false;
-            keyMap["left"] = true;
-            keyMap["up"] = true;
-        }
-        if (!opponent->inTheAir && opponent->floor > this->floor && !this->inTheAir) {//对手再上面，移动接近
-            keyMap["up"] = true;
-        }
-        else if (!opponent->inTheAir && opponent->floor < this->floor) {//对手再下面，移动接近
-            keyMap["down"] = true;
-        }*/
 }
 
 void AIBase::ShotEvent()
@@ -207,7 +171,6 @@ void AIBase::ShotEvent()
     if (this->gun->releaseToShot && this->keyMap["shot"] == true) {//上次开枪，则本次不开枪。（棒球棒）
         this->keyMap["shot"] = false;
         Sleep(1);
-        //this->shotLasttime = false;
     }
     else {
         if ((opponent->floor != map->Floor.size() - 1 || !opponent->inTheAir) && this->valid)
@@ -215,12 +178,10 @@ void AIBase::ShotEvent()
             if (opponent->getPosition().x - this->getPosition().x < 0 && std::abs(opponent->getPositionY()-this->getPositionY())<400) {
                 this->Flip(true);
                 this->keyMap["shot"] = true;
-                //this->shotLasttime = true;
             }
             else if (opponent->getPosition().x - this->getPosition().x > 0 && std::abs(opponent->getPositionY() - this->getPositionY()) < 400) {
                 this->Flip(false);
                 this->keyMap["shot"] = true;
-                //this->shotLasttime = true;
             }
             else {
                 this->keyMap["shot"] = false;
@@ -309,10 +270,8 @@ void AIBase::FindFloor() {
     int up = this->floor < opponent->floor ? 1 : -1;
     int step = 0;
     if (std::abs(this->floor - opponent->floor) == 1) {//相差一层的情况:找人
-        //int i = 0;
         for (int i = 0; i < (this->map->Floor[opponent->floor].size()); i += 2) {
             if (opponent->getPositionX() > this->map->Floor[opponent->floor][i] && opponent->getPositionX() < this->map->Floor[opponent->floor][i + 1]) {
-                //keyMap["shot"] = true;
                 step = i;
                 break;
             }
@@ -354,7 +313,6 @@ void AIBase::FindFloor() {
             }
         }
         else if (!this->map->packageEvent->packages.empty()) {//找Package情况
-            /*this->getColsePackage(colsePackage);*/
             auto package = colsePackage;
             int distance = 0;
             this->reset();

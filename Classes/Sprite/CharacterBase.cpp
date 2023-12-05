@@ -237,10 +237,7 @@ void CharacterBase::update(float dt)
             else
                 x_speed += accelerate * dt;
         }
-        /*if (std::abs(x_speed) > status->x_maxSpeed) {
-            accelerate = x_speed > 0? -status->resistance*5 : status->resistance*5;
-            x_speed += accelerate * dt;
-        }*/
+        
         this->setPositionX(getPositionX() + x_speed * dt);
   
         if (gun->isGatling) {

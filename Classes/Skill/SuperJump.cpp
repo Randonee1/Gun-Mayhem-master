@@ -14,14 +14,7 @@ SuperJump::SuperJump(CharacterBase* player)
 
 SuperJump::~SuperJump()
 {
-	/*player->body->organ->stopAllActions();
-	player->head->organ->stopAllActions();
-	player->body->organ->setPosition(Vec2(0, 0));
-	player->head->organ->setPosition(Vec2(0, 0));
-	auto seq = Sequence::create(EaseSineOut::create(MoveBy::create(0.7, Vec2(0, -10))),
-		EaseSineOut::create(MoveBy::create(0.7, Vec2(0, 10))), nullptr);
-	auto rep = RepeatForever::create(seq);
-	player->head->organ->runAction(rep);*/
+	
 }
 
 
@@ -35,13 +28,7 @@ void SuperJump::update(float dt)
 	}
 
 	if (player->inTheAir && player->y_speed == player->status->y_maxSpeed + player->status->gravitation *dt) {
-		//CCLOG("first");
-		//CCLOG("%d", player->floor);
-
-		/*player->head->organ->stopAllActions();
-		player->body->organ->runAction(EaseSineOut::create(MoveBy::create(1, Vec2(0, -20))));
-		player->head->organ->runAction(EaseSineOut::create(MoveBy::create(1, Vec2(0, -20))));*/
-
+		
 		time = 0;
 		speed = player->status->y_maxSpeed;
 
@@ -57,16 +44,6 @@ void SuperJump::update(float dt)
 		player->y_speed = 0;
 	}
 	else if (storingPower && player->keyMap["release"]) {
-
-		//CCLOG("other");
-		/*player->body->organ->stopAllActions();
-		player->head->organ->stopAllActions();
-		player->body->organ->setPosition(Vec2(0, 0));
-		player->head->organ->setPosition(Vec2(0, 0));
-		auto seq = Sequence::create(EaseSineOut::create(MoveBy::create(0.7, Vec2(0, -10))),
-			EaseSineOut::create(MoveBy::create(0.7, Vec2(0, 10))), nullptr);
-		auto rep = RepeatForever::create(seq);
-		player->head->organ->runAction(rep);*/
 
 		storingPower = false;
 		player->inTheAir = true;

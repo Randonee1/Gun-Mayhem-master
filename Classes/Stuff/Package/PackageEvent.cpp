@@ -21,7 +21,6 @@ bool PackageEvent::init(MapBase* map)
 
 void PackageEvent::PackageUpdate(std::vector<CharacterBase*>& players)
 {
-
 	std::vector<PackageBase* > temp;
 	for (auto package : packages) {
 		if (package)
@@ -48,12 +47,9 @@ void PackageEvent::PackageUpdate(std::vector<CharacterBase*>& players)
 				package->removeFromParent();
 				package = nullptr;
 
-				//添加一个消失动画
-
 				break;
 			}
 		}
-
 	}
 
 	std::vector<PackageBase* > temp2;
@@ -81,7 +77,6 @@ void PackageEvent::update(float dt)
 
 		auto package_gun_1 = SkillPackage::createWithSkill(map);
 		packages.push_back(package_gun_1);
-
 	}
 	else
 		skillUpdateTime += dt;

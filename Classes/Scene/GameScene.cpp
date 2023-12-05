@@ -42,7 +42,6 @@ bool GameScene::initGame(int Level)
     }
 
     game->bindPlayerStateMenu(playerStateMenu);
-    //playerStateMenu->initPlayerState();
     this->addChild(game);
     this->addChild(playerStateMenu);
 
@@ -65,7 +64,6 @@ void GameScene::onKeyReleased(EventKeyboard::KeyCode keycode, Event* event)
 
 void GameScene::EscapeEvent()
 {
-    //构想：点击esc游戏暂停，出现一个弹窗，两个选项，一个重开游戏，一个结束游戏
     game->Record();
     Director::getInstance()->replaceScene(Transition::create(0.5f, AfterGame::create()));
 }

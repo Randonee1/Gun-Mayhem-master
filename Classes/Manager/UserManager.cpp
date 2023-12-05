@@ -108,11 +108,3 @@ std::string UserManager::HatRandom()
 
     return hat;
 }
-
-//std::vector<std::string> UserManager::UserName = {};
-//
-//std::map<std::string, int> UserManager::User_marks = {};
-//
-//std::string UserManager::player1="";
-//
-//std::string UserManager::player2="";

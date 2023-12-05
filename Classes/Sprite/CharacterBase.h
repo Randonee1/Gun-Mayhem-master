@@ -11,7 +11,6 @@
 #include "Organ/OrganBase.h"
 #include "Weapons/Gun/GunBase.h"
 #include "Stuff/Dust.h"
-//#include "Stuff/Package/SkillPackage.h"
 
 USING_NS_CC;
 
@@ -59,8 +58,6 @@ public:
     std::vector<Dust*> dusts;
     std::map<std::string, bool> keyMap;
 
-    //SkillPackage* skill;
-
     CharacterBase* opponent;
 
     Body* body;
@@ -79,7 +76,6 @@ public:
 
     Status* status = new Status();
 
-    //SkillBase* skill;
     std::vector<SkillBase*>skills;
 
     float accelerate;

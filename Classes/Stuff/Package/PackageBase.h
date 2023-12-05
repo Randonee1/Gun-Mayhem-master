@@ -26,11 +26,10 @@ public:
 protected:
 
 	MapBase* map;
-	/*bool intheair = true;*/
+	
 	float updatetime;
 	float duration = 10;
 
-	//int endFloor;
 	float y_speed;
 	float gravitation = -1000;
 };

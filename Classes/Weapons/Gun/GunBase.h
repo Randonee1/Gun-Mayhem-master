@@ -21,7 +21,6 @@ public:
 	virtual Sprite* RightGun();
 	virtual Sprite* LeftGun();
 
-	//void setFlippedX(bool flippedX, float offset);
 	void setFlippedX(Sprite* gun, bool flippedX, bool right, float offset);
 
 	virtual void Shot(MapBase* map, bool right);
@@ -63,8 +62,6 @@ public:
 	bool isGatling = false;
 	bool isSniper = false;
 	bool releaseToShot = false;
-
-	//Sprite* gun;
 
 	Sprite* gun_left = nullptr;
 	Sprite* gun_right = nullptr;

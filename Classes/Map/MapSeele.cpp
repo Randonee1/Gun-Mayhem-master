@@ -27,8 +27,6 @@ bool MapSeele::init()
 
 	initPlayer();
 
-	//packageEvent = PackageEvent::create(this);
-
 	this->scheduleUpdate();
 
 	return true;
@@ -55,11 +53,6 @@ void MapSeele::update(float dt)
 	platform->setPosition(initPlatformPosition - delta * 0.7);
 
 	EyeBlink();
-
-	/*ShotEvent();
-
-	packageEvent->update(dt);
-	packageEvent->PackageUpdate(players);*/
 }
 
 void MapSeele::initBackground()

@@ -13,7 +13,6 @@ bool Setting::init()
 	}
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	//log(visibleSize);
 	//创建背景
 	auto background = Sprite::create("optionMenu/back.png");
 	background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
@@ -48,14 +47,12 @@ bool Setting::init()
 
 	//设置背景音乐按钮的回调函数
 	onMusic->addClickEventListener([=](Ref* sender) {                      
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0f);
 		onMusic->loadTextureNormal("optionMenu/onSelected.png");
 		offMusic->loadTextureNormal("optionMenu/offUnselected.png");
 		});
 	
 	offMusic->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 		SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.0f);
 		onMusic->loadTextureNormal("optionMenu/onUnselected.png");
 		offMusic->loadTextureNormal("optionMenu/offSelected.png");
@@ -83,14 +80,12 @@ bool Setting::init()
 
 	//设置音效的回调函数
 	onSound->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 		SimpleAudioEngine::getInstance()->setEffectsVolume(0.0f);
 		onSound->loadTextureNormal("optionMenu/onSelected.png");
 		offSound->loadTextureNormal("optionMenu/offUnselected.png");
 		});
 
 	offSound->addClickEventListener([=](Ref* sender) {
-		//SimpleAudioEngine::getInstance()->playEffect("music/buttoneffect.mp3");//点击声音
 		SimpleAudioEngine::getInstance()->setEffectsVolume(1.0f);
 		onSound->loadTextureNormal("optionMenu/onUnselected.png");
 		offSound->loadTextureNormal("optionMenu/offSelected.png");

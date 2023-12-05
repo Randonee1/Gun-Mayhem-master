@@ -30,8 +30,6 @@ public:
 
 	void FindFloor();//不同层之间的寻路
 
-	//void getColsePackage(PackageBase*);//捡起最近的包裹
-
 protected:
 	bool shotLasttime;
 	bool findPackage;

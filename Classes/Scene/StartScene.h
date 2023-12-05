@@ -28,8 +28,6 @@ public:
 
 	CREATE_FUNC(StartScene);
 
-	//static StartScene* create();
-
 	void initMusic();
 
 	void initGame();

@@ -34,10 +34,6 @@ bool AfterGame::init()
 	std::string player1 = manager->player_name[1];
 	std::string player2 = manager->player_name[2];
 	auto map = manager->Standing;
-	//////²âÊÔ
-	//map[player1] = { 100 ,0.75,7,6,4,420,300};
-	//////map[player1] = { 100,0.89,12,8,8,576,463 };
-	//map[player2] = { 100,0.89,12,8,8,576,463};
 
 	//¸üĞÂmap
 	map = calculate(player1,map);

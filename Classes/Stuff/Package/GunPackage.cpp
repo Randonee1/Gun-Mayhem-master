@@ -51,7 +51,6 @@ bool GunPackage::initWithGun(MapBase* map)
         gun = BaseBall_Bat::create();
         break;
     }
-
     //gun = Gun_MG_P90::create();
     //gun = Gun_MG_MP5::create();
     //gun = Gun_Gatling::create();

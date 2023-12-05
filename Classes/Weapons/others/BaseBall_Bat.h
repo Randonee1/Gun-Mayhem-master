@@ -34,7 +34,6 @@ public:
 	void update(float dt) override;
 
 private:
-	//bool throw_ball = false;
 	bool onRaise = false;
 	bool isRaise = false;
 };

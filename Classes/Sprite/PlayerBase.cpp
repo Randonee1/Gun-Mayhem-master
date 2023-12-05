@@ -18,15 +18,12 @@ bool PlayerBase::initWithTag(int name, MapBase* map)
 void PlayerBase::update(float dt)
 {
     CharacterBase::update(dt);
-
 }
-
 
 void PlayerBase::initBody()
 {
     hand1->setTag(1);
     hand2->setTag(2);
-  
 }
 
 

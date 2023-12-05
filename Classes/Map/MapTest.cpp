@@ -27,8 +27,6 @@ bool MapTest::init()
 
 	initPlayer();
 
-	//packageEvent = PackageEvent::create(this);
-
 	this->scheduleUpdate();
 
 	return true;
