@@ -30,11 +30,11 @@
 
 ## Detailed Design
 
-See [docs/Design](https://github.com/Randonee1/Advanced-Language-Programming/blob/main/doc/Design.md)
+See [docs/Design](https://github.com/Randonee1/Advanced-Language-Programming/blob/main/docs/Design.md)
 
 ## Setup
 
-See [docs/Setup](https://github.com/Randonee1/Advanced-Language-Programming/blob/main/doc/Setup.md)
+See [docs/Setup](https://github.com/Randonee1/Advanced-Language-Programming/blob/main/docs/Setup.md)
 
 ## Game Play
 
