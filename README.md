@@ -1,4 +1,9 @@
-# Gun-Mayhem-master
+# Perfect GunMayhem Remake - A 2D Shooting PVP Game Based on Cocos2d-x
+
+* **If you like it, please *STAR* this project!**
+* **Our project page is now available! [Project Page](https://haoquanzhang.github.io/GunMayhem/gunMayhem.html)**
+* **Original game created by Kevin Gu. [Original Game](https://gun-mayhem-2.github.io/)**
+* **Shoutout to Kevin Gu for creating this incredible game!**
 
 ![logo](./Resources/logo.png)
 
